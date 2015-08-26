@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/page2_bg" />
+
+            </LinearLayout>
+
+            <com.markjmind.sample.propose.estory.book.RatioFrameLayout
+                android:id="@+id/scale_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="1024,1536" >
+
+				<FrameLayout
+				    android:id="@+id/mic"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"
+				    android:tag="142,197,430,430" >
+
+                    <ImageView
+                        android:id="@+id/anim_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/mic" />
+
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/frog"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:tag="247,355,722,340" >
+
+                    <ImageView
+                        android:id="@+id/anim_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/frog" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/mouse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:tag="186,287,1674,475" >
+
+                    <ImageView
+                        android:id="@id/anim_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/mouse"
+                        android:tag="373,375,200,200" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/door1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="255"
+                    android:src="@drawable/door1"
+                    android:tag="255,377,724,377" />
+
+                <FrameLayout
+                    android:id="@+id/car"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tag="440,400,1608,810" >
+
+                    <ImageView
+                        android:id="@id/anim_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/car"
+                        android:tag="440,300,1608,910" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/girl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:tag="350,377,1224,1000" >
+
+                    <ImageView
+                        android:id="@+id/anim_img2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="0.7"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/dog" />
+
+                    <ImageView
+                        android:id="@id/anim_img"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/girl" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/boy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:tag="275,357,400,600" >
+
+                <ImageView
+                    android:id="@id/anim_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/boy"
+                    android:tag="275,357,400,600" />
+
+                </FrameLayout>
+
+            </com.markjmind.sample.propose.estory.book.RatioFrameLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

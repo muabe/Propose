@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <declare-styleable name="RatioFrameLayout">
+        <attr name="ratioX" format="integer"/>
+        <attr name="ratioY" format="integer"/>
+    </declare-styleable>
+</resources>
