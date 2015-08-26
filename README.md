@@ -30,7 +30,7 @@ Propose는 당신이 상상하는 모든것을 가능하게 해줍니다.**
 
 <br>
 #### Download
-- propose-1.0.jar
+- [propose-1.1.jar](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/propose/propose-1.1.jar)
 
 <br>
 #### Getting Started
