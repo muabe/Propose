@@ -1,5 +1,6 @@
+[ [English] ](#en) &nbsp; [ [한국어] ](#ko) <br>
+
 #<a name="en"></a> Android Propose
-#### [(한국어)](#ko)
 <i class="icon-cog"></i> 
 Even though the animation provided by Android is easy to use, <br>
 developers are still customizing views.<br>
@@ -46,7 +47,6 @@ This is because Android native animation doesn't support touch events.
 
 
 #<a name="ko"></a> Android Propose
-#### [(English)](#en)
 <i class="icon-cog"></i> 
 Android에서 제공하는 Animation은 쉽고 간편함에도 불구하고<br>
 우리는 힘들게 CustomView를 만들어 사용합니다.<br>
