@@ -35,10 +35,10 @@ This is because Android native animation doesn't support touch events.
 <br>
 #### Getting Started
 [1. What's Propose](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-What's-Propose)<br>
-[2. Basic](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Basic)<br>
+[2. Starting](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Starting)<br>
 [3. Motion](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-Motion)<br>
 [4. Combining animation](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-Combining-animation)<br>
-[5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)<br>
+[5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)
 
 <br><br><br>
 --------------------------------------------------------------------------------------------------------
@@ -82,10 +82,10 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 
 <br>
 #### Getting Started
-[1. What's Propose](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-What's-Propose)<br>
-[2. Basic](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Basic)<br>
-[3. Motion](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-Motion)<br>
-[4. Combining animation](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-Combining-animation)<br>
-[5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)<br>
+[1. Propose란](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-Propose%EB%9E%80)<br>
+[2. 시작하기](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
+[3. 모션](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-%EB%AA%A8%EC%85%98)<br>
+[4. 애니메이션 조합](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A1%B0%ED%95%A9)<br>
+[5. 이벤트](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-%EC%9D%B4%EB%B2%A4%ED%8A%B8)<br>
 
 <br><br><br>
