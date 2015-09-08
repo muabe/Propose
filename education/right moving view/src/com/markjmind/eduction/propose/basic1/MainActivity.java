@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.markjmind.eduction.propose.basic1.R;
+import com.markjmind.propose.MotionInitor;
 import com.markjmind.propose.Propose;
 
 public class MainActivity extends Activity{
@@ -28,5 +29,6 @@ public class MainActivity extends Activity{
 		pro.motionRight.play(rightMove);
 		pro.motionRight.setMotionDistance(move); //set Drag Distance
 		textView1.setOnTouchListener(pro);
+		
 	}
 }
