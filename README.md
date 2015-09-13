@@ -60,7 +60,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 
 > ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4)
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
-** Property Animation으로만 구현되었습니다. 믿겨 지시나요?**
+**Property Animation으로만 구현되었습니다. 믿겨 지나요?**
 
 <br>
 #### Propose는 Android에서 제공하는 Property Animation을 사용합니다.
