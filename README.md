@@ -26,7 +26,7 @@ This is because Android native animation doesn't support touch events.
 ---
 - Propose is not dependent unlike CustomView.
 - You can add interactions without customizing views.
-- You can apply this feature to all sort of views such as LinearLayout, FrameLayout, Viewgroup.
+- You can apply this feature to all sort of views such as Viewgroup, CustomView.
 
 <br>
 #### Download
@@ -60,7 +60,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 
 > ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4)
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
-**It's property animation, believe it?비*
+**Property Animation으로만 구현 되었습니다. 믿겨 지나요?**
 
 <br>
 #### Propose는 Android에서 제공하는 Property Animation을 사용합니다.
@@ -74,7 +74,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 ---
 - Propose는 CustomView처럼 의존성을 가지지 않습니다.
 - View를 customize않고 Interaction을 부여 해줍니다.
-- LinearLayout,FrameLayout같은 Viewgroup을 포함해 모든 View에 적용가능 합니다.
+- 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
 #### Download
