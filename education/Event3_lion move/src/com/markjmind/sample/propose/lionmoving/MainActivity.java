@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.moving;
+package com.markjmind.sample.propose.lionmoving;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -43,24 +43,6 @@ public class MainActivity extends Activity{
 		propose.motionRight.move(end/2);// center_horizontal lion
 		propose.motionDown.move(end/2); // center_vertical lion
 		moving_lyt.setOnTouchListener(propose);
-		
-		final ObjectAnimator running = ObjectAnimator.ofFloat(lion_img,View.ROTATION, 0,-10,20,40,20);
-		running.setRepeatCount(ObjectAnimator.INFINITE);
-		running.setDuration(150);
-		
-		propose.setOnProposeListener(new ProposeListener() {
-			public void onStart() { 
-				running.start();
-			}
-			
-			public void onScroll(int arg0, long arg1, long arg2) {}
-			
-			public void onEnd() {
-				lion_img.setRotation(0f);
-				running.cancel();
-			}
-		});
-		
 	}
 	
 	
