@@ -29,10 +29,15 @@ This is because Android native animation doesn't support touch events.
 - You can apply this feature to all sort of views such as Viewgroup, CustomView.
 
 <br>
-#### Download
-- [propose-1.1.jar](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/propose/propose-1.1.jar)
+#How to use?
+#### Gradle
+Put a new build rule on your gradle.build file.
+```
+dependencies {
+    compile 'com.markjmind.propose:propose:1.1.0'
+}
+```
 
-<br>
 #### Getting Started
 [1. What's Propose](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-What's-Propose)<br>
 [2. Starting](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Starting)<br>
@@ -77,10 +82,15 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
-#### Download
-- [propose-1.1.jar](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/propose/propose-1.1.jar)
+#How to use?
+#### Gradle
+아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
+```
+dependencies {
+    compile 'com.markjmind.propose:propose:1.1.0'
+}
+```
 
-<br>
 #### Getting Started
 [1. Propose란](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-Propose%EB%9E%80)<br>
 [2. 시작하기](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
