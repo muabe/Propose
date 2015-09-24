@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.book;
+package com.markjmind.propose.sample.estory.book;
 
 import android.view.View;
 import android.view.ViewGroup;

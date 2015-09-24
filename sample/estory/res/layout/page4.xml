@@ -24,7 +24,7 @@
                     android:adjustViewBounds="true"
                     android:src="@drawable/sky1" />
 
-                <com.markjmind.sample.propose.estory.book.RatioFrameLayout
+                <com.markjmind.propose.sample.estory.book.RatioFrameLayout
                     android:id="@+id/scale_cloud"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/cloud2"
                         android:tag="269,112,100,50" />
-                </com.markjmind.sample.propose.estory.book.RatioFrameLayout>
+                </com.markjmind.propose.sample.estory.book.RatioFrameLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
 
             </FrameLayout>
 
-            <com.markjmind.sample.propose.estory.book.RatioFrameLayout
+            <com.markjmind.propose.sample.estory.book.RatioFrameLayout
                 android:id="@+id/scale_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -173,7 +173,7 @@
                         android:src="@drawable/pig1" />
 
                 </LinearLayout>
-            </com.markjmind.sample.propose.estory.book.RatioFrameLayout>
+            </com.markjmind.propose.sample.estory.book.RatioFrameLayout>
 
         </FrameLayout>
 

@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.common;
+package com.markjmind.propose.sample.estory.common;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.markjmind.propose.GestureListener;
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.ProposeListener;
-import com.markjmind.sample.propose.estory.book.RatioFrameLayout;
+import com.markjmind.propose.sample.estory.book.RatioFrameLayout;
 
 public class FolioUnit extends MultiMotionAnimator{
 	protected int[] pageWidth ={0,0};

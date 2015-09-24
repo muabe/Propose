@@ -27,7 +27,7 @@
 
             </LinearLayout>
 
-            <com.markjmind.sample.propose.estory.book.RatioFrameLayout
+            <com.markjmind.propose.sample.estory.book.RatioFrameLayout
                 android:id="@+id/scale_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -151,7 +151,7 @@
 
                 </FrameLayout>
 
-            </com.markjmind.sample.propose.estory.book.RatioFrameLayout>
+            </com.markjmind.propose.sample.estory.book.RatioFrameLayout>
 
         </FrameLayout>
 

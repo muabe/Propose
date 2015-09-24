@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context="com.markjmind.sample.propose.estory.MainActivity" >
+    tools:context="com.markjmind.propose.sample.estory.MainActivity" >
 
     <FrameLayout
         android:layout_width="match_parent"

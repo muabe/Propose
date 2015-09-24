@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.book;
+package com.markjmind.propose.sample.estory.book;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.markjmind.propose.MotionInitor;
 import com.markjmind.propose.Propose;
-import com.markjmind.sample.propose.estory.sound.Sound;
+import com.markjmind.propose.sample.estory.sound.Sound;
 
 /**
  * 

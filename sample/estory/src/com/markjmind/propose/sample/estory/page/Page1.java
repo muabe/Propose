@@ -1,9 +1,9 @@
-package com.markjmind.sample.propose.estory.page;
+package com.markjmind.propose.sample.estory.page;
 
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.markjmind.sample.propose.estory.book.Page;
+import com.markjmind.propose.sample.estory.book.Page;
 
 public class Page1 extends Page{
 

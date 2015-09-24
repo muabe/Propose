@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.sound;
+package com.markjmind.propose.sample.estory.sound;
 
 import android.content.Context;
 import android.media.AudioManager;

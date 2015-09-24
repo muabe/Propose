@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.page;
+package com.markjmind.propose.sample.estory.page;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -7,12 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.markjmind.propose.sample.estory.book.Page;
+import com.markjmind.propose.sample.estory.book.RatioFrameLayout;
+import com.markjmind.propose.sample.estory.common.FolioListener;
+import com.markjmind.propose.sample.estory.common.FolioUnitRun;
+import com.markjmind.propose.sample.estory.common.UnitAnimation;
 import com.markjmind.sample.propose.estory.R;
-import com.markjmind.sample.propose.estory.book.Page;
-import com.markjmind.sample.propose.estory.book.RatioFrameLayout;
-import com.markjmind.sample.propose.estory.common.FolioListener;
-import com.markjmind.sample.propose.estory.common.FolioUnitRun;
-import com.markjmind.sample.propose.estory.common.UnitAnimation;
 
 public class Page5 extends Page{
 

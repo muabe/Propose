@@ -1,21 +1,22 @@
-package com.markjmind.sample.propose.estory;
+package com.markjmind.propose.sample.estory;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.markjmind.sample.propose.estory.book.Book;
-import com.markjmind.sample.propose.estory.common.LeftMenu;
-import com.markjmind.sample.propose.estory.page.Page1;
-import com.markjmind.sample.propose.estory.page.Page2;
-import com.markjmind.sample.propose.estory.page.Page3;
-import com.markjmind.sample.propose.estory.page.Page4;
-import com.markjmind.sample.propose.estory.page.Page5;
-import com.markjmind.sample.propose.estory.page.Page6;
-import com.markjmind.sample.propose.estory.sound.Music;
-import com.markjmind.sample.propose.estory.sound.Sound;
-import com.markjmind.sample.propose.estory.sound.Sound.AllLoadComplete;
+import com.markjmind.propose.sample.estory.book.Book;
+import com.markjmind.propose.sample.estory.common.LeftMenu;
+import com.markjmind.propose.sample.estory.page.Page1;
+import com.markjmind.propose.sample.estory.page.Page2;
+import com.markjmind.propose.sample.estory.page.Page3;
+import com.markjmind.propose.sample.estory.page.Page4;
+import com.markjmind.propose.sample.estory.page.Page5;
+import com.markjmind.propose.sample.estory.page.Page6;
+import com.markjmind.propose.sample.estory.sound.Music;
+import com.markjmind.propose.sample.estory.sound.Sound;
+import com.markjmind.propose.sample.estory.sound.Sound.AllLoadComplete;
+import com.markjmind.sample.propose.estory.R;
 
 
 public class MainActivity extends Activity {

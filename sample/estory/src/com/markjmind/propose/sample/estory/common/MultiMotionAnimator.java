@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.common;
+package com.markjmind.propose.sample.estory.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;

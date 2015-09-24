@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.common;
+package com.markjmind.propose.sample.estory.common;
 
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.ProposeListener;
+import com.markjmind.propose.sample.estory.book.Book;
 import com.markjmind.sample.propose.estory.R;
-import com.markjmind.sample.propose.estory.book.Book;
 
 /**
  * 
@@ -43,9 +43,10 @@ public class LeftMenu {
 				menu_lyt.invalidate();
 			}
 		});
+		rightAnimator.setTarget(menu_lyt);
 		rightAnimator.setDuration(1000);
 		rightAnimator.setInterpolator(null);
-		leftMenuMotion.motionRight.play(menu_lyt, rightAnimator, leftMenuMotion.getWindowWidth() / 2 - menu_lyt.getWidth());
+		leftMenuMotion.motionRight.play(rightAnimator, leftMenuMotion.getWindowWidth() / 2 - menu_lyt.getWidth());
 		menu_lyt.setOnTouchListener(leftMenuMotion);
 		leftMenuMotion.setOnProposeListener(new ProposeListener() {
 			@Override

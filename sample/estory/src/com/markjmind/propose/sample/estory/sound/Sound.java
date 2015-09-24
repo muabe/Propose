@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.estory.sound;
+package com.markjmind.propose.sample.estory.sound;
 
 import java.util.HashMap;
 import java.util.Iterator;
