@@ -63,7 +63,7 @@ Animation은 Touch 입력 같은 동적인 조작을 할 수 없기 때문입니
 Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 <br><br>
 
-> ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4)-Goodbye to CustomView
+> ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4) - _Goodbye to CustomView_
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
 **Property Animation으로만 구현 되었습니다. 믿겨 지나요?**
 
