@@ -12,7 +12,7 @@ This is because Android native animation doesn't support touch events.
 
 > ####[Click introduction video](https://youtu.be/xl_8nHd_i4E)
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
-**It's property animation. can you believe this?**
+**_Goodbye to CustomView_**
 
 <br>
 #### Propose uses property animations provided by Android.
@@ -29,10 +29,15 @@ This is because Android native animation doesn't support touch events.
 - You can apply this feature to all sort of views such as Viewgroup, CustomView.
 
 <br>
-#### Download
-- [propose-1.1.jar](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/propose/propose-1.1.jar)
+#How to use?
+#### Gradle
+Put a new build rule on your gradle.build file.
+```
+dependencies {
+    compile 'com.markjmind.propose:propose:1.1.0'
+}
+```
 
-<br>
 #### Getting Started
 [1. What's Propose](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-What's-Propose)<br>
 [2. Starting](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Starting)<br>
@@ -58,7 +63,7 @@ Animation은 Touch 입력 같은 동적인 조작을 할 수 없기 때문입니
 Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 <br><br>
 
-> ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4)
+> ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4) - _Goodbye to CustomView_
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
 **Property Animation으로만 구현 되었습니다. 믿겨 지나요?**
 
@@ -77,10 +82,15 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
-#### Download
-- [propose-1.1.jar](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/propose/propose-1.1.jar)
+#How to use?용
+#### Gradle
+아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
+```
+dependencies {
+    compile 'com.markjmind.propose:propose:1.1.0'
+}
+```
 
-<br>
 #### Getting Started
 [1. Propose란](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-Propose%EB%9E%80)<br>
 [2. 시작하기](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
