@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.slidingdrawer;
+package com.markjmind.propose.sample.slidingdrawer;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.markjmind.propose.MotionInitor;
 import com.markjmind.propose.MotionListener;
 import com.markjmind.propose.Propose;
-import com.markjmind.propose.ProposeListener;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity{

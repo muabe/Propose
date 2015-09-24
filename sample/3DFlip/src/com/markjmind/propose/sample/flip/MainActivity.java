@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.markjmind.propose.JwAnimatorListener;
 import com.markjmind.propose.Propose;
-import com.markjmind.sample.propose.flip.R;
 
 public class MainActivity extends Activity{
 	

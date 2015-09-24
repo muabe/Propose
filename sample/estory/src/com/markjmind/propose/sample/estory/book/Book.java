@@ -17,8 +17,8 @@ import com.markjmind.propose.Motion;
 import com.markjmind.propose.MotionInitor;
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.ProposeListener;
+import com.markjmind.propose.sample.estory.R;
 import com.markjmind.propose.sample.estory.sound.Sound;
-import com.markjmind.sample.propose.estory.R;
 
 /**
  * 

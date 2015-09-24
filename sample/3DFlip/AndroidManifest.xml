@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.markjmind.sample.propose.flip"
+    package="com.markjmind.propose.sample.flip"
     android:versionCode="1"
     android:versionName="1.0" >
 

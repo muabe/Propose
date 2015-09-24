@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.paper;
+package com.markjmind.propose.sample.paper;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;

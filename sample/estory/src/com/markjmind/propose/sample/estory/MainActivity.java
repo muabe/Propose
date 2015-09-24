@@ -16,7 +16,6 @@ import com.markjmind.propose.sample.estory.page.Page6;
 import com.markjmind.propose.sample.estory.sound.Music;
 import com.markjmind.propose.sample.estory.sound.Sound;
 import com.markjmind.propose.sample.estory.sound.Sound.AllLoadComplete;
-import com.markjmind.sample.propose.estory.R;
 
 
 public class MainActivity extends Activity {

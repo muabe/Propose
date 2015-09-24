@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.markjmind.propose.sample.estory.R;
 import com.markjmind.propose.sample.estory.book.Page;
 import com.markjmind.propose.sample.estory.book.RatioFrameLayout;
-import com.markjmind.sample.propose.estory.R;
 
 public class Page4 extends Page{
 	boolean isStart = false;

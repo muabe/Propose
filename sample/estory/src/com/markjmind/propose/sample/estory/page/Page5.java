@@ -3,16 +3,15 @@ package com.markjmind.propose.sample.estory.page;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.markjmind.propose.sample.estory.R;
 import com.markjmind.propose.sample.estory.book.Page;
 import com.markjmind.propose.sample.estory.book.RatioFrameLayout;
 import com.markjmind.propose.sample.estory.common.FolioListener;
 import com.markjmind.propose.sample.estory.common.FolioUnitRun;
 import com.markjmind.propose.sample.estory.common.UnitAnimation;
-import com.markjmind.sample.propose.estory.R;
 
 public class Page5 extends Page{
 

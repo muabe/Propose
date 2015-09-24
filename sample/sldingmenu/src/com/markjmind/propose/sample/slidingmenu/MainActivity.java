@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.slidingmenu;
+package com.markjmind.propose.sample.slidingmenu;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
