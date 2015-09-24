@@ -82,7 +82,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
-#How to use?용
+#How to use?
 #### Gradle
 아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
 ```
