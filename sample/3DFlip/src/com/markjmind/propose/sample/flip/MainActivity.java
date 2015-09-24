@@ -1,4 +1,4 @@
-package com.markjmind.sample.propose.flip;
+package com.markjmind.propose.sample.flip;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.markjmind.propose.JwAnimatorListener;
 import com.markjmind.propose.Propose;
+import com.markjmind.sample.propose.flip.R;
 
 public class MainActivity extends Activity{
 	
@@ -60,11 +61,12 @@ public class MainActivity extends Activity{
 		});
 		
 		/** set Down Motion **/
-		ObjectAnimator down = ObjectAnimator.ofFloat(flip_lyt, View.ROTATION_X, 0,-180);
+		ObjectAnimator down = ObjectAnimator.ofFloat(flip_lyt, View.ROTATION_X, 180,-180);
 		down.setDuration(500);
 		propose.motionDown.play(down);
 		propose.motionDown.setMotionDistance(500*Propose.getDensity(this));
 		propose.motionDown.enableFling(false).enableTabUp(false);
+		propose.motionDown.move(propose.motionDown.getMotionDistance()/2);// vertical center
 	}
 	
 	
