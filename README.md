@@ -10,10 +10,9 @@ This is because Android native animation doesn't support touch events.
 ```with couple of lines of code.```<br>You can also implement high quality interactions by combining various animations.<br> Now, you're able to make anything you imagine.**
 <br><br>
 
-##### _Goodbye to CustomView_
 > ####[Click introduction video](https://youtu.be/xl_8nHd_i4E)
 [![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
-**It's property animation. can you believe this?**
+** _Goodbye to CustomView_ **
 
 <br>
 #### Propose uses property animations provided by Android.
