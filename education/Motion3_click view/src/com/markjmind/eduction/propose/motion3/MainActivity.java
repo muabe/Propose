@@ -17,7 +17,8 @@ public class MainActivity extends Activity{
 	private TextView move_txt,duration_txt;
 	private ObjectAnimator move_anim;
 	private Propose propose;
-	private Button dur500,dur1000;
+	private Button dur500,dur2000;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,13 +35,14 @@ public class MainActivity extends Activity{
 		/** create propose, use Right motion **/
 		propose = new Propose(this); 
 		propose.motionRight.play(move_anim); //Right set play animator
+		propose.motionRight.enableMove(false).enableFling(false);
 		move_txt.setOnTouchListener(propose);
 		
 		
 		
 		/************* Change motionDistance *************/
 		dur500 = (Button)findViewById(R.id.dur500);
-		dur1000 = (Button)findViewById(R.id.dur1000);
+		dur2000 = (Button)findViewById(R.id.dur2000);
 		dur500.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -48,17 +50,17 @@ public class MainActivity extends Activity{
 				propose.motionRight.play(move_anim); //Right set play animator
 				move_txt.setText("Duration\n500");
 				dur500.setTextColor(Color.RED);
-				dur1000.setTextColor(Color.BLACK);
+				dur2000.setTextColor(Color.BLACK);
 			}
 		});
-		dur1000.setOnClickListener(new OnClickListener() {
+		dur2000.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				move_anim.setDuration(1000);
+				move_anim.setDuration(2000);
 				propose.motionRight.play(move_anim); //Right set play animator
-				move_txt.setText("Duration\n1000");
+				move_txt.setText("Duration\n2000");
 				dur500.setTextColor(Color.BLACK);
-				dur1000.setTextColor(Color.RED);
+				dur2000.setTextColor(Color.RED);
 			}
 		});
 		
