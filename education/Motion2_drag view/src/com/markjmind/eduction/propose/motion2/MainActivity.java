@@ -16,7 +16,7 @@ public class MainActivity extends Activity{
 	private float density;
 	private TextView move_txt,distance_txt;
 	private Propose propose;
-	private Button dp100,dp200;
+	private Button dp150,dp300;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,31 +33,29 @@ public class MainActivity extends Activity{
 		/** create propose, use Right motion **/
 		propose = new Propose(this); 
 		propose.motionRight.play(move_anim).with(move_anim); 
-		propose.motionRight.setMotionDistance(200*density);  /** Set motionDistance**/
+		propose.motionRight.setMotionDistance(300*density);  /** Set motionDistance**/
 		propose.motionRight.enableSingleTabUp(false);
 		move_txt.setOnTouchListener(propose);
 		
-		
-		
 		/************* Change motionDistance *************/
-		dp100 = (Button)findViewById(R.id.dp100);
-		dp200 = (Button)findViewById(R.id.dp200);
-		dp100.setOnClickListener(new OnClickListener() {
+		dp150 = (Button)findViewById(R.id.dp150);
+		dp300 = (Button)findViewById(R.id.dp300);
+		dp150.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				propose.motionRight.setMotionDistance(100*density); /** Reset motionDistance**/
-				move_txt.setText("Distance\n100dp");
-				dp100.setTextColor(Color.RED);
-				dp200.setTextColor(Color.BLACK);
+				propose.motionRight.setMotionDistance(150*density); /** Reset motionDistance**/
+				move_txt.setText("Distance\n300dp");
+				dp150.setTextColor(Color.RED);
+				dp300.setTextColor(Color.BLACK);
 			}
 		});
-		dp200.setOnClickListener(new OnClickListener() {
+		dp300.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				propose.motionRight.setMotionDistance(200*density); /** Reset motionDistance**/
-				move_txt.setText("Distance\n200dp");
-				dp100.setTextColor(Color.BLACK);
-				dp200.setTextColor(Color.RED);
+				propose.motionRight.setMotionDistance(300*density); /** Reset motionDistance**/
+				move_txt.setText("Distance\n300dp");
+				dp150.setTextColor(Color.BLACK);
+				dp300.setTextColor(Color.RED);
 			}
 		});
 		

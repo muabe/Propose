@@ -26,19 +26,19 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/dp200"
+            android:id="@+id/dp300"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="distance\n200dp"
+            android:text="distance\n300dp"
             android:textColor="#ff0000" />
 
         <Button
-            android:id="@+id/dp100"
+            android:id="@+id/dp150"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="distance\n100dp" />
+            android:text="distance\n150dp" />
     </LinearLayout>
 
     <TextView
@@ -50,7 +50,7 @@
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:text="Distance\n200dp"
+        android:text="Distance\n300dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 
