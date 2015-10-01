@@ -34,7 +34,7 @@ public class MainActivity extends Activity{
 				
 		/** create propose, use Right motion **/
 		propose = new Propose(this); 
-		propose.motionRight.play(move_anim); //Right set play animator
+		propose.motionRight.play(move_anim); 
 		propose.motionRight.enableMove(false).enableFling(false);
 		move_txt.setOnTouchListener(propose);
 		
@@ -46,8 +46,8 @@ public class MainActivity extends Activity{
 		dur500.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				move_anim.setDuration(500);
-				propose.motionRight.play(move_anim); //Right set play animator
+				move_anim.setDuration(500); /** Reset Duration**/
+				propose.motionRight.play(move_anim);
 				move_txt.setText("Duration\n500");
 				dur500.setTextColor(Color.RED);
 				dur2000.setTextColor(Color.BLACK);
@@ -56,8 +56,8 @@ public class MainActivity extends Activity{
 		dur2000.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				move_anim.setDuration(2000);
-				propose.motionRight.play(move_anim); //Right set play animator
+				move_anim.setDuration(2000); /** Reset Duration**/
+				propose.motionRight.play(move_anim);
 				move_txt.setText("Duration\n2000");
 				dur500.setTextColor(Color.BLACK);
 				dur2000.setTextColor(Color.RED);

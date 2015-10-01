@@ -28,11 +28,13 @@ public class MainActivity extends Activity{
 		
 		/** create move ObjectAnimator**/
 		ObjectAnimator move_anim = ObjectAnimator.ofFloat(move_txt, View.TRANSLATION_X, 0f,moveWidth);
-		move_anim.setDuration(2000); 
+		move_anim.setDuration(500); 
 				
 		/** create propose, use Right motion **/
 		propose = new Propose(this); 
-		propose.motionRight.play(move_anim).with(move_anim); //Right set play animator
+		propose.motionRight.play(move_anim).with(move_anim); 
+		propose.motionRight.setMotionDistance(200*density);  /** Set motionDistance**/
+		propose.motionRight.enableSingleTabUp(false);
 		move_txt.setOnTouchListener(propose);
 		
 		
@@ -43,7 +45,7 @@ public class MainActivity extends Activity{
 		dp100.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				propose.motionRight.setMotionDistance(100*density);
+				propose.motionRight.setMotionDistance(100*density); /** Reset motionDistance**/
 				move_txt.setText("Distance\n100dp");
 				dp100.setTextColor(Color.RED);
 				dp200.setTextColor(Color.BLACK);
@@ -52,7 +54,7 @@ public class MainActivity extends Activity{
 		dp200.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				propose.motionRight.setMotionDistance(200*density);
+				propose.motionRight.setMotionDistance(200*density); /** Reset motionDistance**/
 				move_txt.setText("Distance\n200dp");
 				dp100.setTextColor(Color.BLACK);
 				dp200.setTextColor(Color.RED);
