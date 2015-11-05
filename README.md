@@ -34,7 +34,7 @@ This is because Android native animation doesn't support touch events.
 Put a new build rule on your gradle.build file.
 ```
 dependencies {
-    compile 'com.markjmind.propose:propose:1.1.0'
+    compile 'com.markjmind.propose:propose:1.1.+'
 }
 ```
 
@@ -87,7 +87,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
 ```
 dependencies {
-    compile 'com.markjmind.propose:propose:1.1.0'
+    compile 'com.markjmind.propose:propose:1.1.+'
 }
 ```
 
