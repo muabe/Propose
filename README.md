@@ -11,7 +11,7 @@ This is because Android native animation doesn't support touch events.
 <br><br>
 
 > ####[Click introduction video](https://youtu.be/xl_8nHd_i4E)
-[![Android Propose Story book](https://raw.githubusercontent.com/JaeWoongOh/jaewoongoh.github.com/master/gist/images/propose/book flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
+[![Android Propose Story book](https://github.com/JaeWoongOh/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
 **_Goodbye to CustomView_**
 
 <br>
