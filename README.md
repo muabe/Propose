@@ -1,6 +1,6 @@
 [![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README_KR.md)
----
-
+___
+<br>
 
 #Android Propose
 <i class="icon-cog"></i> 
