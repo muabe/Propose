@@ -31,7 +31,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
-#How to use?
+#Gradle 설정
 #### Gradle
 아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
 ```
@@ -40,7 +40,7 @@ dependencies {
 }
 ```
 
-#### Getting Started
+#### 개발 가이드
 [1. Propose란](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-Propose%EB%9E%80)<br>
 [2. 시작하기](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
 [3. 모션](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-%EB%AA%A8%EC%85%98)<br>
