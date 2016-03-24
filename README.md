@@ -1,4 +1,4 @@
-[![한국어](https://img.shields.io/badge/%EC%96%B8%EC%96%B4-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://img.shields.io/badge/%EC%96%B8%EC%96%B4-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)
+[![한국어](https://img.shields.io/badge/%EC%96%B8%EC%96%B4-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README_KR.md)
 
 #<a name="en"></a> Android Propose
 <i class="icon-cog"></i> 
