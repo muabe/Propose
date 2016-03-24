@@ -1,4 +1,4 @@
-[![English](https://img.shields.io/badge/Language-English-blue.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README.md)
+[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README.md)
 
 #Android Propose
 <i class="icon-cog"></i> 
