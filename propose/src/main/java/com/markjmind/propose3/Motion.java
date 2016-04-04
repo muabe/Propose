@@ -17,10 +17,6 @@ public class Motion {
 
     protected STATUS status;
     protected MotionBuilder builder;
-//    protected JwDefalutAnimation anim;
-
-//    protected MotionListener motionListener;
-//    protected OnSingleTapUpListener onSingleTapUpListener;
 
     private int directionArg=1;
 
@@ -56,20 +52,6 @@ public class Motion {
     /**tabUp시 reverse시 gravity비율*/
     protected float reverseGravity=0.5f;
 
-//    protected Motion(int direction, Propose propose, JwDefalutAnimation anim){
-//        this.status = STATUS.ready;
-//        this.direction = direction;
-//        this.propose = propose;
-//        if(direction==Propose.DIRECTION_RIGHT || direction==Propose.DIRECTION_LEFT){
-//            orientation = Propose.HORIZONTAL;
-//        }else if(direction==Propose.DIRECTION_DOWN || direction==Propose.DIRECTION_UP){
-//            orientation = Propose.VERTICALITY;
-//        }else{
-//            orientation = Propose.DIRECTION_NONE;
-//        }
-//        directionArg = Propose.getDirectionArg(direction);
-//        this.anim = anim;
-//    }
 
     protected Motion(int directionArg){
         this.status = STATUS.ready;
@@ -102,36 +84,6 @@ public class Motion {
         }
     }
 
-//    protected void reset_pg(){
-//        if(resetPoint()){
-//            setStatus(Motion.STATUS.ready);
-//            setCurrDuration(0);
-//            setCurrDistance(0);
-//            isOver=false;
-//            setForward(true);
-//            setReverse(false);
-//            for(int i= scrollItemList.size()-1;i>=0;i--){
-//                scrollItemList.get(i).reset();
-//            }
-//        }
-//    }
-
-//    private boolean resetPoint(){
-//        if(propose.currX.getDirection() == direction){
-//            propose.currX.setPoint(0f);
-//            propose.currX.setAcc(0f);
-//            propose.currX.setForward(true);
-//            propose.currX.setDirection(Propose.DIRECTION_NONE);
-//        }else if(propose.currY.getDirection() == direction){
-//            propose.currY.setPoint(0f);
-//            propose.currY.setAcc(0f);
-//            propose.currY.setForward(true);
-//            propose.currY.setDirection(Propose.DIRECTION_NONE);
-//        }else{
-//            return false;
-//        }
-//        return true;
-//    }
 
     /**
      * 모션에 따라 motion을 표현할 ValueAnimator 지정한다.

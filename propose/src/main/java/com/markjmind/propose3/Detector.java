@@ -62,7 +62,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
                 }
 
                 if(setDpPoint(e2.getRawY(), pointY)){
-                    result = getResult(result, scroll(pointY, mover.getVertical()));
+                    result = result || scroll(pointY, mover.getVertical());
                 }
             }
         }
@@ -94,13 +94,6 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         }else{
             return false;
         }
-    }
-
-    private boolean getResult(boolean result, boolean newResult){
-        if(result || newResult){
-            return true;
-        }
-        return false;
     }
 
     @Override
