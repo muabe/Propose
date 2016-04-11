@@ -1,4 +1,4 @@
-package com.markjmind.propose3;
+package com.markjmind.propose.actor;
 
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
@@ -12,7 +12,7 @@ import android.annotation.SuppressLint;
  * @since 2013-09-14
  */
 @SuppressLint("NewApi") 
-class MotionScrollItem {
+public class MotionScrollItem {
 	protected long joinDuration = 0;
 	protected long delayDuration = 0;
 	protected long startDuration = 0;

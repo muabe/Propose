@@ -1,4 +1,4 @@
-package com.markjmind.propose3.animation;
+package com.markjmind.propose.animation;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -10,26 +10,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressLint("NewApi")
-public abstract class TimerValue implements AnimatorUpdateListener,AnimatorListener{
+public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListener{
 	long start=0,end=0;
 	boolean forward = true;
-	HashMap<String,Object> params= new HashMap<String, Object>();
+	HashMap<String,Object> params= new HashMap<>();
 	public int index = 0;
 	private AnimatorListener animationListener;
 	private int direction= 1;
 	
 	public abstract void onAnimationUpdate(long timeValue,HashMap<String,Object> params);
 	
-	public TimerValue addParam(String key,Object value){
+	public TimeValue addParam(String key,Object value){
 		params.put(key, value);
 		return this;
 	}
-	public TimerValue setValues(long start, long end){
+	public TimeValue setValues(long start, long end){
 		this.start = start;
 		this.end = end;
 		return this;
 	}
-	public TimerValue setForward(boolean forward){
+	public TimeValue setForward(boolean forward){
 		this.forward = forward;
 		return this;
 	}
@@ -40,7 +40,7 @@ public abstract class TimerValue implements AnimatorUpdateListener,AnimatorListe
 		onAnimationUpdate(timeValue.get(index), params);
 	}
 	
-	public TimerValue setAnimatorListener(AnimatorListener animationListener, int direction){
+	public TimeValue setAnimatorListener(AnimatorListener animationListener, int direction){
 		this.animationListener = animationListener;
 		this.direction = direction;
 		return this;

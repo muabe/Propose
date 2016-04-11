@@ -1,4 +1,4 @@
-package com.markjmind.propose3.animation;
+package com.markjmind.propose.animation;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -10,13 +10,13 @@ import android.annotation.SuppressLint;
 import java.util.ArrayList;
 
 @SuppressLint("NewApi")
-public class JwTimerAnimator implements AnimatorUpdateListener,AnimatorListener{
-	private ArrayList<TimerValue> valueList = new ArrayList<TimerValue>();
+public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
+	private ArrayList<TimeValue> valueList = new ArrayList<>();
 	private boolean isInitListener = false;
 	private ValueAnimator anim;
 	private AnimatorListener animationListener;
 	
-	public JwTimerAnimator(){
+	public TimeAnimation(){
 		anim = new ValueAnimator();
 	}
 	
@@ -24,7 +24,7 @@ public class JwTimerAnimator implements AnimatorUpdateListener,AnimatorListener{
 		TypeEvaluator<ArrayList<Long>> evaluator = new TypeEvaluator<ArrayList<Long>>() {
 			@Override
 			public ArrayList<Long> evaluate(float fraction, ArrayList<Long> startValue, ArrayList<Long> endValue) {
-				ArrayList<Long> list = new ArrayList<Long>();
+				ArrayList<Long> list = new ArrayList<>();
 				for(int i=0;i<startValue.size();i++){
 					list.add(startValue.get(i)+(long)((endValue.get(i)-startValue.get(i))*fraction));
 				}
@@ -39,7 +39,7 @@ public class JwTimerAnimator implements AnimatorUpdateListener,AnimatorListener{
 		
 	}
 	
-	public void addTimerValue(TimerValue listener){
+	public void addTimerValue(TimeValue listener){
 		isInitListener = false;
 		listener.index = valueList.size();
 		valueList.add(listener);

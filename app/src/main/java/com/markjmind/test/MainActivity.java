@@ -1,14 +1,15 @@
-package com.markjmind.propose2;
+package com.markjmind.test;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.markjmind.propose3.Propose;
+import com.markjmind.propose.Propose;
+import com.markjmind.propose.actor.Motion;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     Propose propose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +19,15 @@ public class MainActivity extends AppCompatActivity {
         TextView hello = (TextView)findViewById(R.id.hello);
         float center = 0*Propose.getDensity(this);
         float max = 135*Propose.getDensity(this);
+//        hello.setOnDragListener(new View.OnDragListener() {
+//            @Override
+//            public boolean onDrag(View v, DragEvent event) {
+//                Log.e("ds",""+(int)(event.getX()/Propose.getDensity(getApplicationContext())));
+//                return true;
+//            }
+//        });
 
-        ObjectAnimator tranRight = ObjectAnimator.ofFloat(hello,View.TRANSLATION_X,center,max);
+        ObjectAnimator tranRight = ObjectAnimator.ofFloat(hello, View.TRANSLATION_X,center,max);
         tranRight.setDuration(1000);
         tranRight.setInterpolator(null);
         ObjectAnimator rotRight = ObjectAnimator.ofFloat(hello,View.ROTATION,0,360);
@@ -48,13 +56,30 @@ public class MainActivity extends AppCompatActivity {
         rotDown.setInterpolator(null);
 
 
+        Motion right = new Motion(Motion.RIGHT);
+        Motion left = new Motion(Motion.LEFT);
+        Motion up = new Motion(Motion.UP);
+        final Motion down = new Motion(Motion.DOWN);
+        right.play(tranRight, (int) (max)).with(rotRight);
+        left.play(tranLeft, (int) (max)).with(rotLeft);
+        up.play(tranUp, (int) (max)).with(rotUp);
+        down.play(tranDown, (int) (max)).with(rotDown);
+
         propose = new Propose(this);
-        propose.right.play(tranRight, (int) (max)).with(rotRight);
-        propose.left.play(tranLeft, (int) (max)).with(rotLeft);
-        propose.up.play(tranUp, (int) (max)).with(rotUp);
-        propose.down.play(tranDown, (int) (max)).with(rotDown);
+        propose.addMotion(left);
+        propose.addMotion(down);
+        propose.addMotion(right);
+        propose.addMotion(up);
 
-
+//        propose.setRubListener(new RubListener() {
+//            float count = 0f;
+//            @Override
+//            public boolean rub(float moveX, float moveY) {
+//                count = count + Math.abs(moveX);//+Math.abs(moveY);
+//                Log.e("dsd", Math.abs(moveX)+":"+count);
+//                return down.moveDistance(count);
+//            }
+//        });
         hello.setOnTouchListener(propose);
     }
 

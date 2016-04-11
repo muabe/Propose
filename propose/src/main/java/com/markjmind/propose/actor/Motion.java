@@ -1,4 +1,4 @@
-package com.markjmind.propose3;
+package com.markjmind.propose.actor;
 
 import android.animation.ValueAnimator;
 
@@ -10,6 +10,22 @@ import android.animation.ValueAnimator;
  * @since 2016-03-24
  */
 public class Motion {
+    public static int NONE  = 0;
+    public static int LEFT  = -100;
+    public static int RIGHT = 100;
+    public static int UP    = -101;
+    public static int DOWN  = 101;
+    public static int ROTATION  = 170;
+    public static int MULTI_LEFT  = -102;
+    public static int MULTI_RIGHT = 102;
+    public static int MULTI_UP    = -103;
+    public static int MULTI_DOWN  = 103;
+    public static int MULTI_ROTATION  = 171;
+    public static int PINCH  = 180;
+
+
+    private Mover mover = new Mover();
+
     // 현재 위치지점
     public enum STATUS{
         ready,run,end
@@ -18,7 +34,7 @@ public class Motion {
     protected STATUS status;
     protected MotionBuilder builder;
 
-    private int directionArg=1;
+    private int direction;
 
 
     protected boolean isOver=false;
@@ -52,14 +68,25 @@ public class Motion {
     /**tabUp시 reverse시 gravity비율*/
     protected float reverseGravity=0.5f;
 
-
-    protected Motion(int directionArg){
-        this.status = STATUS.ready;
-        this.directionArg = directionArg;
+    public Motion(){
+        this(Motion.NONE);
     }
 
-    protected int getDirectionArg(){
-        return directionArg;
+    public Motion(int direction){
+        this.status = STATUS.ready;
+        setDirection(direction);
+    }
+
+    public int getDirectionArg(){
+        return direction/100;
+    }
+
+    protected void setDirection(int direction){
+        this.direction = direction;
+    }
+
+    public int getDirection(){
+        return this.direction;
     }
 
     protected void init(){
@@ -100,12 +127,17 @@ public class Motion {
         return builder;
     }
 
+    public long getTotalDuration(){
+        return this.totalDuration;
+    }
+
+
     /**
      * 거리에 대한 duration을 리턴한다.
      * @param distance 거리
      * @return duration
      */
-    protected long getDistanceToDuration(float distance){
+    public long getDistanceToDuration(float distance){
         if(motionDistance==0){
             return 0;
         }
@@ -147,11 +179,11 @@ public class Motion {
         this.currDistance = distance;
     }
 
-    protected void setCurrDuration(long duration){
+    public void setCurrDuration(long duration){
         this.currDuration = duration;
     }
 
-    protected void setStatus(STATUS status){
+    public void setStatus(STATUS status){
 //        if(this.status== STATUS.ready && status== STATUS.run){
 //            if(motionListener!=null){
 //                motionListener.onStart(true);
@@ -228,5 +260,14 @@ public class Motion {
 //    }
     public float getMotionDistance(){
         return motionDistance;
+    }
+
+    /***********************************  Drag ******************************/
+    public boolean move(long duration){
+        return mover.move(this, duration);
+    }
+
+    public boolean moveDistance(float distance){
+        return mover.move(this, distance);
     }
 }

@@ -1,4 +1,4 @@
-package com.markjmind.propose3;
+package com.markjmind.propose.actor;
 
 import android.animation.ValueAnimator;
 
@@ -16,7 +16,7 @@ import java.util.Comparator;
 public class MotionBuilder implements Comparator<MotionScrollItem>{
 	private Motion motion;
 	private MotionScrollItem currAdapter;
-	protected ArrayList<MotionScrollItem> scrollItemList = new ArrayList<>();
+	public ArrayList<MotionScrollItem> scrollItemList = new ArrayList<>();
 	
 	public MotionBuilder(Motion motion, MotionScrollItem playAdapter){
 		this.motion = motion;

@@ -1,4 +1,4 @@
-package com.markjmind.propose3;
+package com.markjmind.propose;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.markjmind.propose.actor.Motion;
+import com.markjmind.propose.listener.RubListener;
+
 /**
  * <br>捲土重來<br>
  *
@@ -16,19 +19,17 @@ import android.view.WindowManager;
  * @since 2016-03-28
  */
 public class Propose implements View.OnTouchListener{
-    private GestureDetector gestureDetector;
-
     protected Context context;
     protected float density;
 
+    private GestureDetector gestureDetector;
     private Detector detector;
-
-    public Motion left, right, up, down;
+    private DetectEvent detectEvent;
+    private RubListener rubListener;
 
     public Propose(Context context){
         this.context = context;
         init();
-
     }
     /**
      * 초기화 함수
@@ -39,14 +40,10 @@ public class Propose implements View.OnTouchListener{
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        detectEvent = new DetectEvent();
+        detector = new Detector(density, detectEvent);
 
-        detector = new Detector(density);
         gestureDetector = new GestureDetector(context, detector);
-
-        left = detector.left;
-        right = detector.right;
-        up = detector.up;
-        down = detector.down;
     }
 
 
@@ -61,4 +58,31 @@ public class Propose implements View.OnTouchListener{
         return context.getResources().getDisplayMetrics().density;
     }
 
+    public Propose addMotion(Motion motion){
+        detector.addMotion(motion.getDirection(), motion);
+        return this;
+    }
+
+    public Propose setRubListener(RubListener rubListener){
+        this.rubListener = rubListener;
+        return this;
+    }
+
+    private class DetectEvent implements Detector.DetectListener{
+        @Override
+        public boolean onScroll(ActionEvent actionEventX, ActionEvent actionEventY) {
+            boolean result = false;
+            if(rubListener!=null) {
+                float diffX = actionEventX.getRaw()- actionEventX.getPreRaw();
+                float diffY = actionEventY.getRaw()- actionEventY.getPreRaw();
+                result = rubListener.rub(diffX, diffY) || result;
+            }
+            return result;
+        }
+
+        @Override
+        public boolean onFling(ActionEvent actionEventX, ActionEvent actionEventY) {
+            return false;
+        }
+    }
 }
