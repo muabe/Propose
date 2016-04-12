@@ -51,8 +51,12 @@ dependencies {
 
 ## Propose v2.0 spec
 - Rotating Wheel 
--- d
 - Two finger drag, rotation
+- Pinch
+- Drag and drop
+- Rub
+- Support Simple Animation
+- Moving layout
 
 
 <br><br><br>
