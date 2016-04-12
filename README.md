@@ -51,6 +51,7 @@ dependencies {
 
 <br>
 ### Propose v2.0 spec
+---
 - Rotating Wheel 
 - Two finger drag, rotation
 - Pinch
