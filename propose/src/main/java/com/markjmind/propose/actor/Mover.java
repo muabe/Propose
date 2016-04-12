@@ -1,6 +1,6 @@
 package com.markjmind.propose.actor;
 
-import com.markjmind.propose.ActionEvent;
+import com.markjmind.propose.PointEvent;
 
 /**
  * <br>捲土重來<br>
@@ -11,12 +11,12 @@ import com.markjmind.propose.ActionEvent;
  */
 class Mover {
 
-    protected boolean move(Motion motion, ActionEvent actionEvent){
-        long duration = getPointToDuration(motion, actionEvent);
+    protected boolean move(Motion motion, PointEvent pointEvent){
+        long duration = getPointToDuration(motion, pointEvent);
         return move(motion, duration);
     }
 
-    public boolean move(Motion motion, long duration){
+    protected boolean move(Motion motion, long duration){
         motion.setCurrDuration(duration);
         if(duration<0){
             return false;
@@ -29,7 +29,7 @@ class Mover {
         return result;
     }
 
-    public boolean move(Motion motion, float distance){
+    protected boolean move(Motion motion, float distance){
         long duration = getDurationToDistance(motion, distance);
         return move(motion, duration);
 
@@ -49,10 +49,10 @@ class Mover {
         return duration;
     }
 
-    private long getPointToDuration(Motion motion, ActionEvent actionEvent){
-        long duration = motion.getDistanceToDuration(actionEvent.getAbsPoint());
+    private long getPointToDuration(Motion motion, PointEvent pointEvent){
+        long duration = motion.getDistanceToDuration(pointEvent.getAbsPoint());
         if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
-            actionEvent.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
+            pointEvent.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
             if(Motion.STATUS.end.equals(motion.getStatus())){
                 return -1;
             }

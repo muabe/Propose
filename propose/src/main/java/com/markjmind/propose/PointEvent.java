@@ -9,15 +9,18 @@ import com.markjmind.propose.actor.Motion;
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
-public class ActionEvent {
+public class PointEvent {
     private float point;
     private float prePoint;
     private float raw;
     private float preRaw;
     private float acceleration;
-    private  int minus, plus;
+    private int minus, plus;
+    private long time;
+    private float currRaw;
 
-    protected ActionEvent(int minus, int plus){
+
+    protected PointEvent(int minus, int plus){
         this.minus = minus;
         this.plus = plus;
         reset();
@@ -65,12 +68,33 @@ public class ActionEvent {
         this.preRaw = raw;
     }
 
-    public void setAcceleration(float acceleration){
+    protected void setAcceleration(float raw, long time, float density){
+        this.acceleration = (currRaw/density-raw/density)/(time-this.time);
+    }
+    protected void setAcceleration(float acceleration){
         this.acceleration = acceleration;
     }
 
-    public float getAcceleration(){
+    protected float getAcceleration(){
         return acceleration;
+    }
+
+    protected void setCurrRaw(float raw, long time){
+        this.currRaw = raw;
+        this.setTime(time);
+    }
+
+    protected void setCurrRawAndAccel(float raw, long time, float density){
+        this.setAcceleration(raw, time, density);
+        this.setCurrRaw(raw, time);
+    }
+
+    protected void setTime(long time){
+        this.time = time;
+    }
+
+    protected float getCurrRaw(){
+        return this.currRaw;
     }
 
 

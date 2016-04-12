@@ -208,7 +208,7 @@ public class Motion {
         this.reverse = reverse;
     }
 
-    /***********************************  추가 ******************************/
+    /*********************************** 추가 ***********************************
 
     /**
      * 모션의 애니메이션 상태를 리턴해준다.
@@ -248,21 +248,11 @@ public class Motion {
         return currDuration;
     }
 
-    // setMotionDistance는 이미 있음
-//    /**
-//     * 모션으로 움직이는 거리를 지정한다.<br>
-//     * 기본값은 가로 윈도우의 크기이다.
-//     * @param distance
-//     */
-//    public Motion setMotionDistance(float distance){
-//        setMotionDistance(distance);
-//        return this;
-//    }
     public float getMotionDistance(){
         return motionDistance;
     }
 
-    /***********************************  Drag ******************************/
+    /*********************************** Move ***********************************/
     public boolean move(long duration){
         return mover.move(this, duration);
     }

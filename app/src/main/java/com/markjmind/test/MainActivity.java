@@ -19,13 +19,6 @@ public class MainActivity extends Activity {
         TextView hello = (TextView)findViewById(R.id.hello);
         float center = 0*Propose.getDensity(this);
         float max = 135*Propose.getDensity(this);
-//        hello.setOnDragListener(new View.OnDragListener() {
-//            @Override
-//            public boolean onDrag(View v, DragEvent event) {
-//                Log.e("ds",""+(int)(event.getX()/Propose.getDensity(getApplicationContext())));
-//                return true;
-//            }
-//        });
 
         ObjectAnimator tranRight = ObjectAnimator.ofFloat(hello, View.TRANSLATION_X,center,max);
         tranRight.setDuration(1000);

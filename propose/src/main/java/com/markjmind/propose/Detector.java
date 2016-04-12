@@ -18,24 +18,20 @@ import java.util.Hashtable;
  */
 public class Detector extends GestureDetector.SimpleOnGestureListener {
 
-    protected ActionEvent actionEventX, actionEventY;
+    protected PointEvent pointEventX, pointEventY;
 
+    private Hashtable<Integer, MotionsInfo> motionMap = new Hashtable<>();
     private ActionState action;
     private boolean isFirstTouch;
     private float density;
 
     private DetectListener detectListener;
-    interface DetectListener {
-        boolean onScroll(ActionEvent actionEventX, ActionEvent actionEventY);
-        boolean onFling(ActionEvent actionEventX, ActionEvent actionEventY);
-    }
-
 
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
 
-        actionEventX = new ActionEvent(Motion.LEFT, Motion.RIGHT);
-        actionEventY = new ActionEvent(Motion.UP, Motion.DOWN);
+        pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT);
+        pointEventY = new PointEvent(Motion.UP, Motion.DOWN);
         action = new ActionState();
         this.detectListener = detectListener;
         reset();
@@ -46,29 +42,49 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         action.setAction(ActionState.STOP);
     }
 
-    private Hashtable<Integer, ActorInfo> actorMap = new Hashtable<>();
-
 
     protected void addMotion(int direction, Motion motion){
-        ActorInfo info = new ActorInfo();
-        if (actorMap.containsKey(direction)) {
-            info = actorMap.get(direction);
+        MotionsInfo info = new MotionsInfo();
+        if (motionMap.containsKey(direction)) {
+            info = motionMap.get(direction);
         }
         info.add(motion);
-        actorMap.put(direction, info);
+        motionMap.put(direction, info);
     }
 
+    protected int getActionState() {
+        return this.action.getAction();
+    }
+
+
+    /****************************************** Gesture ****************************************/
+
     @Override
-    public boolean onDown(MotionEvent ev) {
+    public boolean onDown(MotionEvent event) {
         isFirstTouch = true;
-        return super.onDown(ev);
+        pointEventX.setCurrRaw(event.getRawX(), event.getEventTime());
+        pointEventX.setAcceleration(0f);
+        pointEventY.setCurrRaw(event.getRawY(), event.getEventTime());
+        pointEventY.setAcceleration(0f);
+        return super.onDown(event);
+    }
+
+    public boolean onUp(MotionEvent event){
+        if(action.getAction() == ActionState.SCROLL){
+            action.setAction(ActionState.STOP);
+        }
+        return false;
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent e) {
+    public boolean onSingleTapUp(MotionEvent event) {
         boolean result = false;
 
         return result;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
     }
 
     @Override
@@ -76,68 +92,78 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         boolean result = false;
         if(action.getAction() != ActionState.ANIMATION){
             action.setAction(ActionState.SCROLL);
+
             if(isFirstTouch){ //최초 스크롤시
                 isFirstTouch = false;
-                actionEventX.setRaw(e2.getRawX());
-                actionEventY.setRaw(e2.getRawY());
-                actionEventX.setPreRaw(e2.getRawX());
-                actionEventY.setPreRaw(e2.getRawX());
-                return true;
+                pointEventX.setRaw(e2.getRawX());
+                pointEventY.setRaw(e2.getRawY());
+                pointEventX.setPreRaw(e2.getRawX());
+                pointEventY.setPreRaw(e2.getRawX());
+                result = true;
             } else {
-                if(setDpPoint(e2.getRawX(), actionEventX)){
-                    int direction = actionEventX.getDirection();
-                    result = scroll(direction, actionEventX);
+                if(setDpPoint(e2.getRawX(), pointEventX)){
+                    int direction = pointEventX.getDirection();
+                    result = scroll(direction, pointEventX);
                 }
-                if(setDpPoint(e2.getRawY(), actionEventY)){
-                    int direction = actionEventY.getDirection();
-                    result = scroll(direction, actionEventY) || result;
+                if(setDpPoint(e2.getRawY(), pointEventY)){
+                    int direction = pointEventY.getDirection();
+                    result = scroll(direction, pointEventY) || result;
                 }
-                result = detectListener.onScroll(actionEventX, actionEventY) || result;
-
+                result = detectListener.onScroll(pointEventX, pointEventY) || result;
             }
+            pointEventX.setCurrRawAndAccel(e2.getRawX(), e2.getEventTime(), density);
+            pointEventY.setCurrRawAndAccel(e2.getRawY(), e2.getEventTime(), density);
         }
         return result;
     }
-    private boolean scroll(int direction, ActionEvent actionEvent){
+    private boolean scroll(int direction, PointEvent pointEvent){
         boolean result = false;
-        ActorInfo info;
-        if(direction != Motion.NONE && (info = actorMap.get(direction)) != null) {
+        MotionsInfo info;
+        if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                result = motion.move(actionEvent.getPointToDuration(motion)) || result;
+                result = motion.move(pointEvent.getPointToDuration(motion)) || result;
             }
         }else{
-            actionEvent.setPoint(0);
+            pointEvent.setPoint(0);
         }
         return result;
     }
 
-    private boolean setDpPoint(float raw, ActionEvent actionEvent){
-        float diff = raw - actionEvent.getRaw();
+    private boolean setDpPoint(float raw, PointEvent pointEvent){
+        float diff = raw - pointEvent.getRaw();
         if(Math.abs(diff)>=density){
-            actionEvent.setRaw(raw);
-            actionEvent.setPoint(actionEvent.getPoint() + diff);
+            pointEvent.setRaw(raw);
+            pointEvent.setPoint(pointEvent.getPoint() + diff);
             return true;
         }else{
+            pointEvent.setRaw(raw);
             return false;
         }
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("Detector","flingX:"+velocityX);
+        Log.e("Detector", "flingX:"+pointEventX.getAcceleration()+ " : "+velocityX/1000);
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);
-            actionEventX.setAcceleration(velocityX);
-            actionEventY.setAcceleration(velocityY);
         }
         return result;
     }
 
-    class ActorInfo{
+
+
+    /****************************************** interface and inner class ****************************************/
+
+    interface DetectListener {
+        boolean onScroll(PointEvent pointEventX, PointEvent pointEventY);
+        boolean onFling(PointEvent pointEventX, PointEvent pointEventY);
+    }
+
+    class MotionsInfo {
         protected long maxDuration=0;
         protected ArrayList<Motion> motions;
-        protected ActorInfo(){
+        protected MotionsInfo(){
             motions = new ArrayList<>();
         }
 

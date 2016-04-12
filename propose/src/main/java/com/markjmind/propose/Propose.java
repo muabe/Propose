@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.markjmind.propose.actor.Motion;
+import com.markjmind.propose.actor.MotionInitor;
 import com.markjmind.propose.listener.RubListener;
 
 /**
@@ -24,8 +25,12 @@ public class Propose implements View.OnTouchListener{
 
     private GestureDetector gestureDetector;
     private Detector detector;
-    private DetectEvent detectEvent;
+
+    private MotionInitor motionInit;
     private RubListener rubListener;
+
+    private boolean isTouchDown;
+    private boolean enableMotion;
 
     public Propose(Context context){
         this.context = context;
@@ -40,17 +45,65 @@ public class Propose implements View.OnTouchListener{
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        detectEvent = new DetectEvent();
-        detector = new Detector(density, detectEvent);
-
+        detector = new Detector(density, new DetectEvent());
         gestureDetector = new GestureDetector(context, detector);
+        this.setIsLongpressEnabled(false);
+        isTouchDown = false;
+        enableMotion = true;
     }
 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         v.setClickable(true);
-        return gestureDetector.onTouchEvent(event);
+        boolean result = false;
+
+        int action = event.getAction();
+        if (enableMotion) {
+            switch (action & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_DOWN: {
+                    if (motionInit != null) {
+                        if(!isTouchDown && detector.getActionState() == ActionState.STOP){
+                            motionInit.touchDown(this);
+                        }
+                    }
+                    isTouchDown = true;
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                   if (motionInit != null) {
+                        motionInit.touchUp(this);
+                    }
+                    break;
+                }
+                case MotionEvent.ACTION_MOVE: {
+                    break;
+                }
+                case MotionEvent.ACTION_POINTER_DOWN: {
+                    break;
+                }
+                case MotionEvent.ACTION_CANCEL: {
+                    break;
+                }
+                case MotionEvent.ACTION_POINTER_UP: {
+                    break;
+                }
+            }
+
+            result = gestureDetector.onTouchEvent(event);
+
+            switch (action & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP: {
+                    result = detector.onUp(event) || result;
+                    isTouchDown = false;
+                    break;
+                }
+            }
+        }else{
+            isTouchDown = false;
+        }
+
+        return result;
     }
 
 
@@ -63,25 +116,45 @@ public class Propose implements View.OnTouchListener{
         return this;
     }
 
+    /**
+     * MotionInitor 등록
+     * @param initor MotionInitor
+     */
+    public void setOnMotionInitor(MotionInitor initor){
+        this.motionInit = initor;
+    }
+    /**
+     * MotionInitor를 리턴받는다.
+     * @return MotionInitor
+     */
+    public MotionInitor getMotionInitor(){
+        return this.motionInit;
+    }
+
     public Propose setRubListener(RubListener rubListener){
         this.rubListener = rubListener;
         return this;
     }
 
+    public Propose setIsLongpressEnabled(boolean enable){
+        gestureDetector.setIsLongpressEnabled(enable);
+        return this;
+    }
+
     private class DetectEvent implements Detector.DetectListener{
         @Override
-        public boolean onScroll(ActionEvent actionEventX, ActionEvent actionEventY) {
+        public boolean onScroll(PointEvent pointEventX, PointEvent pointEventY) {
             boolean result = false;
             if(rubListener!=null) {
-                float diffX = actionEventX.getRaw()- actionEventX.getPreRaw();
-                float diffY = actionEventY.getRaw()- actionEventY.getPreRaw();
+                float diffX = pointEventX.getRaw()- pointEventX.getPreRaw();
+                float diffY = pointEventY.getRaw()- pointEventY.getPreRaw();
                 result = rubListener.rub(diffX, diffY) || result;
             }
             return result;
         }
 
         @Override
-        public boolean onFling(ActionEvent actionEventX, ActionEvent actionEventY) {
+        public boolean onFling(PointEvent pointEventX, PointEvent pointEventY) {
             return false;
         }
     }
