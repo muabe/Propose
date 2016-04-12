@@ -50,7 +50,7 @@ dependencies {
 [5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)
 
 <br>
-#### Propose v2.0 spec
+### Propose v2.0 spec
 - Rotating Wheel 
 - Two finger drag, rotation
 - Pinch
