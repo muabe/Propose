@@ -49,7 +49,8 @@ dependencies {
 [4. Combining animation](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-Combining-animation)<br>
 [5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)
 
-## Propose v2.0 spec
+<br>
+#### Propose v2.0 spec
 - Rotating Wheel 
 - Two finger drag, rotation
 - Pinch
