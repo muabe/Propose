@@ -57,7 +57,7 @@ dependencies {
 - Pinch
 - Drag and drop
 - Rub
-- Support Simple Animation
+- Support simple animation
 - Moving layout
 
 
