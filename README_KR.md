@@ -50,4 +50,16 @@ dependencies {
 [4. 애니메이션 조합](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A1%B0%ED%95%A9)<br>
 [5. 이벤트](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-%EC%9D%B4%EB%B2%A4%ED%8A%B8)<br>
 
+<br>
+### Propose v2.0 spec
+---
+- Rotating Wheel 
+- Two finger drag, rotation
+- Pinch
+- Drag and drop
+- Rub
+- Support simple animation
+- Moving layout
+
+
 <br><br><br>
