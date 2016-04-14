@@ -25,6 +25,7 @@ public class Motion {
 
 
     private Mover mover = new Mover();
+    private Taper taper = new Taper();
 
     // 현재 위치지점
     public enum STATUS{
@@ -259,5 +260,9 @@ public class Motion {
 
     public boolean moveDistance(float distance){
         return mover.move(this, distance);
+    }
+
+    public boolean tap(){
+        return taper.tap(this, getCurrDuration(), getTotalDuration(), getTotalDuration()-getCurrDuration());
     }
 }

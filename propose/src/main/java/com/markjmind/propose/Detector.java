@@ -78,8 +78,18 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
-        boolean result = false;
-
+        boolean result = true;
+        Log.e("Detector", "Tap:1");
+        int direction = pointEventX.getDirection();
+        if(direction==0){
+            direction = Motion.RIGHT;
+        }
+        MotionsInfo info;
+        if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
+            for (Motion motion : info.motions) {
+                motion.tap();
+            }
+        }
         return result;
     }
 

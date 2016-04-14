@@ -5,11 +5,9 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
-import android.annotation.SuppressLint;
 
 import java.util.ArrayList;
 
-@SuppressLint("NewApi")
 public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
 	private ArrayList<TimeValue> valueList = new ArrayList<>();
 	private boolean isInitListener = false;
@@ -47,17 +45,17 @@ public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
 	
 	@Override
 	public void onAnimationUpdate(ValueAnimator animation) {
-		ArrayList<Long> timeValue = (ArrayList<Long>)animation.getAnimatedValue();
+		ArrayList<Long> timeList = (ArrayList<Long>)animation.getAnimatedValue();
 		for(int i=0;i<valueList.size();i++){
-			valueList.get(i).onAnimationUpdate(timeValue.get(i), valueList.get(i).params);
+			valueList.get(i).onAnimationUpdate(timeList.get(i), valueList.get(i).params);
 		}
 	}
 	
 	public void start() {
 		if(valueList.size()>0){
 			if(!isInitListener){
-				ArrayList<Long> startValue = new ArrayList<Long>();
-				ArrayList<Long> endValue = new ArrayList<Long>();
+				ArrayList<Long> startValue = new ArrayList<>();
+				ArrayList<Long> endValue = new ArrayList<>();
 				for(int i=0;i<valueList.size();i++){
 					startValue.add(valueList.get(i).start);
 					endValue.add(valueList.get(i).end);

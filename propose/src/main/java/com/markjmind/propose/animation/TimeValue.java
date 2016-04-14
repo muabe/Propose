@@ -16,7 +16,7 @@ public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListen
 	HashMap<String,Object> params= new HashMap<>();
 	public int index = 0;
 	private AnimatorListener animationListener;
-	private int direction= 1;
+
 	
 	public abstract void onAnimationUpdate(long timeValue,HashMap<String,Object> params);
 	
@@ -29,10 +29,6 @@ public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListen
 		this.end = end;
 		return this;
 	}
-	public TimeValue setForward(boolean forward){
-		this.forward = forward;
-		return this;
-	}
 
 	@Override
 	public void onAnimationUpdate(ValueAnimator animation) {
@@ -42,7 +38,6 @@ public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListen
 	
 	public TimeValue setAnimatorListener(AnimatorListener animationListener, int direction){
 		this.animationListener = animationListener;
-		this.direction = direction;
 		return this;
 	}
 	
@@ -70,18 +65,10 @@ public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListen
 
 	@Override
 	public void onAnimationRepeat(Animator animation) {
-		if(animationListener!=null){
+		if (animationListener != null) {
 			animationListener.onAnimationRepeat(animation);
 		}
-	}
 
-	public int getDirection() {
-		return direction;
 	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
-	}
-
 	
 }

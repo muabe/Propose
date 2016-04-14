@@ -69,7 +69,11 @@ public class PointEvent {
     }
 
     protected void setAcceleration(float raw, long time, float density){
-        this.acceleration = (currRaw/density-raw/density)/(time-this.time);
+        long accTime = time-this.time;
+        if(accTime<1){
+            accTime = 1;
+        }
+        this.acceleration = ((currRaw-raw)/density)/(time-this.time);
     }
     protected void setAcceleration(float acceleration){
         this.acceleration = acceleration;
@@ -146,6 +150,21 @@ public class PointEvent {
             duration = motion.getTotalDuration();
         }else {
             motion.setStatus(Motion.STATUS.run);
+        }
+        return duration;
+    }
+
+    public long getPointToDuration(Motion motion, float diff){
+        long duration = motion.getDistanceToDuration(Math.abs(point+diff));
+        if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
+//            this.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
+            if(Motion.STATUS.end.equals(motion.getStatus())){
+                return -1;
+            }
+//            motion.setStatus(Motion.STATUS.end);
+            duration = motion.getTotalDuration();
+        }else {
+//            motion.setStatus(Motion.STATUS.run);
         }
         return duration;
     }
