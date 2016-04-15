@@ -1,7 +1,5 @@
 package com.markjmind.propose;
 
-import com.markjmind.propose.actor.Motion;
-
 /**
  * <br>捲土重來<br>
  *
@@ -125,6 +123,21 @@ public class PointEvent {
         return Motion.NONE;
     }
 
+    protected int getDirection(float movePoint){
+        if(getPoint()+movePoint < 0){
+            return minus;
+        }else if(getPoint()+movePoint > 0){
+            return plus;
+        }else{
+            if(getPoint() < 0) {
+                return minus;
+            }else if(getPoint() > 0){
+                return plus;
+            }
+        }
+        return Motion.NONE;
+    }
+
     public long getDurationToDistance(Motion motion, float distance){
         long duration = motion.getDistanceToDuration(Math.abs(distance));
         if(duration >= motion.getTotalDuration()){
@@ -167,5 +180,9 @@ public class PointEvent {
 //            motion.setStatus(Motion.STATUS.run);
         }
         return duration;
+    }
+
+    public interface SyncPointListener {
+        void syncPoint(float distance);
     }
 }

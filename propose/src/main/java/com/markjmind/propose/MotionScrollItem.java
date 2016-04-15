@@ -1,4 +1,4 @@
-package com.markjmind.propose.actor;
+package com.markjmind.propose;
 
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
@@ -29,7 +29,7 @@ public class MotionScrollItem {
 	private ScrollState currScrollState;
 	private ScrollState forwardReady, forwardStart, reverseReady, reverseStart;
 
-	protected MotionScrollItem(ValueAnimator animator, long joinDuration){
+	public MotionScrollItem(ValueAnimator animator, long joinDuration){
 		this.anim = animator;
 
 		this.joinDuration = joinDuration;
@@ -148,8 +148,8 @@ public class MotionScrollItem {
 		anim.setCurrentPlayTime(currDuration);
 	}
 	
-	protected boolean scroll(int index, Motion motion){
-		currDuration = (long)((motion.getCurrDuration()-startDuration));
+	public boolean scroll(int index, long duration){
+		currDuration = duration-startDuration;
 		return currScrollState.scroll(index);
 	}
 

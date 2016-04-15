@@ -1,5 +1,8 @@
 package com.markjmind.propose.actor;
 
+import com.markjmind.propose.Motion;
+import com.markjmind.propose.MotionBuilder;
+import com.markjmind.propose.MotionScrollItem;
 import com.markjmind.propose.PointEvent;
 
 /**
@@ -9,30 +12,45 @@ import com.markjmind.propose.PointEvent;
  * @email markjmind@gmail.com
  * @since 2016-03-30
  */
-class Mover {
+public class Mover {
 
-    protected boolean move(Motion motion, PointEvent pointEvent){
-        long duration = getPointToDuration(motion, pointEvent);
-        return move(motion, duration);
-    }
+//    protected boolean moveDistance(Motion motion, PointEvent pointEvent){
+//        long duration = getPointToDuration(motion, pointEvent);
+//        return moveDistance(motion, duration);
+//    }
 
-    protected boolean move(Motion motion, long duration){
-        motion.setCurrDuration(duration);
+//    protected boolean moveDistance(Motion motion, long duration){
+//        motion.setCurrDuration(duration);
+//        if(duration<0){
+//            return false;
+//        }
+//        boolean result = false;
+//        for (int i = 0; i < motion.builder.scrollItemList.size(); i++) {
+//            MotionScrollItem motionScrollItem = motion.builder.scrollItemList.get(i);
+//            result = motionScrollItem.scroll(i, motion) || result;
+//        }
+//        return result;
+//    }
+
+//    protected boolean moveDistance(Motion motion, float distance){
+//        long duration = getDurationToDistance(motion, distance);
+//        return moveDistance(motion, duration);
+//
+//    }
+
+    public boolean move(MotionBuilder builder, long duration){
         if(duration<0){
             return false;
         }
+
         boolean result = false;
-        for (int i = 0; i < motion.builder.scrollItemList.size(); i++) {
-            MotionScrollItem motionScrollItem = motion.builder.scrollItemList.get(i);
-            result = motionScrollItem.scroll(i, motion) || result;
+        for (int i = 0; i < builder.scrollItemList.size(); i++) {
+            MotionScrollItem motionScrollItem = builder.scrollItemList.get(i);
+            if(motionScrollItem.scroll(i, duration)){
+                result = true;
+            }
         }
         return result;
-    }
-
-    protected boolean move(Motion motion, float distance){
-        long duration = getDurationToDistance(motion, distance);
-        return move(motion, duration);
-
     }
 
     private long getDurationToDistance(Motion motion, float distance){

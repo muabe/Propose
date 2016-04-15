@@ -1,4 +1,4 @@
-package com.markjmind.propose.actor;
+package com.markjmind.propose;
 
 import android.animation.ValueAnimator;
 
@@ -30,7 +30,7 @@ public class MotionBuilder implements Comparator<MotionScrollItem>{
 	public MotionBuilder with(ValueAnimator valueAnimator){
 		MotionScrollItem adapter = new MotionScrollItem(valueAnimator,currAdapter.joinDuration);
 		currAdapter = adapter;
-		if(motion.totalDuration<adapter.joinDuration+adapter.delayDuration+adapter.playDuration){
+		if(motion.getTotalDuration()<adapter.joinDuration+adapter.delayDuration+adapter.playDuration){
 			motion.totalDuration = adapter.joinDuration+adapter.delayDuration+adapter.playDuration;
 		}
 		scrollItemList.add(currAdapter);

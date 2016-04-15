@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.markjmind.propose.actor.Motion;
 import com.markjmind.propose.actor.MotionInitor;
 import com.markjmind.propose.listener.RubListener;
 

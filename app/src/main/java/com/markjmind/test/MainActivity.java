@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.markjmind.propose.Propose;
-import com.markjmind.propose.actor.Motion;
+import com.markjmind.propose.Motion;
 
 public class MainActivity extends Activity {
     Propose propose;

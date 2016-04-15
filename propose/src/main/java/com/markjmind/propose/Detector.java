@@ -4,8 +4,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.markjmind.propose.actor.Motion;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -16,7 +14,7 @@ import java.util.Hashtable;
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
-public class Detector extends GestureDetector.SimpleOnGestureListener {
+public class Detector extends GestureDetector.SimpleOnGestureListener implements PointEvent.SyncPointListener {
 
     protected PointEvent pointEventX, pointEventY;
 
@@ -26,6 +24,9 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
     private float density;
 
     private DetectListener detectListener;
+
+    protected int horizontalPriority = Motion.RIGHT;
+    protected int verticalPriority = Motion.UP;
 
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
@@ -47,6 +48,11 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         MotionsInfo info = new MotionsInfo();
         if (motionMap.containsKey(direction)) {
             info = motionMap.get(direction);
+        }
+        if(direction == Motion.LEFT || direction == Motion.RIGHT) {
+            motion.setPointEvent(pointEventX);
+        }else if(direction == Motion.UP || direction == Motion.DOWN){
+            motion.setPointEvent(pointEventY);
         }
         info.add(motion);
         motionMap.put(direction, info);
@@ -76,18 +82,26 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         return false;
     }
 
+
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
         boolean result = true;
-        Log.e("Detector", "Tap:1");
-        int direction = pointEventX.getDirection();
+        Log.i("Detector", "Tap:1");
+        result = tapUp(pointEventX, horizontalPriority);
+        result = tapUp(pointEventY, verticalPriority) || result;
+        return result;
+    }
+
+    private boolean tapUp(PointEvent pointEvent, int priority){
+        boolean result = false;
+        int direction = pointEvent.getDirection();
         if(direction==0){
-            direction = Motion.RIGHT;
+            direction = priority;
         }
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                motion.tap();
+                result = motion.tap() || result;
             }
         }
         return result;
@@ -111,14 +125,9 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
                 pointEventY.setPreRaw(e2.getRawX());
                 result = true;
             } else {
-                if(setDpPoint(e2.getRawX(), pointEventX)){
-                    int direction = pointEventX.getDirection();
-                    result = scroll(direction, pointEventX);
-                }
-                if(setDpPoint(e2.getRawY(), pointEventY)){
-                    int direction = pointEventY.getDirection();
-                    result = scroll(direction, pointEventY) || result;
-                }
+                result = scroll(e2.getRawX(), pointEventX);
+                result = scroll(e2.getRawY(), pointEventY) || result;
+
                 result = detectListener.onScroll(pointEventX, pointEventY) || result;
             }
             pointEventX.setCurrRawAndAccel(e2.getRawX(), e2.getEventTime(), density);
@@ -126,12 +135,17 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         }
         return result;
     }
-    private boolean scroll(int direction, PointEvent pointEvent){
+
+    private boolean scroll(float raw, PointEvent pointEvent){
+        float diff = raw - pointEvent.getRaw();
+        pointEvent.setRaw(raw);
+        int direction = pointEvent.getDirection(diff);
+
         boolean result = false;
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                result = motion.move(pointEvent.getPointToDuration(motion)) || result;
+                result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
             }
         }else{
             pointEvent.setPoint(0);
@@ -139,17 +153,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         return result;
     }
 
-    private boolean setDpPoint(float raw, PointEvent pointEvent){
-        float diff = raw - pointEvent.getRaw();
-        if(Math.abs(diff)>=density){
-            pointEvent.setRaw(raw);
-            pointEvent.setPoint(pointEvent.getPoint() + diff);
-            return true;
-        }else{
-            pointEvent.setRaw(raw);
-            return false;
-        }
-    }
+
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -161,6 +165,10 @@ public class Detector extends GestureDetector.SimpleOnGestureListener {
         return result;
     }
 
+    @Override
+    public void syncPoint(float distance) {
+//        pointEvent.setPoint(distance);
+    }
 
 
     /****************************************** interface and inner class ****************************************/

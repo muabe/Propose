@@ -2,6 +2,7 @@ package com.markjmind.propose.actor;
 
 import android.animation.Animator;
 
+import com.markjmind.propose.Motion;
 import com.markjmind.propose.animation.TimeAnimation;
 import com.markjmind.propose.animation.TimeValue;
 
@@ -19,13 +20,13 @@ public class Taper {
         boolean result = false;
 
 //        long playDuration = (long)((endDuration - startDuration)/acc);
-        if(startDuration>motion.totalDuration){
-            startDuration = motion.totalDuration;
+        if(startDuration>motion.getTotalDuration()){
+            startDuration = motion.getTotalDuration();
         }else if(startDuration < 0){
             startDuration = 0;
         }
-        if(endDuration>motion.totalDuration){
-            endDuration = motion.totalDuration;
+        if(endDuration>motion.getTotalDuration()){
+            endDuration = motion.getTotalDuration();
         }else if(endDuration < 0){
             endDuration = 0;
         }
@@ -56,7 +57,7 @@ public class Taper {
         @Override
         public void onAnimationUpdate(long timeValue, HashMap<String, Object> params) {
             long duration = (long)(timeValue*durationRatio);
-            motion.move(duration);
+            motion.moveDuration(duration);
         }
     }
 

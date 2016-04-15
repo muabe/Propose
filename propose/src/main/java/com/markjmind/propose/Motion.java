@@ -1,6 +1,9 @@
-package com.markjmind.propose.actor;
+package com.markjmind.propose;
 
 import android.animation.ValueAnimator;
+
+import com.markjmind.propose.actor.Mover;
+import com.markjmind.propose.actor.Taper;
 
 /**
  * <br>捲土重來<br>
@@ -24,6 +27,7 @@ public class Motion {
     public static int PINCH  = 180;
 
 
+    private PointEvent pointEvent;
     private Mover mover = new Mover();
     private Taper taper = new Taper();
 
@@ -58,7 +62,7 @@ public class Motion {
     protected boolean enableSingleTabUp=true;
     /**fling 사용 설정*/
     protected boolean enableFling=true;
-    /**move(drag) 사용 설정*/
+    /**moveDistance(drag) 사용 설정*/
     protected boolean enableMove=true;
     /**reverse 사용 설정*/
     protected boolean enableReverse=true;
@@ -121,7 +125,6 @@ public class Motion {
      */
     public MotionBuilder play(ValueAnimator valueAnimator, int distance){
         init();
-//        resetPoint();
         setMotionDistance(distance);
         MotionScrollItem adapter = new MotionScrollItem(valueAnimator,0);
         builder = new MotionBuilder(this, adapter);
@@ -178,10 +181,12 @@ public class Motion {
 
     protected void setCurrDistance(float distance){
         this.currDistance = distance;
+        this.currDuration = getDistanceToDuration(distance);
     }
 
-    public void setCurrDuration(long duration){
+    protected void setCurrDuration(long duration){
         this.currDuration = duration;
+        this.currDistance = getDurationToDistance(duration);
     }
 
     public void setStatus(STATUS status){
@@ -253,13 +258,25 @@ public class Motion {
         return motionDistance;
     }
 
+    protected void setPointEvent(PointEvent pointEvent){
+        this.pointEvent = pointEvent;
+    }
     /*********************************** Move ***********************************/
-    public boolean move(long duration){
-        return mover.move(this, duration);
+    public boolean moveDistance(float distance){
+        long duration = getDistanceToDuration(distance);
+        return this.moveDuration(duration);
     }
 
-    public boolean moveDistance(float distance){
-        return mover.move(this, distance);
+    public boolean moveDuration(long duration){
+        if(mover.move(builder, duration)){
+            setCurrDuration(duration);
+            if(pointEvent!=null) {
+                pointEvent.setPoint(currDistance*getDirectionArg());
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean tap(){
