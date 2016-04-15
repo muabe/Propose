@@ -49,20 +49,29 @@ public class MainActivity extends Activity {
         rotDown.setInterpolator(null);
 
 
-        Motion right = new Motion(Motion.RIGHT);
-        Motion left = new Motion(Motion.LEFT);
-        Motion up = new Motion(Motion.UP);
-        final Motion down = new Motion(Motion.DOWN);
-        right.play(tranRight, (int) (max)).with(rotRight);
-        left.play(tranLeft, (int) (max)).with(rotLeft);
-        up.play(tranUp, (int) (max)).with(rotUp);
-        down.play(tranDown, (int) (max)).with(rotDown);
-
         propose = new Propose(this);
+
+        Motion left = new Motion(Motion.LEFT);
+        left.play(tranLeft, (int) (max)).with(rotLeft);
         propose.addMotion(left);
-        propose.addMotion(down);
+
+        Motion right = new Motion(Motion.RIGHT);
+        right.play(tranRight, (int) (max)).with(rotRight);
         propose.addMotion(right);
+
+        Motion up = new Motion(Motion.UP);
+        up.play(tranUp, (int) (max)).with(rotUp);
         propose.addMotion(up);
+
+        final Motion down = new Motion(Motion.DOWN);
+        down.play(tranDown, (int) (max)).with(rotDown);
+        propose.addMotion(down);
+
+
+
+
+
+
 
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;

@@ -14,7 +14,7 @@ import java.util.Hashtable;
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
-public class Detector extends GestureDetector.SimpleOnGestureListener implements PointEvent.SyncPointListener {
+public class Detector extends GestureDetector.SimpleOnGestureListener{
 
     protected PointEvent pointEventX, pointEventY;
 
@@ -65,6 +65,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
 
     /****************************************** Gesture ****************************************/
 
+    /******** Down *******/
     @Override
     public boolean onDown(MotionEvent event) {
         isFirstTouch = true;
@@ -75,6 +76,8 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
         return super.onDown(event);
     }
 
+
+    /******** Up *******/
     public boolean onUp(MotionEvent event){
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.STOP);
@@ -83,10 +86,11 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
     }
 
 
+    /******** TapUp *******/
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
-        boolean result = true;
         Log.i("Detector", "Tap:1");
+        boolean result;
         result = tapUp(pointEventX, horizontalPriority);
         result = tapUp(pointEventY, verticalPriority) || result;
         return result;
@@ -101,26 +105,32 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                result = motion.tap() || result;
+                result = motion.animate() || result;
             }
         }
         return result;
     }
 
+
+    /******** LongPress *******/
     @Override
     public void onLongPress(MotionEvent e) {
     }
 
+
+    /******** Scroll *******/
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         boolean result = false;
         if(action.getAction() != ActionState.ANIMATION){
             action.setAction(ActionState.SCROLL);
+            pointEventX.setCurrRawAndAccel(e2.getRawX(), e2.getEventTime(), density);
+            pointEventY.setCurrRawAndAccel(e2.getRawY(), e2.getEventTime(), density);
 
             if(isFirstTouch){ //최초 스크롤시
                 isFirstTouch = false;
-                pointEventX.setRaw(e2.getRawX());
-                pointEventY.setRaw(e2.getRawY());
+                pointEventX.saveRaw();
+                pointEventY.saveRaw();
                 pointEventX.setPreRaw(e2.getRawX());
                 pointEventY.setPreRaw(e2.getRawX());
                 result = true;
@@ -130,15 +140,14 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
 
                 result = detectListener.onScroll(pointEventX, pointEventY) || result;
             }
-            pointEventX.setCurrRawAndAccel(e2.getRawX(), e2.getEventTime(), density);
-            pointEventY.setCurrRawAndAccel(e2.getRawY(), e2.getEventTime(), density);
+
         }
         return result;
     }
 
     private boolean scroll(float raw, PointEvent pointEvent){
         float diff = raw - pointEvent.getRaw();
-        pointEvent.setRaw(raw);
+        pointEvent.saveRaw();
         int direction = pointEvent.getDirection(diff);
 
         boolean result = false;
@@ -153,8 +162,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
         return result;
     }
 
-
-
+    /******** Fling *******/
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         Log.e("Detector", "flingX:"+pointEventX.getAcceleration()+ " : "+velocityX/1000);
@@ -165,10 +173,6 @@ public class Detector extends GestureDetector.SimpleOnGestureListener implements
         return result;
     }
 
-    @Override
-    public void syncPoint(float distance) {
-//        pointEvent.setPoint(distance);
-    }
 
 
     /****************************************** interface and inner class ****************************************/

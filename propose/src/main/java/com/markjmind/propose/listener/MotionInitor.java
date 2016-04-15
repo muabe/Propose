@@ -1,4 +1,4 @@
-package com.markjmind.propose.actor;
+package com.markjmind.propose.listener;
 
 import com.markjmind.propose.Propose;
 

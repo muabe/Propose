@@ -14,30 +14,6 @@ import com.markjmind.propose.PointEvent;
  */
 public class Mover {
 
-//    protected boolean moveDistance(Motion motion, PointEvent pointEvent){
-//        long duration = getPointToDuration(motion, pointEvent);
-//        return moveDistance(motion, duration);
-//    }
-
-//    protected boolean moveDistance(Motion motion, long duration){
-//        motion.setCurrDuration(duration);
-//        if(duration<0){
-//            return false;
-//        }
-//        boolean result = false;
-//        for (int i = 0; i < motion.builder.scrollItemList.size(); i++) {
-//            MotionScrollItem motionScrollItem = motion.builder.scrollItemList.get(i);
-//            result = motionScrollItem.scroll(i, motion) || result;
-//        }
-//        return result;
-//    }
-
-//    protected boolean moveDistance(Motion motion, float distance){
-//        long duration = getDurationToDistance(motion, distance);
-//        return moveDistance(motion, duration);
-//
-//    }
-
     public boolean move(MotionBuilder builder, long duration){
         if(duration<0){
             return false;

@@ -57,7 +57,7 @@ public class Taper {
         @Override
         public void onAnimationUpdate(long timeValue, HashMap<String, Object> params) {
             long duration = (long)(timeValue*durationRatio);
-            motion.moveDuration(duration);
+            motion.move(duration);
         }
     }
 

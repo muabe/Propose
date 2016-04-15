@@ -1,6 +1,7 @@
 package com.markjmind.propose;
 
 import android.animation.ValueAnimator;
+import android.util.Log;
 
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
@@ -167,16 +168,6 @@ public class Motion {
      */
     protected void setMotionDistance(float distance){
         motionDistance = distance;
-//        if(currDuration>0){
-//            currDistance =  getDurationToDistance(currDuration);
-//            if(propose.currX.getDirection() == direction){
-//                propose.currX.setPoint(currDistance*directionArg);
-//                propose.currX.setAcc(0f);
-//            }else if(propose.currY.getDirection() == direction){
-//                propose.currY.setPoint(currDistance*directionArg);
-//                propose.currY.setAcc(0f);
-//            }
-//        }
     }
 
     protected void setCurrDistance(float distance){
@@ -190,16 +181,10 @@ public class Motion {
     }
 
     public void setStatus(STATUS status){
-//        if(this.status== STATUS.ready && status== STATUS.run){
-//            if(motionListener!=null){
-//                motionListener.onStart(true);
-//            }
-//        }else if(this.status== STATUS.end && status== STATUS.run){
-//            if(motionListener!=null){
-//                motionListener.onStart(false);
-//            }
-//        }
         this.status = status;
+        if(!status.equals(STATUS.run)) {
+            Log.i("Status", direction+":"+status.toString());
+        }
     }
 
     protected boolean isForward() {
@@ -262,12 +247,17 @@ public class Motion {
         this.pointEvent = pointEvent;
     }
     /*********************************** Move ***********************************/
-    public boolean moveDistance(float distance){
-        long duration = getDistanceToDuration(distance);
-        return this.moveDuration(duration);
-    }
+    public boolean move(long duration){
+        if(duration >= getTotalDuration()){
+            if(Motion.STATUS.end.equals(getStatus())){
+                return false;
+            }
+            setStatus(Motion.STATUS.end);
+            duration = getTotalDuration();
+        }else {
+            setStatus(Motion.STATUS.run);
+        }
 
-    public boolean moveDuration(long duration){
         if(mover.move(builder, duration)){
             setCurrDuration(duration);
             if(pointEvent!=null) {
@@ -279,7 +269,16 @@ public class Motion {
         }
     }
 
-    public boolean tap(){
-        return taper.tap(this, getCurrDuration(), getTotalDuration(), getTotalDuration()-getCurrDuration());
+    public boolean moveDistance(float distance){
+        long duration = getDistanceToDuration(distance);
+        return this.move(duration);
+    }
+
+    public boolean animate(){
+        return this.animate(getCurrDuration(), getTotalDuration());
+    }
+
+    public boolean animate(long startDuration, long endEuration){
+        return taper.tap(this, startDuration, endEuration, Math.abs(endEuration-startDuration));
     }
 }

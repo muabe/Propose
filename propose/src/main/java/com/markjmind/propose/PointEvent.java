@@ -53,9 +53,9 @@ public class PointEvent {
         return raw;
     }
 
-    protected void setRaw(float raw){
+    protected void saveRaw(){
         setPreRaw(this.raw);
-        this.raw = raw;
+        this.raw = this.currRaw;
     }
 
     protected float getPreRaw(){
@@ -138,51 +138,4 @@ public class PointEvent {
         return Motion.NONE;
     }
 
-    public long getDurationToDistance(Motion motion, float distance){
-        long duration = motion.getDistanceToDuration(Math.abs(distance));
-        if(duration >= motion.getTotalDuration()){
-            if(Motion.STATUS.end.equals(motion.getStatus())){
-                return -1;
-            }
-            motion.setStatus(Motion.STATUS.end);
-            duration = motion.getTotalDuration();
-        }else {
-            motion.setStatus(Motion.STATUS.run);
-        }
-        return duration;
-    }
-
-    public long getPointToDuration(Motion motion){
-        long duration = motion.getDistanceToDuration(this.getAbsPoint());
-        if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
-            this.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
-            if(Motion.STATUS.end.equals(motion.getStatus())){
-                return -1;
-            }
-            motion.setStatus(Motion.STATUS.end);
-            duration = motion.getTotalDuration();
-        }else {
-            motion.setStatus(Motion.STATUS.run);
-        }
-        return duration;
-    }
-
-    public long getPointToDuration(Motion motion, float diff){
-        long duration = motion.getDistanceToDuration(Math.abs(point+diff));
-        if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
-//            this.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
-            if(Motion.STATUS.end.equals(motion.getStatus())){
-                return -1;
-            }
-//            motion.setStatus(Motion.STATUS.end);
-            duration = motion.getTotalDuration();
-        }else {
-//            motion.setStatus(Motion.STATUS.run);
-        }
-        return duration;
-    }
-
-    public interface SyncPointListener {
-        void syncPoint(float distance);
-    }
 }
