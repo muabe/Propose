@@ -151,13 +151,28 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         int direction = pointEvent.getDirection(diff);
 
         boolean result = false;
-        MotionsInfo info;
-        if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
-            for (Motion motion : info.motions) {
-                result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
-            }
+
+        if(direction == Motion.NONE ){
+            result = move(pointEvent.plus, 0f);
+            result = move(pointEvent.minus, 0f) || result;
         }else{
-            pointEvent.setPoint(0);
+
+            int changeDirection = pointEvent.getChangeDirection(diff);
+            if(changeDirection!=Motion.NONE){
+                result = move(changeDirection, 0f);
+            }
+            result = move(direction, Math.abs(pointEvent.getPoint() + diff)) || result;
+        }
+        return result;
+    }
+
+    private boolean move(int direction, float distance){
+        MotionsInfo info;
+        boolean result = false;
+        if((info = motionMap.get(direction)) != null){
+            for (Motion motion : info.motions) {
+                result = motion.moveDistance(distance) || result;
+            }
         }
         return result;
     }
@@ -165,7 +180,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     /******** Fling *******/
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.e("Detector", "flingX:"+pointEventX.getAcceleration()+ " : "+velocityX/1000);
+        Log.i("Detector", "flingX:"+pointEventX.getAcceleration()+ " : "+velocityX/1000);
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);

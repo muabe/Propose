@@ -249,13 +249,18 @@ public class Motion {
     /*********************************** Move ***********************************/
     public boolean move(long duration){
         if(duration >= getTotalDuration()){
-            if(Motion.STATUS.end.equals(getStatus())){
+            if(STATUS.end.equals(getStatus())){
                 return false;
             }
             setStatus(Motion.STATUS.end);
             duration = getTotalDuration();
-        }else {
-            setStatus(Motion.STATUS.run);
+        }else if(duration == 0){
+            if(STATUS.ready.equals(getStatus())){
+                return false;
+            }
+            setStatus(STATUS.ready);
+        }else{
+            setStatus(STATUS.run);
         }
 
         if(mover.move(builder, duration)){
