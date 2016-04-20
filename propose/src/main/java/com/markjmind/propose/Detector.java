@@ -181,12 +181,17 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     /******** Fling *******/
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("Detector", "flingX:"+pointEventX.getAcceleration()+ " : "+velocityX/1000);
+        Log.i("Detector", "flingX:"+pointEventX.getAcceleration()+ " Y:"+pointEventY.getAcceleration()) ;
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);
-            result = fling(pointEventX);
-            result = fling(pointEventY) || result;
+            float acceleration = pointEventX.getAcceleration();
+            if(pointEventX.getAcceleration() < pointEventY.getAcceleration()){
+                acceleration = pointEventY.getAcceleration();
+            }
+
+            result = fling(pointEventX, acceleration);
+            result = fling(pointEventY, acceleration) || result;
             if(!result){
                 action.setAction(ActionState.STOP);
             }
@@ -194,10 +199,10 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         return result;
     }
 
-    private boolean fling(PointEvent pointEvent){
+    private boolean fling(PointEvent pointEvent, float acceleration){
         boolean result = false;
         int direction = pointEvent.getDirection();
-        if(pointEvent.getAcceleration() == 0f || direction == Motion.NONE){
+        if(acceleration == 0f || direction == Motion.NONE){
             return false;
         }
         MotionsInfo info = motionMap.get(direction);
@@ -205,11 +210,11 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
             for (Motion motion : info.motions) {
                 long start = motion.getCurrDuration();
                 long end = motion.getTotalDuration();
-                if(end < start){
-                    start = end;
-                    end = motion.getCurrDuration();
+                if(pointEvent.getAcceleration() < 0){
+                    end = 0;
                 }
-                result = motion.animate(1000, 500, pointEvent.getAcceleration()) || result;
+                Log.e("ds","start:"+start+" end:"+end);
+                result = motion.animate(start, end, acceleration) || result;
             }
         }
         return result;

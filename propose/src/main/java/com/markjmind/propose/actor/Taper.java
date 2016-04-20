@@ -34,12 +34,7 @@ public class Taper {
         }
 
         AnimationTimeValue timeValue = new AnimationTimeValue(motion);
-        if(endDuration >= startDuration){
-            timeValue.setValues(startDuration,endDuration);
-        }else{
-            timeValue.setValues(endDuration, startDuration);
-        }
-
+        timeValue.setValues(startDuration,endDuration);
 
         TimeAnimation timeAnimation = new TimeAnimation();
 
@@ -57,7 +52,6 @@ public class Taper {
         }
         @Override
         public void onAnimationUpdate(long timeValue, HashMap<String, Object> params) {
-            Log.e("ds","timeValue:"+timeValue);
             motion.move(timeValue);
         }
     }
