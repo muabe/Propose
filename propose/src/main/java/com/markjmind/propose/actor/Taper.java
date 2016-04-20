@@ -1,6 +1,7 @@
 package com.markjmind.propose.actor;
 
 import android.animation.Animator;
+import android.util.Log;
 
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.animation.TimeAnimation;
@@ -17,9 +18,7 @@ import java.util.HashMap;
  */
 public class Taper {
     public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
-        boolean result = false;
-
-//        long playDuration = (long)((endDuration - startDuration)/acc);
+        Log.e("ds","start:"+startDuration+" end:"+endDuration);
         if(startDuration>motion.getTotalDuration()){
             startDuration = motion.getTotalDuration();
         }else if(startDuration < 0){
@@ -34,30 +33,32 @@ public class Taper {
             return false;
         }
 
+        AnimationTimeValue timeValue = new AnimationTimeValue(motion);
+        if(endDuration >= startDuration){
+            timeValue.setValues(startDuration,endDuration);
+        }else{
+            timeValue.setValues(endDuration, startDuration);
+        }
 
-        float durationRatio = (float)playDuration/(float)(endDuration - startDuration);
-        AnimationTimeValue timeValue = new AnimationTimeValue(motion, durationRatio);
-        timeValue.setValues(startDuration,endDuration);
 
         TimeAnimation timeAnimation = new TimeAnimation();
+
         timeAnimation.setDuration(playDuration);
         timeAnimation.addTimerValue(timeValue);
         timeAnimation.setAnimatorListener(new TimeAnimationEvent());
         timeAnimation.start();
-        return result;
+        return true;
     }
 
     private class AnimationTimeValue extends TimeValue {
         private Motion motion;
-        private float durationRatio;
-        protected AnimationTimeValue(Motion motion, float durationRatio){
+        protected AnimationTimeValue(Motion motion){
             this.motion = motion;
-            this.durationRatio = durationRatio;
         }
         @Override
         public void onAnimationUpdate(long timeValue, HashMap<String, Object> params) {
-            long duration = (long)(timeValue*durationRatio);
-            motion.move(duration);
+            Log.e("ds","timeValue:"+timeValue);
+            motion.move(timeValue);
         }
     }
 

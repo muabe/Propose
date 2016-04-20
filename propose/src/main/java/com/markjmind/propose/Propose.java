@@ -147,7 +147,7 @@ public class Propose implements View.OnTouchListener{
             if(rubListener!=null) {
                 float diffX = pointEventX.getRaw()- pointEventX.getPreRaw();
                 float diffY = pointEventY.getRaw()- pointEventY.getPreRaw();
-                result = rubListener.rub(diffX, diffY) || result;
+                result = rubListener.rub(diffX, diffY);
             }
             return result;
         }

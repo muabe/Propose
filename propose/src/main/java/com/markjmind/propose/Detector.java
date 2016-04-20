@@ -177,6 +177,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         return result;
     }
 
+
     /******** Fling *******/
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -184,10 +185,35 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);
+            result = fling(pointEventX);
+            result = fling(pointEventY) || result;
+            if(!result){
+                action.setAction(ActionState.STOP);
+            }
         }
         return result;
     }
 
+    private boolean fling(PointEvent pointEvent){
+        boolean result = false;
+        int direction = pointEvent.getDirection();
+        if(pointEvent.getAcceleration() == 0f || direction == Motion.NONE){
+            return false;
+        }
+        MotionsInfo info = motionMap.get(direction);
+        if(info != null){
+            for (Motion motion : info.motions) {
+                long start = motion.getCurrDuration();
+                long end = motion.getTotalDuration();
+                if(end < start){
+                    start = end;
+                    end = motion.getCurrDuration();
+                }
+                result = motion.animate(1000, 500, pointEvent.getAcceleration()) || result;
+            }
+        }
+        return result;
+    }
 
 
     /****************************************** interface and inner class ****************************************/

@@ -67,7 +67,7 @@ public class PointEvent {
     }
 
     protected void setAcceleration(float raw, long time, float density){
-        this.acceleration = ((currRaw-raw)/density)/(time-this.time);
+        this.acceleration = ((raw- this.currRaw)/density)/(time-this.time);
     }
     protected void setAcceleration(float acceleration){
         this.acceleration = acceleration;
