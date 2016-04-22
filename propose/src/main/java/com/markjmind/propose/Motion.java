@@ -283,13 +283,6 @@ public class Motion {
         return this.animate(getCurrDuration(), getTotalDuration());
     }
 
-//    public boolean animate(long startDuration, long endDuration, float accelaration){
-//        if(accelaration == 0f){
-//            return false;
-//        }
-//        return this.animate(startDuration, endDuration, (long)(Math.abs((endDuration-startDuration)/accelaration)));
-//    }
-
     public boolean animate(long startDuration, long endDuration){
         return this.animate(startDuration, endDuration, Math.abs(endDuration-startDuration));
     }

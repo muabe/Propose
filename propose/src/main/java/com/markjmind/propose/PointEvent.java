@@ -15,13 +15,14 @@ public class PointEvent {
     private float acceleration;
     protected int minus, plus;
     private long time;
-    private float currRaw;
     protected long diffTime=0;
+    float density;
 
 
-    protected PointEvent(int minus, int plus){
+    protected PointEvent(int minus, int plus, float density){
         this.minus = minus;
         this.plus = plus;
+        this.density = density;
         reset();
     }
 
@@ -54,9 +55,11 @@ public class PointEvent {
         return raw;
     }
 
-    protected void saveRaw(){
+    protected void setEvent(float raw, long time){
         setPreRaw(this.raw);
-        this.raw = this.currRaw;
+        this.setAcceleration(raw, time);
+        setTime(time);
+        this.raw = raw;
     }
 
     protected float getPreRaw(){
@@ -67,9 +70,9 @@ public class PointEvent {
         this.preRaw = raw;
     }
 
-    protected void setAcceleration(float raw, long time, float density){
+    protected void setAcceleration(float raw, long time){
         diffTime = time-this.time;
-        this.acceleration = ((raw- this.currRaw)/density)/(time-this.time);
+        this.acceleration = ((raw- this.raw)/density)/(time-this.time);
     }
     protected void setAcceleration(float acceleration){
         this.acceleration = acceleration;
@@ -79,24 +82,9 @@ public class PointEvent {
         return acceleration;
     }
 
-    protected void setCurrRaw(float raw, long time){
-        this.currRaw = raw;
-        this.setTime(time);
-    }
-
-    protected void setCurrRawAndAccel(float raw, long time, float density){
-        this.setAcceleration(raw, time, density);
-        this.setCurrRaw(raw, time);
-    }
-
     protected void setTime(long time){
         this.time = time;
     }
-
-    protected float getCurrRaw(){
-        return this.currRaw;
-    }
-
 
     protected int getChangeDirection(float movePoint){
         if((getPoint()+movePoint > 0 && getPoint() < 0)){
@@ -118,21 +106,6 @@ public class PointEvent {
                 return minus;
             }else if(getPrePoint() > 0){
                 return plus;
-            }
-        }
-        return Motion.NONE;
-    }
-
-    protected int getDirectionArg(){
-        if(getPoint() < 0){
-            return -1;
-        }else if(getPoint() > 0){
-            return 1;
-        }else{
-            if(getPrePoint() < 0) {
-                return -1;
-            }else if(getPrePoint() > 0){
-                return 1;
             }
         }
         return Motion.NONE;

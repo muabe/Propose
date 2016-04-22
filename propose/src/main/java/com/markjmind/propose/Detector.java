@@ -34,8 +34,8 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
 
-        pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT);
-        pointEventY = new PointEvent(Motion.UP, Motion.DOWN);
+        pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT, density);
+        pointEventY = new PointEvent(Motion.UP, Motion.DOWN, density);
         action = new ActionState();
         this.detectListener = detectListener;
         reset();
@@ -72,9 +72,9 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     @Override
     public boolean onDown(MotionEvent event) {
         isFirstTouch = true;
-        pointEventX.setCurrRaw(event.getRawX(), event.getEventTime());
+        pointEventX.setEvent(event.getRawX(), event.getEventTime());
         pointEventX.setAcceleration(0f);
-        pointEventY.setCurrRaw(event.getRawY(), event.getEventTime());
+        pointEventY.setEvent(event.getRawY(), event.getEventTime());
         pointEventY.setAcceleration(0f);
         return super.onDown(event);
     }
@@ -127,19 +127,16 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         boolean result = false;
         if(action.getAction() != ActionState.ANIMATION){
             action.setAction(ActionState.SCROLL);
-            pointEventX.setCurrRawAndAccel(e2.getRawX(), e2.getEventTime(), density);
-            pointEventY.setCurrRawAndAccel(e2.getRawY(), e2.getEventTime(), density);
-
             if(isFirstTouch){ //최초 스크롤시
                 isFirstTouch = false;
-                pointEventX.saveRaw();
-                pointEventY.saveRaw();
+                pointEventX.setEvent(e2.getRawX(), e2.getEventTime());
+                pointEventY.setEvent(e2.getRawY(), e2.getEventTime());
                 pointEventX.setPreRaw(e2.getRawX());
-                pointEventY.setPreRaw(e2.getRawX());
+                pointEventY.setPreRaw(e2.getRawY());
                 result = true;
             } else {
-                result = scroll(e2.getRawX(), pointEventX);
-                result = scroll(e2.getRawY(), pointEventY) || result;
+                result = scroll(e2.getRawX(), pointEventX, e2.getEventTime());
+                result = scroll(e2.getRawY(), pointEventY, e2.getEventTime()) || result;
 
                 result = detectListener.onScroll(pointEventX, pointEventY) || result;
             }
@@ -148,9 +145,10 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         return result;
     }
 
-    private boolean scroll(float raw, PointEvent pointEvent){
+    private boolean scroll(float raw, PointEvent pointEvent, long time){
         float diff = raw - pointEvent.getRaw();
-        pointEvent.saveRaw();
+        pointEvent.setEvent(raw, time);
+        Log.e("raw", ""+pointEvent.getRaw()/density);
         int direction = pointEvent.getDirection(diff);
 
         boolean result = false;
@@ -222,39 +220,15 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
                         (pointEvent.minus == direction && pointEvent.getAcceleration() > 0)){
                     end = 0;
                 }
-                long dis = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/acceleration);
-                Log.e("dd",""+dis);
+                long playTime = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/acceleration);
 
-                result = motion.animate(start, end, dis) || result;
-//                result = motion.animate(start, end, acceleration) || result;
+                result = motion.animate(start, end, playTime) || result;
             }
         }
         return result;
     }
 
-    private boolean fling(PointEvent pointEvent){
-        boolean result = false;
-        int direction = pointEvent.getDirection();
-        if(pointEvent.diffTime == 0f || direction == Motion.NONE){
-            return false;
-        }
-        MotionsInfo info = motionMap.get(direction);
-        if(info != null){
-            for (Motion motion : info.motions) {
-                long start = motion.getCurrDuration();
-                long end = motion.getTotalDuration();
-                if((pointEvent.plus == direction && pointEvent.getAcceleration() < 0) ||
-                        (pointEvent.minus == direction && pointEvent.getAcceleration() > 0)){
-                    end = 0;
-                }
-                long dis = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/pointEvent.diffTime);
-                Log.e("dd",""+dis);
 
-                result = motion.animate(start, end, dis) || result;
-            }
-        }
-        return result;
-    }
 
     /****************************************** interface and inner class ****************************************/
 
