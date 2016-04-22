@@ -30,7 +30,7 @@ public class Mover {
     }
 
     private long getDurationToDistance(Motion motion, float distance){
-        long duration = motion.getDistanceToDuration(Math.abs(distance));
+        long duration = motion.getDurationToDistance(Math.abs(distance));
         if(duration >= motion.getTotalDuration()){
             if(Motion.STATUS.end.equals(motion.getStatus())){
                 return -1;
@@ -44,7 +44,7 @@ public class Mover {
     }
 
     private long getPointToDuration(Motion motion, PointEvent pointEvent){
-        long duration = motion.getDistanceToDuration(pointEvent.getAbsPoint());
+        long duration = motion.getDurationToDistance(pointEvent.getAbsPoint());
         if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
             pointEvent.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
             if(Motion.STATUS.end.equals(motion.getStatus())){

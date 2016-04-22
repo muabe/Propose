@@ -28,6 +28,9 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     protected int horizontalPriority = Motion.RIGHT;
     protected int verticalPriority = Motion.UP;
 
+    private float maxAcceleration = 5f;
+    private float minAcceleration = 0.5f;
+
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
 
@@ -185,9 +188,10 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);
-            float acceleration = pointEventX.getAcceleration();
-            if(pointEventX.getAcceleration() < pointEventY.getAcceleration()){
-                acceleration = pointEventY.getAcceleration();
+            float acceleration = Math.abs(pointEventX.getAcceleration());
+
+            if(acceleration < Math.abs(pointEventY.getAcceleration())){
+                acceleration = Math.abs(pointEventY.getAcceleration());
             }
 
             result = fling(pointEventX, acceleration);
@@ -204,22 +208,53 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         int direction = pointEvent.getDirection();
         if(acceleration == 0f || direction == Motion.NONE){
             return false;
+        }else if(acceleration > maxAcceleration){
+            acceleration = maxAcceleration;
+        }else if(acceleration < minAcceleration){
+            acceleration = minAcceleration;
         }
         MotionsInfo info = motionMap.get(direction);
         if(info != null){
             for (Motion motion : info.motions) {
                 long start = motion.getCurrDuration();
                 long end = motion.getTotalDuration();
-                if(pointEvent.getAcceleration() < 0){
+                if((pointEvent.plus == direction && pointEvent.getAcceleration() < 0) ||
+                        (pointEvent.minus == direction && pointEvent.getAcceleration() > 0)){
                     end = 0;
                 }
-                Log.e("ds","start:"+start+" end:"+end);
-                result = motion.animate(start, end, acceleration) || result;
+                long dis = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/acceleration);
+                Log.e("dd",""+dis);
+
+                result = motion.animate(start, end, dis) || result;
+//                result = motion.animate(start, end, acceleration) || result;
             }
         }
         return result;
     }
 
+    private boolean fling(PointEvent pointEvent){
+        boolean result = false;
+        int direction = pointEvent.getDirection();
+        if(pointEvent.diffTime == 0f || direction == Motion.NONE){
+            return false;
+        }
+        MotionsInfo info = motionMap.get(direction);
+        if(info != null){
+            for (Motion motion : info.motions) {
+                long start = motion.getCurrDuration();
+                long end = motion.getTotalDuration();
+                if((pointEvent.plus == direction && pointEvent.getAcceleration() < 0) ||
+                        (pointEvent.minus == direction && pointEvent.getAcceleration() > 0)){
+                    end = 0;
+                }
+                long dis = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/pointEvent.diffTime);
+                Log.e("dd",""+dis);
+
+                result = motion.animate(start, end, dis) || result;
+            }
+        }
+        return result;
+    }
 
     /****************************************** interface and inner class ****************************************/
 

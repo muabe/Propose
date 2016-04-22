@@ -142,7 +142,7 @@ public class Motion {
      * @param distance 거리
      * @return duration
      */
-    public long getDistanceToDuration(float distance){
+    public long getDurationToDistance(float distance){
         if(motionDistance==0){
             return 0;
         }
@@ -154,7 +154,7 @@ public class Motion {
      * @param duration
      * @return distance
      */
-    protected float getDurationToDistance(long duration){
+    protected float getDistanceToDuration(long duration){
         if(totalDuration==0){
             return 0f;
         }
@@ -172,12 +172,12 @@ public class Motion {
 
     protected void setCurrDistance(float distance){
         this.currDistance = distance;
-        this.currDuration = getDistanceToDuration(distance);
+        this.currDuration = getDurationToDistance(distance);
     }
 
     protected void setCurrDuration(long duration){
         this.currDuration = duration;
-        this.currDistance = getDurationToDistance(duration);
+        this.currDistance = getDistanceToDuration(duration);
     }
 
     public void setStatus(STATUS status){
@@ -275,7 +275,7 @@ public class Motion {
     }
 
     public boolean moveDistance(float distance){
-        long duration = getDistanceToDuration(distance);
+        long duration = getDurationToDistance(distance);
         return this.move(duration);
     }
 
@@ -283,12 +283,12 @@ public class Motion {
         return this.animate(getCurrDuration(), getTotalDuration());
     }
 
-    public boolean animate(long startDuration, long endDuration, float accelaration){
-        if(accelaration == 0f){
-            return false;
-        }
-        return this.animate(startDuration, endDuration, (long)(Math.abs((endDuration-startDuration)/accelaration)));
-    }
+//    public boolean animate(long startDuration, long endDuration, float accelaration){
+//        if(accelaration == 0f){
+//            return false;
+//        }
+//        return this.animate(startDuration, endDuration, (long)(Math.abs((endDuration-startDuration)/accelaration)));
+//    }
 
     public boolean animate(long startDuration, long endDuration){
         return this.animate(startDuration, endDuration, Math.abs(endDuration-startDuration));

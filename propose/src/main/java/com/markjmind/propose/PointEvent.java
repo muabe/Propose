@@ -16,6 +16,7 @@ public class PointEvent {
     protected int minus, plus;
     private long time;
     private float currRaw;
+    protected long diffTime=0;
 
 
     protected PointEvent(int minus, int plus){
@@ -67,6 +68,7 @@ public class PointEvent {
     }
 
     protected void setAcceleration(float raw, long time, float density){
+        diffTime = time-this.time;
         this.acceleration = ((raw- this.currRaw)/density)/(time-this.time);
     }
     protected void setAcceleration(float acceleration){
@@ -116,6 +118,21 @@ public class PointEvent {
                 return minus;
             }else if(getPrePoint() > 0){
                 return plus;
+            }
+        }
+        return Motion.NONE;
+    }
+
+    protected int getDirectionArg(){
+        if(getPoint() < 0){
+            return -1;
+        }else if(getPoint() > 0){
+            return 1;
+        }else{
+            if(getPrePoint() < 0) {
+                return -1;
+            }else if(getPrePoint() > 0){
+                return 1;
             }
         }
         return Motion.NONE;
