@@ -28,8 +28,8 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     protected int horizontalPriority = Motion.RIGHT;
     protected int verticalPriority = Motion.UP;
 
-    private float maxAcceleration = 5f;
-    private float minAcceleration = 0.5f;
+    private float maxVelocity = 5f;
+    private float minVelocity = 0.5f;
 
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
@@ -73,9 +73,9 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     public boolean onDown(MotionEvent event) {
         isFirstTouch = true;
         pointEventX.setEvent(event.getRawX(), event.getEventTime());
-        pointEventX.setAcceleration(0f);
+        pointEventX.setVelocity(0f);
         pointEventY.setEvent(event.getRawY(), event.getEventTime());
-        pointEventY.setAcceleration(0f);
+        pointEventY.setVelocity(0f);
         return super.onDown(event);
     }
 
@@ -83,16 +83,23 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     /******** Up *******/
     public boolean onUp(MotionEvent event){
         if(action.getAction() == ActionState.SCROLL){
-            action.setAction(ActionState.STOP);
+            return moveUp();
         }
         return false;
     }
 
+    private boolean moveUp(){
+        Log.i("Detector", "moveUp");
+        boolean result = false;
+        result = tapUp(pointEventX, horizontalPriority);
+        result = tapUp(pointEventY, verticalPriority) || result;
+        return result;
+    }
 
     /******** TapUp *******/
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
-        Log.i("Detector", "Tap:1");
+        Log.i("Detector", "onSingleTapUp");
         boolean result;
         result = tapUp(pointEventX, horizontalPriority);
         result = tapUp(pointEventY, verticalPriority) || result;
@@ -148,7 +155,6 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     private boolean scroll(float raw, PointEvent pointEvent, long time){
         float diff = raw - pointEvent.getRaw();
         pointEvent.setEvent(raw, time);
-        Log.e("raw", ""+pointEvent.getRaw()/density);
         int direction = pointEvent.getDirection(diff);
 
         boolean result = false;
@@ -182,18 +188,18 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     /******** Fling *******/
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("Detector", "flingX:"+pointEventX.getAcceleration()+ " Y:"+pointEventY.getAcceleration()) ;
+        Log.i("Detector", "flingX:"+pointEventX.getVelocity()+ " Y:"+pointEventY.getVelocity()) ;
         boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
             action.setAction(ActionState.FlING);
-            float acceleration = Math.abs(pointEventX.getAcceleration());
+            float velocity = Math.abs(pointEventX.getVelocity());
 
-            if(acceleration < Math.abs(pointEventY.getAcceleration())){
-                acceleration = Math.abs(pointEventY.getAcceleration());
+            if(velocity < Math.abs(pointEventY.getVelocity())){
+                velocity = Math.abs(pointEventY.getVelocity());
             }
 
-            result = fling(pointEventX, acceleration);
-            result = fling(pointEventY, acceleration) || result;
+            result = fling(pointEventX, velocity);
+            result = fling(pointEventY, velocity) || result;
             if(!result){
                 action.setAction(ActionState.STOP);
             }
@@ -201,26 +207,26 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         return result;
     }
 
-    private boolean fling(PointEvent pointEvent, float acceleration){
+    private boolean fling(PointEvent pointEvent, float velocity){
         boolean result = false;
         int direction = pointEvent.getDirection();
-        if(acceleration == 0f || direction == Motion.NONE){
+        if(velocity == 0f || direction == Motion.NONE){
             return false;
-        }else if(acceleration > maxAcceleration){
-            acceleration = maxAcceleration;
-        }else if(acceleration < minAcceleration){
-            acceleration = minAcceleration;
+        }else if(velocity > maxVelocity){
+            velocity = maxVelocity;
+        }else if(velocity < minVelocity){
+            velocity = minVelocity;
         }
         MotionsInfo info = motionMap.get(direction);
         if(info != null){
             for (Motion motion : info.motions) {
                 long start = motion.getCurrDuration();
                 long end = motion.getTotalDuration();
-                if((pointEvent.plus == direction && pointEvent.getAcceleration() < 0) ||
-                        (pointEvent.minus == direction && pointEvent.getAcceleration() > 0)){
+                if((pointEvent.plus == direction && pointEvent.getVelocity() < 0) ||
+                        (pointEvent.minus == direction && pointEvent.getVelocity() > 0)){
                     end = 0;
                 }
-                long playTime = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/acceleration);
+                long playTime = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/velocity);
 
                 result = motion.animate(start, end, playTime) || result;
             }

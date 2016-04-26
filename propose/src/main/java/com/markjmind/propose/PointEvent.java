@@ -12,7 +12,7 @@ public class PointEvent {
     private float prePoint;
     private float raw;
     private float preRaw;
-    private float acceleration;
+    private float velocity;
     protected int minus, plus;
     private long time;
     protected long diffTime=0;
@@ -30,7 +30,7 @@ public class PointEvent {
         point = 0f;
         prePoint = 0f;
         raw = 0f;
-        acceleration = 0f;
+        velocity = 0f;
     }
 
     public float getAbsPoint(){
@@ -57,7 +57,7 @@ public class PointEvent {
 
     protected void setEvent(float raw, long time){
         setPreRaw(this.raw);
-        this.setAcceleration(raw, time);
+        this.setVelocity(raw, time);
         setTime(time);
         this.raw = raw;
     }
@@ -70,16 +70,16 @@ public class PointEvent {
         this.preRaw = raw;
     }
 
-    protected void setAcceleration(float raw, long time){
+    protected void setVelocity(float raw, long time){
         diffTime = time-this.time;
-        this.acceleration = ((raw- this.raw)/density)/(time-this.time);
+        this.velocity = ((raw- this.raw)/density)/(time-this.time);
     }
-    protected void setAcceleration(float acceleration){
-        this.acceleration = acceleration;
+    protected void setVelocity(float velocity){
+        this.velocity = velocity;
     }
 
-    protected float getAcceleration(){
-        return acceleration;
+    protected float getVelocity(){
+        return velocity;
     }
 
     protected void setTime(long time){

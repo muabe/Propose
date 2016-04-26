@@ -65,6 +65,7 @@ public class Taper {
 //            if(proposePg.isMotionStart){
 //                proposePg.endMotionEvent();
 //            }
+
         }
         @Override
         public void onAnimationCancel(Animator animation) {
