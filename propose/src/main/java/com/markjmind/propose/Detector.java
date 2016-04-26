@@ -28,8 +28,10 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     protected int horizontalPriority = Motion.RIGHT;
     protected int verticalPriority = Motion.UP;
 
+    /** 속성변경 옵션으로 지원할수 있도록 하기**/
     private float maxVelocity = 5f;
     private float minVelocity = 0.5f;
+    private float gravity = 0.5f;
 
     protected Detector(float density, DetectListener detectListener){
         this.density = density;
@@ -68,6 +70,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
 
     /****************************************** Gesture ****************************************/
 
+
     /******** Down *******/
     @Override
     public boolean onDown(MotionEvent event) {
@@ -82,17 +85,32 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
 
     /******** Up *******/
     public boolean onUp(MotionEvent event){
+        boolean result = false;
         if(action.getAction() == ActionState.SCROLL){
-            return moveUp();
+            result =  moveUp(pointEventX);
+            result =  moveUp(pointEventY) || result;
         }
-        return false;
+        return result;
     }
 
-    private boolean moveUp(){
+    private boolean moveUp(PointEvent pointEvent){
         Log.i("Detector", "moveUp");
         boolean result = false;
-        result = tapUp(pointEventX, horizontalPriority);
-        result = tapUp(pointEventY, verticalPriority) || result;
+        int direction = pointEvent.getDirection();
+        if(direction==0){
+            return false;
+        }
+        MotionsInfo info;
+        if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
+            for (Motion motion : info.motions) {
+                boolean isForward = motion.getCurrDuration() >= motion.getTotalDuration()*gravity;
+                if(isForward){
+                    result = motion.animate() || result;
+                }else{
+                    result = motion.animate(motion.getCurrDuration(), 0) || result;
+                }
+            }
+        }
         return result;
     }
 
