@@ -8,6 +8,7 @@ import com.markjmind.propose.animation.TimeAnimation;
 import com.markjmind.propose.animation.TimeValue;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 
 /**
  * <br>捲土重來<br>
@@ -17,8 +18,13 @@ import java.util.HashMap;
  * @since 2016-04-12
  */
 public class Taper {
+    public Hashtable<Integer, TimeAnimation> pool;
+
+    public void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
+        this.pool = pool;
+    }
+
     public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
-        Log.e("ds","start:"+startDuration+" end:"+endDuration);
         if(startDuration>motion.getTotalDuration()){
             startDuration = motion.getTotalDuration();
         }else if(startDuration < 0){
@@ -40,7 +46,7 @@ public class Taper {
 
         timeAnimation.setDuration(playDuration);
         timeAnimation.addTimerValue(timeValue);
-        timeAnimation.setAnimatorListener(new TimeAnimationEvent());
+        timeAnimation.setAnimatorListener(new TimeAnimationEvent(timeAnimation));
         timeAnimation.start();
         return true;
     }
@@ -57,21 +63,33 @@ public class Taper {
     }
 
     private class TimeAnimationEvent implements Animator.AnimatorListener {
+        private int hashcode;
+        private TimeAnimation timeAnimation;
+        public TimeAnimationEvent(TimeAnimation timeAnimation){
+            this.timeAnimation = timeAnimation;
+            this.hashcode = timeAnimation.hashCode();
+        }
+
         @Override
         public void onAnimationStart(Animator animation) {
+            if(pool!=null) {
+                pool.put(timeAnimation.hashCode(), timeAnimation);
+            }
         }
         @Override
         public void onAnimationEnd(Animator animation) {
-//            if(proposePg.isMotionStart){
-//                proposePg.endMotionEvent();
-//            }
+            if(pool!=null) {
+                pool.remove(hashcode);
+            }
 
         }
         @Override
         public void onAnimationCancel(Animator animation) {
+            Log.e("Taper", "Taper : onAnimationCancel");
         }
         @Override
         public void onAnimationRepeat(Animator animation) {
+            Log.e("Taper", "Taper : onAnimationRepeat");
         }
 
     }

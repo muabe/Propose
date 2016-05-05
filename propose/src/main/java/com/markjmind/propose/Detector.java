@@ -14,7 +14,7 @@ import java.util.Hashtable;
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
-public class Detector extends GestureDetector.SimpleOnGestureListener{
+    public class Detector implements GestureDetector.OnGestureListener{
 
     protected PointEvent pointEventX, pointEventY;
 
@@ -33,12 +33,12 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
     private float minVelocity = 0.5f;
     private float gravity = 0.5f;
 
-    protected Detector(float density, DetectListener detectListener){
+    protected Detector(ActionState action, float density, DetectListener detectListener){
         this.density = density;
 
         pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT, density);
         pointEventY = new PointEvent(Motion.UP, Motion.DOWN, density);
-        action = new ActionState();
+        this.action = action;
         this.detectListener = detectListener;
         reset();
     }
@@ -70,6 +70,21 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
 
     /****************************************** Gesture ****************************************/
 
+    @Override
+    public void onShowPress(MotionEvent e) {
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Log.i("Detector", "onLongPress");
+    }
+
+//    @Override
+//    public boolean onDoubleTap(MotionEvent e) {
+//        Log.i("Detector", "onDoubleTap");
+//        return false;
+//    }
+
 
     /******** Down *******/
     @Override
@@ -79,7 +94,7 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         pointEventX.setVelocity(0f);
         pointEventY.setEvent(event.getRawY(), event.getEventTime());
         pointEventY.setVelocity(0f);
-        return super.onDown(event);
+        return false;
     }
 
 
@@ -138,13 +153,6 @@ public class Detector extends GestureDetector.SimpleOnGestureListener{
         }
         return result;
     }
-
-
-    /******** LongPress *******/
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-
 
     /******** Scroll *******/
     @Override

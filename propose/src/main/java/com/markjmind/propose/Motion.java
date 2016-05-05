@@ -5,6 +5,9 @@ import android.util.Log;
 
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
+import com.markjmind.propose.animation.TimeAnimation;
+
+import java.util.Hashtable;
 
 /**
  * <br>捲土重來<br>
@@ -83,18 +86,6 @@ public class Motion {
         setDirection(direction);
     }
 
-    public int getDirectionArg(){
-        return direction/100;
-    }
-
-    protected void setDirection(int direction){
-        this.direction = direction;
-    }
-
-    public int getDirection(){
-        return this.direction;
-    }
-
     protected void init(){
         this.status = STATUS.ready;
         currDuration=0;
@@ -117,6 +108,21 @@ public class Motion {
         }
     }
 
+    protected void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
+        taper.setAnimationPool(pool);
+    }
+
+    public int getDirectionArg(){
+        return direction/100;
+    }
+
+    protected void setDirection(int direction){
+        this.direction = direction;
+    }
+
+    public int getDirection(){
+        return this.direction;
+    }
 
     /**
      * 모션에 따라 motion을 표현할 ValueAnimator 지정한다.

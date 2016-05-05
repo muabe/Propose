@@ -2,6 +2,7 @@ package com.markjmind.propose;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -19,6 +20,9 @@ import com.markjmind.propose.listener.RubListener;
  * @since 2016-03-28
  */
 public class Propose implements View.OnTouchListener{
+    public AnimationPool animationPool;
+    public ActionState state;
+
     protected Context context;
     protected float density;
 
@@ -44,11 +48,25 @@ public class Propose implements View.OnTouchListener{
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        detector = new Detector(density, new DetectEvent());
+        state = new ActionState();
+        detector = new Detector(state, density, new DetectEvent());
         gestureDetector = new GestureDetector(context, detector);
         this.setIsLongpressEnabled(false);
         isTouchDown = false;
         enableMotion = true;
+        animationPool = new AnimationPool() {
+            @Override
+            protected void animationStart() {
+                Log.e("AnimationPool","AnimationPool start");
+                state.setAction(ActionState.ANIMATION);
+            }
+
+            @Override
+            protected void animationEnd() {
+                Log.e("AnimationPool","AnimationPool End");
+                state.setAction(ActionState.STOP);
+            }
+        };
     }
 
 
@@ -61,6 +79,11 @@ public class Propose implements View.OnTouchListener{
         if (enableMotion) {
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
+
+                    if(state.getAction() == ActionState.ANIMATION){
+                        animationPool.cancelAll();
+                        Log.e("sd","캔슬");
+                    }
                     if (motionInit != null) {
                         if(!isTouchDown && detector.getActionState() == ActionState.STOP){
                             motionInit.touchDown(this);
@@ -111,6 +134,7 @@ public class Propose implements View.OnTouchListener{
     }
 
     public Propose addMotion(Motion motion){
+        motion.setAnimationPool(animationPool);
         detector.addMotion(motion.getDirection(), motion);
         return this;
     }

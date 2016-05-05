@@ -9,6 +9,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import java.util.ArrayList;
 
 public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
+
 	private ArrayList<TimeValue> valueList = new ArrayList<>();
 	private boolean isInitListener = false;
 	private ValueAnimator anim;
@@ -34,7 +35,6 @@ public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
 //		for(int i=0;i<valueList.size();i++){
 //			anim.addUpdateListener(valueList.get(i));
 //		}
-		
 	}
 	
 	public void addTimerValue(TimeValue listener){
@@ -68,6 +68,10 @@ public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
 			}
 			anim.start();
 		}
+	}
+
+	public void cancel(){
+		anim.cancel();
 	}
 	
 	public void setDuration(long duration){
