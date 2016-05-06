@@ -79,11 +79,8 @@ public class Propose implements View.OnTouchListener{
         if (enableMotion) {
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
+                    cancel();
 
-                    if(state.getAction() == ActionState.ANIMATION){
-                        animationPool.cancelAll();
-                        Log.e("sd","캔슬");
-                    }
                     if (motionInit != null) {
                         if(!isTouchDown && detector.getActionState() == ActionState.STOP){
                             motionInit.touchDown(this);
@@ -128,6 +125,11 @@ public class Propose implements View.OnTouchListener{
         return result;
     }
 
+    public void cancel(){
+        if(state.getAction() == ActionState.ANIMATION){
+            animationPool.cancelAll();
+        }
+    }
 
     public static float getDensity(Context context){
         return context.getResources().getDisplayMetrics().density;

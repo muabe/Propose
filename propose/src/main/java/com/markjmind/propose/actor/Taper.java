@@ -85,7 +85,10 @@ public class Taper {
         }
         @Override
         public void onAnimationCancel(Animator animation) {
-            Log.e("Taper", "Taper : onAnimationCancel");
+            if(pool!=null && pool.containsKey(hashCode())){
+                pool.remove(hashcode);
+                Log.e("Taper", "Taper : onAnimationCancel");
+            }
         }
         @Override
         public void onAnimationRepeat(Animator animation) {

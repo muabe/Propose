@@ -70,22 +70,6 @@ import java.util.Hashtable;
 
     /****************************************** Gesture ****************************************/
 
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-        Log.i("Detector", "onLongPress");
-    }
-
-//    @Override
-//    public boolean onDoubleTap(MotionEvent e) {
-//        Log.i("Detector", "onDoubleTap");
-//        return false;
-//    }
-
-
     /******** Down *******/
     @Override
     public boolean onDown(MotionEvent event) {
@@ -260,6 +244,15 @@ import java.util.Hashtable;
         return result;
     }
 
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Log.i("Detector", "onLongPress");
+    }
 
 
     /****************************************** interface and inner class ****************************************/

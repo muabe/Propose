@@ -3,7 +3,6 @@ package com.markjmind.propose;
 import com.markjmind.propose.animation.TimeAnimation;
 
 import java.util.Hashtable;
-import java.util.Iterator;
 
 /**
  * <br>捲土重來<br>
@@ -32,22 +31,17 @@ abstract class AnimationPool extends Hashtable<Integer, TimeAnimation> {
     }
 
     protected synchronized void cancelAll(){
-        Iterator iterator = this.keySet().iterator();
         TimeAnimation[] timeAnimation = new TimeAnimation[size()];
         values().toArray(timeAnimation);
         clear();
         for(int i=0;i<timeAnimation.length;i++){
             timeAnimation[i].cancel();
         }
-//        while(iterator.hasNext()){
-//            int hashcode = (int)iterator.next();
-//            TimeAnimation timeAnimation = get(hashcode);
-//            timeAnimation.cancel();
-//        }
     }
 
     protected synchronized void cancel(int hashcode){
         TimeAnimation timeAnimation = get(hashcode);
+        remove(timeAnimation.hashCode());
         timeAnimation.cancel();
     }
 

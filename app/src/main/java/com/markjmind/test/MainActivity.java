@@ -83,6 +83,14 @@ public class MainActivity extends Activity {
 //            }
 //        });
         hello.setOnTouchListener(propose);
+
+
+        findViewById(R.id.Cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                propose.cancel();
+            }
+        });
     }
 
 
