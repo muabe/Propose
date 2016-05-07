@@ -1,5 +1,7 @@
 package com.markjmind.propose;
 
+import java.util.ArrayList;
+
 /**
  * <br>捲土重來<br>
  *
@@ -12,19 +14,42 @@ class ActionState {
     protected static final int SCROLL = 1;
     protected static final int FlING = 2;
     protected static final int ANIMATION = 3;
+    private int state;
 
-      private int action;
+    private ArrayList<Motion> targetList = new ArrayList<>();
+    private ArrayList<StateObserver> observers = new ArrayList<>();
+
+    public interface StateObserver{
+        void onChangeState(int state, ArrayList<Motion> targetList);
+    }
 
     protected ActionState(){
-        action = STOP;
+        state = STOP;
+    }
+
+    protected void addObserver(StateObserver observer){
+        this.observers.add(observer);
+    }
+
+    protected void addTarget(Motion motion){
+        if(!targetList.contains(motion)) {
+            targetList.add(motion);
+        }
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public synchronized void setState(int state){
+        this.state = state;
+        if(this.state==STOP){
+            for(StateObserver observer : observers){
+                observer.onChangeState(state, targetList);
+            }
+            targetList.clear();
+        }
     }
 
 
-    public int getAction() {
-        return action;
-    }
-
-    public void setAction(int action){
-        this.action = action;
-    }
 }

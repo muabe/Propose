@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import com.markjmind.propose.listener.MotionInitor;
 import com.markjmind.propose.listener.RubListener;
 
+import java.util.ArrayList;
+
 /**
  * <br>捲土重來<br>
  *
@@ -58,15 +60,29 @@ public class Propose implements View.OnTouchListener{
             @Override
             protected void animationStart() {
                 Log.e("AnimationPool","AnimationPool start");
-                state.setAction(ActionState.ANIMATION);
+                state.setState(ActionState.ANIMATION);
             }
 
             @Override
             protected void animationEnd() {
                 Log.e("AnimationPool","AnimationPool End");
-                state.setAction(ActionState.STOP);
+                state.setState(ActionState.STOP);
             }
         };
+        state.addObserver(new ActionState.StateObserver() {
+            @Override
+            public void onChangeState(int state, ArrayList<Motion> targetList) {
+                if(state == ActionState.STOP){
+                    for(Motion motion : targetList){
+                        if(motion.getStatus().equals(Motion.STATUS.ready)){
+                            Log.e("STATUS","STATUS 레디");
+                        }else if(motion.getStatus().equals(Motion.STATUS.end)){
+                            Log.e("STATUS","STATUS 엔드");
+                        }
+                    }
+                }
+            }
+        });
     }
 
 
@@ -126,7 +142,7 @@ public class Propose implements View.OnTouchListener{
     }
 
     public void cancel(){
-        if(state.getAction() == ActionState.ANIMATION){
+        if(state.getState() == ActionState.ANIMATION){
             animationPool.cancelAll();
         }
     }
@@ -137,7 +153,9 @@ public class Propose implements View.OnTouchListener{
 
     public Propose addMotion(Motion motion){
         motion.setAnimationPool(animationPool);
+        motion.setActionState(state);
         detector.addMotion(motion.getDirection(), motion);
+
         return this;
     }
 

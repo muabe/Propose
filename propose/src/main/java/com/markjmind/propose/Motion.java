@@ -1,7 +1,6 @@
 package com.markjmind.propose;
 
 import android.animation.ValueAnimator;
-import android.util.Log;
 
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
@@ -40,6 +39,7 @@ public class Motion {
         ready,run,end
     }
 
+    private ActionState state;
     protected STATUS status;
     protected MotionBuilder builder;
 
@@ -110,6 +110,10 @@ public class Motion {
 
     protected void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
         taper.setAnimationPool(pool);
+    }
+
+    protected void setActionState(ActionState state){
+        this.state = state;
     }
 
     public int getDirectionArg(){
@@ -187,9 +191,11 @@ public class Motion {
     }
 
     public void setStatus(STATUS status){
-        this.status = status;
-        if(!status.equals(STATUS.run)) {
-            Log.i("Status", direction+":"+status.toString());
+        if(!this.status.equals(status)){
+            this.status = status;
+            if(state!=null){
+                state.addTarget(this);
+            }
         }
     }
 

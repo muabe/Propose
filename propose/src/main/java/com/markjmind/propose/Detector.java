@@ -19,7 +19,7 @@ import java.util.Hashtable;
     protected PointEvent pointEventX, pointEventY;
 
     private Hashtable<Integer, MotionsInfo> motionMap = new Hashtable<>();
-    private ActionState action;
+    private ActionState state;
     private boolean isFirstTouch;
     private float density;
 
@@ -33,19 +33,19 @@ import java.util.Hashtable;
     private float minVelocity = 0.5f;
     private float gravity = 0.5f;
 
-    protected Detector(ActionState action, float density, DetectListener detectListener){
+    protected Detector(ActionState state, float density, DetectListener detectListener){
         this.density = density;
 
         pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT, density);
         pointEventY = new PointEvent(Motion.UP, Motion.DOWN, density);
-        this.action = action;
+        this.state = state;
         this.detectListener = detectListener;
         reset();
     }
 
     protected void reset(){
         isFirstTouch = true;
-        action.setAction(ActionState.STOP);
+        state.setState(ActionState.STOP);
     }
 
 
@@ -61,10 +61,11 @@ import java.util.Hashtable;
         }
         info.add(motion);
         motionMap.put(direction, info);
+
     }
 
     protected int getActionState() {
-        return this.action.getAction();
+        return this.state.getState();
     }
 
 
@@ -85,9 +86,12 @@ import java.util.Hashtable;
     /******** Up *******/
     public boolean onUp(MotionEvent event){
         boolean result = false;
-        if(action.getAction() == ActionState.SCROLL){
+        if(state.getState() == ActionState.SCROLL){
             result =  moveUp(pointEventX);
             result =  moveUp(pointEventY) || result;
+            if(!result){
+                state.setState(ActionState.STOP);
+            }
         }
         return result;
     }
@@ -142,8 +146,8 @@ import java.util.Hashtable;
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         boolean result = false;
-        if(action.getAction() != ActionState.ANIMATION){
-            action.setAction(ActionState.SCROLL);
+        if(state.getState() != ActionState.ANIMATION){
+            state.setState(ActionState.SCROLL);
             if(isFirstTouch){ //최초 스크롤시
                 isFirstTouch = false;
                 pointEventX.setEvent(e2.getRawX(), e2.getEventTime());
@@ -200,8 +204,8 @@ import java.util.Hashtable;
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         Log.i("Detector", "flingX:"+pointEventX.getVelocity()+ " Y:"+pointEventY.getVelocity()) ;
         boolean result = false;
-        if(action.getAction() == ActionState.SCROLL){
-            action.setAction(ActionState.FlING);
+        if(state.getState() == ActionState.SCROLL){
+            state.setState(ActionState.FlING);
             float velocity = Math.abs(pointEventX.getVelocity());
 
             if(velocity < Math.abs(pointEventY.getVelocity())){
@@ -211,7 +215,7 @@ import java.util.Hashtable;
             result = fling(pointEventX, velocity);
             result = fling(pointEventY, velocity) || result;
             if(!result){
-                action.setAction(ActionState.STOP);
+                state.setState(ActionState.STOP);
             }
         }
         return result;
