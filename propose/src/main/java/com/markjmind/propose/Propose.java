@@ -75,9 +75,9 @@ public class Propose implements View.OnTouchListener{
                 if(state == ActionState.STOP){
                     for(Motion motion : targetList){
                         if(motion.getStatus().equals(Motion.STATUS.ready)){
-                            Log.e("STATUS","STATUS 레디");
+                            motion.setForward(true);
                         }else if(motion.getStatus().equals(Motion.STATUS.end)){
-                            Log.e("STATUS","STATUS 엔드");
+                            motion.setForward(false);
                         }
                     }
                 }
@@ -96,7 +96,6 @@ public class Propose implements View.OnTouchListener{
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
                     cancel();
-
                     if (motionInit != null) {
                         if(!isTouchDown && detector.getActionState() == ActionState.STOP){
                             motionInit.touchDown(this);

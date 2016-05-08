@@ -73,7 +73,7 @@ public class Taper {
         @Override
         public void onAnimationStart(Animator animation) {
             if(pool!=null) {
-                pool.put(timeAnimation.hashCode(), timeAnimation);
+                pool.put(hashcode, timeAnimation);
             }
         }
         @Override

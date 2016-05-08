@@ -43,10 +43,10 @@ class ActionState {
 
     public synchronized void setState(int state){
         this.state = state;
+        for(StateObserver observer : observers){
+            observer.onChangeState(state, targetList);
+        }
         if(this.state==STOP){
-            for(StateObserver observer : observers){
-                observer.onChangeState(state, targetList);
-            }
             targetList.clear();
         }
     }

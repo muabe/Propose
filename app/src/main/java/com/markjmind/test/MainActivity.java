@@ -67,12 +67,6 @@ public class MainActivity extends Activity {
         down.play(tranDown, (int) (max)).with(rotDown);
         propose.addMotion(down);
 
-
-
-
-
-
-
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;
 //            @Override

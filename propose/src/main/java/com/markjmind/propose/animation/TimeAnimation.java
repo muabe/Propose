@@ -32,9 +32,6 @@ public class TimeAnimation implements AnimatorUpdateListener,AnimatorListener{
 		};
 		anim.setEvaluator(evaluator);
 		anim.addUpdateListener(this);
-//		for(int i=0;i<valueList.size();i++){
-//			anim.addUpdateListener(valueList.get(i));
-//		}
 	}
 	
 	public void addTimerValue(TimeValue listener){

@@ -106,11 +106,16 @@ import java.util.Hashtable;
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                boolean isForward = motion.getCurrDuration() >= motion.getTotalDuration()*gravity;
-                if(isForward){
+                boolean forward = motion.getCurrDuration() >= motion.getTotalDuration()*gravity;
+                Log.e("sd", forward+":"+motion.isForward());
+                if(forward == motion.isForward()){
                     result = motion.animate() || result;
                 }else{
-                    result = motion.animate(motion.getCurrDuration(), 0) || result;
+                    if(motion.isForward()) {
+                        result = motion.animate(motion.getCurrDuration(), 0) || result;
+                    }else{
+                        result = motion.animate(motion.getCurrDuration(), motion.getTotalDuration()) || result;
+                    }
                 }
             }
         }

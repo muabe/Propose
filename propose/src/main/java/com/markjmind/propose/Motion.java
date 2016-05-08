@@ -46,6 +46,9 @@ public class Motion {
     private int direction;
 
 
+    /**현재 애니메이션 진행방향*/
+    private boolean isForward=true;
+
     protected boolean isOver=false;
     /**총 움직이는 거리*/
     protected float motionDistance=0f;
@@ -55,10 +58,6 @@ public class Motion {
     protected float currDistance = 0f;
     /**현재 duration위치*/
     protected long currDuration=0;
-    /**현재 애니메이션 진행방향*/
-    private boolean isForward=true;
-    /**JwPoint의 reverse와 다른다. 진행방향이 아닌 방향시점 상태를 나타냄*/
-    protected boolean reverse=false;
 
     /**move중 tabUp 사용 설정*/
     protected boolean enableMoveTabUp=true;
@@ -94,7 +93,6 @@ public class Motion {
         motionDistance=0f;
         currDistance = 0f;
         isForward=true;
-        reverse=false;
         enableMoveTabUp=true;
         enableSingleTabUp=true;
         enableFling=true;
@@ -106,6 +104,11 @@ public class Motion {
         if(builder!=null) {
             builder.clear();
         }
+    }
+
+    private int loop = Loop.REVERSE;
+    public void setLoop(int loop){
+        this.loop = loop;
     }
 
     protected void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
@@ -207,10 +210,6 @@ public class Motion {
         this.isForward = isForward;
     }
 
-    protected void setReverse(boolean reverse){
-        this.reverse = reverse;
-    }
-
     /*********************************** 추가 ***********************************
 
     /**
@@ -292,6 +291,15 @@ public class Motion {
     }
 
     public boolean animate(){
+        if(loop == Loop.REVERSE){
+            if(!isForward){
+                return this.animate(getCurrDuration(), 0);
+            }
+        }else if(loop == Loop.RESTART){
+            if(status == STATUS.end){
+                this.animate(0, getTotalDuration());
+            }
+        }
         return this.animate(getCurrDuration(), getTotalDuration());
     }
 
