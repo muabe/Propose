@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.markjmind.propose.Loop;
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.Motion;
 
@@ -66,6 +67,9 @@ public class MainActivity extends Activity {
         final Motion down = new Motion(Motion.DOWN);
         down.play(tranDown, (int) (max)).with(rotDown);
         propose.addMotion(down);
+
+        right.setLoop(Loop.RESTART);
+        up.setLoop(Loop.RESTART);
 
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;
