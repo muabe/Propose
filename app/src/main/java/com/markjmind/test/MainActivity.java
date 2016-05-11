@@ -3,11 +3,13 @@ package com.markjmind.test;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.markjmind.propose.Propose;
 import com.markjmind.propose.Motion;
+import com.markjmind.propose.Propose;
+import com.markjmind.propose.listener.ProposeListener;
 
 public class MainActivity extends Activity {
     Propose propose;
