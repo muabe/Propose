@@ -259,21 +259,39 @@ public class Motion {
     }
     /*********************************** Move ***********************************/
     public boolean move(long duration){
-        if(duration >= getTotalDuration()){
-            if(STATUS.end.equals(getStatus())){
-                return false;
+        if (duration >= getTotalDuration()) {
+            if(loop == Loop.RESTART) {
+                boolean result = false;
+                if (STATUS.end.equals(getStatus())) {
+                    result = moveAndSave(getTotalDuration());
+                }
+                duration = duration%getTotalDuration();
+                if(duration == 0){
+                    setStatus(Motion.STATUS.end);
+                    return result;
+                }
+
+            }else{
+                setStatus(STATUS.run);
+                if (STATUS.end.equals(getStatus())) {
+                    return false;
+                }
+                duration = getTotalDuration();
+                setStatus(Motion.STATUS.end);
             }
-            setStatus(Motion.STATUS.end);
-            duration = getTotalDuration();
-        }else if(duration == 0){
-            if(STATUS.ready.equals(getStatus())){
+        } else if (duration == 0) {
+            if (STATUS.ready.equals(getStatus())) {
                 return false;
             }
             setStatus(STATUS.ready);
-        }else{
+        } else {
             setStatus(STATUS.run);
         }
 
+        return moveAndSave(duration);
+    }
+
+    private boolean moveAndSave(long duration){
         if(mover.move(builder, duration)){
             setCurrDuration(duration);
             if(pointEvent!=null) {
@@ -292,13 +310,13 @@ public class Motion {
     }
 
     public boolean animate(){
-        if(loop == Loop.REVERSE){
-            if(!isForward){
-                return this.animate(getCurrDuration(), 0);
-            }
-        }else if(loop == Loop.RESTART){
+       if(loop == Loop.RESTART){
             if(status == STATUS.end){
                 this.animate(0, getTotalDuration());
+            }
+        }else{
+            if(!isForward){
+                return this.animate(getCurrDuration(), 0);
             }
         }
         return this.animate(getCurrDuration(), getTotalDuration());
