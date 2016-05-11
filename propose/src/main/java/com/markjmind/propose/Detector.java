@@ -107,7 +107,6 @@ import java.util.Hashtable;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
                 boolean forward = motion.getCurrDuration() >= motion.getTotalDuration()*gravity;
-                Log.e("sd", forward+":"+motion.isForward());
                 if(forward == motion.isForward()){
                     result = motion.animate() || result;
                 }else{
@@ -163,8 +162,6 @@ import java.util.Hashtable;
             } else {
                 result = scroll(e2.getRawX(), pointEventX, e2.getEventTime());
                 result = scroll(e2.getRawY(), pointEventY, e2.getEventTime()) || result;
-
-                result = detectListener.onScroll(pointEventX, pointEventY) || result;
             }
 
         }
@@ -198,6 +195,8 @@ import java.util.Hashtable;
         if((info = motionMap.get(direction)) != null){
             for (Motion motion : info.motions) {
                 result = motion.moveDistance(distance) || result;
+
+
             }
         }
         return result;
@@ -267,8 +266,8 @@ import java.util.Hashtable;
     /****************************************** interface and inner class ****************************************/
 
     interface DetectListener {
-        boolean onScroll(PointEvent pointEventX, PointEvent pointEventY);
-        boolean onFling(PointEvent pointEventX, PointEvent pointEventY);
+        boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY);
+        boolean detectFling(PointEvent pointEventX, PointEvent pointEventY);
     }
 
     class MotionsInfo {

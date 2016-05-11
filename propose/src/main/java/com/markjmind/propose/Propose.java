@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.markjmind.propose.listener.MotionInitor;
+import com.markjmind.propose.listener.ProposeListener;
 import com.markjmind.propose.listener.RubListener;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class Propose implements View.OnTouchListener{
 
     private boolean isTouchDown;
     private boolean enableMotion;
+
+    private ProposeListener proposeListener;
 
     public Propose(Context context){
         this.context = context;
@@ -71,8 +74,15 @@ public class Propose implements View.OnTouchListener{
         };
         state.addObserver(new ActionState.StateObserver() {
             @Override
-            public void onChangeState(int state, ArrayList<Motion> targetList) {
-                if(state == ActionState.STOP){
+            public void onChangeState(int preState, int currState, ArrayList<Motion> targetList) {
+
+                if(currState != ActionState.STOP){
+                    if(preState == ActionState.STOP){
+                        if(proposeListener != null){
+                            proposeListener.onStart();
+                        }
+                    }
+                }else{
                     for(Motion motion : targetList){
                         if(motion.getStatus().equals(Motion.STATUS.ready)){
                             motion.setForward(true);
@@ -80,6 +90,16 @@ public class Propose implements View.OnTouchListener{
                             motion.setForward(false);
                         }
                     }
+                    if(proposeListener != null){
+                        proposeListener.onEnd();
+                    }
+                }
+            }
+
+            @Override
+            public void scroll(Motion motion) {
+                if(proposeListener != null){
+                    proposeListener.onScroll(motion, motion.getCurrDuration(), motion.getTotalDuration());
                 }
             }
         });
@@ -146,6 +166,10 @@ public class Propose implements View.OnTouchListener{
         }
     }
 
+    public void setProposeListener(ProposeListener proposeListener){
+        this.proposeListener = proposeListener;
+    }
+
     public static float getDensity(Context context){
         return context.getResources().getDisplayMetrics().density;
     }
@@ -185,7 +209,7 @@ public class Propose implements View.OnTouchListener{
 
     private class DetectEvent implements Detector.DetectListener{
         @Override
-        public boolean onScroll(PointEvent pointEventX, PointEvent pointEventY) {
+        public boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY) {
             boolean result = false;
             if(rubListener!=null) {
                 float diffX = pointEventX.getRaw()- pointEventX.getPreRaw();
@@ -196,7 +220,7 @@ public class Propose implements View.OnTouchListener{
         }
 
         @Override
-        public boolean onFling(PointEvent pointEventX, PointEvent pointEventY) {
+        public boolean detectFling(PointEvent pointEventX, PointEvent pointEventY) {
             return false;
         }
     }
