@@ -270,9 +270,8 @@ public class Motion {
                     setStatus(Motion.STATUS.end);
                     return result;
                 }
-
-            }else{
                 setStatus(STATUS.run);
+            }else{
                 if (STATUS.end.equals(getStatus())) {
                     return false;
                 }
