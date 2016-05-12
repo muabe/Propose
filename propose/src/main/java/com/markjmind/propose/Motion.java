@@ -296,6 +296,7 @@ public class Motion {
             if(pointEvent!=null) {
                 pointEvent.setPoint(currDistance*getDirectionArg());
             }
+            state.scroll(this);
             return true;
         }else{
             return false;

@@ -3,12 +3,13 @@ package com.markjmind.test;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.markjmind.propose.Loop;
-import com.markjmind.propose.Propose;
 import com.markjmind.propose.Motion;
+import com.markjmind.propose.Propose;
+import com.markjmind.propose.listener.ProposeListener;
 
 public class MainActivity extends Activity {
     Propose propose;
@@ -68,9 +69,6 @@ public class MainActivity extends Activity {
         down.play(tranDown, (int) (max)).with(rotDown);
         propose.addMotion(down);
 
-        right.setLoop(Loop.RESTART);
-        up.setLoop(Loop.RESTART);
-
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;
 //            @Override
@@ -82,6 +80,23 @@ public class MainActivity extends Activity {
 //        });
         hello.setOnTouchListener(propose);
 
+        propose.setProposeListener(new ProposeListener() {
+            @Override
+            public void onStart() {
+                Log.e("d", "시작");
+            }
+
+            @Override
+            public void onScroll(Motion motion, long currDuration, long totalDuration) {
+                Log.e("d", "scroll:"+currDuration+"/"+totalDuration);
+            }
+
+
+            @Override
+            public void onEnd() {
+                Log.e("d", "끝");
+            }
+        });
 
         findViewById(R.id.Cancel).setOnClickListener(new View.OnClickListener() {
             @Override

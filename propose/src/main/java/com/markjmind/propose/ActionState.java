@@ -20,7 +20,8 @@ class ActionState {
     private ArrayList<StateObserver> observers = new ArrayList<>();
 
     public interface StateObserver{
-        void onChangeState(int state, ArrayList<Motion> targetList);
+        void onChangeState(int preState, int currState, ArrayList<Motion> targetList);
+        void scroll(Motion motion);
     }
 
     protected ActionState(){
@@ -42,12 +43,19 @@ class ActionState {
     }
 
     public synchronized void setState(int state){
-        this.state = state;
-        for(StateObserver observer : observers){
-            observer.onChangeState(state, targetList);
+        if(this.state != state) {
+            for (StateObserver observer : observers) {
+                observer.onChangeState(this.state, state, targetList);
+            }
+            this.state = state;
+            if (this.state == STOP) {
+                targetList.clear();
+            }
         }
-        if(this.state==STOP){
-            targetList.clear();
+    }
+    public synchronized void scroll(Motion motion){
+        for (StateObserver observer : observers) {
+            observer.scroll(motion);
         }
     }
 
