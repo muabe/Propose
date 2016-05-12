@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.markjmind.propose.Loop;
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.listener.ProposeListener;
@@ -69,6 +70,8 @@ public class MainActivity extends Activity {
         down.play(tranDown, (int) (max)).with(rotDown);
         propose.addMotion(down);
 
+        up.setLoop(Loop.RESTART);
+
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;
 //            @Override
@@ -88,7 +91,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onScroll(Motion motion, long currDuration, long totalDuration) {
-                Log.e("d", "scroll:"+currDuration+"/"+totalDuration);
+                Log.d("d", "scroll:"+currDuration+"/"+totalDuration);
             }
 
 

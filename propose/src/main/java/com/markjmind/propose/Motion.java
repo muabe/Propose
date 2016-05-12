@@ -262,7 +262,7 @@ public class Motion {
         if (duration >= getTotalDuration()) {
             if(loop == Loop.RESTART) {
                 boolean result = false;
-                if (STATUS.end.equals(getStatus())) {
+                if (!STATUS.end.equals(getStatus())) {
                     result = moveAndSave(getTotalDuration());
                 }
                 duration = duration%getTotalDuration();
