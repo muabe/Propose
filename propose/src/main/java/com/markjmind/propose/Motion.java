@@ -5,7 +5,9 @@ import android.animation.ValueAnimator;
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
 import com.markjmind.propose.animation.TimeAnimation;
+import com.markjmind.propose.listener.MotionListener;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -35,13 +37,15 @@ public class Motion {
     private Taper taper = new Taper();
 
     // 현재 위치지점
-    public enum STATUS{
-        ready,run,end
+    public enum Position {
+        start, between, end
     }
 
-    private ActionState state;
-    protected STATUS status;
+    private ActionState globalState;
+    protected Position position;
     protected MotionBuilder builder;
+    private MotionListener motionListener;
+    private boolean isMotionRunning;
 
     private int direction;
 
@@ -81,12 +85,14 @@ public class Motion {
     }
 
     public Motion(int direction){
-        this.status = STATUS.ready;
+        this.position = Position.start;
+        isMotionRunning = false;
         setDirection(direction);
     }
 
     protected void init(){
-        this.status = STATUS.ready;
+        isMotionRunning = false;
+        this.position = Position.start;
         currDuration=0;
         totalDuration=-1;
         isOver=false;
@@ -111,12 +117,37 @@ public class Motion {
         this.loop = loop;
     }
 
+    public void setMotionListener(MotionListener motionListener){
+        this.motionListener = motionListener;
+    }
+
     protected void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
         taper.setAnimationPool(pool);
     }
 
-    protected void setActionState(ActionState state){
-        this.state = state;
+    protected void setActionState(ActionState globalState){
+        this.globalState = globalState;
+        this.globalState.addObserver(new ActionState.StateObserver() {
+            @Override
+            public void onChangeState(int preState, int currState, ArrayList<Motion> targetList) {
+                if(motionListener!=null && isMotionRunning && currState == ActionState.STOP){
+                    motionListener.onEnd(Motion.this);
+                    isMotionRunning = false;
+                }
+            }
+
+            @Override
+            public void scroll(Motion motion) {
+                if(motionListener!=null && motion.equals(Motion.this)){
+                    if(!isMotionRunning){
+                        isMotionRunning = true;
+                        motionListener.onStart(Motion.this);
+                    }
+                    motionListener.onScroll(Motion.this, getCurrDuration(), getTotalDuration());
+
+                }
+            }
+        });
     }
 
     public int getDirectionArg(){
@@ -193,11 +224,11 @@ public class Motion {
         this.currDistance = getDistanceToDuration(duration);
     }
 
-    public void setStatus(STATUS status){
-        if(!this.status.equals(status)){
-            this.status = status;
-            if(state!=null){
-                state.addTarget(this);
+    public void setPosition(Position position){
+        if(!this.position.equals(position)){
+            this.position = position;
+            if(globalState !=null){
+                globalState.addTarget(this);
             }
         }
     }
@@ -216,8 +247,8 @@ public class Motion {
      * 모션의 애니메이션 상태를 리턴해준다.
      * @return
      */
-    public Motion.STATUS getStatus(){
-        return this.status;
+    public Position getPosition(){
+        return this.position;
     }
 
     /**
@@ -262,29 +293,29 @@ public class Motion {
         if (duration >= getTotalDuration()) {
             if(loop == Loop.RESTART) {
                 boolean result = false;
-                if (!STATUS.end.equals(getStatus())) {
+                if (!Position.end.equals(getPosition())) {
                     result = moveAndSave(getTotalDuration());
                 }
                 duration = duration%getTotalDuration();
                 if(duration == 0){
-                    setStatus(Motion.STATUS.end);
+                    setPosition(Position.end);
                     return result;
                 }
-                setStatus(STATUS.run);
+                setPosition(Position.between);
             }else{
-                if (STATUS.end.equals(getStatus())) {
+                if (Position.end.equals(getPosition())) {
                     return false;
                 }
                 duration = getTotalDuration();
-                setStatus(Motion.STATUS.end);
+                setPosition(Position.end);
             }
         } else if (duration == 0) {
-            if (STATUS.ready.equals(getStatus())) {
+            if (Position.start.equals(getPosition())) {
                 return false;
             }
-            setStatus(STATUS.ready);
+            setPosition(Position.start);
         } else {
-            setStatus(STATUS.run);
+            setPosition(Position.between);
         }
 
         return moveAndSave(duration);
@@ -296,7 +327,7 @@ public class Motion {
             if(pointEvent!=null) {
                 pointEvent.setPoint(currDistance*getDirectionArg());
             }
-            state.scroll(this);
+            globalState.scroll(this);
             return true;
         }else{
             return false;
@@ -310,7 +341,7 @@ public class Motion {
 
     public boolean animate(){
        if(loop == Loop.RESTART){
-            if(status == STATUS.end){
+            if(position == Position.end){
                 this.animate(0, getTotalDuration());
             }
         }else{

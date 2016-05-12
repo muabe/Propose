@@ -84,9 +84,9 @@ public class Propose implements View.OnTouchListener{
                     }
                 }else{
                     for(Motion motion : targetList){
-                        if(motion.getStatus().equals(Motion.STATUS.ready)){
+                        if(motion.getPosition().equals(Motion.Position.start)){
                             motion.setForward(true);
-                        }else if(motion.getStatus().equals(Motion.STATUS.end)){
+                        }else if(motion.getPosition().equals(Motion.Position.end)){
                             motion.setForward(false);
                         }
                     }

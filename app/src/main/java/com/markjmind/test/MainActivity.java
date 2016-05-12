@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.markjmind.propose.Loop;
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.Propose;
-import com.markjmind.propose.listener.ProposeListener;
+import com.markjmind.propose.listener.MotionListener;
 
 public class MainActivity extends Activity {
     Propose propose;
@@ -81,25 +81,24 @@ public class MainActivity extends Activity {
 //                return down.moveDistance(count);
 //            }
 //        });
-        hello.setOnTouchListener(propose);
 
-        propose.setProposeListener(new ProposeListener() {
+        right.setMotionListener(new MotionListener() {
             @Override
-            public void onStart() {
-                Log.e("d", "시작");
+            public void onStart(Motion motion) {
+                Log.e("D","모션 시작");
             }
 
             @Override
             public void onScroll(Motion motion, long currDuration, long totalDuration) {
-                Log.d("d", "scroll:"+currDuration+"/"+totalDuration);
+//                Log.d("D", ""+currDuration+"/"+totalDuration);
             }
-
 
             @Override
-            public void onEnd() {
-                Log.e("d", "끝");
+            public void onEnd(Motion motion) {
+                Log.e("D","모션 끝");
             }
         });
+
 
         findViewById(R.id.Cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +106,10 @@ public class MainActivity extends Activity {
                 propose.cancel();
             }
         });
+
+        hello.setOnTouchListener(propose);
+
+
     }
 
 

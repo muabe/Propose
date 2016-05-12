@@ -12,7 +12,6 @@ import java.util.HashMap;
 @SuppressLint("NewApi")
 public abstract class TimeValue implements AnimatorUpdateListener,AnimatorListener{
 	long start=0,end=0;
-	boolean forward = true;
 	HashMap<String,Object> params= new HashMap<>();
 	public int index = 0;
 	private AnimatorListener animationListener;

@@ -32,13 +32,13 @@ public class Mover {
     private long getDurationToDistance(Motion motion, float distance){
         long duration = motion.getDurationToDistance(Math.abs(distance));
         if(duration >= motion.getTotalDuration()){
-            if(Motion.STATUS.end.equals(motion.getStatus())){
+            if(Motion.Position.end.equals(motion.getPosition())){
                 return -1;
             }
-            motion.setStatus(Motion.STATUS.end);
+            motion.setPosition(Motion.Position.end);
             duration = motion.getTotalDuration();
         }else {
-            motion.setStatus(Motion.STATUS.run);
+            motion.setPosition(Motion.Position.between);
         }
         return duration;
     }
@@ -47,13 +47,13 @@ public class Mover {
         long duration = motion.getDurationToDistance(pointEvent.getAbsPoint());
         if(duration >= motion.getTotalDuration()){ //duration(point)가 Max 범위를 벗어 났을때
             pointEvent.setPoint(motion.getMotionDistance() * motion.getDirectionArg());
-            if(Motion.STATUS.end.equals(motion.getStatus())){
+            if(Motion.Position.end.equals(motion.getPosition())){
                 return -1;
             }
-            motion.setStatus(Motion.STATUS.end);
+            motion.setPosition(Motion.Position.end);
             duration = motion.getTotalDuration();
         }else {
-            motion.setStatus(Motion.STATUS.run);
+            motion.setPosition(Motion.Position.between);
         }
         return duration;
     }
