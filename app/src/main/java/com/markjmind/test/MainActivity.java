@@ -1,5 +1,6 @@
 package com.markjmind.test;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,9 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.markjmind.propose.Loop;
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.Propose;
+import com.markjmind.propose.listener.AnimatorAdapter;
 import com.markjmind.propose.listener.MotionListener;
 
 public class MainActivity extends Activity {
@@ -31,11 +32,14 @@ public class MainActivity extends Activity {
         rotRight.setInterpolator(null);
 
         ObjectAnimator tranLeft = ObjectAnimator.ofFloat(hello,View.TRANSLATION_X,0,-max);
-        tranLeft.setDuration(1000);
+        tranLeft.setDuration(700);
         tranLeft.setInterpolator(null);
         ObjectAnimator rotLeft = ObjectAnimator.ofFloat(hello,View.ROTATION,0,-360);
-        rotLeft.setDuration(1000);
+        rotLeft.setDuration(700);
         rotLeft.setInterpolator(null);
+        ObjectAnimator rot = ObjectAnimator.ofFloat(hello,View.ROTATION_Y,0,-360);
+        rot.setDuration(700);
+        rot.setInterpolator(null);
 
         ObjectAnimator tranDown = ObjectAnimator.ofFloat(hello,View.TRANSLATION_Y,center,max);
         tranDown.setDuration(1000);
@@ -55,22 +59,73 @@ public class MainActivity extends Activity {
         propose = new Propose(this);
 
         Motion left = new Motion(Motion.LEFT);
-        left.play(tranLeft, (int) (max)).with(rotLeft);
+        tranLeft.addListener(new AnimatorAdapter() {
+            @Override
+            public void onStart(Animator animator, boolean isReverse) {
+                Log.e("D","1스타트:"+isReverse);
+            }
+
+            @Override
+            public void onScroll(Animator animator, boolean isReverse, long currentDuration, long totalDuration) {
+//                Log.d("D","1스크롤:"+currentDuration+"/"+totalDuration);
+            }
+
+            @Override
+            public void onEnd(Animator animator, boolean isReverse) {
+                Log.e("D","1엔드:"+isReverse);
+            }
+        });
+        rotLeft.addListener(new AnimatorAdapter() {
+            @Override
+            public void onStart(Animator animator, boolean isReverse) {
+                Log.e("D","2스타트:"+isReverse);
+            }
+
+            @Override
+            public void onScroll(Animator animator, boolean isReverse, long currentDuration, long totalDuration) {
+//                Log.d("D","2스크롤:"+currentDuration+"/"+totalDuration);
+            }
+
+            @Override
+            public void onEnd(Animator animator, boolean isReverse) {
+                Log.e("D","2엔드:"+isReverse);
+            }
+        });
+        rot.addListener(new AnimatorAdapter() {
+            @Override
+            public void onStart(Animator animator, boolean isReverse) {
+                Log.e("D","3스타트:"+isReverse);
+            }
+
+            @Override
+            public void onScroll(Animator animator, boolean isReverse, long currentDuration, long totalDuration) {
+//                Log.d("D","3스크롤:"+currentDuration+"/"+totalDuration);
+            }
+
+            @Override
+            public void onEnd(Animator animator, boolean isReverse) {
+                Log.e("D","3엔드:"+isReverse);
+            }
+        });
+
+        left.play(tranLeft, (int) (max)).next(rotLeft).next(rot);
         propose.addMotion(left);
 
         Motion right = new Motion(Motion.RIGHT);
-        right.play(tranRight, (int) (max)).with(rotRight);
+        right.play(tranRight, (int) (max)).next(rotRight);
         propose.addMotion(right);
 
-        Motion up = new Motion(Motion.UP);
-        up.play(tranUp, (int) (max)).with(rotUp);
-        propose.addMotion(up);
 
-        final Motion down = new Motion(Motion.DOWN);
-        down.play(tranDown, (int) (max)).with(rotDown);
-        propose.addMotion(down);
+//
+//        Motion up = new Motion(Motion.UP);
+//        up.play(tranUp, (int) (max)).with(rotUp);
+//        propose.addMotion(up);
+//
+//        final Motion down = new Motion(Motion.DOWN);
+//        down.play(tranDown, (int) (max)).with(rotDown);
+//        propose.addMotion(down);
 
-        up.setLoop(Loop.RESTART);
+//        up.setLoop(Loop.RESTART);
 
 //        propose.setRubListener(new RubListener() {
 //            float count = 0f;
@@ -85,7 +140,7 @@ public class MainActivity extends Activity {
         right.setMotionListener(new MotionListener() {
             @Override
             public void onStart(Motion motion) {
-                Log.e("D","모션 시작");
+//                Log.e("D","모션 시작");
             }
 
             @Override
@@ -95,7 +150,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onEnd(Motion motion) {
-                Log.e("D","모션 끝");
+//                Log.e("D","모션 끝");
             }
         });
 

@@ -1,8 +1,10 @@
 package com.markjmind.propose;
 
-import android.animation.Animator.AnimatorListener;
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+
+import com.markjmind.propose.listener.AnimatorAdapter;
 
 /**
  * <br>捲土重來<br>
@@ -38,11 +40,12 @@ public class MotionScrollItem {
 		this.startDuration = joinDuration+delayDuration;
 		this.endDuration = startDuration+playDuration;
 
-		forwardReady = new ScrollState() {
+		forwardReady = new ScrollState(false) {
 			@Override
 			public boolean between(int index) {
 				currScrollState = forwardStart;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				startEvent(index, true);
 				return true;
 			}
@@ -52,6 +55,7 @@ public class MotionScrollItem {
 				currScrollState = reverseReady;
 				currDuration = playDuration;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				startEvent(index, true);
 				endEvent(index, true);
 				return true;
@@ -64,10 +68,11 @@ public class MotionScrollItem {
 			}
 		};
 
-		forwardStart = new ScrollState() {
+		forwardStart = new ScrollState(false) {
 			@Override
 			public boolean between(int index) {
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				return true;
 			}
 
@@ -76,6 +81,7 @@ public class MotionScrollItem {
 				currScrollState = reverseReady;
 				currDuration = playDuration;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				endEvent(index, true);
 				return true;
 			}
@@ -85,14 +91,16 @@ public class MotionScrollItem {
 				currScrollState = forwardReady;
 				currDuration = 0;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				endEvent(index, false);
 				return true;
 			}
 		};
-		reverseStart = new ScrollState() {
+		reverseStart = new ScrollState(true) {
 			@Override
 			public boolean between(int index) {
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				return true;
 			}
 
@@ -101,6 +109,7 @@ public class MotionScrollItem {
 				currScrollState = reverseReady;
 				currDuration = playDuration;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				endEvent(index, true);
 				return true;
 			}
@@ -110,15 +119,17 @@ public class MotionScrollItem {
 				currScrollState = forwardReady;
 				currDuration = 0;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				endEvent(index, false);
 				return true;
 			}
 		};
-		reverseReady = new ScrollState() {
+		reverseReady = new ScrollState(true) {
 			@Override
 			public boolean between(int index) {
 				currScrollState = reverseStart;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				startEvent(index, false);
 				return true;
 			}
@@ -134,6 +145,7 @@ public class MotionScrollItem {
 				currScrollState = forwardReady;
 				currDuration = 0;
 				anim.setCurrentPlayTime(currDuration);
+				scrollEvent();
 				startEvent(index, false);
 				endEvent(index, false);
 				return true;
@@ -150,42 +162,59 @@ public class MotionScrollItem {
 	
 	public boolean scroll(int index, long duration){
 		currDuration = duration-startDuration;
-		return currScrollState.scroll(index);
+
+		if(currScrollState.scroll(index)){
+
+			return true;
+		}
+		return false;
+
 	}
 
 	private void onEvent(int index, boolean start, boolean isForward){
-		String msg =" : End ";
-		if(start){
-			msg = " : Start ";
-		}
-		if(isForward){
-			msg = msg+"Forward";
-		}else{
-			msg = msg+"reverse";
-		}
+//		String msg =" : End ";
+//		if(start){
+//			msg = " : Start ";
+//		}
+//		if(isForward){
+//			msg = msg+"Forward";
+//		}else{
+//			msg = msg+"reverse";
+//		}
+//		Log.i("d",msg);
 		if(anim.getListeners()!=null){
 			for(int i=0;i<anim.getListeners().size();i++){
-				AnimatorListener al = anim.getListeners().get(i);
+				Animator.AnimatorListener al = anim.getListeners().get(i);
 				//애니메이션 이벤트
-//				if(al instanceof JwAnimatorListener){
-//					((JwAnimatorListener)al).setForward(isForward);
-//					if(start){
-//						((JwAnimatorListener)al).onAnimationStart(anim);
-//					}else{
-//						((JwAnimatorListener)al).onAnimationEnd(anim);
-//					}
-//				}else{
-//					al.onAnimationStart(anim);
-//				}
+				if(al instanceof AnimatorAdapter){
+					((AnimatorAdapter)al).setReverse(!isForward);
+				}
+				if(start){
+					al.onAnimationStart(anim);
+				}else{
+					al.onAnimationEnd(anim);
+				}
 			}
 		}
 	}
-	
+
 	private void startEvent(int index, boolean isForward){
 		this.onEvent(index, true, isForward);
 	}
 	private void endEvent(int index, boolean isForward){
 		this.onEvent(index, false, isForward);
+	}
+
+	private void scrollEvent() {
+		if(anim.getListeners()!=null) {
+			for (int i = 0; i < anim.getListeners().size(); i++) {
+				Animator.AnimatorListener al = anim.getListeners().get(i);
+				//애니메이션 이벤트
+				if (al instanceof AnimatorAdapter) {
+					((AnimatorAdapter) al).onScroll(anim, currScrollState.isReverse, currDuration, anim.getDuration());
+				}
+			}
+		}
 	}
 	
 	protected long getCurrDuration(){
@@ -197,14 +226,20 @@ public class MotionScrollItem {
 	}
 
 	abstract class ScrollState{
+		public boolean isReverse;
+		public ScrollState(boolean isReverse){
+			this.isReverse = isReverse;
+		}
 		public boolean scroll(int index){
+			boolean result = false;
 			if(0<currDuration && currDuration<playDuration){
-				return between(index);
+				result =  between(index);
 			}else if(currDuration>=playDuration){
-				return over(index);
+				result =  over(index);
 			}else{
-				return lesser(index);
+				result =  lesser(index);
 			}
+			return result;
 		}
 		public abstract boolean between(int index);
 		public abstract boolean over(int index);
