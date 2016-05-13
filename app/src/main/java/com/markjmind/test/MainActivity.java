@@ -116,10 +116,9 @@ public class MainActivity extends Activity {
         propose.addMotion(right);
 
 
-//
-//        Motion up = new Motion(Motion.UP);
-//        up.play(tranUp, (int) (max)).with(rotUp);
-//        propose.addMotion(up);
+        Motion up = new Motion(Motion.UP);
+        up.play(tranUp, (int) (max)).with(rotUp);
+        propose.addMotion(up);
 //
 //        final Motion down = new Motion(Motion.DOWN);
 //        down.play(tranDown, (int) (max)).with(rotDown);
