@@ -48,12 +48,10 @@ public class Motion {
     private boolean isMotionRunning;
 
     private int direction;
-
+    private int loop = Loop.REVERSE;
 
     /**현재 애니메이션 진행방향*/
     private boolean isForward=true;
-
-    protected boolean isOver=false;
     /**총 움직이는 거리*/
     protected float motionDistance=0f;
     /**총 duration*/
@@ -63,14 +61,15 @@ public class Motion {
     /**현재 duration위치*/
     protected long currDuration=0;
 
+    /********************** 속성 **********************/
+    /**moveDistance(drag) 사용 설정*/
+    protected boolean enableMove=true;
     /**move중 tabUp 사용 설정*/
     protected boolean enableMoveTabUp=true;
     /**single tabUp 사용 설정*/
     protected boolean enableSingleTabUp=true;
     /**fling 사용 설정*/
     protected boolean enableFling=true;
-    /**moveDistance(drag) 사용 설정*/
-    protected boolean enableMove=true;
     /**reverse 사용 설정*/
     protected boolean enableReverse=true;
     /**tabUp시 duration을 거리로 환산할지 여부*/
@@ -91,11 +90,13 @@ public class Motion {
     }
 
     protected void init(){
-        isMotionRunning = false;
         this.position = Position.start;
+        loop = Loop.REVERSE;
+
+        isMotionRunning = false;
+
         currDuration=0;
         totalDuration=-1;
-        isOver=false;
         motionDistance=0f;
         currDistance = 0f;
         isForward=true;
@@ -110,15 +111,6 @@ public class Motion {
         if(builder!=null) {
             builder.clear();
         }
-    }
-
-    private int loop = Loop.REVERSE;
-    public void setLoop(int loop){
-        this.loop = loop;
-    }
-
-    public void setMotionListener(MotionListener motionListener){
-        this.motionListener = motionListener;
     }
 
     protected void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
@@ -150,17 +142,45 @@ public class Motion {
         });
     }
 
-    public int getDirectionArg(){
-        return direction/100;
-    }
-
     protected void setDirection(int direction){
         this.direction = direction;
     }
 
-    public int getDirection(){
-        return this.direction;
+
+
+    protected void setCurrDistance(float distance){
+        this.currDistance = distance;
+        this.currDuration = getDurationToDistance(distance);
     }
+
+    protected void setCurrDuration(long duration){
+        this.currDuration = duration;
+        this.currDistance = getDistanceToDuration(duration);
+    }
+
+
+
+    protected boolean isForward() {
+        return isForward;
+    }
+
+    protected void setForward(boolean isForward) {
+        this.isForward = isForward;
+    }
+
+    protected void setPointEvent(PointEvent pointEvent){
+        this.pointEvent = pointEvent;
+    }
+
+    public void setPosition(Position position){
+        if(!this.position.equals(position)){
+            this.position = position;
+            if(globalState !=null){
+                globalState.addTarget(this);
+            }
+        }
+    }
+
 
     /**
      * 모션에 따라 motion을 표현할 ValueAnimator 지정한다.
@@ -176,118 +196,6 @@ public class Motion {
         return builder;
     }
 
-    public long getTotalDuration(){
-        return this.totalDuration;
-    }
-
-
-    /**
-     * 거리에 대한 duration을 리턴한다.
-     * @param distance 거리
-     * @return duration
-     */
-    public long getDurationToDistance(float distance){
-        if(motionDistance==0){
-            return 0;
-        }
-        return (long)Math.abs(totalDuration*(distance/motionDistance));
-    }
-
-    /**
-     * duration에 대한 distance를 리턴한다.
-     * @param duration
-     * @return distance
-     */
-    protected float getDistanceToDuration(long duration){
-        if(totalDuration==0){
-            return 0f;
-        }
-        return motionDistance*duration/(float)totalDuration;
-    }
-
-    /**
-     * 모션으로 움직이는 거리를 지정한다.<br>
-     * 기본값은 가로 윈도우의 크기이다.
-     * @param distance
-     */
-    protected void setMotionDistance(float distance){
-        motionDistance = distance;
-    }
-
-    protected void setCurrDistance(float distance){
-        this.currDistance = distance;
-        this.currDuration = getDurationToDistance(distance);
-    }
-
-    protected void setCurrDuration(long duration){
-        this.currDuration = duration;
-        this.currDistance = getDistanceToDuration(duration);
-    }
-
-    public void setPosition(Position position){
-        if(!this.position.equals(position)){
-            this.position = position;
-            if(globalState !=null){
-                globalState.addTarget(this);
-            }
-        }
-    }
-
-    protected boolean isForward() {
-        return isForward;
-    }
-
-    protected void setForward(boolean isForward) {
-        this.isForward = isForward;
-    }
-
-    /*********************************** 추가 ***********************************
-
-    /**
-     * 모션의 애니메이션 상태를 리턴해준다.
-     * @return
-     */
-    public Position getPosition(){
-        return this.position;
-    }
-
-    /**
-     * play할 animation이 있는지 여부<br>
-     * play() 메소드로 애니메이션이 등록했는지 여부이며<br>
-     * 이것을 가지고 해당 모션이 사용되고 있는지 알수 있다.
-     * @return play할 animation이 있는지 여부
-     */
-    public boolean hasAnimation(){
-        if(totalDuration>0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Move시 애니메이션 사용할것인지 여부
-     * @return Move시 애니메이션 사용할것인지 여부
-     */
-    public boolean isEnableMove() {
-        return enableMove;
-    }
-
-    /**
-     * 현재 모션의 Duration을 리턴한다.
-     * @return
-     */
-    public long getCurrDuration(){
-        return currDuration;
-    }
-
-    public float getMotionDistance(){
-        return motionDistance;
-    }
-
-    protected void setPointEvent(PointEvent pointEvent){
-        this.pointEvent = pointEvent;
-    }
     /*********************************** Move ***********************************/
     public boolean move(long duration){
         if (duration >= getTotalDuration()) {
@@ -359,4 +267,139 @@ public class Motion {
     public boolean animate(long startDuration, long endDuration, long playDuration){
         return taper.tap(this, startDuration, endDuration, playDuration);
     }
+
+    /*********************************** 지원함수 ***********************************/
+
+    public void setLoop(int loop){
+        this.loop = loop;
+    }
+
+    /**
+     * play할 animation이 있는지 여부<br>
+     * play() 메소드로 애니메이션이 등록했는지 여부이며<br>
+     * 이것을 가지고 해당 모션이 사용되고 있는지 알수 있다.
+     * @return play할 animation이 있는지 여부
+     */
+    public boolean hasAnimation(){
+        if(totalDuration>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 현재 모션의 Duration을 리턴한다.
+     * @return
+     */
+    public long getCurrDuration(){
+        return currDuration;
+    }
+
+    public float getMotionDistance(){
+        return motionDistance;
+    }
+
+    public void setMotionListener(MotionListener motionListener){
+        this.motionListener = motionListener;
+    }
+
+    public int getDirectionArg(){
+        return direction/100;
+    }
+
+    public int getDirection(){
+        return this.direction;
+    }
+
+    public long getTotalDuration(){
+        return this.totalDuration;
+    }
+
+    /**
+     * 거리에 대한 duration을 리턴한다.
+     * @param distance 거리
+     * @return duration
+     */
+    public long getDurationToDistance(float distance){
+        if(motionDistance==0){
+            return 0;
+        }
+        return (long)Math.abs(totalDuration*(distance/motionDistance));
+    }
+
+    /**
+     * duration에 대한 distance를 리턴한다.
+     * @param duration
+     * @return distance
+     */
+    public float getDistanceToDuration(long duration){
+        if(totalDuration==0){
+            return 0f;
+        }
+        return motionDistance*duration/(float)totalDuration;
+    }
+
+
+    /**
+     * 모션으로 움직이는 거리를 지정한다.<br>
+     * 기본값은 가로 윈도우의 크기이다.
+     * @param distance
+     */
+    public void setMotionDistance(float distance){
+        motionDistance = distance;
+    }
+
+    /**
+     * 모션의 애니메이션 상태를 리턴해준다.
+     * @return
+     */
+    public Position getPosition(){
+        return this.position;
+    }
+
+    /*********************************** 속성 ***********************************/
+
+
+    /**
+     * Move시 애니메이션 사용할것인지 여부
+     * @return Move시 애니메이션 사용할것인지 여부
+     */
+    public boolean isEnableMove() {
+        return enableMove;
+    }
+
+//    /**현재 애니메이션 진행방향*/
+//    private boolean isForward=true;
+    public boolean isReverse(){
+        return !isForward;
+    }
+
+//    /**총 움직이는 거리*/
+//    protected float motionDistance=0f;
+//    /**총 duration*/
+//    protected long totalDuration=-1;
+//    /**현재 distance위치*/
+//    protected float currDistance = 0f;
+//    /**현재 duration위치*/
+//    protected long currDuration=0;
+//
+//    /**move중 tabUp 사용 설정*/
+//    protected boolean enableMoveTabUp=true;
+//    /**single tabUp 사용 설정*/
+//    protected boolean enableSingleTabUp=true;
+//    /**fling 사용 설정*/
+//    protected boolean enableFling=true;
+//    /**moveDistance(drag) 사용 설정*/
+//    protected boolean enableMove=true;
+//    /**reverse 사용 설정*/
+//    protected boolean enableReverse=true;
+//    /**tabUp시 duration을 거리로 환산할지 여부*/
+//    protected boolean enableDuration=true;
+//    /**tabUp시 forward시 gravity비율*/
+//    protected float forwardGravity=0.5f;
+//    /**tabUp시 reverse시 gravity비율*/
+//    protected float reverseGravity=0.5f;
+
+
 }
