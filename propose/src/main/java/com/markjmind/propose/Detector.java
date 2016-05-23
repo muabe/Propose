@@ -144,7 +144,9 @@ import java.util.Hashtable;
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                result = motion.animate() || result;
+                if(motion.isEnableSingleTabUp()) {
+                    result = motion.animate() || result;
+                }
             }
         }
         return result;
@@ -198,17 +200,19 @@ import java.util.Hashtable;
         boolean result = false;
         if((info = motionMap.get(direction)) != null){
             for (Motion motion : info.motions) {
-                if(Motion.Position.end.equals(motion.getPosition())) {
-                    pointEvent.endBuffer = pointEvent.endBuffer + diff;
-                    if(pointEvent.endBuffer*motion.getDirectionArg()>=maxEndBuffer/2){
-                        pointEvent.endBuffer = maxEndBuffer*motion.getDirectionArg()/2;
-                    }else if (pointEvent.endBuffer*motion.getDirectionArg() < -maxEndBuffer) {
-                        diff = pointEvent.endBuffer;
-                        pointEvent.endBuffer = 0f;
+                if(motion.isEnableMove()) {
+                    if (Motion.Position.end.equals(motion.getPosition())) {
+                        pointEvent.endBuffer = pointEvent.endBuffer + diff;
+                        if (pointEvent.endBuffer * motion.getDirectionArg() >= maxEndBuffer / 2) {
+                            pointEvent.endBuffer = maxEndBuffer * motion.getDirectionArg() / 2;
+                        } else if (pointEvent.endBuffer * motion.getDirectionArg() < -maxEndBuffer) {
+                            diff = pointEvent.endBuffer;
+                            pointEvent.endBuffer = 0f;
+                            result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
+                        }
+                    } else {
                         result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
                     }
-                }else{
-                    result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
                 }
             }
         }

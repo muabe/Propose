@@ -62,22 +62,14 @@ public class Motion {
     protected long currDuration=0;
 
     /********************** 속성 **********************/
-    /**moveDistance(drag) 사용 설정*/
-    protected boolean enableMove=true;
-    /**move중 tabUp 사용 설정*/
-    protected boolean enableMoveTabUp=true;
     /**single tabUp 사용 설정*/
-    protected boolean enableSingleTabUp=true;
+    private boolean enableSingleTabUp=true;
+    /**moveDistance(drag) 사용 설정*/
+    private boolean enableMove=true;
+    /**move중 tabUp 사용 설정*/
+    private boolean enableMoveTabUp=true;
     /**fling 사용 설정*/
-    protected boolean enableFling=true;
-    /**reverse 사용 설정*/
-    protected boolean enableReverse=true;
-    /**tabUp시 duration을 거리로 환산할지 여부*/
-    protected boolean enableDuration=true;
-    /**tabUp시 forward시 gravity비율*/
-    protected float forwardGravity=0.5f;
-    /**tabUp시 reverse시 gravity비율*/
-    protected float reverseGravity=0.5f;
+    private boolean enableFling=true;
 
     public Motion(){
         this(Motion.NONE);
@@ -104,10 +96,6 @@ public class Motion {
         enableSingleTabUp=true;
         enableFling=true;
         enableMove=true;
-        enableReverse=true;
-        enableDuration=true;
-        forwardGravity=0.5f;
-        reverseGravity=0.5f;
         if(builder!=null) {
             builder.clear();
         }
@@ -288,18 +276,6 @@ public class Motion {
         }
     }
 
-    /**
-     * 현재 모션의 Duration을 리턴한다.
-     * @return
-     */
-    public long getCurrDuration(){
-        return currDuration;
-    }
-
-    public float getMotionDistance(){
-        return motionDistance;
-    }
-
     public void setMotionListener(MotionListener motionListener){
         this.motionListener = motionListener;
     }
@@ -314,6 +290,27 @@ public class Motion {
 
     public long getTotalDuration(){
         return this.totalDuration;
+    }
+
+    /**
+     * 현재 모션의 Duration을 리턴한다.
+     * @return
+     */
+    public long getCurrDuration(){
+        return currDuration;
+    }
+
+    /**
+     * 모션으로 움직이는 거리를 지정한다.<br>
+     * 기본값은 가로 윈도우의 크기이다.
+     * @param distance
+     */
+    public void setMotionDistance(float distance){
+        motionDistance = distance;
+    }
+
+    public float getMotionDistance(){
+        return motionDistance;
     }
 
     /**
@@ -342,15 +339,6 @@ public class Motion {
 
 
     /**
-     * 모션으로 움직이는 거리를 지정한다.<br>
-     * 기본값은 가로 윈도우의 크기이다.
-     * @param distance
-     */
-    public void setMotionDistance(float distance){
-        motionDistance = distance;
-    }
-
-    /**
      * 모션의 애니메이션 상태를 리턴해준다.
      * @return
      */
@@ -358,8 +346,22 @@ public class Motion {
         return this.position;
     }
 
+    //    /**현재 애니메이션 진행방향*/
+//    private boolean isForward=true;
+    public boolean isReverse(){
+        return !isForward;
+    }
+
     /*********************************** 속성 ***********************************/
 
+    public boolean isEnableSingleTabUp(){
+        return enableSingleTabUp;
+    }
+
+    public Motion enableSingleTabUp(boolean enable){
+        this.enableSingleTabUp = enable;
+        return this;
+    }
 
     /**
      * Move시 애니메이션 사용할것인지 여부
@@ -369,37 +371,20 @@ public class Motion {
         return enableMove;
     }
 
-//    /**현재 애니메이션 진행방향*/
-//    private boolean isForward=true;
-    public boolean isReverse(){
-        return !isForward;
+    public Motion enableMove(boolean enable){
+        this.enableMove = enable;
+        return this;
     }
 
-//    /**총 움직이는 거리*/
-//    protected float motionDistance=0f;
-//    /**총 duration*/
-//    protected long totalDuration=-1;
-//    /**현재 distance위치*/
-//    protected float currDistance = 0f;
-//    /**현재 duration위치*/
-//    protected long currDuration=0;
+
+
+
 //
 //    /**move중 tabUp 사용 설정*/
 //    protected boolean enableMoveTabUp=true;
-//    /**single tabUp 사용 설정*/
-//    protected boolean enableSingleTabUp=true;
+
 //    /**fling 사용 설정*/
 //    protected boolean enableFling=true;
-//    /**moveDistance(drag) 사용 설정*/
-//    protected boolean enableMove=true;
-//    /**reverse 사용 설정*/
-//    protected boolean enableReverse=true;
-//    /**tabUp시 duration을 거리로 환산할지 여부*/
-//    protected boolean enableDuration=true;
-//    /**tabUp시 forward시 gravity비율*/
-//    protected float forwardGravity=0.5f;
-//    /**tabUp시 reverse시 gravity비율*/
-//    protected float reverseGravity=0.5f;
 
 
 }
