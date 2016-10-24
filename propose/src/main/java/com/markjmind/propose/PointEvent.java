@@ -17,6 +17,7 @@ public class PointEvent {
     private long time;
     protected long diffTime=0;
     float density;
+    protected float endBuffer;
 
 
     protected PointEvent(int minus, int plus, float density){
@@ -31,6 +32,7 @@ public class PointEvent {
         prePoint = 0f;
         raw = 0f;
         velocity = 0f;
+        endBuffer = 0f;
     }
 
     public float getAbsPoint(){

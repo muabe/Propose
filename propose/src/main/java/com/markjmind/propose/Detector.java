@@ -32,9 +32,11 @@ import java.util.Hashtable;
     private float maxVelocity = 5f;
     private float minVelocity = 0.5f;
     private float gravity = 0.5f;
+    private float maxEndBuffer = 3f;
 
     protected Detector(ActionState state, float density, DetectListener detectListener){
         this.density = density;
+        maxEndBuffer = maxEndBuffer*density;
 
         pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT, density);
         pointEventY = new PointEvent(Motion.UP, Motion.DOWN, density);
@@ -79,6 +81,8 @@ import java.util.Hashtable;
         pointEventX.setVelocity(0f);
         pointEventY.setEvent(event.getRawY(), event.getEventTime());
         pointEventY.setVelocity(0f);
+        pointEventX.endBuffer = 0f;
+        pointEventY.endBuffer = 0f;
         return false;
     }
 
@@ -140,7 +144,9 @@ import java.util.Hashtable;
         MotionsInfo info;
         if(direction != Motion.NONE && (info = motionMap.get(direction)) != null) {
             for (Motion motion : info.motions) {
-                result = motion.animate() || result;
+                if(motion.isEnableSingleTabUp()) {
+                    result = motion.animate() || result;
+                }
             }
         }
         return result;
@@ -176,27 +182,38 @@ import java.util.Hashtable;
         boolean result = false;
 
         if(direction == Motion.NONE ){
-            result = move(pointEvent.plus, 0f);
-            result = move(pointEvent.minus, 0f) || result;
+            result = move(pointEvent, pointEvent.plus, 0f);
+            result = move(pointEvent, pointEvent.minus, 0f) || result;
         }else{
 
             int changeDirection = pointEvent.getChangeDirection(diff);
             if(changeDirection!=Motion.NONE){
-                result = move(changeDirection, 0f);
+                result = move(pointEvent, changeDirection, 0f);
             }
-            result = move(direction, Math.abs(pointEvent.getPoint() + diff)) || result;
+            result = move(pointEvent, direction, diff) || result;
         }
         return result;
     }
 
-    private boolean move(int direction, float distance){
+    private boolean move(PointEvent pointEvent, int direction, float diff){
         MotionsInfo info;
         boolean result = false;
         if((info = motionMap.get(direction)) != null){
             for (Motion motion : info.motions) {
-                result = motion.moveDistance(distance) || result;
-
-
+                if(motion.isEnableMove()) {
+                    if (Motion.Position.end.equals(motion.getPosition())) {
+                        pointEvent.endBuffer = pointEvent.endBuffer + diff;
+                        if (pointEvent.endBuffer * motion.getDirectionArg() >= maxEndBuffer / 2) {
+                            pointEvent.endBuffer = maxEndBuffer * motion.getDirectionArg() / 2;
+                        } else if (pointEvent.endBuffer * motion.getDirectionArg() < -maxEndBuffer) {
+                            diff = pointEvent.endBuffer;
+                            pointEvent.endBuffer = 0f;
+                            result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
+                        }
+                    } else {
+                        result = motion.moveDistance(Math.abs(pointEvent.getPoint() + diff)) || result;
+                    }
+                }
             }
         }
         return result;
