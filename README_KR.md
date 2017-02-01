@@ -1,7 +1,7 @@
 ####Propose-2.0 개발이 시작되었습니다.
 ___
 
-[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README_KR.md)<br><br>
+[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README_KR.md)<br><br>
 
 #Android Propose
 <i class="icon-cog"></i> 
@@ -16,7 +16,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 <br><br>
 
 > ####[소개 영상보기](https://youtu.be/v0gIuIK3Ww4) - _Goodbye to CustomView_
-[![Android Propose Story book](https://github.com/JaeWoongOh/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
+[![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
 **Property Animation으로만 구현 되었습니다. 믿겨 지나요?**
 
 <br>
@@ -44,11 +44,11 @@ dependencies {
 ```
 
 #### 개발 가이드
-[1. Propose란](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-Propose%EB%9E%80)<br>
-[2. 시작하기](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
-[3. 모션](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-%EB%AA%A8%EC%85%98)<br>
-[4. 애니메이션 조합](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A1%B0%ED%95%A9)<br>
-[5. 이벤트](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-%EC%9D%B4%EB%B2%A4%ED%8A%B8)<br>
+[1. Propose란](https://github.com/muabe/Propose/wiki/1.-Propose%EB%9E%80)<br>
+[2. 시작하기](https://github.com/muabe/Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
+[3. 모션](https://github.com/muabe/Propose/wiki/3.-%EB%AA%A8%EC%85%98)<br>
+[4. 애니메이션 조합](https://github.com/muabe/Propose/wiki/4.-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A1%B0%ED%95%A9)<br>
+[5. 이벤트](https://github.com/muabe/Propose/wiki/5.-%EC%9D%B4%EB%B2%A4%ED%8A%B8)<br>
 
 <br>
 ### Propose v2.0 spec
