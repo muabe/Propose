@@ -2,7 +2,7 @@
 I'm looking for job. 
 ___
 
-[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/JaeWoongOh/Android-Propose/blob/master/README_KR.md)
+[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Android-Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Android-Propose/blob/master/README_KR.md)
 <br><br>
 
 #Android Propose
@@ -16,7 +16,7 @@ This is because Android native animation doesn't support touch events.
 <br><br>
 
 > ####[Click introduction video](https://youtu.be/xl_8nHd_i4E)
-[![Android Propose Story book](https://github.com/JaeWoongOh/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
+[![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
 **_Goodbye to CustomView_**
 
 <br>
@@ -44,11 +44,11 @@ dependencies {
 ```
 
 #### Getting Started
-[1. What's Propose](https://github.com/JaeWoongOh/Android-Propose/wiki/1.-What's-Propose)<br>
-[2. Starting](https://github.com/JaeWoongOh/Android-Propose/wiki/2.-Starting)<br>
-[3. Motion](https://github.com/JaeWoongOh/Android-Propose/wiki/3.-Motion)<br>
-[4. Combining animation](https://github.com/JaeWoongOh/Android-Propose/wiki/4.-Combining-animation)<br>
-[5. Event](https://github.com/JaeWoongOh/Android-Propose/wiki/5.-Event)
+[1. What's Propose](https://github.com/muabe/Android-Propose/wiki/1.-What's-Propose)<br>
+[2. Starting](https://github.com/muabe/Android-Propose/wiki/2.-Starting)<br>
+[3. Motion](https://github.com/muabe/Android-Propose/wiki/3.-Motion)<br>
+[4. Combining animation](https://github.com/muabe/Android-Propose/wiki/4.-Combining-animation)<br>
+[5. Event](https://github.com/muabe/Android-Propose/wiki/5.-Event)
 
 <br>
 ### Propose v2.0 spec
