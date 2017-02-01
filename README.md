@@ -44,11 +44,11 @@ dependencies {
 ```
 
 #### Getting Started
-[1. What's Propose](https://github.com/muabe/Android-Propose/wiki/1.-What's-Propose)<br>
-[2. Starting](https://github.com/muabe/Android-Propose/wiki/2.-Starting)<br>
-[3. Motion](https://github.com/muabe/Android-Propose/wiki/3.-Motion)<br>
-[4. Combining animation](https://github.com/muabe/Android-Propose/wiki/4.-Combining-animation)<br>
-[5. Event](https://github.com/muabe/Android-Propose/wiki/5.-Event)
+[1. What's Propose](https://github.com/muabe/Propose/wiki/1.-What's-Propose)<br>
+[2. Starting](https://github.com/muabe/Propose/wiki/2.-Starting)<br>
+[3. Motion](https://github.com/muabe/Propose/wiki/3.-Motion)<br>
+[4. Combining animation](https://github.com/muabe/Propose/wiki/4.-Combining-animation)<br>
+[5. Event](https://github.com/muabe/Propose/wiki/5.-Event)
 
 <br>
 ### Propose v2.0 spec
