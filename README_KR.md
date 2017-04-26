@@ -1,10 +1,10 @@
-####Propose-2.0 개발이 시작되었습니다.
+#### Propose-2.0 개발이 시작되었습니다.
 [개발일지](https://github.com/muabe/Propose/wiki/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80)
 ___
 
 [![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README_KR.md)<br><br>
 
-#Android Propose
+# Android Propose
 <i class="icon-cog"></i> 
 Android에서 제공하는 Animation은 쉽고 간편함에도 불구하고<br>
 우리는 힘들게 CustomView를 만들어 사용합니다.<br>
@@ -35,7 +35,7 @@ Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
 
 <br>
-#Propose 시작하기
+# Propose 시작하기
 #### Gradle 설정
 아래와 같이 gradle.build 파일에 디펜던시를 명시합니다.
 ```
