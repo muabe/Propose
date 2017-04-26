@@ -22,14 +22,14 @@ This is because Android native animation doesn't support touch events.
 
 <br>
 Propose uses property animations provided by Android.
----
+----
 - You can implement interactions with familiar animations.
 - It's possible to make interactions without complicated mathematical calculations.
 - It's safe as all thread is handled by property animation.
 
 <br>
 You can add interactions without modifying your source code.
----
+----
 - Propose is not dependent unlike CustomView.
 - You can add interactions without customizing views.
 - You can apply this feature to all sort of views such as Viewgroup, CustomView.
@@ -53,7 +53,7 @@ dependencies {
 
 <br>
 ### Propose v2.0 spec
----
+----
 - Rotating Wheel 
 - Two finger drag, rotation
 - Pinch
