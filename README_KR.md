@@ -11,7 +11,9 @@ Android에서 제공하는 Animation은 쉽고 간편함에도 불구하고<br>
 Animation은 Touch 입력 같은 동적인 조작을 할 수 없기 때문입니다.
 
 **Propose는 놀랍게도 [Property animation](http://developer.android.com/guide/topics/graphics/prop-animation.html)에 Touch 조작을 할 수 있게 해줍니다.<br>
-```기존의 몇 백 줄의 소스코드를 단 몇 줄로 구현 가능하고```<br>
+```
+기존의 몇 백 줄의 소스코드를 단 몇 줄로 구현 가능하고
+```<br>
 여러 가지 Animation을 합성하여 고차원적인 Interaction을 만들 수 있습니다.<br>
 Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 <br><br>
