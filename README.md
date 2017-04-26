@@ -15,19 +15,20 @@ This is because Android native animation doesn't support touch events.
 ```with couple of lines of code.```<br>You can also implement high quality interactions by combining various animations.<br> Now, you're able to make anything you imagine.**
 <br><br>
 
-> #### [Click introduction video](https://youtu.be/xl_8nHd_i4E)
+> 
+[Click introduction video](https://youtu.be/xl_8nHd_i4E)
 [![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
 **_Goodbye to CustomView_**
 
 <br>
-#### Propose uses property animations provided by Android.
+Propose uses property animations provided by Android.
 ---
 - You can implement interactions with familiar animations.
 - It's possible to make interactions without complicated mathematical calculations.
 - It's safe as all thread is handled by property animation.
 
 <br>
-#### You can add interactions without modifying your source code.
+You can add interactions without modifying your source code.
 ---
 - Propose is not dependent unlike CustomView.
 - You can add interactions without customizing views.
