@@ -17,6 +17,7 @@ This is because Android native animation doesn't support touch events.
 > [Click introduction video](https://youtu.be/xl_8nHd_i4E) <br>
 [![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
 **_Goodbye to CustomView_**
+
 <br><br><br>
 
 ### Propose uses property animations provided by Android.
