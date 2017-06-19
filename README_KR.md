@@ -42,8 +42,9 @@ dependencies {
     compile 'com.markjmind.propose:propose:1.1.+'
 }
 ```
+<br>
 
-## 개발 가이드
+# 개발 가이드
 [1. Propose란](https://github.com/muabe/Propose/wiki/1.-Propose%EB%9E%80)<br>
 [2. 시작하기](https://github.com/muabe/Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)<br>
 [3. 모션](https://github.com/muabe/Propose/wiki/3.-%EB%AA%A8%EC%85%98)<br>
