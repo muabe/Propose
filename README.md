@@ -43,7 +43,7 @@ dependencies {
 }
 ```
 
-### Getting Started
+## Getting Started
 [1. What's Propose](https://github.com/muabe/Propose/wiki/1.-What's-Propose)<br>
 [2. Starting](https://github.com/muabe/Propose/wiki/2.-Starting)<br>
 [3. Motion](https://github.com/muabe/Propose/wiki/3.-Motion)<br>
