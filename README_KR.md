@@ -1,6 +1,4 @@
 #### Propose-2.0 개발이 시작되었습니다.
-[개발일지](https://github.com/muabe/Propose/wiki/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80)
-___
 
 [![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README_KR.md)<br><br>
 
