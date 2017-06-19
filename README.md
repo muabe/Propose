@@ -1,5 +1,4 @@
 #### Propose-2.0 is begun to develop.
-[Development journal](https://github.com/muabe/Propose/wiki/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80)
 ___
 
 [![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README_KR.md)
@@ -18,8 +17,8 @@ This is because Android native animation doesn't support touch events.
 > [Click introduction video](https://youtu.be/xl_8nHd_i4E) <br>
 [![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/xl_8nHd_i4E)<br>
 **_Goodbye to CustomView_**
+<br><br><br>
 
-<br>
 > Propose uses property animations provided by Android.
 ----
 - You can implement interactions with familiar animations.
@@ -32,8 +31,8 @@ You can add interactions without modifying your source code.
 - Propose is not dependent unlike CustomView.
 - You can add interactions without customizing views.
 - You can apply this feature to all sort of views such as Viewgroup, CustomView.
-
 <br>
+
 # How to use?
 #### Gradle
 Put a new build rule on your gradle.build file.
@@ -49,8 +48,8 @@ dependencies {
 [3. Motion](https://github.com/muabe/Propose/wiki/3.-Motion)<br>
 [4. Combining animation](https://github.com/muabe/Propose/wiki/4.-Combining-animation)<br>
 [5. Event](https://github.com/muabe/Propose/wiki/5.-Event)
-
 <br>
+
 ### Propose v2.0 spec
 ----
 - Rotating Wheel 
