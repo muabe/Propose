@@ -14,7 +14,7 @@ Animation은 Touch 입력 같은 동적인 조작을 할 수 없기 때문입니
 Propose는 당신이 상상하는 모든 것을 가능하게 해줍니다.**
 <br><br>
 
-> #### [소개 영상보기](https://youtu.be/v0gIuIK3Ww4) 
+> #### [소개 영상보기](https://youtu.be/v0gIuIK3Ww4) <br>
 [![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/v0gIuIK3Ww4)<br>
 Property Animation으로만 구현 되었습니다. 믿겨 지나요?
 
