@@ -29,6 +29,7 @@ ___
 <br>
 
 ### 당신의 소스코드 수정 없이 Interaction을 추가할 수 있습니다.
+___
 - Propose는 CustomView처럼 의존성을 가지지 않습니다.
 - View를 customize않고 Interaction을 부여 해줍니다.
 - 기존에 작성된 CustomView를 포함해 모든 View에 적용가능 합니다.
