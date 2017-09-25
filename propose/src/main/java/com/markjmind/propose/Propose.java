@@ -46,7 +46,7 @@ public class Propose implements View.OnTouchListener{
     protected float density;
 
     private GestureDetector gestureDetector;
-    private Detector detector;
+    private MotionEngine motionEngine;
 
     private MotionInitor motionInit;
     private RubListener rubListener;
@@ -70,8 +70,8 @@ public class Propose implements View.OnTouchListener{
         Point size = new Point();
         display.getSize(size);
         state = new ActionState();
-        detector = new Detector(state, density, new DetectEvent());
-        gestureDetector = new GestureDetector(context, detector);
+        motionEngine = new MotionEngine(state, density, new DetectEvent());
+        gestureDetector = new GestureDetector(context, motionEngine);
         this.setIsLongpressEnabled(false);
         isTouchDown = false;
         enableMotion = true;
@@ -133,7 +133,7 @@ public class Propose implements View.OnTouchListener{
                 case MotionEvent.ACTION_DOWN: {
                     cancel();
                     if (motionInit != null) {
-                        if(!isTouchDown && detector.getActionState() == ActionState.STOP){
+                        if(!isTouchDown && motionEngine.getActionState() == ActionState.STOP){
                             motionInit.touchDown(this);
                         }
                     }
@@ -164,7 +164,7 @@ public class Propose implements View.OnTouchListener{
 
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_UP: {
-                    result = detector.onUp(event) || result;
+                    result = motionEngine.onUp(event) || result;
                     isTouchDown = false;
                     break;
                 }
@@ -193,7 +193,7 @@ public class Propose implements View.OnTouchListener{
     public Propose addMotion(Motion motion){
         motion.setAnimationPool(animationPool);
         motion.setActionState(state);
-        detector.addMotion(motion.getDirection(), motion);
+        motionEngine.addMotion(motion.getDirection(), motion);
 
         return this;
     }
@@ -223,7 +223,7 @@ public class Propose implements View.OnTouchListener{
         return this;
     }
 
-    private class DetectEvent implements Detector.DetectListener{
+    private class DetectEvent implements MotionEngine.DetectListener{
         @Override
         public boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY) {
             boolean result = false;

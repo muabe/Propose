@@ -14,7 +14,7 @@ import java.util.Hashtable;
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
-    public class Detector implements GestureDetector.OnGestureListener{
+    public class MotionEngine implements GestureDetector.OnGestureListener{
 
     protected PointEvent pointEventX, pointEventY;
 
@@ -34,7 +34,7 @@ import java.util.Hashtable;
     private float gravity = 0.5f;
     private float maxEndBuffer = 3f;
 
-    protected Detector(ActionState state, float density, DetectListener detectListener){
+    protected MotionEngine(ActionState state, float density, DetectListener detectListener){
         this.density = density;
         maxEndBuffer = maxEndBuffer*density;
 
