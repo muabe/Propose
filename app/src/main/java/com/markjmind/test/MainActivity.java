@@ -119,22 +119,6 @@ public class MainActivity extends Activity {
         Motion up = new Motion(Motion.UP);
         up.play(tranUp, (int) (max)).with(rotUp);
         propose.addMotion(up);
-//
-//        final Motion down = new Motion(Motion.DOWN);
-//        down.play(tranDown, (int) (max)).with(rotDown);
-//        propose.addMotion(down);
-
-//        up.setLoop(Loop.RESTART);
-
-//        propose.setRubListener(new RubListener() {
-//            float count = 0f;
-//            @Override
-//            public boolean rub(float moveX, float moveY) {
-//                count = count + Math.abs(moveX);//+Math.abs(moveY);
-//                Log.e("dsd", Math.abs(moveX)+":"+count);
-//                return down.moveDistance(count);
-//            }
-//        });
 
         right.setMotionListener(new MotionListener() {
             @Override
