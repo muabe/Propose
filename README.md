@@ -26,7 +26,7 @@
 
 ### Propose는 동적-인터렉션을 구현하기 위한 API를 제공합니다
 ### Propose API는 앱의 동적기능, 게임, 유아용 이북 등 다양한 분야로 활용될수 있습니다.
-![graph](https://github.com/muabe/Propose/blob/master/images/graph2.gif)![pager](https://github.com/muabe/Propose/blob/master/images/pager2.gif)![cube](https://github.com/muabe/Propose/blob/master/images/cube2.gif)
+![graph](https://github.com/muabe/Propose/blob/master/images/graph2.gif) ![pager](https://github.com/muabe/Propose/blob/master/images/pager2.gif) ![cube](https://github.com/muabe/Propose/blob/master/images/cube2.gif)
 
 <br>
 Propose를 사용한다면 몇줄의 코드만으로 책장을 넘기는 모션을 만들수 있습니다.<br>
