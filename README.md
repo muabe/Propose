@@ -24,8 +24,10 @@
 더 많은것을 해야한다면 게임엔진을 사용해야 할것입니다.<br>
 엔진을 사용한다면 기술을 습득해야하는 어려움과 Android의 API, 리소스를 사용할수 없게 되어 버립니다.<br>
 
-### Propose는 모션을 쉽게 구현할수 있는 안드로이드 오픈 라이브러리 입니다
-다시말해 Propose는 동적-인터렉션을 구현하기 위한 API를 제공합니다.<br>
+### Propose는 동적-인터렉션을 구현하기 위한 API를 제공합니다
+### Propose API는 앱의 동적기능, 게임, 유아용 이북 등 다양한 분야로 활용될수 있습니다.
+![graph](https://github.com/muabe/Propose/blob/master/images/graph.gif)![pager](https://github.com/muabe/Propose/blob/master/images/pager.gif)![cube](https://github.com/muabe/Propose/blob/master/images/cube.gif)
+
 <br>
 Propose를 사용한다면 몇줄의 코드만으로 책장을 넘기는 모션을 만들수 있습니다.<br>
 아래 소개영상으로 얼마나 쉽게 모션을 개발할 수 있는지 알수 있습니다.<br><br>
