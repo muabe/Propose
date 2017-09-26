@@ -16,7 +16,6 @@
 개발자들은 사람들의 기억에 남는 돋보이는 앱, 게임같이 액티브한 앱을 만들고 싶을겁니다.<br>
 하지만 쉽게 할 수 있는 방법을 찾지 못했습니다.<br><br>
 
-![3d_flip](https://github.com/muabe/Propose/blob/master/images/pageFlipping.gif)
 <br><br>
 위 처럼 책장을 넘기는 모션을 만들기 위해 1000 라인으로 구성된 코드가 사용되었는데<br> 
 물리적인 좌표 연산과 View를 표현하기 위한 알고리즘들이 필요 했습니다.<br>
