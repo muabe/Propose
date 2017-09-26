@@ -1,4 +1,4 @@
-#Android Propose
+# Android Propose
 ## Overview - 청혼하기 위해 시작된 프로젝트
 ![wife](https://github.com/muabe/Propose/blob/master/images/wife.jpg) <br>
  내가 잘하는 것으로 사랑하는 이에게 감동을 전해주고 싶었습니다<br>
