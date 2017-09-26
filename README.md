@@ -1,3 +1,4 @@
+#Android Propose
 ## Overview - 청혼하기 위해 시작된 프로젝트
 ![wife](https://github.com/muabe/Propose/blob/master/images/wife.jpg) <br>
  내가 잘하는 것으로 사랑하는 이에게 감동을 전해주고 싶었습니다<br>
@@ -50,7 +51,7 @@ compile 'com.markjmind.propose:propose:1.1.+'
 
 ### 개발문서
 ---
-모든 개발문서는 [Github Wiki](https://github.com/muabe/Propose/wiki/Android-Propose)에 작성 되었습니다.
+**_모든 개발문서는 [Github Wiki](https://github.com/muabe/Propose/wiki/Android-Propose)에 작성 되었습니다._**
 - [Propose 개요](https://github.com/muabe/Propose/wiki/1.-Propose-%EA%B0%9C%EC%9A%94)
 - [개발 가이드](https://github.com/muabe/Propose/wiki/2.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
 - [아키텍쳐](https://github.com/muabe/Propose/wiki/architecture)
