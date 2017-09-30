@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * 예를들어 모션을 시작한다면 play() 함수를 호출하고 그 이후 선택할수 있는 함수는 with(),next()만 보이게된다.<br>
  * <br>
  *
- * 대표적인 체이닝 그룹은 아래와 같다.
+ * 대표적인 체이닝 그룹은 아래와 같다.<br>
  * Play : 애니메이션 등록 및 실행 순서<br>
  * Motion : 모션의 설정<br>
  * Enable : 제스쳐 옵션<br>
