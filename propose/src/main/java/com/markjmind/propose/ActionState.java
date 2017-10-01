@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 /**
  * <br>捲土重來<br>
+
  * 모션의 상태를 감지한다.<br>
  * 옵저버 패턴으로 등록된 모션에 대하여 상태변화가 있을때 이벤트 발생을 노티해준다.<br>
- * * 외부에서 접근하거나 변경할수 없도록 클래스의 접근 지정가 public이 아니다.<br>
  * 상태<br>
  *  - STOP : 정지된 상태 <br>
  *  - SCROLL : 이동중인 상태 <br>
  *  - FlING : 터치후 가속도가 붙은 상태 <br>
  *  - ANIMATION : 모션 종료 후 애니메이션이 동작 중인 상태 <br>
- *
+ *  <br> * 외부에서 접근하거나 변경할수 없다(접근 지정가 public이 아님)<br>
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2016-03-28

@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * @since 2016-03-28
  */
 public class Propose implements View.OnTouchListener{
-    public AnimationPool animationPool;
+    public AnimationQue animationQue;
     public ActionState state;
 
     protected Context context;
@@ -75,16 +75,16 @@ public class Propose implements View.OnTouchListener{
         this.setIsLongpressEnabled(false);
         isTouchDown = false;
         enableMotion = true;
-        animationPool = new AnimationPool() {
+        animationQue = new AnimationQue() {
             @Override
             protected void animationStart() {
-                Log.e("AnimationPool","AnimationPool start");
+                Log.e("AnimationQue","AnimationQue start");
                 state.setState(ActionState.ANIMATION);
             }
 
             @Override
             protected void animationEnd() {
-                Log.e("AnimationPool","AnimationPool End");
+                Log.e("AnimationQue","AnimationQue End");
                 state.setState(ActionState.STOP);
             }
         };
@@ -178,7 +178,7 @@ public class Propose implements View.OnTouchListener{
 
     public void cancel(){
         if(state.getState() == ActionState.ANIMATION){
-            animationPool.cancelAll();
+            animationQue.cancelAll();
         }
     }
 
@@ -191,7 +191,7 @@ public class Propose implements View.OnTouchListener{
     }
 
     public Propose addMotion(Motion motion){
-        motion.setAnimationPool(animationPool);
+        motion.setAnimationPool(animationQue);
         motion.setActionState(state);
         motionEngine.addMotion(motion.getDirection(), motion);
 
