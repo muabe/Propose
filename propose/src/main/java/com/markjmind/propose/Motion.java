@@ -356,8 +356,7 @@ public class Motion {
     }
 
     /**
-     * 애니메이션을 시작한다.<br>
-     *
+     * 처음부터 끝까지 애니메이션을 play한다..<br>
      * @return 애니메이션 성공여부
      */
     public boolean animate(){
@@ -373,16 +372,32 @@ public class Motion {
         return this.animate(getCurrDuration(), getTotalDuration());
     }
 
+    /**
+     * 지정된 시간 범위로 애니메이션을 play한다.
+     * @param startDuration 시작 시점
+     * @param endDuration 종료 시점
+     * @return
+     */
     public boolean animate(long startDuration, long endDuration){
         return this.animate(startDuration, endDuration, Math.abs(endDuration-startDuration));
     }
 
+    /**
+     * 지정된 시간 범위로 애니메이션을 play한다.
+     * @param startDuration 시작 시점
+     * @param endDuration 종료 시점
+     * @param playDuration play되는 시간
+     * @return
+     */
     public boolean animate(long startDuration, long endDuration, long playDuration){
         return taper.tap(this, startDuration, endDuration, playDuration);
     }
 
-    /*********************************** 지원함수 ***********************************/
 
+    /**
+     * 루프 방법을 성정한다.
+     * @param loop Loop 객체의 상수
+     */
     public void setLoop(int loop){
         this.loop = loop;
     }
@@ -401,18 +416,34 @@ public class Motion {
         }
     }
 
+    /**
+     * Motion 리스너를 등록한다.
+     * @param motionListener 모션 리스너 객체
+     */
     public void setMotionListener(MotionListener motionListener){
         this.motionListener = motionListener;
     }
 
+    /**
+     * direction 상수값을 연산하여 방향 상수값을 리턴한다.
+     * @return 방향 상수값
+     */
     public int getDirectionArg(){
         return direction/100;
     }
 
+    /**
+     * 애니메이션 진행 방향을 리턴한다.
+     * @return 애니메이션 방향
+     */
     public int getDirection(){
         return this.direction;
     }
 
+    /**
+     * 조합된 애니메이션들의 총 Play 시간값을 리턴한다.
+     * @return 애니메이션 총 play 시간
+     */
     public long getTotalDuration(){
         return this.totalDuration;
     }
@@ -434,6 +465,10 @@ public class Motion {
         motionDistance = distance;
     }
 
+    /**
+     * 모션의 드래그 거리값을 리턴한다.
+     * @return
+     */
     public float getMotionDistance(){
         return motionDistance;
     }
@@ -462,7 +497,6 @@ public class Motion {
         return motionDistance*duration/(float)totalDuration;
     }
 
-
     /**
      * 모션의 애니메이션 상태를 리턴해준다.
      * @return
@@ -471,18 +505,28 @@ public class Motion {
         return this.position;
     }
 
-    //    /**현재 애니메이션 진행방향*/
-//    private boolean isForward=true;
+    /**
+     * 이니메이션이 진행이 반대 방향인지 리턴한다.
+     * @return 반대 방향인지 여부
+     */
     public boolean isReverse(){
         return !isForward;
     }
 
-    /*********************************** 속성 ***********************************/
-
+    /**
+     * View에 TabUp이 일어날 경우 애니메이션을 실행 여부
+     * @return 애니메이션 자동 실행 여부
+     */
     public boolean isEnableSingleTabUp(){
         return enableSingleTabUp;
     }
 
+
+    /**
+     * View에 TabUp이 일어날 경우 애니메이션을 실행에 대한 옵션 설정
+     * @param enable 실행 여부
+     * @return Motion 체이닝 객체
+     */
     public Motion enableSingleTabUp(boolean enable){
         this.enableSingleTabUp = enable;
         return this;
@@ -496,9 +540,13 @@ public class Motion {
         return enableMove;
     }
 
+    /**
+     * Move시 애니메이션 사용하는 것에 대한 옵션 설정
+     * @param enable move 옵션 여부
+     * @return
+     */
     public Motion enableMove(boolean enable){
         this.enableMove = enable;
         return this;
     }
-
 }
