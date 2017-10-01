@@ -18,10 +18,10 @@ import java.util.Hashtable;
  * @since 2016-04-12
  */
 public class Taper {
-    public Hashtable<Integer, TimeAnimation> pool;
+    public Hashtable<Integer, TimeAnimation> que;
 
-    public void setAnimationPool(Hashtable<Integer, TimeAnimation> pool){
-        this.pool = pool;
+    public void setAnimationQue(Hashtable<Integer, TimeAnimation> que){
+        this.que = que;
     }
 
     public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
@@ -72,21 +72,21 @@ public class Taper {
 
         @Override
         public void onAnimationStart(Animator animation) {
-            if(pool!=null) {
-                pool.put(hashcode, timeAnimation);
+            if(que !=null) {
+                que.put(hashcode, timeAnimation);
             }
         }
         @Override
         public void onAnimationEnd(Animator animation) {
-            if(pool!=null) {
-                pool.remove(hashcode);
+            if(que !=null) {
+                que.remove(hashcode);
             }
 
         }
         @Override
         public void onAnimationCancel(Animator animation) {
-            if(pool!=null && pool.containsKey(hashCode())){
-                pool.remove(hashcode);
+            if(que !=null && que.containsKey(hashCode())){
+                que.remove(hashcode);
                 Log.e("Taper", "Taper : onAnimationCancel");
             }
         }

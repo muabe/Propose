@@ -191,7 +191,7 @@ public class Propose implements View.OnTouchListener{
     }
 
     public Propose addMotion(Motion motion){
-        motion.setAnimationPool(animationQue);
+        motion.setAnimationQue(animationQue);
         motion.setActionState(state);
         motionEngine.addMotion(motion.getDirection(), motion);
 

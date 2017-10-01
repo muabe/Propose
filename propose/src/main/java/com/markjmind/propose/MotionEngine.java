@@ -9,6 +9,7 @@ import java.util.Hashtable;
 
 /**
  * <br>捲土重來<br>
+ * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리고 환산하여 그것을 Touch 좌표로 대입하는 일을 한다.<br>
  *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
