@@ -69,7 +69,7 @@ public class MotionBuilder implements Comparator<MotionScrollItem>{
 	 * MotionEngine에서 진행방에 따른 MotionScrollItem 객체 정렬에 사용된다.
 	 * @param lhs  정방향 MotionScrollItem 객체
 	 * @param rhs 반대 방향 MotionScrollItem 객체
-	 * @return
+	 * @return 우선순위
 	 */
 	@Override
 	public int compare(MotionScrollItem lhs, MotionScrollItem rhs) {

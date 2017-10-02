@@ -9,32 +9,62 @@ import java.util.Hashtable;
 
 /**
  * <br>捲土重來<br>
- * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리고 환산하여 그것을 Touch 좌표로 대입하는 일을 한다.<br>
- *
+ * 조합된 애니메이션을 모션에 맞게 변환해주고 화면에 Touch Animation을 Play한다.<br>
+ * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리로 연산한다.<br>
+ * 연산된 거리는 모션에 따라 Touch 좌표로 대입로 대입된다.<br>
+
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2016-03-28
  */
     public class MotionEngine implements GestureDetector.OnGestureListener{
 
+    /** 터치 정보를 저작한 객체*/
     protected PointEvent pointEventX, pointEventY;
 
+    /** 조합된 모션들의 맵 */
     private Hashtable<Integer, MotionsInfo> motionMap = new Hashtable<>();
+
+    /** 모션 상태 이벤트*/
     private ActionState state;
+
+    /** 모션의 최초 시작 여부*/
     private boolean isFirstTouch;
+
+    /** 화면 해상도 압축율 */
     private float density;
 
+    /** 제스쳐가 발생 리스너 객체*/
     private DetectListener detectListener;
 
+    /** 좌우 수평 모션일때 이벤트 발생 우선순위 */
     protected int horizontalPriority = Motion.RIGHT;
+
+    /** 상하 수직 모션일때 이벤트 발생 우선순위 */
     protected int verticalPriority = Motion.UP;
 
-    /** 속성변경 옵션으로 지원할수 있도록 하기**/
+    /** 최대 가속도*/
     private float maxVelocity = 5f;
+
+    /** 최소 가속도*/
     private float minVelocity = 0.5f;
+
+    /**
+     * 모션 종료시 애니메이션이 향하는 방향을 나타낸다<br>
+     * 0일 경우 애니메이션이 시작 방향으로 흘러간다.<br>
+     * 1일 경우 애니메이션이 종료 방향으로 흘러간다.
+     */
     private float gravity = 0.5f;
+
+    /** 터치 중 모션끼리 만났을때 모션이 전환되는 버퍼*/
     private float maxEndBuffer = 3f;
 
+    /**
+     * 기본 생성자
+     * @param state ActionState
+     * @param density 화면 해상도 압출율
+     * @param detectListener DetectListener
+     */
     protected MotionEngine(ActionState state, float density, DetectListener detectListener){
         this.density = density;
         maxEndBuffer = maxEndBuffer*density;
@@ -46,12 +76,19 @@ import java.util.Hashtable;
         reset();
     }
 
+    /**
+     * 초기화로 재설정 한다.
+     */
     protected void reset(){
         isFirstTouch = true;
         state.setState(ActionState.STOP);
     }
 
-
+    /**
+     * 모션을 추가한다.
+     * @param direction 모션의 방향을 선택(Motion.LEFT, Motion.ROTATION 등등)
+     * @param motion Motion 객체
+     */
     protected void addMotion(int direction, Motion motion){
         MotionsInfo info = new MotionsInfo();
         if (motionMap.containsKey(direction)) {
@@ -67,14 +104,19 @@ import java.util.Hashtable;
 
     }
 
+    /**
+     * 현재 모션 상태를 가져온다.
+     * @return ActionState의 상태
+     */
     protected int getActionState() {
         return this.state.getState();
     }
 
-
-    /****************************************** Gesture ****************************************/
-
-    /******** Down *******/
+    /**
+     * 손가락이 화면에 터치가 되었을때 구현체
+     * @param event MotionEvent
+     * @return 이벤트 성공여부
+     */
     @Override
     public boolean onDown(MotionEvent event) {
         isFirstTouch = true;
@@ -88,7 +130,11 @@ import java.util.Hashtable;
     }
 
 
-    /******** Up *******/
+    /**
+     * 손가락이 화면에 터치 후 떼었을때 구현체<br>
+     * @param event MotionEvent
+     * @return 이벤트 성공여부
+     */
     public boolean onUp(MotionEvent event){
         boolean result = false;
         if(state.getState() == ActionState.SCROLL){
@@ -101,6 +147,12 @@ import java.util.Hashtable;
         return result;
     }
 
+
+    /**
+     * 손가락이 화면에 터치한 상태에서 이동후 떼었을때 구현체
+     * @param pointEvent PointEvent 정보
+     * @return 이벤트 성공여부
+     */
     private boolean moveUp(PointEvent pointEvent){
         Log.i("Detector", "moveUp");
         boolean result = false;
@@ -126,7 +178,13 @@ import java.util.Hashtable;
         return result;
     }
 
-    /******** TapUp *******/
+
+    /**
+     * 화면을 SingleTapUp(클릭) 했을때 구현체<br>
+     * onSingleTapUp은 이동없이 짧은 시간에 클릭한 것을 말한다.
+     * @param event MotionEvent
+     * @return 이벤트 성공여부
+     */
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
         Log.i("Detector", "onSingleTapUp");
@@ -136,6 +194,14 @@ import java.util.Hashtable;
         return result;
     }
 
+    /**
+     * 화면을 TapUp(클릭) 했을때 구현체<br>
+     * tapUp은 이동없이 손가락을 떼었을때를 말한다.<br>
+     * (시간과 관계없음)
+     * @param pointEvent PointEvent
+     * @param priority 모션 우선순위(모션이 여러개로 조합되었을 경우)
+     * @return 이벤트 성공여부
+     */
     private boolean tapUp(PointEvent pointEvent, int priority){
         boolean result = false;
         int direction = pointEvent.getDirection();
@@ -153,7 +219,14 @@ import java.util.Hashtable;
         return result;
     }
 
-    /******** Scroll *******/
+    /**
+     * Scroll은 드래그를 말하며 움직임이 감지 된때마다 주기적으로 발생한다.<br>
+     * @param e1 이전 기록 MotionEvent
+     * @param e2 현재 MotionEvent
+     * @param distanceX X좌표 이동거리
+     * @param distanceY Y좌표 이동거리
+     * @return 이벤트 성공여부
+     */
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         boolean result = false;
@@ -175,6 +248,14 @@ import java.util.Hashtable;
         return result;
     }
 
+    /**
+     * onScroll 함수의 구현체<br>
+     * 내부에서만 사용한다.
+     * @param raw 절대 좌표값
+     * @param pointEvent PointEvent
+     * @param time 이동 시간
+     * @return 이벤트 성공여부
+     */
     private boolean scroll(float raw, PointEvent pointEvent, long time){
         float diff = raw - pointEvent.getRaw();
         pointEvent.setEvent(raw, time);
@@ -196,6 +277,15 @@ import java.util.Hashtable;
         return result;
     }
 
+
+    /**
+     * View 이동 연산의 구현체<br>
+     * 내부에서만 사용한다.
+     * @param pointEvent PointEvent
+     * @param direction 방향
+     * @param diff 이동 거리
+     * @return 이벤트 성공여부
+     */
     private boolean move(PointEvent pointEvent, int direction, float diff){
         MotionsInfo info;
         boolean result = false;
@@ -221,7 +311,15 @@ import java.util.Hashtable;
     }
 
 
-    /******** Fling *******/
+    /**
+     * 화면에서 손가락을 튕겼을 경우 발생한다.<br>
+     * Fling은 화면에서 빠르게 손가락은 떼면서 발생하며 슬라이딩 등 가속도 효과가 필요할때 사용된다.
+     * @param e1 이전 기록 MotionEvent
+     * @param e2 현재 MotionEvent
+     * @param velocityX X좌표 가속도
+     * @param velocityY Y좌표 가속도
+     * @return 이벤트 성공여부
+     */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         Log.i("Detector", "flingX:"+pointEventX.getVelocity()+ " Y:"+pointEventY.getVelocity()) ;
@@ -243,6 +341,13 @@ import java.util.Hashtable;
         return result;
     }
 
+    /**
+     * onFling 함수의 구현체<br>
+     * 내부에서만 사용한다.
+     * @param pointEvent
+     * @param velocity
+     * @return
+     */
     private boolean fling(PointEvent pointEvent, float velocity){
         boolean result = false;
         int direction = pointEvent.getDirection();
@@ -270,24 +375,34 @@ import java.util.Hashtable;
         return result;
     }
 
-
+    /**
+     * TapUp과 중복되어 현재 사용하지 않음
+     * @param e MotionEvent
+     */
     @Override
     public void onShowPress(MotionEvent e) {
     }
 
+    /**
+     * Drag에서도 발생되어 현재 사용하지 않음
+     * @param e MotionEvent
+     */
     @Override
     public void onLongPress(MotionEvent e) {
         Log.i("Detector", "onLongPress");
     }
 
-
-    /****************************************** interface and inner class ****************************************/
-
+    /**
+     * 이벤트가 발생 리스너 인터페이스
+     */
     interface DetectListener {
         boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY);
         boolean detectFling(PointEvent pointEventX, PointEvent pointEventY);
     }
 
+    /**
+     * 모션 정보를 저장하여 담아 놓는 내부 클래스
+     */
     class MotionsInfo {
         protected long maxDuration=0;
         protected ArrayList<Motion> motions;
