@@ -13,17 +13,35 @@ import java.util.Hashtable;
 /**
  * <br>捲土重來<br>
  *
+ * 탭(클릭) 발생시 화면에 view를 애니메이션에 따라 play 시키는 구현체 클래스 이다.<br>
+ * 지정된 duration 만큼 애니메이션을 play한다.<br>
+ * Taper 클래스는 View의 탭 대해서 많이 사용되고 있지만<br>
+ * 애니메이션 표현이 필요한 어떤곳에서나 사용이 가능하다
+ *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2016-04-12
  */
 public class Taper {
+    /** 조홥된 애니메이션에 대한 play 순서 큐 개체 */
     public Hashtable<Integer, TimeAnimation> que;
 
+    /**
+     * 애니메이션큐 객체를 설정한다.
+     * @param que 애니메이션큐 Hashtable 객체
+     */
     public void setAnimationQue(Hashtable<Integer, TimeAnimation> que){
         this.que = que;
     }
 
+    /**
+     * 해당 duration에 따른 애니메이션을 play한다.
+     * @param motion 모션 객체
+     * @param startDuration 시작 duration
+     * @param endDuration 종료 dration
+     * @param playDuration 애니메이션 play시간
+     * @return
+     */
     public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
         if(startDuration>motion.getTotalDuration()){
             startDuration = motion.getTotalDuration();
@@ -51,6 +69,9 @@ public class Taper {
         return true;
     }
 
+    /**
+     * TimeValue에서 필요한 애니메이션 구동에 관한 인터페이스 구현
+     */
     private class AnimationTimeValue extends TimeValue {
         private Motion motion;
         protected AnimationTimeValue(Motion motion){
@@ -62,6 +83,9 @@ public class Taper {
         }
     }
 
+    /**
+     * 애니메이션이 구동되는 동안의 상태를 감지하고 개발 인터페이스를 제공한다.
+     */
     private class TimeAnimationEvent implements Animator.AnimatorListener {
         private int hashcode;
         private TimeAnimation timeAnimation;
@@ -70,12 +94,21 @@ public class Taper {
             this.hashcode = timeAnimation.hashCode();
         }
 
+        /**
+         * 애니메이션이 시작될때 이벤트 감지
+         * @param animation 해당 애니메이션 객체
+         */
         @Override
         public void onAnimationStart(Animator animation) {
             if(que !=null) {
                 que.put(hashcode, timeAnimation);
             }
         }
+
+        /**
+         * 애니메이션이 종료될때 이벤트 감지
+         * @param animation 해당 애니메이션 객체
+         */
         @Override
         public void onAnimationEnd(Animator animation) {
             if(que !=null) {
@@ -83,6 +116,11 @@ public class Taper {
             }
 
         }
+
+        /**
+         * 애니메이션이 취소될때 이벤트 감지
+         * @param animation 해당 애니메이션 객체
+         */
         @Override
         public void onAnimationCancel(Animator animation) {
             if(que !=null && que.containsKey(hashCode())){
@@ -90,6 +128,11 @@ public class Taper {
                 Log.e("Taper", "Taper : onAnimationCancel");
             }
         }
+
+        /**
+         * 애니메이션이 재시작될때 이벤트 감지
+         * @param animation 해당 애니메이션 객체
+         */
         @Override
         public void onAnimationRepeat(Animator animation) {
             Log.e("Taper", "Taper : onAnimationRepeat");

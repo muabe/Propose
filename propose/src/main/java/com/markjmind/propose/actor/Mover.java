@@ -8,7 +8,10 @@ import com.markjmind.propose.PointEvent;
 /**
  * <br>捲土重來<br>
  * 터치 드래그 발생시 화면에 view를 이동시키는 구현체 클래스 이다.<br>
- * 각 애니메이션의 특성에 맞게 이동되며 재료로는 애니메이션의 duration을 사용한다.<br>
+ * 터치 드래그시 각 애니메이션의 특성에 맞게 이동되며 재료로는 애니메이션의 duration을 사용한다.<br>
+ * Mover 클래스는 View의 이동에 대해서 많이 사용되고 있지만<br>
+ * 드래그시 움직임의 표현이 필요한 어떤곳에서나 사용이 가능하다
+ *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2016-03-30
