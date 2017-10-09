@@ -3,8 +3,6 @@ package com.markjmind.propose.listener;
 import com.markjmind.propose.Motion;
 
 /**
- * <br>捲土重來<br>
- *
  * 전체 조합된 모션을 총괄하여 하나의 라이프 사이클로 이벤트를 받고 싶을때 사용하는 인터페이스이다.<br>
  * 전체적인 모션의 시작, 드래그, 종료가 감지 되었을때 이벤트를 제공하는 리스너를 제공한다.<br>
  *

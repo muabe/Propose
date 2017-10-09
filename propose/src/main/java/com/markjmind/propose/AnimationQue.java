@@ -5,7 +5,6 @@ import com.markjmind.propose.animation.TimeAnimation;
 import java.util.Hashtable;
 
 /**
- * <br>捲土重來<br>
  * 애니메이션 관리하는 Queue 클래스 이다.<br>
  * Map 형태로 이루어져 있으며 Key 로는 객체 해쉬코드를 받는다.<br>
  * 해쉬코드를 받는 이유는 객체의 메모리 중복을 방지하기 위함이다.<br>

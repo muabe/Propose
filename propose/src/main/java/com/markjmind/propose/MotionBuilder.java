@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * <br>捲土重來<br>
  * 애니메이션 조합 인터페이스를 제공하는 클래스이다.<br>
  * MotionBuilder는 모든 모션과 애니메이션들을 총괄 관리하는 컨트롤러 역할을하며<br>
  * 개발자에겐 모션조합에 대한 개발 인터페이스를 제공한다.<br>

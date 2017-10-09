@@ -5,8 +5,6 @@ import com.markjmind.propose.Propose;
 import java.util.HashMap;
 
 /**
- * <br>捲土重來<br>
- *
  * 모션 시작시 필요한 내용의 추가 및 정의 하는 리스너를 제공하는 인터페이스이다.<br>
  * 모션의 시작은 터치가 시작될때(touchDown) 발생하고 종료는 터치가 끝날때(touchUp) 발생한다.
  *

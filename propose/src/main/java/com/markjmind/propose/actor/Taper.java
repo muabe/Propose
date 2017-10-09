@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
- * <br>捲土重來<br>
- *
  * 탭(클릭) 발생시 화면에 view를 애니메이션에 따라 play 시키는 구현체 클래스 이다.<br>
  * 지정된 duration 만큼 애니메이션을 play한다.<br>
  * Taper 클래스는 View의 탭 대해서 많이 사용되고 있지만<br>

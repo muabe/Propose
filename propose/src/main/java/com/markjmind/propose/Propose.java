@@ -16,8 +16,6 @@ import com.markjmind.propose.listener.RubListener;
 import java.util.ArrayList;
 
 /**
- * <br>捲土重來<br>
- *
  * 모션을 관리하는 사용자(개발자) 인터페이스 클래스<br>
  * 애니메이션을 Motion 단위로 1개 이상을 등록하여 사용할수 있다.<br>
  * 등록된 애니메이션은 내부 물리로직으로 터치좌표가 애니메이션으로 자동변환되어 쉽게 모현을 표현할수 있다.

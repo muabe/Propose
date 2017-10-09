@@ -7,8 +7,6 @@ import android.annotation.SuppressLint;
 import com.markjmind.propose.listener.AnimatorAdapter;
 
 /**
- * <br>捲土重來<br>
- *
  * 스크롤(드래그)에 따른 애니메이션의 진행상태 감지하고 이벤트를 발생히주는 구현체 클래스이다.<br>
  * 애니메이션 진행상태는 애니메이션의 준비상태와 시작상태이며<br>
  * 준비상태는 아직 애니메이션이 play되지 않은 상태를 말한다.<br>

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
- * <br>捲土重來<br>
  * 조합된 애니메이션을 모션에 맞게 변환해주고 화면에 Touch Animation을 Play한다.<br>
  * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리로 연산한다.<br>
  * 연산된 거리는 모션에 따라 Touch 좌표로 대입로 대입된다.<br>

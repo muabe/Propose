@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
- * <br>捲土重來<br>
  * 모션이란 드래그, 핀치 등등 사용자가 터치한 상태에서 행동하는 일련의 패턴 정의를 말한다.<br>
  * 모션의 속성을 선택하고 애니메이션을 등록하는 등 개발 인터페이스를 제공하는 클래스이다.<br><br>
  *

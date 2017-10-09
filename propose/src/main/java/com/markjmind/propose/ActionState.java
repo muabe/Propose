@@ -3,8 +3,6 @@ package com.markjmind.propose;
 import java.util.ArrayList;
 
 /**
- * <br>捲土重來<br>
-
  * 모션의 상태를 감지한다.<br>
  * 옵저버 패턴으로 등록된 모션에 대하여 상태변화가 있을때 이벤트 발생을 노티해준다.<br>
  * 상태<br>

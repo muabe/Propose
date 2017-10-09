@@ -1,8 +1,6 @@
 package com.markjmind.propose.listener;
 
 /**
- * <br>捲土重來<br>
- *
  * 터치 모션중 문지르기가 감지 되었을때 이벤트를 제공하는 리스너 인터페이스이다.
  *
  * @author 오재웅(JaeWoong-Oh)
