@@ -13,7 +13,8 @@ import java.util.Hashtable;
  * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리로 연산한다.<br>
  * 연산된 거리는 모션에 따라 Touch 좌표로 대입로 대입된다.<br>
  * onDown,onUp 등 기본적인 Touch의 패턴을 정의해 주고<br>
- * Actor, animation에서 Touch 패턴을 조합하여 구체적인 움직임을 표현한다.
+ * Actor, animation에서 Touch 패턴을 조합하여 구체적인 움직임을 표현한다.<br>
+ * MotionEngine은 Actor, Anomation 등의 구현체들을 모아 관리하며 이들에게 일을 시키기 위한 연료를 제공한다.
  *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
