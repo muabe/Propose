@@ -5,7 +5,7 @@ import android.animation.Animator;
 /**
  * <br>捲土重來<br>
  *
- * 하나의 애니메이션의 시작, 진행, 끝 이벤트를 받아올수 있는 리스너 인터페이스이다.<br>
+ * 하나의 애니메이션의 시작, 진행, 끝이 감지 되었을때 이벤트를 제공하는 리스너 인터페이스이다.<br>
  *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
