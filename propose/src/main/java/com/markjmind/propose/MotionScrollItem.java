@@ -9,6 +9,8 @@ import com.markjmind.propose.listener.AnimatorAdapter;
 /**
  * <br>捲土重來<br>
  *
+ *
+ *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2013-09-14
@@ -19,8 +21,6 @@ public class MotionScrollItem {
 	protected long delayDuration = 0;
 	protected long startDuration = 0;
 	protected long endDuration = 0;
-	// TODO TOUCH와 똑같이 VIEW가 움직이려면 화면 크게에 맞게 duration이 변경되어야해서
-	// 실제 play 되는 Duration과 사용자가 지정한 Duration이 다를수 있는데 이부분에 대한 해결책을 생각해야함
 	protected long playDuration = 0;
 
 	private ValueAnimator anim;
@@ -172,16 +172,6 @@ public class MotionScrollItem {
 	}
 
 	private void onEvent(int index, boolean start, boolean isForward){
-//		String msg =" : End ";
-//		if(start){
-//			msg = " : Start ";
-//		}
-//		if(isForward){
-//			msg = msg+"Forward";
-//		}else{
-//			msg = msg+"reverse";
-//		}
-//		Log.i("d",msg);
 		if(anim.getListeners()!=null){
 			for(int i=0;i<anim.getListeners().size();i++){
 				Animator.AnimatorListener al = anim.getListeners().get(i);

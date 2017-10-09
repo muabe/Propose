@@ -12,7 +12,9 @@ import java.util.Hashtable;
  * 조합된 애니메이션을 모션에 맞게 변환해주고 화면에 Touch Animation을 Play한다.<br>
  * MotionEngine 클래스의 원리는 애니메이션의 시간을 거리로 연산한다.<br>
  * 연산된 거리는 모션에 따라 Touch 좌표로 대입로 대입된다.<br>
-
+ * onDown,onUp 등 기본적인 Touch의 패턴을 정의해 주고<br>
+ * Actor, animation에서 Touch 패턴을 조합하여 구체적인 움직임을 표현한다.
+ *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2016-03-28
@@ -112,6 +114,7 @@ import java.util.Hashtable;
         return this.state.getState();
     }
 
+
     /**
      * 손가락이 화면에 터치가 되었을때 구현체
      * @param event MotionEvent
@@ -194,6 +197,7 @@ import java.util.Hashtable;
         return result;
     }
 
+
     /**
      * 화면을 TapUp(클릭) 했을때 구현체<br>
      * tapUp은 이동없이 손가락을 떼었을때를 말한다.<br>
@@ -247,6 +251,7 @@ import java.util.Hashtable;
         }
         return result;
     }
+
 
     /**
      * onScroll 함수의 구현체<br>
@@ -341,6 +346,7 @@ import java.util.Hashtable;
         return result;
     }
 
+
     /**
      * onFling 함수의 구현체<br>
      * 내부에서만 사용한다.
@@ -375,6 +381,7 @@ import java.util.Hashtable;
         return result;
     }
 
+
     /**
      * TapUp과 중복되어 현재 사용하지 않음
      * @param e MotionEvent
@@ -382,6 +389,7 @@ import java.util.Hashtable;
     @Override
     public void onShowPress(MotionEvent e) {
     }
+
 
     /**
      * Drag에서도 발생되어 현재 사용하지 않음
@@ -392,6 +400,7 @@ import java.util.Hashtable;
         Log.i("Detector", "onLongPress");
     }
 
+
     /**
      * 이벤트가 발생 리스너 인터페이스
      */
@@ -399,6 +408,7 @@ import java.util.Hashtable;
         boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY);
         boolean detectFling(PointEvent pointEventX, PointEvent pointEventY);
     }
+
 
     /**
      * 모션 정보를 저장하여 담아 놓는 내부 클래스
