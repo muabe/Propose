@@ -45,8 +45,7 @@ public class MotionScrollItem {
 
 
 	/**
-	 * 애니메이션 진행상태 인터페이스<br>
-	 * scroll : 진행중때 언제나 발생<br>
+	 * 애니메이션 진행상태 스테이트 패턴 인터페이스<br>
 	 * between : 드래그가 현재 아이템의 duration 범위 안에서 진행중 일때 처리<br>
 	 * over : 드래그가 현재 아이템의 duration 범위를 벗어 났을때 처리<br>
 	 * lesser :드래그가 현재 아이템의 duration 범위에 못들어 올때 처리 <br>
@@ -56,6 +55,11 @@ public class MotionScrollItem {
 		public ScrollState(boolean isReverse){
 			this.isReverse = isReverse;
 		}
+		/**
+		 * 상태를 분기해준다.
+		 * @param index 모션의 인덱스
+		 * @return 이벤트 발생 여부
+		 */
 		public boolean scroll(int index){
 			boolean result = false;
 			if(0<currDuration && currDuration<playDuration){
