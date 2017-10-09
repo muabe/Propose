@@ -13,6 +13,9 @@ import com.markjmind.propose.Propose;
 import com.markjmind.propose.listener.AnimatorAdapter;
 import com.markjmind.propose.listener.MotionListener;
 
+/**
+ * 각 모션과 이벤트에 대해 실제 화면에 대한 테스트를 진행한다.
+ */
 public class MainActivity extends Activity {
     Propose propose;
     @Override
