@@ -39,27 +39,38 @@ import java.util.ArrayList;
  * @since 2016-03-28
  */
 public class Propose implements View.OnTouchListener{
+    /** 애니메이션 큐 객체*/
     public AnimationQue animationQue;
+    /** 상태 이벤트를 감지하는 객체*/
     public ActionState state;
-
+    /** 안드로이드 컨텍스트 객체 */
     protected Context context;
+    /** 화면 해상도 압출율*/
     protected float density;
-
+    /** 제스쳐 감지 이벤트*/
     private GestureDetector gestureDetector;
+    /** 모션연산 객체*/
     private MotionEngine motionEngine;
-
+    /** 모션 초기화 리스너*/
     private MotionInitor motionInit;
+    /** 문지르기 리스너*/
     private RubListener rubListener;
-
+    /** 터치가 되었는지 여부*/
     private boolean isTouchDown;
+    /** 모션을 사용하는지에 대한 여부*/
     private boolean enableMotion;
-
+    /** 전체 모션 사이클에 대한 리스너*/
     private ProposeListener proposeListener;
 
+    /**
+     * 기본 생성자
+     * @param context 안드로이드 컨텍스트 객체
+     */
     public Propose(Context context){
         this.context = context;
         init();
     }
+
     /**
      * 초기화 함수
      */
@@ -75,19 +86,29 @@ public class Propose implements View.OnTouchListener{
         this.setIsLongpressEnabled(false);
         isTouchDown = false;
         enableMotion = true;
+
+        /** 애니메이션 큐 객체 생성*/
         animationQue = new AnimationQue() {
+            /**
+             * 애니메이션 시작시 시작 상태로 변경
+             */
             @Override
             protected void animationStart() {
                 Log.e("AnimationQue","AnimationQue start");
                 state.setState(ActionState.ANIMATION);
             }
 
+            /**
+             * 애니메이션 종료시 종료 상태로 변경
+             */
             @Override
             protected void animationEnd() {
                 Log.e("AnimationQue","AnimationQue End");
                 state.setState(ActionState.STOP);
             }
         };
+
+        /** 상태 변화를 감지하기 위한 옵저버 등록*/
         state.addObserver(new ActionState.StateObserver() {
             @Override
             public void onChangeState(int preState, int currState, ArrayList<Motion> targetList) {
@@ -122,6 +143,12 @@ public class Propose implements View.OnTouchListener{
     }
 
 
+    /**
+     * 터치가 발생 되었을때 터치 좌표에 대해 이벤트를 받아온다.
+     * @param v 터치 이벤트가 발생된 VIew 객체
+     * @param event 이벤트 정보
+     * @return 이벤트 실행 여부
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         v.setClickable(true);
@@ -176,20 +203,40 @@ public class Propose implements View.OnTouchListener{
         return result;
     }
 
+
+    /**
+     * 모든 모션과 애니메이션을 정지한다.
+     */
     public void cancel(){
         if(state.getState() == ActionState.ANIMATION){
             animationQue.cancelAll();
         }
     }
 
+
+    /**
+     * ProposeListener를 등록한다.<br>
+     * 전체 모션 사이클에 대한 이벤트를 받을수 있다.
+     * @param proposeListener ProposeListener 객체
+     */
     public void setProposeListener(ProposeListener proposeListener){
         this.proposeListener = proposeListener;
     }
 
+    /**
+     * 화면 압축유를 가져온다.
+      * @param context 안드로이드 context 객체
+     * @return 압축율
+     */
     public static float getDensity(Context context){
         return context.getResources().getDisplayMetrics().density;
     }
 
+    /**
+     * 모션을 추가한다.
+     * @param motion 추가할 모션 객체
+     * @return 체이닝 Propose 객체
+     */
     public Propose addMotion(Motion motion){
         motion.setAnimationQue(animationQue);
         motion.setActionState(state);
@@ -199,30 +246,47 @@ public class Propose implements View.OnTouchListener{
     }
 
     /**
-     * MotionInitor 등록
-     * @param initor MotionInitor
+     * MotionInitor 등록한다<br>
+     * 모션 초기화시 이벤트를 받을수 있으며 필요한 내용을 추가할수 있다.
+     * @param initor MotionInitor 객체
      */
     public void setOnMotionInitor(MotionInitor initor){
         this.motionInit = initor;
     }
+
+
     /**
-     * MotionInitor를 리턴받는다.
-     * @return MotionInitor
+     * MotionInitor 객체를 리턴받는다.
+     * @return MotionInitor 객체
      */
     public MotionInitor getMotionInitor(){
         return this.motionInit;
     }
 
+    /**
+     * RubListener를 등록한다.<br>
+     * 문지르기에 대한 이벤트를 받을수 있다.
+     * @param rubListener RubListener 객체
+     * @return 체이닝 Propose 객체
+     */
     public Propose setRubListener(RubListener rubListener){
         this.rubListener = rubListener;
         return this;
     }
 
+    /**
+     * Long Press의 옵션 사용 설정
+     * @param enable true 경우 옵션 사용
+     * @return 체이닝 Propose 객체
+     */
     public Propose setIsLongpressEnabled(boolean enable){
         gestureDetector.setIsLongpressEnabled(enable);
         return this;
     }
 
+    /**
+     * MotionEngine에서 필요한 터치의 드래그와 Fling(튕기기)를 감지하는 인터페이스 구현
+     */
     private class DetectEvent implements MotionEngine.DetectListener{
         @Override
         public boolean detectScroll(Motion motion, PointEvent pointEventX, PointEvent pointEventY) {

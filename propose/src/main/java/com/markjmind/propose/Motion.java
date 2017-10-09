@@ -376,7 +376,7 @@ public class Motion {
      * 지정된 시간 범위로 애니메이션을 play한다.
      * @param startDuration 시작 시점
      * @param endDuration 종료 시점
-     * @return
+     * @return 애니메이션 성공 여부
      */
     public boolean animate(long startDuration, long endDuration){
         return this.animate(startDuration, endDuration, Math.abs(endDuration-startDuration));
@@ -387,7 +387,7 @@ public class Motion {
      * @param startDuration 시작 시점
      * @param endDuration 종료 시점
      * @param playDuration play되는 시간
-     * @return
+     * @return 애니메이션 성공 여부
      */
     public boolean animate(long startDuration, long endDuration, long playDuration){
         return taper.tap(this, startDuration, endDuration, playDuration);
@@ -543,7 +543,7 @@ public class Motion {
     /**
      * Move시 애니메이션 사용하는 것에 대한 옵션 설정
      * @param enable move 옵션 여부
-     * @return
+     * @return Motion 체이닝 객체
      */
     public Motion enableMove(boolean enable){
         this.enableMove = enable;
