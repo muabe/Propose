@@ -2,15 +2,15 @@
 <br><br>
 
 ## Overview - 청혼하기 위해 시작된 프로젝트
-![wife](https://github.com/muabe/Propose/blob/master/images/wife.jpg) <br>
- 내가 잘하는 것으로 사랑하는 이에게 감동을 전해주고 싶었습니다<br>
- 이야기책을 만들어 청혼하고 싶었지만 내 마음을 표현하기 위한 시간은 턱없이 부족했죠.<br>
- 간절함은 Touch Animation Engine을 생각해 냈고<br>
- 이렇게 애정과 정성으로 Propose는 시작되었습니다.
+![wife](https://github.com/muabe/Propose/blob/master/images/wife.jpg) | 내가 잘하는 것으로 사랑하는 이에게 감동을 전해주고 싶었습니다<br> 이야기책을 만들어 청혼하고 싶었지만 내 마음을 표현하기 위한 시간은 턱없이 부족했죠.<br> 간절함은 Touch Animation Engine을 생각해 냈고<br>이렇게 애정과 정성으로 Propose는 시작되었습니다.
+--- | :---
+
+
+
 <br>
 <br>
 
-# Propose 란
+## Propose 란
 ---
 
 모바일앱을 개발하면서 어렵다고 생각한 것중 하나는<br>
@@ -36,33 +36,52 @@ Propose를 사용한다면 몇 줄의 코드만으로 모션을 만들수 있습
 > #### [소개 영상보기](https://youtu.be/v0gIuIK3Ww4) <br>
 [![Android Propose Story book](https://github.com/muabe/Minor-League/blob/master/images/propose/book%20flip.png)](https://youtu.be/v0gIuIK3Ww4)
 <br>
-Propose API는 앱의 동적기능, 게임, 유아용 이북 등 다양한 분야로 활용될 수 있습니다
-<br>
 <br>
 <br>
 
-### 일반 개발 vs Propose 개발
+### 장점 및 활용분야
 ---
-아래는 동적인 3D Flip 화면 개발시 개발공수를 비교한 도표 입니다.
-![compare](https://github.com/muabe/Propose/blob/master/images/conpare1.png)<br>
+터치 모션의 일반적인 개발 방법으로 canvas를 재정의하고 터치 연산 등 상당한 개발 비용이 소모됩니다.<br>
+Propose를 사용한다면 쉬운 모션 구현과 간단한 코드 유지관리가 가능합니다.<br>
+아래는 3D Flip 화면 개발시 일반 개발과 Propose를 비교한 도표 입니다.<br>
+
+> 일반 개발 VS Propose
+
+3D Flip 구현 | 일반 개발 | Propose
+:---: | :---: | :---:
+개발 난이도 | 고급 개발자 | 초급 개발자
+코드 라인수 | 500~100 라인 | 10~20 라인
+재사용/확장성 | 전체 소스코드 수정 | 애니메이션 추가 및 조합
+안정성 | Thread 자체관리(에러율 높음) | Android SDK에서 Thread 자동관리
+
+``` 
+Propose는 고급스럽고 사용자 친화적 모션(부드럽게) 구현과 모바일 리소스 최소화, 
+개발자 휴먼 에러 최소화, 구현 시간 단축 및 개발비용 절감 효과를 기대할 수 있습니다.
+특히 기업앱의 고급화, 게임, 이북(동화), 앨범앱 제작 등등 
+동적기능 필요한 다양한 분야로 활용될 수 있습니다. 
+```
+
+<br>
 <br>
 <br>
 
-
-### 개발환경
+### Propose 개발 환경
 ---
-Android SDK 3.0 이상
-<br>
+
+개발환경 | Android SDK 3.0 이상
+--- | --- 
 <br>
 <br>
 
 ### Propose Import
 ---
+
 Android Gradle 파일에 아래 코드를 추가하여 라이브러리를 Import할 수 있습니다<br>
 ```
 compile 'com.markjmind.propose:propose:1.1.+'
 ```
-(Note : Gradle은 Android의 defalut 빌드툴이며 Propose는 JCenter에서 자동 다운로드 됩니다.)
+> Note : Gradle은 Android의 defalut 빌드툴이며 Propose는 JCenter에서 자동 다운로드 됩니다.
+
 <br>
 <br>
 <br>
