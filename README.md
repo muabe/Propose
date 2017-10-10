@@ -1,3 +1,6 @@
+[![English](https://img.shields.io/badge/-English-blue.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README_EN.md) &nbsp;  [![한국어](https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-red.svg?style=flat)](https://github.com/muabe/Propose/blob/master/README.md)
+<br><br>
+
 ## Overview - 청혼하기 위해 시작된 프로젝트
 ![wife](https://github.com/muabe/Propose/blob/master/images/wife.jpg) <br>
  내가 잘하는 것으로 사랑하는 이에게 감동을 전해주고 싶었습니다<br>
