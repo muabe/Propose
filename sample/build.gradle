@@ -25,7 +25,12 @@ android {
 
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':propose')
+    implementation 'com.github.muabe:UniBoot:v0.5.6'
+
 }
