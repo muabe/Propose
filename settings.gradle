@@ -1,1 +1,1 @@
-include ':propose'
+include ':propose', ':sample'
