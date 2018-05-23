@@ -1,4 +1,4 @@
-<manifest package="com.markjmind.propose"
+<manifest package="com.muabe.propose"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application android:allowBackup="true"
