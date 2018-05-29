@@ -1,11 +1,12 @@
 package com.muabe.propose.guesture;
 
+import com.muabe.propose.touch.detector.single.SingleTouchEvent;
+
 public abstract class BaseGesture {
-    protected Score score;
+    protected MotionDistance motionDistance;
 
-    public void init(Score score){
-        this.score = score;
+    public void init(MotionDistance motionDistance){
+        this.motionDistance = motionDistance;
     }
-
-
+    public abstract boolean gesture(SingleTouchEvent touchEvent);
 }

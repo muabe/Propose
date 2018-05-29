@@ -61,20 +61,20 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
     @Override
     public boolean onDrag(SingleTouchEvent event) {
         if (pointObservable.size() > 0) {
-            float distance = this.distance.get(event);
-            if (distance != 0) {
+            float motionDistance = this.motionDistance.get(event);
+            if (motionDistance != 0) {
                 if (state == State.MotionState.NONE) {
                     for (DirectionFilter.PointObserver observer : pointObservable.getValues()) {
-                        if (observer.getPoint().isLikeOrientation(distance)) {
+                        if (observer.getPoint().isLikeOrientation(motionDistance)) {
                             onPointChange(state, observer.getPoint().getState());
-                            observer.getPoint().setPoint(distance);
+                            observer.getPoint().setPoint(motionDistance);
                             return true;
                         }
                     }
                 } else {
                     if (pointObservable.containsKey(state)) {
                         LinkedPoint point = pointObservable.get(state).getPoint();
-                        point.setPoint(distance);
+                        point.setPoint(motionDistance);
                         return true;
                     }
                 }

@@ -23,13 +23,13 @@ import java.util.List;
  * @email markjmind@gmail.com
  */
 
-public class TouchDetector implements OnTouchDetectListener {
+public class TouchDetector{
 
     private TouchDetectAdapter touchDetectAdapter;
-    private boolean isWindow = false;
+    private boolean isWindow;
 
-    public TouchDetector(Context context) {
-        touchDetectAdapter = new TouchDetectAdapter(context, this);
+    public TouchDetector(Context context, OnTouchDetectListener listener) {
+        touchDetectAdapter = new TouchDetectAdapter(context, listener);
         isWindow = WindowCoordinates.isBindWindow();
         Mlog.e(this, "WindowCoordinates:"+isWindow);
     }
@@ -64,49 +64,6 @@ public class TouchDetector implements OnTouchDetectListener {
         return touchDetectAdapter.onTouchEvent(event);
     }
 
-    @Override
-    public boolean onDown(SingleTouchEvent event) {
-        Mlog.i(this, "onDown");
-        return true;
-    }
-
-    @Override
-    public boolean onUp(SingleTouchEvent event) {
-        return true;
-    }
-
-    @Override
-    public boolean onDrag(SingleTouchEvent event) {
-//        List<DragFilter> dragFilterList = Filter.getSingleValues();
-//        for(DragFilter filter : dragFilterList){
-//            filter.onDrag(event);
-//        }
-        return true;
-    }
-
-    @Override
-    public boolean onMulitBegin(MultiTouchEvent event) {
-        Mlog.e(this, "onMulitBegin");
-        return true;
-    }
-
-    @Override
-    public boolean onMultiEnd(MultiTouchEvent event) {
-        Mlog.e(this, "onMultiEnd");
-        return true;
-    }
-
-    @Override
-    public boolean onMultiDrag(MultiTouchEvent event) {
-
-        return true;
-    }
-
-    @Override
-    public boolean onMultiUp(MultiTouchEvent multiEvent) {
-        Mlog.e(this, "onMultiUp");
-        return true;
-    }
 
 
 

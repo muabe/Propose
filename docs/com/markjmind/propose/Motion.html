@@ -385,7 +385,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>long</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#getDurationToDistance-float-">getDurationToDistance</a></span>(float&nbsp;distance)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#getDurationToDistance-float-">getDurationToDistance</a></span>(float&nbsp;motionDistance)</code>
 <div class="block">거리에 대한 duration을 리턴한다.</div>
 </td>
 </tr>
@@ -453,14 +453,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#moveDistance-float-">moveDistance</a></span>(float&nbsp;distance)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#moveDistance-float-">moveDistance</a></span>(float&nbsp;motionDistance)</code>
 <div class="block">해당되는 거리로 애니메이션을 이동 시킨다.</div>
 </td>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code><a href="../../../com/markjmind/propose/MotionBuilder.html" title="class in com.markjmind.propose">MotionBuilder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#play-android.animation.ValueAnimator-int-">play</a></span>(android.animation.ValueAnimator&nbsp;valueAnimator,
-    int&nbsp;distance)</code>
+    int&nbsp;motionDistance)</code>
 <div class="block">모션에 따라 motion을 표현할 ValueAnimator 지정한다.</div>
 </td>
 </tr>
@@ -479,7 +479,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i24" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#setCurrDistance-float-">setCurrDistance</a></span>(float&nbsp;distance)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#setCurrDistance-float-">setCurrDistance</a></span>(float&nbsp;motionDistance)</code>
 <div class="block">터치 드래그 거리를 설정한다.</div>
 </td>
 </tr>
@@ -509,7 +509,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#setMotionDistance-float-">setMotionDistance</a></span>(float&nbsp;distance)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/markjmind/propose/Motion.html#setMotionDistance-float-">setMotionDistance</a></span>(float&nbsp;motionDistance)</code>
 <div class="block">모션으로 움직이는 거리를 지정한다.</div>
 </td>
 </tr>
@@ -876,11 +876,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setCurrDistance</h4>
-<pre>protected&nbsp;void&nbsp;setCurrDistance(float&nbsp;distance)</pre>
+<pre>protected&nbsp;void&nbsp;setCurrDistance(float&nbsp;motionDistance)</pre>
 <div class="block">터치 드래그 거리를 설정한다.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>distance</code> - 거리값</dd>
+<dd><code>motionDistance</code> - 거리값</dd>
 </dl>
 </li>
 </ul>
@@ -961,12 +961,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>play</h4>
 <pre>public&nbsp;<a href="../../../com/markjmind/propose/MotionBuilder.html" title="class in com.markjmind.propose">MotionBuilder</a>&nbsp;play(android.animation.ValueAnimator&nbsp;valueAnimator,
-                          int&nbsp;distance)</pre>
+                          int&nbsp;motionDistance)</pre>
 <div class="block">모션에 따라 motion을 표현할 ValueAnimator 지정한다.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>valueAnimator</code> - 추가할 ValueAnimator</dd>
-<dd><code>distance</code> - 애니메이션을 play할 거리</dd>
+<dd><code>motionDistance</code> - 애니메이션을 play할 거리</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>MotionBuilder</dd>
 </dl>
@@ -994,11 +994,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>moveDistance</h4>
-<pre>public&nbsp;boolean&nbsp;moveDistance(float&nbsp;distance)</pre>
+<pre>public&nbsp;boolean&nbsp;moveDistance(float&nbsp;motionDistance)</pre>
 <div class="block">해당되는 거리로 애니메이션을 이동 시킨다.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>distance</code> - 이동할 거리값</dd>
+<dd><code>motionDistance</code> - 이동할 거리값</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>이동 성공 여부</dd>
 </dl>
@@ -1161,12 +1161,12 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setMotionDistance</h4>
-<pre>public&nbsp;void&nbsp;setMotionDistance(float&nbsp;distance)</pre>
+<pre>public&nbsp;void&nbsp;setMotionDistance(float&nbsp;motionDistance)</pre>
 <div class="block">모션으로 움직이는 거리를 지정한다.<br>
  기본값은 가로 윈도우의 크기이다.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>distance</code> - </dd>
+<dd><code>motionDistance</code> - </dd>
 </dl>
 </li>
 </ul>
@@ -1189,11 +1189,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDurationToDistance</h4>
-<pre>public&nbsp;long&nbsp;getDurationToDistance(float&nbsp;distance)</pre>
+<pre>public&nbsp;long&nbsp;getDurationToDistance(float&nbsp;motionDistance)</pre>
 <div class="block">거리에 대한 duration을 리턴한다.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>distance</code> - 거리</dd>
+<dd><code>motionDistance</code> - 거리</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>duration</dd>
 </dl>
@@ -1211,7 +1211,7 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>duration</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>distance</dd>
+<dd>motionDistance</dd>
 </dl>
 </li>
 </ul>
