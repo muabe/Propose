@@ -3,6 +3,8 @@ package com.muabe.propose.touch.detector.multi;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+import com.muabe.propose.touch.detector.TouchEvent;
+
 /**
  * <br>捲土重來<br>
  *
@@ -10,7 +12,7 @@ import android.view.ScaleGestureDetector;
  * @email markjmind@gmail.com
  */
 
-public class MultiMotionEvent{
+public class MultiTouchEvent implements TouchEvent {
     private MotionEvent firstDragEvent;
     private MotionEvent preDragEvent;
     private MotionEvent motionEvent;
@@ -59,4 +61,6 @@ public class MultiMotionEvent{
     public float getDragY(){
         return currFocusY - preFocusY;
     }
+
+
 }

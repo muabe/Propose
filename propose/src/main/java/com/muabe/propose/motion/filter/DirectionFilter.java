@@ -5,8 +5,8 @@ import com.muabe.propose.motion.DragFilter;
 import com.muabe.propose.motion.LinkedPoint;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.motion.Point;
-import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
-import com.muabe.propose.touch.detector.single.SingleMotionEvent;
+import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
+import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.util.Mlog;
 import com.muabe.propose.util.ObservableMap;
 
@@ -25,7 +25,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     private Distance distance;
 
     private interface Distance {
-        float get(SingleMotionEvent event);
+        float get(SingleTouchEvent event);
     }
 
     private DirectionFilter(Distance distance) {
@@ -39,7 +39,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     public static DirectionFilter getX() {
         return new DirectionFilter(new Distance() {
             @Override
-            public float get(SingleMotionEvent event) {
+            public float get(SingleTouchEvent event) {
                 return event.getDragX();
             }
         });
@@ -48,7 +48,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     public static DirectionFilter getY() {
         return new DirectionFilter(new Distance() {
             @Override
-            public float get(SingleMotionEvent event) {
+            public float get(SingleTouchEvent event) {
                 return event.getDragY();
             }
         });
@@ -69,7 +69,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     @Override
-    public boolean onDrag(SingleMotionEvent event) {
+    public boolean onDrag(SingleTouchEvent event) {
         if (pointObservable.size() > 0) {
             float distance = this.distance.get(event);
             if (distance != 0) {
@@ -94,7 +94,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     @Override
-    public boolean onMultiDrag(MultiMotionEvent event) {
+    public boolean onMultiDrag(MultiTouchEvent event) {
         return false;
     }
 

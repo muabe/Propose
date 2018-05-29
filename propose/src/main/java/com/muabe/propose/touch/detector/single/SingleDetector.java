@@ -15,13 +15,13 @@ import com.muabe.propose.touch.detector.OnTouchDetectListener;
  */
 
 public class SingleDetector implements GestureDetector.OnGestureListener{
-    private SingleMotionEvent singleEvent;
+    private SingleTouchEvent singleEvent;
     private SingleGestureDetector gestureDetector;
     private OnTouchDetectListener listener;
 
 
     public SingleDetector(Context context, OnTouchDetectListener listener){
-        singleEvent = new SingleMotionEvent();
+        singleEvent = new SingleTouchEvent();
         gestureDetector = new SingleGestureDetector(context, this);
         this.listener = listener;
     }

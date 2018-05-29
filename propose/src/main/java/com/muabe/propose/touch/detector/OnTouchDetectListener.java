@@ -1,7 +1,7 @@
 package com.muabe.propose.touch.detector;
 
-import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
-import com.muabe.propose.touch.detector.single.SingleMotionEvent;
+import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
+import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 /**
  * <br>捲土重來<br>
@@ -11,12 +11,12 @@ import com.muabe.propose.touch.detector.single.SingleMotionEvent;
  */
 
 public interface OnTouchDetectListener {
-    boolean onDown(SingleMotionEvent event);
-    boolean onUp(SingleMotionEvent event);
-    boolean onDrag(SingleMotionEvent event);
+    boolean onDown(SingleTouchEvent event);
+    boolean onUp(SingleTouchEvent event);
+    boolean onDrag(SingleTouchEvent event);
 
-    boolean onMulitBegin(MultiMotionEvent event);
-    boolean onMultiEnd(MultiMotionEvent event);
-    boolean onMultiDrag(MultiMotionEvent event);
-    boolean onMultiUp(MultiMotionEvent multiEvent);
+    boolean onMulitBegin(MultiTouchEvent event);
+    boolean onMultiEnd(MultiTouchEvent event);
+    boolean onMultiDrag(MultiTouchEvent event);
+    boolean onMultiUp(MultiTouchEvent multiEvent);
 }

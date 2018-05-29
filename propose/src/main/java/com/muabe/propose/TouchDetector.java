@@ -8,9 +8,9 @@ import com.muabe.propose.motion.DragFilter;
 import com.muabe.propose.motion.filter.Filter;
 import com.muabe.propose.touch.coords.metrix.MetrixCordinates;
 import com.muabe.propose.touch.coords.window.WindowCoordinates;
-import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
+import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
-import com.muabe.propose.touch.detector.single.SingleMotionEvent;
+import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.touch.detector.TouchDetectAdapter;
 import com.muabe.propose.util.Mlog;
 
@@ -65,45 +65,45 @@ public class TouchDetector implements OnTouchDetectListener {
     }
 
     @Override
-    public boolean onDown(SingleMotionEvent event) {
+    public boolean onDown(SingleTouchEvent event) {
         Mlog.i(this, "onDown");
         return true;
     }
 
     @Override
-    public boolean onUp(SingleMotionEvent event) {
+    public boolean onUp(SingleTouchEvent event) {
         return true;
     }
 
     @Override
-    public boolean onDrag(SingleMotionEvent event) {
-        List<DragFilter> dragFilterList = Filter.getSingleValues();
-        for(DragFilter filter : dragFilterList){
-            filter.onDrag(event);
-        }
+    public boolean onDrag(SingleTouchEvent event) {
+//        List<DragFilter> dragFilterList = Filter.getSingleValues();
+//        for(DragFilter filter : dragFilterList){
+//            filter.onDrag(event);
+//        }
         return true;
     }
 
     @Override
-    public boolean onMulitBegin(MultiMotionEvent event) {
+    public boolean onMulitBegin(MultiTouchEvent event) {
         Mlog.e(this, "onMulitBegin");
         return true;
     }
 
     @Override
-    public boolean onMultiEnd(MultiMotionEvent event) {
+    public boolean onMultiEnd(MultiTouchEvent event) {
         Mlog.e(this, "onMultiEnd");
         return true;
     }
 
     @Override
-    public boolean onMultiDrag(MultiMotionEvent event) {
+    public boolean onMultiDrag(MultiTouchEvent event) {
 
         return true;
     }
 
     @Override
-    public boolean onMultiUp(MultiMotionEvent multiEvent) {
+    public boolean onMultiUp(MultiTouchEvent multiEvent) {
         Mlog.e(this, "onMultiUp");
         return true;
     }

@@ -15,12 +15,12 @@ import com.muabe.propose.touch.detector.OnTouchDetectListener;
  */
 
 public class MultiDetector implements ScaleGestureDetector.OnScaleGestureListener{
-    private MultiMotionEvent multiEvent;
+    private MultiTouchEvent multiEvent;
     private MultiGestureDetector gestureDetector;
     private OnTouchDetectListener listener;
 
     public MultiDetector(Context context, OnTouchDetectListener listener){
-        multiEvent = new MultiMotionEvent();
+        multiEvent = new MultiTouchEvent();
         gestureDetector = new MultiGestureDetector(context, this);
         this.listener = listener;
     }

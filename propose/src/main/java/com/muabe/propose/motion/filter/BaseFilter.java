@@ -4,7 +4,7 @@ import com.muabe.propose.State;
 import com.muabe.propose.motion.LinkedPoint;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.motion.Point;
-import com.muabe.propose.touch.detector.single.SingleMotionEvent;
+import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.util.Mlog;
 
 import java.util.ArrayList;
@@ -33,12 +33,12 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
         Mlog.e(this, preState+"->" + state);
     }
 
-    public boolean onDrag(SingleMotionEvent event) {
+    public boolean onDrag(SingleTouchEvent event) {
 
         return false;
     }
 
-    public boolean onDrag(SingleMotionEvent event, ArrayList<Point> pointList) {
+    public boolean onDrag(SingleTouchEvent event, ArrayList<Point> pointList) {
         boolean result = false;
         return result;
     }
@@ -59,7 +59,7 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
     }
 
     @Override
-    public boolean onDrag(SingleMotionEvent event) {
+    public boolean onDrag(SingleTouchEvent event) {
         if (pointObservable.size() > 0) {
             float distance = this.distance.get(event);
             if (distance != 0) {
