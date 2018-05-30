@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':propose')
+    implementation project(':uni')
     implementation project(':uniboot')
-
+    implementation project(':propose')
 }

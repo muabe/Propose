@@ -63,8 +63,10 @@ public class Propose implements View.OnTouchListener{
 //        }
             for(Motion2 motion : motionList){
                 boolean result = motion.getGesture().gesture(event);
+                Mlog.i(this, "gesture:"+result);
                 if(result) {
                     result = motion.play();
+                    Mlog.i(this, "play:"+result);
                 }
             }
             return true;

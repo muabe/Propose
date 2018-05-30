@@ -1,6 +1,7 @@
 package com.muabe.sample;
 
 import com.markjmind.uni.UniIntroFragment;
+import com.markjmind.uni.mapper.annotiation.Layout;
 import com.markjmind.uni.mapper.annotiation.Timeout;
 
 /**
@@ -11,6 +12,13 @@ import com.markjmind.uni.mapper.annotiation.Timeout;
  * @since 2018-04-30
  */
 
-@Timeout(2000)
+@Timeout(1500)
+@Layout(R.layout.intro)
 public class IntroFragment extends UniIntroFragment{
+    @Override
+    public void onPost() {
+        getBuilder()
+                .setHistory(false)
+                .replace(new MainFragment());
+    }
 }
