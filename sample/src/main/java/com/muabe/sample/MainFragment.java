@@ -34,7 +34,7 @@ public class MainFragment extends UniFragment{
                 return true;
             }
         });
-
+        motion2.setMaxDistance(500);
         Propose propose = new Propose();
         propose.addMotion(motion2);
         button.setOnTouchListener(propose);

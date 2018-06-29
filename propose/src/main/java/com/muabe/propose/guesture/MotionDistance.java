@@ -1,7 +1,9 @@
 package com.muabe.propose.guesture;
 
+import com.muabe.propose.Motion2;
+
 public class MotionDistance {
-    private float max;
+    private float max = Motion2.INFINITY;
     private float min = 0;
     private float score;
 
@@ -14,8 +16,8 @@ public class MotionDistance {
         if(distance < min){
             distance = min;
         }
-        if(score > max){
-            score = max;
+        if(distance > max){
+            distance = max;
         }
         this.score = distance;
     }
