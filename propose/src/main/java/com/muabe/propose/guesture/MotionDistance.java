@@ -29,7 +29,9 @@ public class MotionDistance {
     public void setMax(float max) {
         this.max = max;
     }
-
+    public float getMin(){
+        return this.min;
+    }
     public float get() {
         return score;
     }
