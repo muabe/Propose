@@ -27,16 +27,16 @@ public class MainFragment extends UniFragment{
 
     @Override
     public void onPre() {
+        final float start = button.getX();
         Motion2 motion2 = new Motion2(new RightGesture());
         motion2.setOnPlayListener(new OnPlayListener() {
             @Override
             public boolean play(float distance) {
-                Log.e("dd", "distance:"+distance);
-
+                button.setX(start+distance);
                 return true;
             }
         });
-
+        motion2.setMaxDistance(500);
         Propose propose = new Propose();
         propose.addMotion(motion2);
         button.setOnTouchListener(propose);

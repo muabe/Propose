@@ -1,5 +1,6 @@
 package com.muabe.propose;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -62,11 +63,14 @@ public class Propose implements View.OnTouchListener{
 //            filter.onDrag(event);
 //        }
             for(Motion2 motion : motionList){
-                boolean result = motion.getGesture().gesture(event);
-                Mlog.i(this, "gesture:"+result);
+                boolean result = motion.getGesture().isGesture(event);
+                if(motion.getGesture().isSwitch()){
+                    motion.play();
+                    Log.e("dd", "isSwitch:"+motion.getGesture().getPosition());
+                }
                 if(result) {
                     result = motion.play();
-                    Mlog.i(this, "play:"+result);
+                    Log.e("dd", "isGesture:"+motion.getGesture().getPosition());
                 }
             }
             return true;

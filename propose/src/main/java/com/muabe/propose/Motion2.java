@@ -4,7 +4,7 @@ import com.muabe.propose.guesture.BaseGesture;
 import com.muabe.propose.guesture.MotionDistance;
 
 public class Motion2 {
-    public static final int INFINITY = 1;
+    public static final float INFINITY = 3.4E+38f;
     private MotionDistance motionDistance;
     private BaseGesture baseGesture;
     private OnPlayListener playListener;
@@ -14,6 +14,10 @@ public class Motion2 {
         this.motionDistance = new MotionDistance();
         this.baseGesture = baseGesture;
         this.baseGesture.init(motionDistance);
+    }
+
+    public void setMaxDistance(float maxDistance){
+        motionDistance.setMax(maxDistance);
     }
 
     public BaseGesture getGesture(){
