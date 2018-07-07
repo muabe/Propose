@@ -23,6 +23,8 @@ public class MainFragment extends UniFragment{
     @GetView
     Button button;
 
+
+
     @Override
     public void onPre() {
         Motion2 motion2 = new Motion2(new RightGesture());
