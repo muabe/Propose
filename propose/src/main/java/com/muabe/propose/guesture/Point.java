@@ -2,7 +2,7 @@ package com.muabe.propose.guesture;
 
 import com.muabe.propose.Motion2;
 
-public class MotionDistance {
+public class Point {
     private float max = Motion2.INFINITY;
     private float min = 0;
     private float score;

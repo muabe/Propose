@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
+
 public abstract class BaseGesture {
     private enum State{
         NONE,
@@ -12,53 +13,39 @@ public abstract class BaseGesture {
         MAX
     }
     private State state;
-    protected MotionDistance motionDistance;
+    protected Point point;
 
-    public void init(MotionDistance motionDistance){
-        this.motionDistance = motionDistance;
+    public void init(Point point){
+        this.point = point;
         state = State.NONE;
     }
-    public abstract void gesture(SingleTouchEvent touchEvent);
+    public abstract boolean gesture(SingleTouchEvent touchEvent, Point point);
+    public abstract float getPositionToDistance(SingleTouchEvent touchEvent, float position);
+    public abstract float getDistanceToPosition(SingleTouchEvent touchEvent, float distance);
+    public abstract float getPoint(SingleTouchEvent touchEvent, Point point);
 
-    public void setPosition(float position){
-        if(position >= motionDistance.getMax()) {
+    public void setPoint(float point){
+        if(point >= this.point.getMax()) {
             if(state.equals(State.MAX)) {
                 setState(State.NONE);
             }else{
                 setState(State.MAX);
-                motionDistance.set(position);
+                this.point.set(point);
             }
 
-        }else if(position <= motionDistance.getMin()){
+        }else if(point <= this.point.getMin()){
             if(state.equals(State.MIN)){
                 setState(State.NONE);
             }else{
                 setState(State.MIN);
-                motionDistance.set(position);
+                this.point.set(point);
             }
         }else{
             setState(State.BETWEEN);
-            motionDistance.set(position);
+            this.point.set(point);
         }
+    }
 
-//        if(position >= motionDistance.getMax()) {
-//            if(!setState(State.MAX)){
-//                setState(State.NONE);
-//                return;
-//            }
-//        }else if(position <= motionDistance.getMin()){
-//            if(!setState(State.MIN)){
-//                setState(State.NONE);
-//                return;
-//            }
-//        }else{
-//            setState(State.BETWEEN);
-//        }
-//        motionDistance.set(position);
-    }
-    public float getPosition(){
-        return motionDistance.get();
-    }
 
     public boolean isSwitch(){
         boolean isSwitch = state.equals(State.MAX) || state.equals(State.MIN);
@@ -69,8 +56,9 @@ public abstract class BaseGesture {
     }
 
     public boolean isGesture(SingleTouchEvent touchEvent){
-        gesture(touchEvent);
-        return state.equals(State.BETWEEN);
+//        boolean isGuesture = gesture(touchEvent, point);
+//        return state.equals(State.BETWEEN);
+        return false;
     }
 
     private boolean setState(State state){

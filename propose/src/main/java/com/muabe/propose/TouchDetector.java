@@ -18,9 +18,10 @@ import java.util.List;
 
 /**
  * <br>捲土重來<br>
- *
+ * TouchEvent의 절대 좌표를 변환하고
+ * 새로이 절대좌표에 대한 Event를 재생성하여
+ * TouchDetectAdapter에 전달한다.
  * @author 오재웅(JaeWoong-Oh)
- * @email markjmind@gmail.com
  */
 
 public class TouchDetector{
