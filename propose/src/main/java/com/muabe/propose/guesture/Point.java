@@ -1,25 +1,28 @@
 package com.muabe.propose.guesture;
 
-import com.muabe.propose.Motion2;
+import com.muabe.propose.Motion;
 
 public class Point {
-    private float max = Motion2.INFINITY;
+    private float max = Motion.INFINITY;
     private float min = 0;
-    private float score;
+    private float point;
 
-    public void init(float max, float distance){
+    public void init(float max){
         setMax(max);
-        set(distance);
     }
 
-    public void set(float distance){
-        if(distance < min){
-            distance = min;
+    public void set(float point){
+        if(point < min){
+            point = min;
         }
-        if(distance > max){
-            distance = max;
+        if(point > max){
+            point = max;
         }
-        this.score = distance;
+        this.point = point;
+    }
+
+    public void add(float point){
+        set(get()+point);
     }
 
     public float getMax() {
@@ -33,6 +36,6 @@ public class Point {
         return this.min;
     }
     public float get() {
-        return score;
+        return point;
     }
 }

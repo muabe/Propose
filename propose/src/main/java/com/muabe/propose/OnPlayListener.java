@@ -1,5 +1,5 @@
 package com.muabe.propose;
 
 public interface OnPlayListener {
-    boolean play(float distance);
+    boolean play(float pointValue);
 }

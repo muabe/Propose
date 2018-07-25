@@ -2,7 +2,7 @@ package com.muabe.propose.motion.filter;
 
 import com.muabe.propose.State;
 import com.muabe.propose.motion.DragFilter;
-import com.muabe.propose.motion.Motion;
+import com.muabe.propose.motion.Motion3;
 import com.muabe.propose.util.ObservableMap;
 
 import java.util.List;
@@ -35,10 +35,10 @@ public class Filter {
     }
 
     //TODO REMOVE - test
-    public static void addMotion(Motion motion) {
-        if(isSingle(motion.getMotionState())) {
-            if (Filter.singleFilters.containsKey(motion.getMotionState())) {
-                Filter.singleFilters.get(motion.getMotionState()).addMotion(motion);
+    public static void addMotion(Motion3 motion3) {
+        if(isSingle(motion3.getMotionState())) {
+            if (Filter.singleFilters.containsKey(motion3.getMotionState())) {
+                Filter.singleFilters.get(motion3.getMotionState()).addMotion(motion3);
             }
         }
     }

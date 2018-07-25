@@ -2,7 +2,7 @@ package com.muabe.propose.motion.filter;
 
 import com.muabe.propose.State;
 import com.muabe.propose.motion.LinkedPoint;
-import com.muabe.propose.motion.Motion;
+import com.muabe.propose.motion.Motion3;
 import com.muabe.propose.motion.Point;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.util.Mlog;
@@ -23,7 +23,7 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
         return state;
     }
 
-    public void addMotion(Motion motion) {
+    public void addMotion(Motion3 motion3) {
 
     }
 
@@ -45,7 +45,7 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
 
     /*
     @Override
-    public void addMotion(Motion motion) {
+    public void addMotion(Motion3 motion) {
         LinkedPoint point = new LinkedPoint(motion.getMotionState(), motion.getMaxPoint(), motion);
         DirectionFilter.PointObserver observer = new DirectionFilter.PointObserver(point);
         point.setOnPointChangeListener(this);
@@ -53,8 +53,8 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
 
         if (pointObservable.size() > 1) {
             List<State.MotionState> keyList = pointObservable.getKeys();
-            pointObservable.get(keyList.get(0)).getPoint().setLinkPoint(pointObservable.get(keyList.get(1)).getPoint());
-            pointObservable.get(keyList.get(1)).getPoint().setLinkPoint(pointObservable.get(keyList.get(0)).getPoint());
+            pointObservable.get(keyList.get(0)).getPointValue().setLinkPoint(pointObservable.get(keyList.get(1)).getPointValue());
+            pointObservable.get(keyList.get(1)).getPointValue().setLinkPoint(pointObservable.get(keyList.get(0)).getPointValue());
         }
     }
 
@@ -65,15 +65,15 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
             if (point != 0) {
                 if (state == State.MotionState.NONE) {
                     for (DirectionFilter.PointObserver observer : pointObservable.getValues()) {
-                        if (observer.getPoint().isLikeOrientation(point)) {
-                            onPointChange(state, observer.getPoint().getState());
-                            observer.getPoint().setPoint(point);
+                        if (observer.getPointValue().isLikeOrientation(point)) {
+                            onPointChange(state, observer.getPointValue().getState());
+                            observer.getPointValue().setPoint(point);
                             return true;
                         }
                     }
                 } else {
                     if (pointObservable.containsKey(state)) {
-                        LinkedPoint point = pointObservable.get(state).getPoint();
+                        LinkedPoint point = pointObservable.get(state).getPointValue();
                         point.setPoint(point);
                         return true;
                     }

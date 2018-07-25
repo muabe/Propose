@@ -5,7 +5,7 @@ import android.util.Log;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 
-public abstract class BaseGesture {
+public abstract class MotionPluginOld {
     private enum State{
         NONE,
         MIN,

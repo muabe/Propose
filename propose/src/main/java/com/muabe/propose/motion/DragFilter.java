@@ -11,7 +11,7 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  */
 
 public interface DragFilter {
-    void addMotion(Motion motion);
+    void addMotion(Motion3 motion3);
     boolean onDrag(SingleTouchEvent event);
     boolean onMultiDrag(MultiTouchEvent event);
 }

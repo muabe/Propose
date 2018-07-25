@@ -3,7 +3,7 @@ package com.muabe.propose.motion.filter;
 import com.muabe.propose.State;
 import com.muabe.propose.motion.DragFilter;
 import com.muabe.propose.motion.LinkedPoint;
-import com.muabe.propose.motion.Motion;
+import com.muabe.propose.motion.Motion3;
 import com.muabe.propose.motion.Point;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
@@ -55,11 +55,11 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     @Override
-    public void addMotion(Motion motion) {
-        LinkedPoint point = new LinkedPoint(motion.getMotionState(), motion.getMaxPoint(), motion);
+    public void addMotion(Motion3 motion3) {
+        LinkedPoint point = new LinkedPoint(motion3.getMotionState(), motion3.getMaxPoint(), motion3);
         PointObserver observer = new PointObserver(point);
         point.setOnPointChangeListener(this);
-        pointObservable.put(motion.getMotionState(), observer);
+        pointObservable.put(motion3.getMotionState(), observer);
 
         if (pointObservable.size() > 1) {
             List<State.MotionState> keyList = pointObservable.getKeys();

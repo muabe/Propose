@@ -38,12 +38,12 @@ public class TouchDetector{
 //
 //    //TODO REMOVE
 //    private void test(){
-//        Filter.addMotion(new Motion(State.MotionState.LEFT));
-//        Filter.addMotion(new Motion(State.MotionState.RIGHT));
-////        Filter.addMotion(new Motion(State.MotionState.UP));
-////        Filter.addMotion(new Motion(State.MotionState.DOWN));
-//        Filter.addMotion(new Motion(State.MotionState.MULTI_LEFT));
-//        Filter.addMotion(new Motion(State.MotionState.MULTI_RIGHT));
+//        Filter.addMotion(new Motion3(State.MotionState.LEFT));
+//        Filter.addMotion(new Motion3(State.MotionState.RIGHT));
+////        Filter.addMotion(new Motion3(State.MotionState.UP));
+////        Filter.addMotion(new Motion3(State.MotionState.DOWN));
+//        Filter.addMotion(new Motion3(State.MotionState.MULTI_LEFT));
+//        Filter.addMotion(new Motion3(State.MotionState.MULTI_RIGHT));
 //    }
 
 

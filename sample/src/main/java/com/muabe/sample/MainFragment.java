@@ -1,14 +1,14 @@
 package com.muabe.sample;
 
-import android.util.Log;
 import android.widget.Button;
 
 import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
-import com.muabe.propose.Motion2;
+import com.muabe.propose.Motion;
 import com.muabe.propose.OnPlayListener;
 import com.muabe.propose.Propose;
+import com.muabe.propose.guesture.LeftGesture;
 import com.muabe.propose.guesture.RightGesture;
 
 /**
@@ -26,19 +26,28 @@ public class MainFragment extends UniFragment{
 
 
     @Override
-    public void onPre() {
+    public void onPost() {
         final float start = button.getX();
-        Motion2 motion2 = new Motion2(new RightGesture());
-        motion2.setOnPlayListener(new OnPlayListener() {
+        Motion motionLeft = new Motion(new LeftGesture());
+        motionLeft.setOnPlayListener(new OnPlayListener() {
             @Override
-            public boolean play(float distance) {
-                button.setX(start+distance);
+            public boolean play(float pointValue) {
+                button.setX(start-pointValue);
                 return true;
             }
         });
-        motion2.setMaxDistance(500);
+        motionLeft.setMaxPoint(500);
+        Motion motionRight = new Motion(new RightGesture());
+        motionRight.setOnPlayListener(new OnPlayListener() {
+            @Override
+            public boolean play(float pointValue) {
+                button.setX(start+pointValue);
+                return true;
+            }
+        });
+        motionRight.setMaxPoint(500);
         Propose propose = new Propose();
-        propose.addMotion(motion2);
+        propose.addMotion(motionLeft).addMotion(motionRight);
         button.setOnTouchListener(propose);
 
     }

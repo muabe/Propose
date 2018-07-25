@@ -1,9 +1,9 @@
 package com.muabe.propose;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 
 public class Propose implements View.OnTouchListener{
-    ArrayList<Motion2> motionList = new ArrayList<>();
+    ArrayList<Motion> motionList = new ArrayList<>();
     TouchDetector touchDetector;
     TouchDetectListener touchDetectListener;
 
@@ -27,8 +27,8 @@ public class Propose implements View.OnTouchListener{
         touchDetectListener = new TouchDetectListener();
     }
 
-    public Propose addMotion(Motion2 motion2){
-        motionList.add(motion2);
+    public Propose addMotion(Motion motion){
+        motionList.add(motion);
         return this;
     }
 
@@ -84,15 +84,13 @@ public class Propose implements View.OnTouchListener{
 //        for(DragFilter filter : dragFilterList){
 //            filter.onDrag(event);
 //        }
-            for(Motion2 motion : motionList){
-                boolean result = motion.getGesture().isGesture(event);
-                if(motion.getGesture().isSwitch()){
+            for(Motion motion : motionList){
+                GesturePlugin plugin = motion.getGesture();
+                float increase = plugin.increaseDistance(event);
+                float point = plugin.getPointValue(increase);
+                plugin.getPoint().add(point);
+                if(plugin.getPoint().get()>0) {
                     motion.play();
-                    Log.e("dd", "isSwitch:"+motion.getGesture().getPosition());
-                }
-                if(result) {
-                    result = motion.play();
-                    Log.e("dd", "isGesture:"+motion.getGesture().getPosition());
                 }
             }
             return true;

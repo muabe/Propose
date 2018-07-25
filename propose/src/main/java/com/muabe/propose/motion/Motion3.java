@@ -10,11 +10,11 @@ import com.muabe.propose.util.Mlog;
  * @email markjmind@gmail.com
  */
 
-public class Motion implements Point.OnPointListener {
+public class Motion3 implements Point.OnPointListener {
     private State.MotionState motionState;
     private Point point;
 
-    public Motion(State.MotionState motionState, float maxPoint){
+    public Motion3(State.MotionState motionState, float maxPoint){
         this.motionState = motionState;
         point = new Point(getMotionState(), maxPoint, this);
     }

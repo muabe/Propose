@@ -2,11 +2,10 @@ package com.muabe.propose.guesture;
 
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
-public class RightGesture extends GesturePlugin {
-
+public class LeftGesture extends GesturePlugin {
     @Override
     public float increaseDistance(SingleTouchEvent event) {
-        return event.getX()-event.getPreX();
+        return -(event.getX()-event.getPreX());
     }
 
     @Override
