@@ -4,7 +4,7 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 public class LeftGesture extends GesturePlugin {
     @Override
-    public float increaseDistance(SingleTouchEvent event) {
+    public float distancePriority(SingleTouchEvent event) {
         return -(event.getX()-event.getPreX());
     }
 

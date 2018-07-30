@@ -1,5 +1,6 @@
 package com.muabe.sample;
 
+import android.util.Log;
 import android.widget.Button;
 
 import com.markjmind.uni.UniFragment;
@@ -8,8 +9,13 @@ import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Motion;
 import com.muabe.propose.OnPlayListener;
 import com.muabe.propose.Propose;
+import com.muabe.propose.combine.Combination;
+import com.muabe.propose.combine.Combiner;
+import com.muabe.propose.combine.TestCombination;
 import com.muabe.propose.guesture.LeftGesture;
 import com.muabe.propose.guesture.RightGesture;
+
+import java.util.ArrayList;
 
 /**
  * <br>捲土重來<br>
@@ -49,6 +55,22 @@ public class MainFragment extends UniFragment{
         Propose propose = new Propose();
         propose.addMotion(motionLeft).addMotion(motionRight);
         button.setOnTouchListener(propose);
+
+        TestCombination e1 = new TestCombination("E1", 1);
+        TestCombination e2 = new TestCombination("E2", 4);
+
+        TestCombination e3 = new TestCombination("E3", 5);
+
+        TestCombination e4 = new TestCombination("E4", 3);
+        TestCombination e5 = new TestCombination("E5", 2);
+
+        Combination combination = Combiner.part(Combiner.mix(e1, e2), e3, Combiner.part(e4,e5));
+        ArrayList<Combination> combinations = new ArrayList<>();
+        Combiner.getPriorityElements(combination, combinations);
+        for(Combination c : combinations){
+            Log.e("dsf","필터리:"+((TestCombination)c).name);
+
+        }
 
     }
 }

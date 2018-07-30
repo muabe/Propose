@@ -1,5 +1,6 @@
 package com.muabe.propose;
 
+import com.muabe.propose.combine.Combiner;
 import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.guesture.Point;
 import com.muabe.propose.util.Tools;
@@ -9,13 +10,17 @@ import com.muabe.propose.util.Tools;
  * BaseGesture에서 얻은 수치를 OnPlayListener에 전달 해준다.
  *
  */
-public class Motion {
+public class Motion{
     public static final float INFINITY = 3.4E+38f;
     private Point point;
     private GesturePlugin gesturePlugin;
     private OnPlayListener playListener;
 
     private String name;
+
+    protected Motion(){
+
+    }
 
     public Motion(String name, GesturePlugin gesturePlugin){
         this.point = new Point();

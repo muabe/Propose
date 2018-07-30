@@ -86,7 +86,7 @@ public class Propose implements View.OnTouchListener{
 //        }
             for(Motion motion : motionList){
                 GesturePlugin plugin = motion.getGesture();
-                float increase = plugin.increaseDistance(event);
+                float increase = plugin.distancePriority(event);
                 float point = plugin.getPointValue(increase);
                 plugin.getPoint().add(point);
                 if(plugin.getPoint().get()>0) {
