@@ -2,6 +2,7 @@ package com.muabe.propose;
 
 import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.guesture.Point;
+import com.muabe.propose.util.Tools;
 
 /**
  * 모션에 따른 실제 움직임을 여기서 동기화 시켜주는 역할을한다.
@@ -14,6 +15,14 @@ public class Motion {
     private GesturePlugin gesturePlugin;
     private OnPlayListener playListener;
 
+    private String name;
+
+    public Motion(String name, GesturePlugin gesturePlugin){
+        this.point = new Point();
+        this.gesturePlugin = gesturePlugin;
+        this.gesturePlugin.init(point);
+        this.name = name;
+    }
 
     public Motion(GesturePlugin gesturePlugin){
         this.point = new Point();
@@ -47,4 +56,16 @@ public class Motion {
     public OnPlayListener getPlayListener() {
         return playListener;
     }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        if(name==null){
+            name = Tools.getDefaultName("motion", this);
+        }
+        return this.name;
+    }
+
 }
