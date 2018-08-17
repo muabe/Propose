@@ -1,7 +1,8 @@
 package com.muabe.propose.combine;
 
+import java.util.ArrayList;
+
 public class TestCombination extends Combination {
-    public String name;
     public int priority;
 
     public TestCombination(String name, int priority){
@@ -12,5 +13,9 @@ public class TestCombination extends Combination {
     @Override
     public int priority() {
         return priority;
+    }
+
+    public void end(ArrayList<Combination> list){
+        int index = list.indexOf(this);
     }
 }

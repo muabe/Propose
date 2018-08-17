@@ -3,44 +3,36 @@ package com.muabe.propose.combine;
 import java.util.ArrayList;
 
 public abstract class Combination{
-    protected int mode = Combiner.ELEMENT;
+    public String name="";
+    protected Combination parents;
+    protected int mode = Combine.ELEMENT;
     protected ArrayList<Combination> child = new ArrayList<>();
+    protected ArrayList<Combination> cache = new ArrayList<>();
+    protected boolean isScaned = false;
 
-//    public ArrayList<Combination> getPriorityElements(){
-//        ArrayList<Combination> list = new ArrayList<>();
-//        switch(mode){
-//            case Combiner.ELEMENT :
-//                list.add(this);
-//                break;
-//
-//            case Combiner.MIX :
-//                for(Combination childCombine : child){
-//                    list.addAll(childCombine.getPriorityElements());
-//                }
-//                break;
-//
-//            case Combiner.PART :
-//                ArrayList<Combination> winner = null;
-//                for(Combination childCombine : child){
-//                    if(winner==null){
-//                        winner = childCombine.getPriorityElements();
-//                    }else{
-//                        ArrayList<Combination> challener = childCombine.getPriorityElements();
-//                        int winnerScore = score(winner);
-//                        int challenerScore = score(challener);
-//                        if(winnerScore < challenerScore){
-//                            winner = challener;
-//                        }
-//                    }
-//                }
-//                list.addAll(winner);
-//                break;
-//        }
-//        return list;
-//    }
-
-
+    protected boolean scanable = true;
 
     public abstract int priority();
 
+    @Override
+    public String toString() {
+        String name1;
+        if(mode == Combine.ELEMENT){
+            name1 = "ELEMENT("+name+")";
+        }else if(mode == Combine.OR){
+            name1 = "OR:";
+            for(int i=0;i<cache.size();i++){
+                name1 += cache.get(i).toString();
+            }
+        }else{
+            name1 = "AND:";
+            for(int i=0;i<cache.size();i++){
+                if(i!=0){
+                    name1 += "+";
+                }
+                name1 += cache.get(i).toString();
+            }
+        }
+        return name1;
+    }
 }
