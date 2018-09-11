@@ -139,6 +139,8 @@ public class Combine {
             combination.parents.cache.remove(combination);
             Log.i("dd", combination.parents+" delete="+combination);
             if(combination.parents.cache.size()==0){
+                combination.parents.deletedCache = true;
+                combination.deletedCache = false;
                 return deleteCache(combination.parents);
 
             }

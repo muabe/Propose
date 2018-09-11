@@ -8,9 +8,7 @@ public abstract class Combination{
     protected int mode = Combine.ELEMENT;
     protected ArrayList<Combination> child = new ArrayList<>();
     protected ArrayList<Combination> cache = new ArrayList<>();
-    protected boolean isScaned = false;
-
-    protected boolean scanable = true;
+    protected boolean deletedCache = false;
 
     public abstract int priority();
 
