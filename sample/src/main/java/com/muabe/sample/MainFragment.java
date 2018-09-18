@@ -10,7 +10,7 @@ import com.muabe.propose.Motion;
 import com.muabe.propose.OnPlayListener;
 import com.muabe.propose.Propose;
 import com.muabe.propose.combine.Combination;
-import com.muabe.propose.combine.Combiner;
+import com.muabe.propose.combine.Combine;
 import com.muabe.propose.combine.TestCombination;
 import com.muabe.propose.guesture.LeftGesture;
 import com.muabe.propose.guesture.RightGesture;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * <br>捲土重來<br>
  *
  * @author 오재웅(JaeWoong - Oh)
- * @email markjmind@gmail.com
  * @since 2018-04-30
  */
 @Layout(R.layout.main)
@@ -62,14 +61,57 @@ public class MainFragment extends UniFragment{
         TestCombination e3 = new TestCombination("E3", 5);
 
         TestCombination e4 = new TestCombination("E4", 3);
-        TestCombination e5 = new TestCombination("E5", 2);
+        TestCombination e5 = new TestCombination("E5", 7);
 
-        Combination combination = Combiner.part(Combiner.mix(e1, e2), e3, Combiner.part(e4,e5));
-        ArrayList<Combination> combinations = new ArrayList<>();
-        Combiner.getPriorityElements(combination, combinations);
+        TestCombination e6 = new TestCombination("E6", 2);
+        TestCombination e7 = new TestCombination("E7", 1);
+        TestCombination e8 = new TestCombination("E8", 10);
+
+        TestCombination e9 = new TestCombination("E9", 2);
+        TestCombination e10 = new TestCombination("E10", 6);
+
+        Combination combination = Combine.one(Combine.all(e1, e2), e3, Combine.one(e4, e5, Combine.one(e6, e7, e8, Combine.all(e9, e10))));
+
+        ArrayList<Combination> combinations;
+        combinations = Combine.scan(combination);
         for(Combination c : combinations){
-            Log.e("dsf","필터리:"+((TestCombination)c).name);
+            Log.e("dsf","필터링1:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
+        }
 
+        Log.e("dsf","---------------------------------------");
+        e8.priority = 1;
+        combinations = Combine.scan(combination);
+        for(Combination c : combinations){
+            Log.e("dsf","필터링2:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
+        }
+
+        Log.e("dsf","---------------------------------------");
+        e9.priority = 10;
+        combinations = Combine.scan(combination);
+        for(Combination c : combinations){
+            Log.e("dsf","필터링3:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
+        }
+
+        Log.e("dsf","---------------------------------------");
+        e8.priority = 0;
+        combinations = Combine.scan(combination);
+        for(Combination c : combinations){
+            Log.e("dsf","필터링4:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
+        }
+
+        Log.e("dsf","---------------------------------------");
+        e9.priority = 0;
+        combinations = Combine.scan(combination);
+        for(Combination c : combinations){
+            Log.e("dsf","필터링5:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
+        }
+
+        Log.e("dsf","---------------------------------------");
+        e10.priority = 0;
+        e9.priority = 1;
+        combinations = Combine.scan(combination);
+        for(Combination c : combinations){
+            Log.e("dsf","필터링6:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
         }
 
     }

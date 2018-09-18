@@ -1,6 +1,5 @@
 package com.muabe.propose;
 
-import com.muabe.propose.combine.Combiner;
 import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.guesture.Point;
 import com.muabe.propose.util.Tools;
