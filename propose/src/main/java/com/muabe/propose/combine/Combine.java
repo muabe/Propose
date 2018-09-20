@@ -63,11 +63,7 @@ public class Combine {
                 if(combination.priority() > 0) {
                     list.add(combination);
                 }else{
-                    Combination reScan = deleteCache(combination);
-                    if(reScan.mode != Combine.ELEMENT) {
-                        Log.e("dd", "재스캔!! = "+reScan.toString());
-                        scanLoop(reScan, list);
-                    }
+                    updateCache(combination, list);
                 }
                 break;
 
@@ -126,6 +122,16 @@ public class Combine {
         }
     }
 
+    private static void updateCache(Combination combination, ArrayList<Combination> list){
+        Combination reScan = deleteCache(combination);
+        if(reScan.mode != Combine.ELEMENT) {
+            Log.e("dd", "재스캔!! = "+reScan.toString());
+            scanLoop(reScan, list);
+        }
+
+
+    }
+
     /**
      * 부모의 캐쉬에 이미 등록되지 않은 상태라면 빠져나간다.
      * 캐쉬가 등록되어 있을 경우 캐쉬를 삭제하고 부모의 캐쉬가 하나도 남지 않으면
@@ -141,10 +147,31 @@ public class Combine {
                     combination.deletedCache = true;
                 }
                 return deleteCache(combination.parents);
-
             }
         }
         return combination;
+    }
+
+
+    private static void updateCascheBottomTop(Combination combination, ArrayList<Combination> list){
+        if(combination.parents!=null && combination.parents.cache.contains(combination)){
+            combination.parents.cache.remove(combination);
+            Log.i("dd", combination.parents+" delete="+combination);
+            if(combination.parents.cache.size()==0){
+                if(combination.parents.mode == Combine.OR){
+                    combination.deletedCache = true;
+                    ArrayList<Combination> tempList = new ArrayList<>();
+                    scanLoop(combination.parents, tempList);
+                    if(tempList.size()==0){
+                        updateCascheBottomTop(combination.parents, list);
+                    }else{
+                        list.addAll(tempList);
+                    }
+                }else if(combination.parents.mode == Combine.AND){
+                    updateCascheBottomTop(combination.parents, list);
+                }
+            }
+        }
     }
 
 
