@@ -74,45 +74,46 @@ public class MainFragment extends UniFragment{
 
         ArrayList<Combination> combinations;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링1:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(1, combinations);
 
-        Log.e("dsf","---------------------------------------");
         e8.priority = 1;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링2:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(2, combinations);
 
-        Log.e("dsf","---------------------------------------");
         e9.priority = 10;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링3:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(3, combinations);
 
-        Log.e("dsf","---------------------------------------");
         e8.priority = 0;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링4:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(4, combinations);
 
-        Log.e("dsf","---------------------------------------");
         e9.priority = 0;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링5:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(5, combinations);
 
-        Log.e("dsf","---------------------------------------");
         e10.priority = 0;
         e9.priority = 1;
         combinations = Combine.scan(combination);
-        for(Combination c : combinations){
-            Log.e("dsf","필터링6:"+((TestCombination)c).name+"="+((TestCombination)c).priority);
-        }
+        print(6, combinations);
 
+        e10.priority = 1;
+        e9.priority = 1;
+        combinations = Combine.scan(combination);
+        print(7, combinations);
+
+        e10.priority = 0;
+        e9.priority = 0;
+        combinations = Combine.scan(combination);
+        print(8, combinations);
+
+    }
+
+    void print(int num, ArrayList<Combination> combinations){
+        String msg = "";
+        for(Combination c : combinations){
+            msg += " "+((TestCombination)c).name+"="+((TestCombination)c).priority;
+        }
+        Log.e("dsf","필터링"+num+":"+msg);
     }
 }

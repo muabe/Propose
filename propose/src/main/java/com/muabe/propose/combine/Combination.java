@@ -33,4 +33,8 @@ public abstract class Combination{
         }
         return name1;
     }
+
+    public void clearCache(){
+        Combine.clearCache(this);
+    }
 }
