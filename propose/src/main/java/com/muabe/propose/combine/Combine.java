@@ -25,8 +25,8 @@ public class Combine {
     private static Combination combine(int mode, Combination... combinations){
         Combination newCombination = new Combination() {
             @Override
-            public int priority() {
-                return 0;
+            public float priority() {
+                return 0f;
             }
         };
         newCombination.mode = mode;
@@ -37,7 +37,7 @@ public class Combine {
         return newCombination;
     }
 
-    public static int count=0;
+    public static int count = 0;
 
     public static ArrayList<Combination> scan(Combination combination){
         count = 0;
@@ -86,8 +86,8 @@ public class Combine {
                             ArrayList<Combination> challener = new ArrayList<>();
                             scanLoop(childCombination, challener);
 
-                            int winnerScore = score(winner);
-                            int challenerScore = score(challener);
+                            float winnerScore = score(winner);
+                            float challenerScore = score(challener);
                             if (challenerScore > 0 && winnerScore < challenerScore) {
                                 winner = challener;
                             }
@@ -128,8 +128,6 @@ public class Combine {
             Log.e("dd", "재스캔!! = "+reScan.toString());
             scanLoop(reScan, list);
         }
-
-
     }
 
     /**
@@ -190,9 +188,9 @@ public class Combine {
      * @param list mode가 전부 Element 이여야함
      * @return combination의 priority 값
      */
-    private static int score(ArrayList<Combination> list){
+    private static float score(ArrayList<Combination> list){
         int i = 0;
-        int score = -1;
+        float score = -1f;
         for(Combination combination : list){
             if(i==0){
                 score = combination.priority();
