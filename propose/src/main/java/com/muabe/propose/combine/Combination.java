@@ -2,15 +2,13 @@ package com.muabe.propose.combine;
 
 import java.util.ArrayList;
 
-public abstract class Combination implements ScanPriority{
+public abstract class Combination<Param> implements ScanPriority<Param>{
     public String name="";
     protected Combination parents;
     protected int mode = Combine.ELEMENT;
-    protected ArrayList<Combination> child = new ArrayList<>();
-    protected ArrayList<Combination> cache = new ArrayList<>();
+    protected ArrayList<Combination<Param>> child = new ArrayList<>();
+    protected ArrayList<Combination<Param>> cache = new ArrayList<>();
     protected boolean deletedCache = false;
-
-    public abstract float priority();
 
     @Override
     public String toString() {

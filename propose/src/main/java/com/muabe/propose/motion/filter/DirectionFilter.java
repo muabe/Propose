@@ -2,9 +2,9 @@ package com.muabe.propose.motion.filter;
 
 import com.muabe.propose.State;
 import com.muabe.propose.motion.DragFilter;
-import com.muabe.propose.motion.LinkedPoint;
+import com.muabe.propose.motion.LinkedMPoint;
+import com.muabe.propose.motion.MPoint;
 import com.muabe.propose.motion.Motion3;
-import com.muabe.propose.motion.Point;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.util.Mlog;
@@ -19,7 +19,7 @@ import java.util.List;
  * @email markjmind@gmail.com
  */
 
-public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeListener {
+public class DirectionFilter implements DragFilter, LinkedMPoint.OnPointChangeListener {
     private State.MotionState state = State.MotionState.NONE;
     private ObservableMap<State.MotionState, PointObserver> pointObservable = new ObservableMap<>();
     private Distance distance;
@@ -56,15 +56,15 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
 
     @Override
     public void addMotion(Motion3 motion3) {
-        LinkedPoint point = new LinkedPoint(motion3.getMotionState(), motion3.getMaxPoint(), motion3);
+        LinkedMPoint point = new LinkedMPoint(motion3.getMotionState(), motion3.getMaxPoint(), motion3);
         PointObserver observer = new PointObserver(point);
         point.setOnPointChangeListener(this);
         pointObservable.put(motion3.getMotionState(), observer);
 
         if (pointObservable.size() > 1) {
             List<State.MotionState> keyList = pointObservable.getKeys();
-            pointObservable.get(keyList.get(0)).getPoint().setLinkPoint(pointObservable.get(keyList.get(1)).getPoint());
-            pointObservable.get(keyList.get(1)).getPoint().setLinkPoint(pointObservable.get(keyList.get(0)).getPoint());
+            pointObservable.get(keyList.get(0)).getPoint().setLinkMPoint(pointObservable.get(keyList.get(1)).getPoint());
+            pointObservable.get(keyList.get(1)).getPoint().setLinkMPoint(pointObservable.get(keyList.get(0)).getPoint());
         }
     }
 
@@ -83,7 +83,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
                     }
                 } else {
                     if (pointObservable.containsKey(state)) {
-                        LinkedPoint point = pointObservable.get(state).getPoint();
+                        LinkedMPoint point = pointObservable.get(state).getPoint();
                         point.setPoint(distance);
                         return true;
                     }
@@ -105,22 +105,22 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     private class PointObserver {
-        LinkedPoint point;
-        Point.OnPointListener pointListener;
+        LinkedMPoint point;
+        MPoint.OnPointListener pointListener;
 
-        public PointObserver(LinkedPoint point) {
+        public PointObserver(LinkedMPoint point) {
             this.point = point;
         }
 
-        public LinkedPoint getPoint() {
+        public LinkedMPoint getPoint() {
             return point;
         }
 
-        public Point.OnPointListener getPointListener() {
+        public MPoint.OnPointListener getPointListener() {
             return pointListener;
         }
 
-        public void setPointListener(Point.OnPointListener pointListener) {
+        public void setPointListener(MPoint.OnPointListener pointListener) {
             this.pointListener = pointListener;
         }
     }

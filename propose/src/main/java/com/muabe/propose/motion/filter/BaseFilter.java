@@ -1,9 +1,9 @@
 package com.muabe.propose.motion.filter;
 
 import com.muabe.propose.State;
-import com.muabe.propose.motion.LinkedPoint;
+import com.muabe.propose.motion.LinkedMPoint;
+import com.muabe.propose.motion.MPoint;
 import com.muabe.propose.motion.Motion3;
-import com.muabe.propose.motion.Point;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.util.Mlog;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @email markjmind@gmail.com
  */
 
-public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
+public abstract class BaseFilter implements LinkedMPoint.OnPointChangeListener{
     private State.MotionState state = State.MotionState.NONE;
 
     public State.MotionState getState() {
@@ -38,7 +38,7 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
         return false;
     }
 
-    public boolean onDrag(SingleTouchEvent event, ArrayList<Point> pointList) {
+    public boolean onDrag(SingleTouchEvent event, ArrayList<MPoint> MPointList) {
         boolean result = false;
         return result;
     }
@@ -46,15 +46,15 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
     /*
     @Override
     public void addMotion(Motion3 motion) {
-        LinkedPoint point = new LinkedPoint(motion.getMotionState(), motion.getMaxPoint(), motion);
+        LinkedMPoint point = new LinkedMPoint(motion.getMotionState(), motion.getMaxPoint(), motion);
         DirectionFilter.PointObserver observer = new DirectionFilter.PointObserver(point);
         point.setOnPointChangeListener(this);
         pointObservable.put(motion.getMotionState(), observer);
 
         if (pointObservable.size() > 1) {
             List<State.MotionState> keyList = pointObservable.getKeys();
-            pointObservable.get(keyList.get(0)).getPointValue().setLinkPoint(pointObservable.get(keyList.get(1)).getPointValue());
-            pointObservable.get(keyList.get(1)).getPointValue().setLinkPoint(pointObservable.get(keyList.get(0)).getPointValue());
+            pointObservable.get(keyList.get(0)).getPointValue().setLinkMPoint(pointObservable.get(keyList.get(1)).getPointValue());
+            pointObservable.get(keyList.get(1)).getPointValue().setLinkMPoint(pointObservable.get(keyList.get(0)).getPointValue());
         }
     }
 
@@ -73,7 +73,7 @@ public abstract class BaseFilter implements LinkedPoint.OnPointChangeListener{
                     }
                 } else {
                     if (pointObservable.containsKey(state)) {
-                        LinkedPoint point = pointObservable.get(state).getPointValue();
+                        LinkedMPoint point = pointObservable.get(state).getPointValue();
                         point.setPoint(point);
                         return true;
                     }

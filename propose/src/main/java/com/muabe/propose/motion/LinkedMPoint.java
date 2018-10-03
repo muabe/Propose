@@ -9,30 +9,30 @@ import com.muabe.propose.State;
  * @email markjmind@gmail.com
  */
 
-public class LinkedPoint extends Point {
-    private Point linkPoint;
+public class LinkedMPoint extends MPoint {
+    private MPoint linkMPoint;
     private OnPointChangeListener onPointChangeListener;
 
     public interface OnPointChangeListener{
         void onPointChange(State.MotionState preState, State.MotionState currState);
     }
 
-    public LinkedPoint(State.MotionState motionState, float maxPoint, OnPointListener onPointListener) {
+    public LinkedMPoint(State.MotionState motionState, float maxPoint, OnPointListener onPointListener) {
         super(motionState, maxPoint, onPointListener);
     }
 
-    public void setLinkPoint(Point linkPoint) {
-        this.linkPoint = linkPoint;
+    public void setLinkMPoint(MPoint linkMPoint) {
+        this.linkMPoint = linkMPoint;
     }
 
     @Override
     protected void onMin(float currentPoint, float distance) {
         super.onMin(currentPoint, distance);
-        if(linkPoint!=null){
+        if(linkMPoint !=null){
             if(onPointChangeListener!=null){
-                onPointChangeListener.onPointChange(getState(), linkPoint.getState());
+                onPointChangeListener.onPointChange(getState(), linkMPoint.getState());
             }
-            linkPoint.setPoint(distance);
+            linkMPoint.setPoint(distance);
         }
     }
 

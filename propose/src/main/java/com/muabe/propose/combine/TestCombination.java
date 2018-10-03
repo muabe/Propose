@@ -10,12 +10,15 @@ public class TestCombination extends Combination {
         this.priority = priority;
     }
 
-    @Override
-    public float priority() {
-        return priority;
-    }
+
 
     public void end(ArrayList<Combination> list){
         int index = list.indexOf(this);
     }
+
+    @Override
+    public float priority(Object o) {
+        return priority;
+    }
+
 }

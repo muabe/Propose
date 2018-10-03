@@ -73,38 +73,38 @@ public class MainFragment extends UniFragment{
         Combination combination = Combine.one(Combine.all(e1, e2), e3, Combine.one(e4, e5, Combine.one(e6, e7, e8, Combine.all(e9, e10))));
 
         ArrayList<Combination> combinations;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(1, combinations);// 1:E8(15)
 
         e8.priority = 1;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(2, combinations);// 2:E8(4)
 
         e9.priority = 10;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(3, combinations);// 3:E8(4)
 
         e8.priority = 0;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(4, combinations);// 4:E9,E10(18<-19)
 
         e9.priority = 0;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(5, combinations);// 5:E10(6)
 
         e10.priority = 0;
         e9.priority = 1;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(6, combinations);// 6:E9(6)
 
         e10.priority = 1;
         e9.priority = 1;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(7, combinations);// 7:E9,E10(6)
 
         e10.priority = 0;
         e9.priority = 0;
-        combinations = Combine.scan(combination);
+        combinations = Combine.scan(combination, null);
         print(8, combinations);// 8:E5(18<-21)
 
     }
