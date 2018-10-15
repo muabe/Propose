@@ -17,7 +17,7 @@ public class TestCombination extends Combination {
     }
 
     @Override
-    public float priority(Object o) {
+    public float priority() {
         return priority;
     }
 

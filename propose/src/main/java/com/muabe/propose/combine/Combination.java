@@ -2,7 +2,7 @@ package com.muabe.propose.combine;
 
 import java.util.ArrayList;
 
-public abstract class Combination implements ScanPriority<Object>{
+public abstract class Combination implements ScanPriority{
     public String name="";
     protected Combination parents;
     protected int mode = Combine.ELEMENT;

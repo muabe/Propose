@@ -25,7 +25,7 @@ public class Combine {
     private static Combination combine(int mode, Combination... combinations){
         Combination newCombination = new Combination() {
             @Override
-            public float priority(Object o) {
+            public float priority() {
                 return 0;
             }
         };
@@ -39,11 +39,11 @@ public class Combine {
 
     public static int count = 0;
 
-    public static ArrayList<Combination> scan(Combination combination, Object param){
+    public static ArrayList<Combination> scan(Combination combination){
         count = 0;
 
         ArrayList<Combination> list = new ArrayList<>();
-        scanLoop(combination, list, param);
+        scanLoop(combination, list);
         for(Combination cacheCombination : list){
             addCache(cacheCombination);
         }
@@ -52,7 +52,7 @@ public class Combine {
         return list;
     }
 
-    private static void scanLoop(Combination combination, ArrayList<Combination> list, Object param){
+    private static void scanLoop(Combination combination, ArrayList<Combination> list){
         if(combination.deletedCache){
             combination.deletedCache = false;
             return;
@@ -60,34 +60,34 @@ public class Combine {
         count++;
         switch(combination.mode) {
             case Combine.ELEMENT:
-                if(combination.priority(param) > 0) {
+                if(combination.priority() > 0) {
                     list.add(combination);
                 }else{
-                    updateCache(combination, list, param);
+                    updateCache(combination, list);
                 }
                 break;
 
             case Combine.AND:
                 for (Combination childCombine : combination.child) {
-                    scanLoop(childCombine, list, param);
+                    scanLoop(childCombine, list);
                 }
                 break;
             case Combine.OR:
                 ArrayList<Combination> winner = null;
                 if(combination.cache.size()>0){
                     winner = new ArrayList<>();
-                    scanLoop(combination.cache.get(0), winner, param);
+                    scanLoop(combination.cache.get(0), winner);
                 }else{
                     for (Combination childCombination : combination.child) {
                         if (winner == null) {
                             winner = new ArrayList<>();
-                            scanLoop(childCombination, winner, param);
+                            scanLoop(childCombination, winner);
                         } else {
                             ArrayList<Combination> challener = new ArrayList<>();
-                            scanLoop(childCombination, challener, param);
+                            scanLoop(childCombination, challener);
 
-                            float winnerScore = score(winner, param);
-                            float challenerScore = score(challener, param);
+                            float winnerScore = score(winner);
+                            float challenerScore = score(challener);
                             if (challenerScore > 0 && winnerScore < challenerScore) {
                                 winner = challener;
                             }
@@ -122,11 +122,11 @@ public class Combine {
         }
     }
 
-    private static <T>void updateCache(Combination combination, ArrayList<Combination> list, Object param){
+    private static <T>void updateCache(Combination combination, ArrayList<Combination> list){
         Combination reScan = deleteCache(combination);
         if(reScan.mode != Combine.ELEMENT) {
             Log.e("dd", "재스캔!! = "+reScan.toString());
-            scanLoop(reScan, list, param);
+            scanLoop(reScan, list);
         }
     }
 
@@ -151,7 +151,7 @@ public class Combine {
     }
 
 
-    private static <T>void updateCascheBottomTop(Combination combination, ArrayList<Combination> list, Object param){
+    private static <T>void updateCascheBottomTop(Combination combination, ArrayList<Combination> list){
         if(combination.parents!=null && combination.parents.cache.contains(combination)){
             combination.parents.cache.remove(combination);
             Log.i("dd", combination.parents+" delete="+combination);
@@ -159,14 +159,14 @@ public class Combine {
                 if(combination.parents.mode == Combine.OR){
                     combination.deletedCache = true;
                     ArrayList<Combination> tempList = new ArrayList<>();
-                    scanLoop(combination.parents, tempList, param);
+                    scanLoop(combination.parents, tempList);
                     if(tempList.size()==0){
-                        updateCascheBottomTop(combination.parents, list, param);
+                        updateCascheBottomTop(combination.parents, list);
                     }else{
                         list.addAll(tempList);
                     }
                 }else if(combination.parents.mode == Combine.AND){
-                    updateCascheBottomTop(combination.parents, list, param);
+                    updateCascheBottomTop(combination.parents, list);
                 }
             }
         }
@@ -188,16 +188,16 @@ public class Combine {
      * @param list mode가 전부 Element 이여야함
      * @return combination의 priority 값
      */
-    private static <T>float score(ArrayList<Combination> list, Object param){
+    private static <T>float score(ArrayList<Combination> list){
         int i = 0;
         float score = -1f;
         for(Combination combination : list){
             if(i==0){
-                score = combination.priority(param);
+                score = combination.priority();
                 i++;
             }else{
-                if(score < combination.priority(param)){
-                    score = combination.priority(param);
+                if(score < combination.priority()){
+                    score = combination.priority();
                 }
             }
         }

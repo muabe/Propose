@@ -1,6 +1,5 @@
 package com.muabe.propose.combine;
 
-import com.muabe.propose.guesture.Point;
 
 /**
  * <br>捲土重來<br>
@@ -9,7 +8,7 @@ import com.muabe.propose.guesture.Point;
  * @email markjmind@gmail.com
  * @since 2018-10-01
  */
-public abstract class MotionPriority implements ScanPriority<Point> {
+public abstract class MotionPriority implements ScanPriority {
     private float gauge = 0f;
     private float min = 0f;
     private float max = 0f;
@@ -34,7 +33,7 @@ public abstract class MotionPriority implements ScanPriority<Point> {
     }
 
     @Override
-    public float priority(Point point) {
+    public float priority() {
         return 0;
     }
 
