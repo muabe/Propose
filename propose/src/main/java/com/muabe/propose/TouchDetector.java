@@ -4,17 +4,11 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.motion.DragFilter;
-import com.muabe.propose.motion.filter.Filter;
 import com.muabe.propose.touch.coords.metrix.MetrixCordinates;
 import com.muabe.propose.touch.coords.window.WindowCoordinates;
-import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
-import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 import com.muabe.propose.touch.detector.TouchDetectAdapter;
 import com.muabe.propose.util.Mlog;
-
-import java.util.List;
 
 /**
  * <br>捲土重來<br>
@@ -34,18 +28,6 @@ public class TouchDetector{
         isWindow = WindowCoordinates.isBindWindow();
         Mlog.e(this, "WindowCoordinates:"+isWindow);
     }
-
-//
-//    //TODO REMOVE
-//    private void test(){
-//        Filter.addMotion(new Motion3(State.MotionState.LEFT));
-//        Filter.addMotion(new Motion3(State.MotionState.RIGHT));
-////        Filter.addMotion(new Motion3(State.MotionState.UP));
-////        Filter.addMotion(new Motion3(State.MotionState.DOWN));
-//        Filter.addMotion(new Motion3(State.MotionState.MULTI_LEFT));
-//        Filter.addMotion(new Motion3(State.MotionState.MULTI_RIGHT));
-//    }
-
 
     public boolean onTouchEvent(View touchView, MotionEvent originEvent) {
         //좌표로 변환

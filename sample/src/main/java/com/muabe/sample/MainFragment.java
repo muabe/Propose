@@ -6,9 +6,12 @@ import android.widget.Button;
 import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
+import com.muabe.propose.Propose;
+import com.muabe.propose.action.TestAction;
 import com.muabe.propose.combine.Combination;
 import com.muabe.propose.combine.Combine;
 import com.muabe.propose.combine.TestCombination;
+import com.muabe.propose.guesture.TestEvent;
 
 import java.util.ArrayList;
 
@@ -97,6 +100,20 @@ public class MainFragment extends UniFragment{
         combinations = Combine.scan(combination);
         print(8, combinations);// 8:E5(18<-21)
 
+        Propose propose = new Propose(getContext());
+        button.setOnTouchListener(propose);
+
+
+        TestAction testAction = new TestAction();
+        propose.addActionMudle(testAction);
+        TestEvent testEvent = new TestEvent();
+        testAction.go(testEvent);
+        testAction.go(testEvent);
+        testAction.go(testEvent);
+        testAction.go(testEvent);
+        testAction.go(testEvent);
+
+        Log.e("dd","총:"+testEvent.count);
     }
 
     void print(int num, ArrayList<Combination> combinations){
@@ -104,6 +121,6 @@ public class MainFragment extends UniFragment{
         for(Combination c : combinations){
             msg += " "+((TestCombination)c).name+"="+((TestCombination)c).priority;
         }
-        Log.e("dsf","필터링"+num+":"+msg);
+//        Log.e("dsf","필터링"+num+":"+msg);
     }
 }

@@ -1,8 +1,9 @@
-package com.muabe.propose.filter;
+package com.muabe.propose.action;
 
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.muabe.propose.Propose;
 import com.muabe.propose.TouchDetector;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
@@ -15,14 +16,19 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public class TouchController implements View.OnTouchListener, OnTouchDetectListener {
-    TouchDetector touchDetector;
-    SingleTouchFilter singleTouchFilter;
+public class TouchActionController extends ActionModule implements View.OnTouchListener, OnTouchDetectListener {
+    private TouchDetector touchDetector;
+    private SingleTouchAction singleTouchAction = new SingleTouchAction();
 
-    public TouchController(View view){
-        touchDetector = new TouchDetector(view.getContext(), this);
-        singleTouchFilter = new SingleTouchFilter();
-        view.setOnTouchListener(this);
+    @Override
+    public void bind(Propose propose) {
+        touchDetector = new TouchDetector(propose.getContext(), this);
+        singleTouchAction.bind(propose);
+    }
+
+    @Override
+    public String getTypeName() {
+        return super.getTypeName();
     }
 
     @Override
@@ -42,7 +48,7 @@ public class TouchController implements View.OnTouchListener, OnTouchDetectListe
 
     @Override
     public boolean onDrag(SingleTouchEvent event) {
-        return false;
+        return singleTouchAction.callScan(event);
     }
 
     @Override
