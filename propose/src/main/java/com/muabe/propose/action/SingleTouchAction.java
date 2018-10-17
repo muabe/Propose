@@ -1,4 +1,4 @@
-package com.muabe.propose.filter;
+package com.muabe.propose.action;
 
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
@@ -9,10 +9,7 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public class SingleTouchFilter extends MotionFilter<SingleTouchEvent> {
+class SingleTouchAction extends ActionModule<SingleTouchEvent> {
 
-    @Override
-    public String getTypeName() {
-        return "SingleTouch";
-    }
+
 }
