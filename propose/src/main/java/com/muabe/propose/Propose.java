@@ -9,6 +9,7 @@ import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.guesture.SingleTouchGesture;
 import com.muabe.propose.guesture.TestGesture;
+import com.muabe.propose.motion.Motion;
 
 /**
  * <br>捲土重來<br>
@@ -20,7 +21,8 @@ import com.muabe.propose.guesture.TestGesture;
 public class Propose implements View.OnTouchListener {
 
     private Context context;
-    private TouchActionController touchMudule;
+    private TouchActionController touchAction;
+    private Motion motion;
 
     public Propose(Context context){
         this.context = context;
@@ -34,6 +36,10 @@ public class Propose implements View.OnTouchListener {
         actionModule.bind(this);
     }
 
+    public void setMotion(Motion motion){
+        this.motion = motion;
+    }
+
     GesturePlugin testTouchGesture = new SingleTouchGesture();
     GesturePlugin testGesture = new TestGesture();
     public boolean callScan(ActionModule actionModule, Object event){
@@ -42,20 +48,20 @@ public class Propose implements View.OnTouchListener {
 //                plugIns[i].plug(object);
 //            }
 //        }
-        if(testTouchGesture.getTypeName().equals(actionModule.getTypeName())){
-            testTouchGesture.get(event);
-        }else if(testGesture.getTypeName().equals(actionModule.getTypeName())){
-            testGesture.get(event);
+        if(testTouchGesture.equalsAction(actionModule, event)){
+            testTouchGesture.increase(event);
+        }else if(testGesture.equalsAction(actionModule, event)){
+            testGesture.increase(event);
         }
         return true;
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(touchMudule == null){
-            touchMudule = new TouchActionController();
-            touchMudule.bind(this);
+        if(touchAction == null){
+            touchAction = new TouchActionController();
+            touchAction.bind(this);
         }
-        return touchMudule.onTouch(view, motionEvent);
+        return touchAction.onTouch(view, motionEvent);
     }
 }

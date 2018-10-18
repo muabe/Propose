@@ -1,7 +1,5 @@
 package com.muabe.propose.guesture;
 
-import android.util.Log;
-
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 /**
@@ -15,6 +13,11 @@ public class SingleTouchGesture extends GesturePlugin<SingleTouchEvent> {
 
     @Override
     public void get(SingleTouchEvent singleTouchEvent) {
-        Log.d("SingleTouchGesture", "SingleTouchGesture go");
+
+    }
+
+    @Override
+    public float increase(SingleTouchEvent event) {
+        return 0;
     }
 }

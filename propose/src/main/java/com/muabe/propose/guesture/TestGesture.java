@@ -15,4 +15,9 @@ public class TestGesture extends GesturePlugin<TestEvent> {
         testEvent.count++;
         Mlog.i(this, "TestGesture:"+testEvent.count);
     }
+
+    @Override
+    public float increase(TestEvent event) {
+        return 0;
+    }
 }

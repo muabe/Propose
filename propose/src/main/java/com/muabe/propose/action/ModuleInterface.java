@@ -7,6 +7,6 @@ package com.muabe.propose.action;
  * @email markjmind@gmail.com
  * @since 2018-10-17
  */
-public interface ModuleName {
+public interface ModuleInterface {
     String getTypeName();
 }

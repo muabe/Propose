@@ -9,7 +9,7 @@ import com.muabe.propose.Propose;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public abstract class ActionModule<EventType> implements ModuleName {
+public abstract class ActionModule<EventType> implements ModuleInterface {
     private Propose propose;
     private String eventName;
 

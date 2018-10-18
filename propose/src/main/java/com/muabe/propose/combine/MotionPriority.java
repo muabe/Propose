@@ -8,13 +8,20 @@ package com.muabe.propose.combine;
  * @email markjmind@gmail.com
  * @since 2018-10-01
  */
-public abstract class MotionPriority implements ScanPriority {
+public abstract class MotionPriority<EventType> implements ScanPriority {
     private float gauge = 0f;
     private float min = 0f;
     private float max = 0f;
+    private EventType event;
 
-    public float increase(){
-        return 0f;
+    public void setEvent(EventType event){
+        this.event = event;
+    }
+
+    public abstract float increase(EventType event);
+
+    private float increase(){
+        return increase(event);
     }
 
     public float getGauge(){
@@ -34,8 +41,6 @@ public abstract class MotionPriority implements ScanPriority {
 
     @Override
     public float priority() {
-        return 0;
+        return getGauge()+increase();
     }
-
-    abstract public String getType();
 }
