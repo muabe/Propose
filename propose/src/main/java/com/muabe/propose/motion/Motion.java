@@ -13,14 +13,22 @@ import com.muabe.propose.guesture.GesturePlugin;
 public class Motion extends Combination {
     private GesturePlugin gesturePlugin;
 
+    public Motion(){
+
+    }
+
     public Motion(GesturePlugin gesturePlugin){
         this.gesturePlugin = gesturePlugin;
     }
 
 
+    @Override
+    public int getPriority() {
+        return 0;
+    }
 
     @Override
-    public float priority() {
+    public float compare() {
         return 0;
     }
 }

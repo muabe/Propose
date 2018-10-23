@@ -65,38 +65,39 @@ public class MainFragment extends UniFragment{
                                 )
                             );
 
+        e6.priority = 1;
         ArrayList<Combination> combinations;
         combinations = Combine.scan(combination);
         print(1, combinations);// 1:E8(15)
 
-        e8.priority = 1;
+        e8.compare = 1;
         combinations = Combine.scan(combination);
         print(2, combinations);// 2:E8(4)
 
-        e9.priority = 10;
+        e9.compare = 10;
         combinations = Combine.scan(combination);
         print(3, combinations);// 3:E8(4)
 
-        e8.priority = 0;
+        e8.compare = 0;
         combinations = Combine.scan(combination);
         print(4, combinations);// 4:E9,E10(18<-19)
 
-        e9.priority = 0;
+        e9.compare = 0;
         combinations = Combine.scan(combination);
         print(5, combinations);// 5:E10(6)
 
-        e10.priority = 0;
-        e9.priority = 1;
+        e10.compare = 0;
+        e9.compare = 1;
         combinations = Combine.scan(combination);
         print(6, combinations);// 6:E9(6)
 
-        e10.priority = 1;
-        e9.priority = 1;
+        e10.compare = 1;
+        e9.compare = 1;
         combinations = Combine.scan(combination);
         print(7, combinations);// 7:E9,E10(6)
 
-        e10.priority = 0;
-        e9.priority = 0;
+        e10.compare = 0;
+        e9.compare = 0;
         combinations = Combine.scan(combination);
         print(8, combinations);// 8:E5(18<-21)
 
@@ -119,8 +120,8 @@ public class MainFragment extends UniFragment{
     void print(int num, ArrayList<Combination> combinations){
         String msg = "";
         for(Combination c : combinations){
-            msg += " "+((TestCombination)c).name+"="+((TestCombination)c).priority;
+            msg += " "+((TestCombination)c).name+"="+((TestCombination)c).compare;
         }
-//        Log.e("dsf","필터링"+num+":"+msg);
+        Log.e("dsf","필터링"+num+":"+msg);
     }
 }

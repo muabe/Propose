@@ -3,11 +3,17 @@ package com.muabe.propose.combine;
 import java.util.ArrayList;
 
 public class TestCombination extends Combination {
-    public int priority;
+    public int compare;
+    public int priority = 0;
 
-    public TestCombination(String name, int priority){
+    public TestCombination(){
+        this.name = "";
+        this.compare = 0;
+    }
+
+    public TestCombination(String name, int compare){
         this.name = name;
-        this.priority = priority;
+        this.compare = compare;
     }
 
 
@@ -17,8 +23,13 @@ public class TestCombination extends Combination {
     }
 
     @Override
-    public float priority() {
+    public int getPriority() {
         return priority;
+    }
+
+    @Override
+    public float compare() {
+        return compare;
     }
 
 }

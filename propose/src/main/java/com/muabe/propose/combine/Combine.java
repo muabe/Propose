@@ -14,36 +14,41 @@ public class Combine {
 
     private Combine(){}
 
-    public static Combination all(Combination... combinations){
+    public static <T extends Combination>T all(T... combinations){
         return combine(Combine.AND, combinations);
     }
 
-    public static Combination one(Combination... combinations){
+    public static <T extends Combination>T one(T... combinations){
         return combine(Combine.OR, combinations);
     }
 
-    private static Combination combine(int mode, Combination... combinations){
-        Combination newCombination = new Combination() {
-            @Override
-            public float priority() {
-                return 0;
+    private static <T extends Combination>T combine(int mode, T... combinations){
+        if(combinations.length>0) {
+            T newCombination;
+            try {
+                newCombination = (T)combinations[0].getClass().newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        };
-        newCombination.mode = mode;
-        for(Combination combination : combinations){
-            combination.parents = newCombination;
-            newCombination.child.add(combination);
+
+            newCombination.mode = mode;
+            for (T combination : combinations) {
+                combination.parents = newCombination;
+                newCombination.child.add(combination);
+            }
+            return newCombination;
+        }else{
+            return null;
         }
-        return newCombination;
     }
 
     public static int count = 0;
 
-    public static ArrayList<Combination> scan(Combination combination){
+    public static <T extends Combination>ArrayList<T> scan(T combination){
         count = 0;
 
-        ArrayList<Combination> list = new ArrayList<>();
-        scanLoop(combination, list);
+        ArrayList<T> list = new ArrayList<>();
+        scanLoop(combination, (ArrayList<Combination>)list);
         for(Combination cacheCombination : list){
             addCache(cacheCombination);
         }
@@ -51,6 +56,53 @@ public class Combine {
         Log.e("dd", "[검색 횟수:"+count+"]");
         return list;
     }
+
+//    private static void scanLoop1(Combination combination, ArrayList<Combination> list){
+//        if(combination.deletedCache){
+//            combination.deletedCache = false;
+//            return;
+//        }
+//        count++;
+//        switch(combination.mode) {
+//            case Combine.ELEMENT:
+//                if(combination.compare() > 0) {
+//                    list.add(combination);
+//                }else{
+//                    updateCache(combination, list);
+//                }
+//                break;
+//
+//            case Combine.AND:
+//                for (Combination childCombine : combination.child) {
+//                    scanLoop(childCombine, list);
+//                }
+//                break;
+//            case Combine.OR:
+//                ArrayList<Combination> winner = null;
+//                if(combination.cache.size()>0){
+//                    winner = new ArrayList<>();
+//                    scanLoop(combination.cache.get(0), winner);
+//                }else{
+//                    for (Combination childCombination : combination.child) {
+//                        if (winner == null) {
+//                            winner = new ArrayList<>();
+//                            scanLoop(childCombination, winner);
+//                        } else {
+//                            ArrayList<Combination> challener = new ArrayList<>();
+//                            scanLoop(childCombination, challener);
+//
+//                            float winnerScore = score(winner);
+//                            float challenerScore = score(challener);
+//                            if (challenerScore > 0 && winnerScore < challenerScore) {
+//                                winner = challener;
+//                            }
+//                        }
+//                    }
+//                }
+//                list.addAll(winner);
+//                break;
+//        }
+//    }
 
     private static void scanLoop(Combination combination, ArrayList<Combination> list){
         if(combination.deletedCache){
@@ -60,7 +112,7 @@ public class Combine {
         count++;
         switch(combination.mode) {
             case Combine.ELEMENT:
-                if(combination.priority() > 0) {
+                if(combination.compare() > 0) {
                     list.add(combination);
                 }else{
                     updateCache(combination, list);
@@ -86,10 +138,17 @@ public class Combine {
                             ArrayList<Combination> challener = new ArrayList<>();
                             scanLoop(childCombination, challener);
 
-                            float winnerScore = score(winner);
-                            float challenerScore = score(challener);
-                            if (challenerScore > 0 && winnerScore < challenerScore) {
-                                winner = challener;
+                            float[] winnerScore = score(winner);
+                            float[] challenerScore = score(challener);
+
+                            if(challenerScore[1] > 0) {
+                                if(winnerScore[1] > 0 ) {
+                                    if (winnerScore[0] < challenerScore[0] || (winnerScore[0] == challenerScore[0] && winnerScore[1] < challenerScore[1])) {
+                                        winner = challener;
+                                    }
+                                }else{
+                                    winner = challener;
+                                }
                             }
                         }
                     }
@@ -122,7 +181,7 @@ public class Combine {
         }
     }
 
-    private static <T>void updateCache(Combination combination, ArrayList<Combination> list){
+    private static void updateCache(Combination combination, ArrayList<Combination> list){
         Combination reScan = deleteCache(combination);
         if(reScan.mode != Combine.ELEMENT) {
             Log.e("dd", "재스캔!! = "+reScan.toString());
@@ -151,7 +210,7 @@ public class Combine {
     }
 
 
-    private static <T>void updateCascheBottomTop(Combination combination, ArrayList<Combination> list){
+    private static void updateCascheBottomTop(Combination combination, ArrayList<Combination> list){
         if(combination.parents!=null && combination.parents.cache.contains(combination)){
             combination.parents.cache.remove(combination);
             Log.i("dd", combination.parents+" delete="+combination);
@@ -186,18 +245,54 @@ public class Combine {
     /**
      * 중요!! 모든 리스트는 Element로 구성되어야함
      * @param list mode가 전부 Element 이여야함
-     * @return combination의 priority 값
+     * @return combination의 compare 값
      */
-    private static <T>float score(ArrayList<Combination> list){
+    private static float score1(ArrayList<Combination> list){
         int i = 0;
         float score = -1f;
+        int priority = 0;
         for(Combination combination : list){
             if(i==0){
-                score = combination.priority();
+                priority = combination.getPriority();
+                score = combination.compare();
                 i++;
             }else{
-                if(score < combination.priority()){
-                    score = combination.priority();
+                if(score < combination.compare()){
+                    score = combination.compare();
+                }
+            }
+        }
+        return score;
+    }
+
+    private static float[] score(ArrayList<Combination> list){
+        int i = 0;
+//        float score = -1f;
+//        int getPriority = 0;
+        float[] score = {0f, -1f};
+        for(Combination combination : list){
+            if(i==0){
+                score[0] = combination.getPriority();
+                score[1] = combination.compare();
+                i++;
+            }else{
+                int tempPriority = combination.getPriority();
+                float tempCompare = combination.compare();
+
+                if(tempCompare > 0) {
+                    if (score[0] < tempPriority) {
+                        score[0] = tempPriority;
+                        score[1] = tempCompare;
+                    } else if (score[0] > tempPriority) {
+                        if(score[1] == 0) {
+                            score[0] = tempPriority;
+                            score[1] = tempCompare;
+                        }
+                    } else {
+                        if (score[1] < combination.compare()) {
+                            score[1] = combination.compare();
+                        }
+                    }
                 }
             }
         }

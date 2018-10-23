@@ -1,8 +1,9 @@
 package com.muabe.propose.combine;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public abstract class Combination implements ScanPriority{
+public abstract class Combination implements Priority {
     public String name="";
     protected Combination parents;
     protected int mode = Combine.ELEMENT;
@@ -34,5 +35,9 @@ public abstract class Combination implements ScanPriority{
 
     public void clearCache(){
         Combine.clearCache(this);
+    }
+
+    public void getChildList(Type t){
+
     }
 }

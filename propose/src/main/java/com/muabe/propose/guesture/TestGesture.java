@@ -20,4 +20,9 @@ public class TestGesture extends GesturePlugin<TestEvent> {
     public float increase(TestEvent event) {
         return 0;
     }
+
+    @Override
+    public int getPriority() {
+        return 0;
+    }
 }

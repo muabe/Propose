@@ -9,6 +9,7 @@ import java.lang.reflect.ParameterizedType;
 
 public abstract class GesturePlugin<EventType> extends MotionPriority<EventType> implements ModuleInterface {
     private String name;
+    private int priority = 0;
 
     public GesturePlugin(){
         name = ((Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
@@ -17,6 +18,10 @@ public abstract class GesturePlugin<EventType> extends MotionPriority<EventType>
     @Override
     public String getTypeName(){
         return name;
+    }
+
+    public void setPriority(int priority){
+        this.priority = priority;
     }
 
     public abstract void get(EventType eventType);

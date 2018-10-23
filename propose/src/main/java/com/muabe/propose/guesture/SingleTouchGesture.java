@@ -20,4 +20,9 @@ public class SingleTouchGesture extends GesturePlugin<SingleTouchEvent> {
     public float increase(SingleTouchEvent event) {
         return 0;
     }
+
+    @Override
+    public int getPriority() {
+        return 0;
+    }
 }
