@@ -21,6 +21,9 @@ public class Motion extends Combination {
         this.gesturePlugin = gesturePlugin;
     }
 
+    public GesturePlugin getGesturePlugin(){
+        return gesturePlugin;
+    }
 
     @Override
     public int getPriority() {

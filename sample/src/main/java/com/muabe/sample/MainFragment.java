@@ -106,7 +106,7 @@ public class MainFragment extends UniFragment{
 
 
         TestAction testAction = new TestAction();
-        propose.addActionMudle(testAction);
+        propose.addActionMudle("test", testAction);
         TestEvent testEvent = new TestEvent();
         testAction.go(testEvent);
         testAction.go(testEvent);

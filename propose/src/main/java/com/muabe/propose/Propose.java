@@ -6,10 +6,11 @@ import android.view.View;
 
 import com.muabe.propose.action.ActionModule;
 import com.muabe.propose.action.TouchActionController;
-import com.muabe.propose.guesture.GesturePlugin;
-import com.muabe.propose.guesture.SingleTouchGesture;
-import com.muabe.propose.guesture.TestGesture;
+import com.muabe.propose.combine.Combine;
 import com.muabe.propose.motion.Motion;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * <br>捲土重來<br>
@@ -19,49 +20,50 @@ import com.muabe.propose.motion.Motion;
  * @since 2018-10-15
  */
 public class Propose implements View.OnTouchListener {
+    public static final String ACTION_TOUCH = "ACTION_TOUCH";
 
     private Context context;
-    private TouchActionController touchAction;
+    private HashMap<String, ActionModule> actionModules = new HashMap<>();
     private Motion motion;
 
     public Propose(Context context){
         this.context = context;
+        defaultActionModule();
+    }
+
+    private void defaultActionModule(){
+        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController());
     }
 
     public Context getContext(){
         return context;
     }
 
-    public void addActionMudle(ActionModule actionModule){
+    public void addActionMudle(String name, ActionModule actionModule){
         actionModule.bind(this);
+        actionModules.put(name, actionModule);
     }
 
     public void setMotion(Motion motion){
         this.motion = motion;
     }
 
-    GesturePlugin testTouchGesture = new SingleTouchGesture();
-    GesturePlugin testGesture = new TestGesture();
     public boolean callScan(ActionModule actionModule, Object event){
-//        for(int i=0; i<plugIns.length; i++) {
-//            if (plugIns[i].getTypeName().equals(con.getTypeName())){
-//                plugIns[i].plug(object);
-//            }
-//        }
-        if(testTouchGesture.equalsAction(actionModule, event)){
-            testTouchGesture.increase(event);
-        }else if(testGesture.equalsAction(actionModule, event)){
-            testGesture.increase(event);
+        ArrayList<Motion> motionList = Combine.scan(motion);
+        for(Motion scanMotion : motionList){
+            if(scanMotion.getGesturePlugin().equalsAction(actionModule, event)){
+
+                //TODO search Priority and Play
+
+            }
         }
         return true;
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(touchAction == null){
-            touchAction = new TouchActionController();
-            touchAction.bind(this);
-        }
+        TouchActionController touchAction = (TouchActionController)actionModules.get(Propose.ACTION_TOUCH);
+        touchAction.bind(this);
         return touchAction.onTouch(view, motionEvent);
     }
 }

@@ -36,6 +36,8 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
         return touchDetector.onTouchEvent(view, motionEvent);
     }
 
+
+
     @Override
     public boolean onDown(SingleTouchEvent event) {
         return false;
@@ -48,7 +50,7 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
 
     @Override
     public boolean onDrag(SingleTouchEvent event) {
-        return singleTouchAction.callScan(event);
+        return singleTouchAction.onDrag(event);
     }
 
     @Override
