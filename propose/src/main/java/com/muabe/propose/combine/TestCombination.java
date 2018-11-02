@@ -28,8 +28,9 @@ public class TestCombination extends Combination {
     }
 
     @Override
-    public float compare() {
+    public float compare(Object param) {
         return compare;
     }
+
 
 }

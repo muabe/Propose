@@ -1,7 +1,5 @@
 package com.muabe.propose.guesture;
 
-import com.muabe.propose.util.Mlog;
-
 /**
  * <br>捲土重來<br>
  *
@@ -11,18 +9,12 @@ import com.muabe.propose.util.Mlog;
  */
 public class TestGesture extends GesturePlugin<TestEvent> {
     @Override
-    public void get(TestEvent testEvent) {
-        testEvent.count++;
-        Mlog.i(this, "TestGesture:"+testEvent.count);
+    public float preemp(TestEvent event) {
+        return 5;
     }
 
     @Override
     public float increase(TestEvent event) {
-        return 0;
-    }
-
-    @Override
-    public int getPriority() {
-        return 0;
+        return 5;
     }
 }

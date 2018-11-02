@@ -9,20 +9,15 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-18
  */
-public class SingleTouchGesture extends GesturePlugin<SingleTouchEvent> {
+public class SingleTouchRightGesture extends GesturePlugin<SingleTouchEvent> {
 
     @Override
-    public void get(SingleTouchEvent singleTouchEvent) {
-
+    public float preemp(SingleTouchEvent event) {
+        return increase(event);
     }
 
     @Override
     public float increase(SingleTouchEvent event) {
-        return 0;
-    }
-
-    @Override
-    public int getPriority() {
-        return 0;
+        return event.getX() - event.getPreX();
     }
 }

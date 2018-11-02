@@ -19,6 +19,7 @@ public class Motion extends Combination {
 
     public Motion(GesturePlugin gesturePlugin){
         this.gesturePlugin = gesturePlugin;
+        this.name = gesturePlugin.getClass().getSimpleName();
     }
 
     public GesturePlugin getGesturePlugin(){
@@ -27,11 +28,23 @@ public class Motion extends Combination {
 
     @Override
     public int getPriority() {
-        return 0;
+        if(gesturePlugin==null){
+            return 0;
+        }
+        return gesturePlugin.getPriority();
     }
 
     @Override
-    public float compare() {
-        return 0;
+    public float compare(Object event) {
+        if(gesturePlugin==null){
+            return 0;
+        }
+
+        if(gesturePlugin.getTypeName().equals(event.getClass().getName())) {// actionInfo.typeName
+            return gesturePlugin.compare(event);
+        }else {
+            return gesturePlugin.getPoint();
+        }
+
     }
 }

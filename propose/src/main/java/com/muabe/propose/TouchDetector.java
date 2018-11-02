@@ -8,7 +8,6 @@ import com.muabe.propose.touch.coords.metrix.MetrixCordinates;
 import com.muabe.propose.touch.coords.window.WindowCoordinates;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.TouchDetectAdapter;
-import com.muabe.propose.util.Mlog;
 
 /**
  * <br>捲土重來<br>
@@ -26,7 +25,6 @@ public class TouchDetector{
     public TouchDetector(Context context, OnTouchDetectListener listener) {
         touchDetectAdapter = new TouchDetectAdapter(context, listener);
         isWindow = WindowCoordinates.isBindWindow();
-        Mlog.e(this, "WindowCoordinates:"+isWindow);
     }
 
     public boolean onTouchEvent(View touchView, MotionEvent originEvent) {

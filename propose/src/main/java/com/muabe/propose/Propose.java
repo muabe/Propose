@@ -48,22 +48,22 @@ public class Propose implements View.OnTouchListener {
         this.motion = motion;
     }
 
-    public boolean callScan(ActionModule actionModule, Object event){
-        ArrayList<Motion> motionList = Combine.scan(motion);
+    public boolean callScan(Object event){
+        boolean result = false;
+        ArrayList<Motion> motionList = Combine.scan(motion, event);
+
         for(Motion scanMotion : motionList){
-            if(scanMotion.getGesturePlugin().equalsAction(actionModule, event)){
-
-                //TODO search Priority and Play
-
+            if(scanMotion.getGesturePlugin().getTypeName().equals(event.getClass().getName())){ //actionModule.getTypeName()
+                scanMotion.getGesturePlugin().play(event);
+                result = true;
             }
         }
-        return true;
+        return result;
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        TouchActionController touchAction = (TouchActionController)actionModules.get(Propose.ACTION_TOUCH);
-        touchAction.bind(this);
+        TouchActionController touchAction = (TouchActionController) actionModules.get(Propose.ACTION_TOUCH);
         return touchAction.onTouch(view, motionEvent);
     }
 }

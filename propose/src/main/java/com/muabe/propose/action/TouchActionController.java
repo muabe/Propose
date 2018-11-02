@@ -27,16 +27,9 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
     }
 
     @Override
-    public String getTypeName() {
-        return super.getTypeName();
-    }
-
-    @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return touchDetector.onTouchEvent(view, motionEvent);
     }
-
-
 
     @Override
     public boolean onDown(SingleTouchEvent event) {

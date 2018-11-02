@@ -9,25 +9,17 @@ import com.muabe.propose.Propose;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public abstract class ActionModule<EventType> implements ModuleInterface {
+public class ActionModule{
     private Propose propose;
-    private String eventName;
-
-    public String getTypeName(){
-        return eventName;
-    }
 
     public void bind(Propose propose){
         this.propose = propose;
     }
 
 
-    protected boolean callScan(EventType event){
+    protected boolean callScan(Object event){
         if(propose!=null) {
-            if(eventName == null){
-                this.eventName = event.getClass().getName();
-            }
-            return propose.callScan(this, event);
+            return propose.callScan(event);
         }else{
             return false;
         }

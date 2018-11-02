@@ -15,59 +15,59 @@ import com.muabe.propose.touch.detector.OnTouchDetectListener;
  */
 
 public class SingleDetector implements GestureDetector.OnGestureListener{
-    private SingleTouchEvent singleEvent;
+    private SingleTouchEvent singleTouchEvent;
     private SingleGestureDetector gestureDetector;
     private OnTouchDetectListener listener;
 
 
     public SingleDetector(Context context, OnTouchDetectListener listener){
-        singleEvent = new SingleTouchEvent();
+        singleTouchEvent = new SingleTouchEvent();
         gestureDetector = new SingleGestureDetector(context, this);
         this.listener = listener;
     }
 
     public boolean onTouchEvent(MotionEvent e){
-        singleEvent.setMotionEvent(e);
+        singleTouchEvent.setMotionEvent(e);
         return gestureDetector.onTouchEvent(e);
     }
 
 
     @Override
     public boolean onDown(MotionEvent e) {
-        singleEvent.clearDragProperty();
-        return listener.onDown(singleEvent);
+        singleTouchEvent.clearDragProperty();
+        return listener.onDown(singleTouchEvent);
     }
 
     boolean onUp(MotionEvent e){
-        singleEvent.setMotionEvent(e);
-        return listener.onUp(singleEvent);
+        singleTouchEvent.setMotionEvent(e);
+        return listener.onUp(singleTouchEvent);
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        singleEvent.setDragProperty(e1, distanceX*-1, distanceY*-1);
-        return listener.onDrag(singleEvent);
+        singleTouchEvent.setDragProperty(e1, distanceX*-1, distanceY*-1);
+        return listener.onDrag(singleTouchEvent);
     }
 
     @Override
     public void onShowPress(MotionEvent e) {
-        singleEvent.setMotionEvent(e);
+        singleTouchEvent.setMotionEvent(e);
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        singleEvent.setMotionEvent(e);
+        singleTouchEvent.setMotionEvent(e);
         return false;
     }
 
     @Override
     public void onLongPress(MotionEvent e) {
-        singleEvent.setMotionEvent(e);
+        singleTouchEvent.setMotionEvent(e);
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        singleEvent.setMotionEvent(e2);
+        singleTouchEvent.setMotionEvent(e2);
         return false;
     }
 

@@ -1,6 +1,6 @@
 package com.muabe.propose.combine;
 
-public interface Priority {
+public interface Priority<ParamType> {
     int getPriority();
-    float compare();
+    float compare(ParamType param);
 }

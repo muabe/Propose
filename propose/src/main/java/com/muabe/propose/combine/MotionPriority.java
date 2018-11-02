@@ -1,6 +1,8 @@
 package com.muabe.propose.combine;
 
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * <br>捲土重來<br>
  *
@@ -8,39 +10,37 @@ package com.muabe.propose.combine;
  * @email markjmind@gmail.com
  * @since 2018-10-01
  */
-public abstract class MotionPriority<EventType> implements Priority {
-    private float gauge = 0f;
-    private float min = 0f;
-    private float max = 0f;
-    private EventType event;
+public abstract class MotionPriority<EventType> implements Priority<EventType> {
+    private int priority = 0;
+    private String name;
 
-    public void setEvent(EventType event){
-        this.event = event;
+    public MotionPriority(){
+        name = ((Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
     }
 
-    public abstract float increase(EventType event);
+    public abstract float motionCompare(EventType event);
 
-    private float increase(){
-        return increase(event);
-    }
-
-    public float getGauge(){
-        return gauge;
-    }
-
-    public float resetGauge(){
-        float newGauge = getGauge()+increase();
-        if(newGauge < min){
-            newGauge = min;
-        }else if(newGauge > max){
-            newGauge = max;
-        }
-        gauge = newGauge;
-        return gauge;
+    public String getTypeName(){
+        return name;
     }
 
     @Override
-    public float compare() {
-        return getGauge()+increase();
+    public float compare(EventType param) {
+        float compareValue = motionCompare(param);
+        if(compareValue < 0f){
+            compareValue = 0f;
+        }
+        return compareValue;
     }
+
+    @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority){
+        this.priority = priority;
+    }
+
+
 }

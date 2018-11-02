@@ -22,7 +22,7 @@ public class SingleTouchEvent implements TouchEvent {
         if(motionEvent==null){
             preMotionEvent = event;
         }else{
-            preMotionEvent = motionEvent;
+            preMotionEvent = MotionEvent.obtain(motionEvent);
         }
         this.motionEvent = event;
     }

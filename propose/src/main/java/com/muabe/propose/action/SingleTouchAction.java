@@ -11,7 +11,7 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-class SingleTouchAction extends ActionModule<SingleTouchEvent> implements OnTouchDetectListener {
+class SingleTouchAction extends ActionModule implements OnTouchDetectListener {
 
 
     @Override

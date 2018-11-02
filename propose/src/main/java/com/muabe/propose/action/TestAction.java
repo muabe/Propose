@@ -1,7 +1,5 @@
 package com.muabe.propose.action;
 
-import com.muabe.propose.guesture.TestEvent;
-
 /**
  * <br>捲土重來<br>
  *
@@ -9,9 +7,9 @@ import com.muabe.propose.guesture.TestEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-18
  */
-public class TestAction extends ActionModule<TestEvent> {
+public class TestAction extends ActionModule {
 
-    public void go(TestEvent event){
+    public void go(Object event){
         callScan(event);
     }
 }

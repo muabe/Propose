@@ -1,36 +1,42 @@
 package com.muabe.propose.guesture;
 
 
-import com.muabe.propose.action.ActionModule;
-import com.muabe.propose.action.ModuleInterface;
+import android.util.Log;
+
 import com.muabe.propose.combine.MotionPriority;
 
-import java.lang.reflect.ParameterizedType;
+public abstract class GesturePlugin<EventType> extends MotionPriority<EventType> {
 
-public abstract class GesturePlugin<EventType> extends MotionPriority<EventType> implements ModuleInterface {
-    private String name;
-    private int priority = 0;
+    protected float point = 0f;
 
-    public GesturePlugin(){
-        name = ((Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
-    }
+
+
+    public abstract float preemp(EventType event);
+    public abstract float increase(EventType event);
+
 
     @Override
-    public String getTypeName(){
-        return name;
-    }
-
-    public void setPriority(int priority){
-        this.priority = priority;
-    }
-
-    public abstract void get(EventType eventType);
-
-    public boolean equalsAction(ActionModule actionModule, EventType event){
-        boolean isAction = getTypeName().equals(actionModule.getTypeName());
-        if(isAction){
-            setEvent(event);
+    public float motionCompare(EventType event) {
+        if(getPoint() <= 0){
+            return preemp(event);
+        }else{
+            return point + increase(event);
         }
-        return isAction;
     }
+
+
+    public float getPoint(){
+        return point;
+    }
+
+    public float updatePoint(EventType event){
+        point +=  increase(event);
+        return point;
+    }
+
+    public void play(EventType event){
+        updatePoint(event);
+        Log.e("GesturePlugin", getClass().getName()+":"+getPoint());
+    }
+
 }

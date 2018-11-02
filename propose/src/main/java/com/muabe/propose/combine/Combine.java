@@ -44,67 +44,20 @@ public class Combine {
 
     public static int count = 0;
 
-    public static <T extends Combination>ArrayList<T> scan(T combination){
+    public static <T extends Combination>ArrayList<T> scan(T combination, Object param){
         count = 0;
-
         ArrayList<T> list = new ArrayList<>();
-        scanLoop(combination, (ArrayList<Combination>)list);
+        scanLoop(combination, (ArrayList<Combination>)list, param);
         for(Combination cacheCombination : list){
             addCache(cacheCombination);
         }
-
         Log.e("dd", "[검색 횟수:"+count+"]");
         return list;
     }
 
-//    private static void scanLoop1(Combination combination, ArrayList<Combination> list){
-//        if(combination.deletedCache){
-//            combination.deletedCache = false;
-//            return;
-//        }
-//        count++;
-//        switch(combination.mode) {
-//            case Combine.ELEMENT:
-//                if(combination.compare() > 0) {
-//                    list.add(combination);
-//                }else{
-//                    updateCache(combination, list);
-//                }
-//                break;
-//
-//            case Combine.AND:
-//                for (Combination childCombine : combination.child) {
-//                    scanLoop(childCombine, list);
-//                }
-//                break;
-//            case Combine.OR:
-//                ArrayList<Combination> winner = null;
-//                if(combination.cache.size()>0){
-//                    winner = new ArrayList<>();
-//                    scanLoop(combination.cache.get(0), winner);
-//                }else{
-//                    for (Combination childCombination : combination.child) {
-//                        if (winner == null) {
-//                            winner = new ArrayList<>();
-//                            scanLoop(childCombination, winner);
-//                        } else {
-//                            ArrayList<Combination> challener = new ArrayList<>();
-//                            scanLoop(childCombination, challener);
-//
-//                            float winnerScore = score(winner);
-//                            float challenerScore = score(challener);
-//                            if (challenerScore > 0 && winnerScore < challenerScore) {
-//                                winner = challener;
-//                            }
-//                        }
-//                    }
-//                }
-//                list.addAll(winner);
-//                break;
-//        }
-//    }
 
-    private static void scanLoop(Combination combination, ArrayList<Combination> list){
+
+    private static void scanLoop(Combination combination, ArrayList<Combination> list, Object param){
         if(combination.deletedCache){
             combination.deletedCache = false;
             return;
@@ -112,34 +65,34 @@ public class Combine {
         count++;
         switch(combination.mode) {
             case Combine.ELEMENT:
-                if(combination.compare() > 0) {
+                if(combination.compare(param) > 0) {
                     list.add(combination);
                 }else{
-                    updateCache(combination, list);
+                    updateCache(combination, list, param);
                 }
                 break;
 
             case Combine.AND:
                 for (Combination childCombine : combination.child) {
-                    scanLoop(childCombine, list);
+                    scanLoop(childCombine, list, param);
                 }
                 break;
             case Combine.OR:
                 ArrayList<Combination> winner = null;
                 if(combination.cache.size()>0){
                     winner = new ArrayList<>();
-                    scanLoop(combination.cache.get(0), winner);
+                    scanLoop(combination.cache.get(0), winner, param);
                 }else{
                     for (Combination childCombination : combination.child) {
                         if (winner == null) {
                             winner = new ArrayList<>();
-                            scanLoop(childCombination, winner);
+                            scanLoop(childCombination, winner, param);
                         } else {
                             ArrayList<Combination> challener = new ArrayList<>();
-                            scanLoop(childCombination, challener);
+                            scanLoop(childCombination, challener, param);
 
-                            float[] winnerScore = score(winner);
-                            float[] challenerScore = score(challener);
+                            float[] winnerScore = score(winner, param);
+                            float[] challenerScore = score(challener, param);
 
                             if(challenerScore[1] > 0) {
                                 if(winnerScore[1] > 0 ) {
@@ -177,15 +130,15 @@ public class Combine {
                 return;
             }
             addCache(combination.parents);
-            Log.i("dd", "cache="+combination.parents);
+            Log.i("Combine", "cache="+combination.parents);
         }
     }
 
-    private static void updateCache(Combination combination, ArrayList<Combination> list){
+    private static void updateCache(Combination combination, ArrayList<Combination> list, Object param){
         Combination reScan = deleteCache(combination);
         if(reScan.mode != Combine.ELEMENT) {
-            Log.e("dd", "재스캔!! = "+reScan.toString());
-            scanLoop(reScan, list);
+            Log.i("Combine", "Reset Cache = "+reScan.toString());
+            scanLoop(reScan, list, param);
         }
     }
 
@@ -198,7 +151,7 @@ public class Combine {
     private static Combination deleteCache(Combination combination){
         if(combination.parents!=null && combination.parents.cache.contains(combination)){
             combination.parents.cache.remove(combination);
-            Log.i("dd", combination.parents+" delete="+combination);
+            Log.i("Combine", combination.parents+" delete="+combination);
             if(combination.parents.cache.size()==0){
                 if(combination.parents.mode == Combine.OR && combination.mode != Combine.OR){
                     combination.deletedCache = true;
@@ -210,22 +163,22 @@ public class Combine {
     }
 
 
-    private static void updateCascheBottomTop(Combination combination, ArrayList<Combination> list){
+    private static void updateCascheBottomTop(Combination combination, ArrayList<Combination> list, Object param){
         if(combination.parents!=null && combination.parents.cache.contains(combination)){
             combination.parents.cache.remove(combination);
-            Log.i("dd", combination.parents+" delete="+combination);
+            Log.i("Combine", combination.parents+" delete="+combination);
             if(combination.parents.cache.size()==0){
                 if(combination.parents.mode == Combine.OR){
                     combination.deletedCache = true;
                     ArrayList<Combination> tempList = new ArrayList<>();
-                    scanLoop(combination.parents, tempList);
+                    scanLoop(combination.parents, tempList, param);
                     if(tempList.size()==0){
-                        updateCascheBottomTop(combination.parents, list);
+                        updateCascheBottomTop(combination.parents, list, param);
                     }else{
                         list.addAll(tempList);
                     }
                 }else if(combination.parents.mode == Combine.AND){
-                    updateCascheBottomTop(combination.parents, list);
+                    updateCascheBottomTop(combination.parents, list, param);
                 }
             }
         }
@@ -241,43 +194,22 @@ public class Combine {
         }
     }
 
-
     /**
      * 중요!! 모든 리스트는 Element로 구성되어야함
      * @param list mode가 전부 Element 이여야함
      * @return combination의 compare 값
      */
-    private static float score1(ArrayList<Combination> list){
+    private static float[] score(ArrayList<Combination> list, Object param){
         int i = 0;
-        float score = -1f;
-        int priority = 0;
-        for(Combination combination : list){
-            if(i==0){
-                priority = combination.getPriority();
-                score = combination.compare();
-                i++;
-            }else{
-                if(score < combination.compare()){
-                    score = combination.compare();
-                }
-            }
-        }
-        return score;
-    }
-
-    private static float[] score(ArrayList<Combination> list){
-        int i = 0;
-//        float score = -1f;
-//        int getPriority = 0;
         float[] score = {0f, -1f};
         for(Combination combination : list){
             if(i==0){
                 score[0] = combination.getPriority();
-                score[1] = combination.compare();
+                score[1] = combination.compare(param);
                 i++;
             }else{
                 int tempPriority = combination.getPriority();
-                float tempCompare = combination.compare();
+                float tempCompare = combination.compare(param);
 
                 if(tempCompare > 0) {
                     if (score[0] < tempPriority) {
@@ -289,8 +221,8 @@ public class Combine {
                             score[1] = tempCompare;
                         }
                     } else {
-                        if (score[1] < combination.compare()) {
-                            score[1] = combination.compare();
+                        if (score[1] < combination.compare(param)) {
+                            score[1] = combination.compare(param);
                         }
                     }
                 }
