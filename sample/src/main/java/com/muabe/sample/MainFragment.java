@@ -112,11 +112,10 @@ public class MainFragment extends UniFragment{
         print(8, combinations);// 8:E5(18<-21)
 
         final TestAction action = new TestAction();
-
         TestGesture testGesture = new TestGesture();
+
+
         Motion test = new Motion(testGesture);
-
-
         Motion motionRight = new Motion(new SingleTouchRightGesture());
         Motion motionLeft = new Motion(new SingleTouchLeftGesture());
         Motion motion = Combine.all(Combine.one(motionRight, motionLeft), test);

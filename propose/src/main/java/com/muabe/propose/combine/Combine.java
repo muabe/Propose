@@ -51,7 +51,7 @@ public class Combine {
         for(Combination cacheCombination : list){
             addCache(cacheCombination);
         }
-        Log.e("dd", "[검색 횟수:"+count+"]");
+        Log.e("Combine", "[검색 횟수:"+count+"]");
         return list;
     }
 
@@ -91,8 +91,8 @@ public class Combine {
                             ArrayList<Combination> challener = new ArrayList<>();
                             scanLoop(childCombination, challener, param);
 
-                            float[] winnerScore = score(winner, param);
-                            float[] challenerScore = score(challener, param);
+                            float[] winnerScore = preemp(winner, param);
+                            float[] challenerScore = preemp(challener, param);
 
                             if(challenerScore[1] > 0) {
                                 if(winnerScore[1] > 0 ) {
@@ -163,7 +163,7 @@ public class Combine {
     }
 
 
-    private static void updateCascheBottomTop(Combination combination, ArrayList<Combination> list, Object param){
+    private static void updateCacheBottomTop(Combination combination, ArrayList<Combination> list, Object param){
         if(combination.parents!=null && combination.parents.cache.contains(combination)){
             combination.parents.cache.remove(combination);
             Log.i("Combine", combination.parents+" delete="+combination);
@@ -173,12 +173,12 @@ public class Combine {
                     ArrayList<Combination> tempList = new ArrayList<>();
                     scanLoop(combination.parents, tempList, param);
                     if(tempList.size()==0){
-                        updateCascheBottomTop(combination.parents, list, param);
+                        updateCacheBottomTop(combination.parents, list, param);
                     }else{
                         list.addAll(tempList);
                     }
                 }else if(combination.parents.mode == Combine.AND){
-                    updateCascheBottomTop(combination.parents, list, param);
+                    updateCacheBottomTop(combination.parents, list, param);
                 }
             }
         }
@@ -199,7 +199,7 @@ public class Combine {
      * @param list mode가 전부 Element 이여야함
      * @return combination의 compare 값
      */
-    private static float[] score(ArrayList<Combination> list, Object param){
+    private static float[] preemp(ArrayList<Combination> list, Object param){
         int i = 0;
         float[] score = {0f, -1f};
         for(Combination combination : list){
