@@ -1,7 +1,6 @@
 package com.muabe.sample;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -9,7 +8,6 @@ import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Propose;
-import com.muabe.propose.TouchDetector;
 import com.muabe.propose.action.TestAction;
 import com.muabe.propose.combine.Combination;
 import com.muabe.propose.combine.Combine;
@@ -19,9 +17,6 @@ import com.muabe.propose.guesture.SingleTouchRightGesture;
 import com.muabe.propose.guesture.TestEvent;
 import com.muabe.propose.guesture.TestGesture;
 import com.muabe.propose.motion.Motion;
-import com.muabe.propose.touch.detector.OnTouchDetectListener;
-import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
-import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 import java.util.ArrayList;
 
@@ -34,7 +29,7 @@ import java.util.ArrayList;
 @Layout(R.layout.main)
 public class MainFragment extends UniFragment{
     @GetView
-    Button button;
+    Button button, button2;
 
 
 
@@ -123,57 +118,17 @@ public class MainFragment extends UniFragment{
         final Propose propose = new Propose(getContext());
         propose.addActionMudle("ddd", action);
         propose.setMotion(motion);
-//        button.setOnTouchListener(propose);
+        button.setOnTouchListener(propose);
 
 
-        final TouchDetector d = new TouchDetector(getContext(), new OnTouchDetectListener() {
-            float preX=0;
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onDown(SingleTouchEvent event) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onUp(SingleTouchEvent event) {
-                return false;
-            }
-
-            @Override
-            public boolean onDrag(SingleTouchEvent event) {
+            public void onClick(View view) {
                 action.go(new TestEvent());
-                return true;
-            }
-
-            @Override
-            public boolean onMulitBegin(MultiTouchEvent event) {
-                return false;
-            }
-
-            @Override
-            public boolean onMultiEnd(MultiTouchEvent event) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onMultiDrag(MultiTouchEvent event) {
-                return false;
-            }
-
-            @Override
-            public boolean onMultiUp(MultiTouchEvent multiEvent) {
-                return false;
             }
         });
 
-        button.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                propose.onTouch(view, motionEvent);
-                return d.onTouchEvent(view, motionEvent);
-            }
-        });
+
 
     }
 

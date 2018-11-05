@@ -2,6 +2,7 @@ package com.muabe.propose.motion;
 
 import com.muabe.propose.combine.Combination;
 import com.muabe.propose.guesture.GesturePlugin;
+import com.muabe.propose.player.PlayListener;
 
 /**
  * <br>捲土重來<br>
@@ -40,11 +41,15 @@ public class Motion extends Combination {
             return 0;
         }
 
-        if(gesturePlugin.getTypeName().equals(event.getClass().getName())) {// actionInfo.typeName
+        if(gesturePlugin.getTypeName().equals(event.getClass().getName())) {
             return gesturePlugin.compare(event);
         }else {
             return gesturePlugin.getPoint();
         }
 
+    }
+
+    public void play(PlayListener playListener){
+        this.gesturePlugin.setOnPlayListener(playListener);
     }
 }

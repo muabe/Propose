@@ -4,16 +4,15 @@ package com.muabe.propose.guesture;
 import android.util.Log;
 
 import com.muabe.propose.combine.MotionPriority;
+import com.muabe.propose.player.PlayListener;
 
 public abstract class GesturePlugin<EventType> extends MotionPriority<EventType> {
 
     protected float point = 0f;
-
-
+    private PlayListener playListener;
 
     public abstract float preemp(EventType event);
     public abstract float increase(EventType event);
-
 
     @Override
     public float motionCompare(EventType event) {
@@ -29,14 +28,19 @@ public abstract class GesturePlugin<EventType> extends MotionPriority<EventType>
         return point;
     }
 
-    public float updatePoint(EventType event){
+    public void updatePoint(EventType event){
         point +=  increase(event);
-        return point;
+    }
+
+    public void setOnPlayListener(PlayListener playListener){
+        this.playListener = playListener;
     }
 
     public void play(EventType event){
         updatePoint(event);
+        if(playListener != null){
+            playListener.play(point);
+        }
         Log.e("GesturePlugin", getClass().getName()+":"+getPoint());
     }
-
 }
