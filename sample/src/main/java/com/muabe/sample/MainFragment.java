@@ -1,10 +1,12 @@
 package com.muabe.sample;
 
+import android.animation.ObjectAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.markjmind.uni.UniFragment;
+import com.markjmind.uni.common.Jwc;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Propose;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 @Layout(R.layout.main)
 public class MainFragment extends UniFragment{
     @GetView
-    Button button, button2;
+    Button button, button2, button3;
 
 
 
@@ -106,13 +108,21 @@ public class MainFragment extends UniFragment{
         combinations = Combine.scan(combination, null);
         print(8, combinations);// 8:E5(18<-21)
 
+
+        float maxMove = 300f* Jwc.getDensity(button);
+        ObjectAnimator left = ObjectAnimator.ofFloat(button, "translationX", -maxMove);
+        ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
+
+
         final TestAction action = new TestAction();
-        TestGesture testGesture = new TestGesture();
+        TestGesture testGesture = new TestGesture(1000);
 
 
         Motion test = new Motion(testGesture);
-        Motion motionRight = new Motion(new SingleTouchRightGesture());
-        Motion motionLeft = new Motion(new SingleTouchLeftGesture());
+        Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
+        motionRight.play(right);
+        Motion motionLeft = new Motion(new SingleTouchLeftGesture(maxMove));
+        motionLeft.play(left);
         Motion motion = Combine.all(Combine.one(motionRight, motionLeft), test);
 
         final Propose propose = new Propose(getContext());
@@ -127,6 +137,13 @@ public class MainFragment extends UniFragment{
                 action.go(new TestEvent());
             }
         });
+
+        ObjectAnimator right2 = ObjectAnimator.ofFloat(button3, "translationX", maxMove);
+        Motion m = new Motion(new SingleTouchRightGesture(maxMove));
+        m.play(right2);
+        Propose p = new Propose(getContext());
+        p.setMotion(m);
+        button3.setOnTouchListener(p);
 
 
 

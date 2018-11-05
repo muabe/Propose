@@ -11,6 +11,10 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  */
 public class SingleTouchLeftGesture extends GesturePlugin<SingleTouchEvent> {
 
+    public SingleTouchLeftGesture(float maxPoint) {
+        super(maxPoint);
+    }
+
     @Override
     public float preemp(SingleTouchEvent event) {
         return increase(event);
@@ -18,6 +22,6 @@ public class SingleTouchLeftGesture extends GesturePlugin<SingleTouchEvent> {
 
     @Override
     public float increase(SingleTouchEvent event) {
-        return -event.getDragX();
+        return event.getPreX() - event.getX();
     }
 }

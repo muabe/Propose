@@ -1,7 +1,10 @@
 package com.muabe.propose.motion;
 
+import android.animation.ValueAnimator;
+
 import com.muabe.propose.combine.Combination;
 import com.muabe.propose.guesture.GesturePlugin;
+import com.muabe.propose.player.AnimationPlayer;
 import com.muabe.propose.player.PlayListener;
 
 /**
@@ -50,6 +53,10 @@ public class Motion extends Combination {
     }
 
     public void play(PlayListener playListener){
-        this.gesturePlugin.setOnPlayListener(playListener);
+        this.gesturePlugin.setPlayListener(playListener);
+    }
+
+    public void play(ValueAnimator animator){
+        getGesturePlugin().setPlayListener(new AnimationPlayer(animator));
     }
 }

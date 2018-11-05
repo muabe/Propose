@@ -8,5 +8,5 @@ package com.muabe.propose.player;
  * @since 2018-11-05
  */
 public interface PlayListener {
-    boolean play(float point);
+    void play(float point, float maxPoint);
 }

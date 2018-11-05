@@ -8,6 +8,11 @@ package com.muabe.propose.guesture;
  * @since 2018-10-18
  */
 public class TestGesture extends GesturePlugin<TestEvent> {
+
+    public TestGesture(float maxPoint) {
+        super(maxPoint);
+    }
+
     @Override
     public float preemp(TestEvent event) {
         return 5;
