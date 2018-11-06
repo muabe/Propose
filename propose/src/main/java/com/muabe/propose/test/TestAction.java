@@ -1,4 +1,6 @@
-package com.muabe.propose.action;
+package com.muabe.propose.test;
+
+import com.muabe.propose.action.ActionModule;
 
 /**
  * <br>捲土重來<br>

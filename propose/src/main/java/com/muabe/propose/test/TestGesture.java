@@ -1,4 +1,6 @@
-package com.muabe.propose.guesture;
+package com.muabe.propose.test;
+
+import com.muabe.propose.guesture.GesturePlugin;
 
 /**
  * <br>捲土重來<br>

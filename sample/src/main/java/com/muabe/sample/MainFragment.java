@@ -10,14 +10,14 @@ import com.markjmind.uni.common.Jwc;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.TestAction;
+import com.muabe.propose.test.TestAction;
 import com.muabe.propose.combine.Combination;
 import com.muabe.propose.combine.Combine;
 import com.muabe.propose.combine.TestCombination;
 import com.muabe.propose.guesture.SingleTouchLeftGesture;
 import com.muabe.propose.guesture.SingleTouchRightGesture;
-import com.muabe.propose.guesture.TestEvent;
-import com.muabe.propose.guesture.TestGesture;
+import com.muabe.propose.test.TestEvent;
+import com.muabe.propose.test.TestGesture;
 import com.muabe.propose.motion.Motion;
 
 import java.util.ArrayList;
