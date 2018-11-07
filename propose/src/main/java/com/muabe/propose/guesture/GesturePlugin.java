@@ -29,16 +29,4 @@ public abstract class GesturePlugin<EventType> extends MotionPriority<EventType>
     public Point getPoint(){
         return point;
     }
-
-//    public boolean updatePoint(EventType event){
-//        return point.updatePoint(increase(event));
-//    }
-//
-//    public void play(EventType event, PlayListener playListener) {
-//        if (playListener != null) {
-//            if (point.updatePoint(event, this)) {
-//                playListener.play(point.value(), point.getMaxPoint());
-//            }
-//        }
-//    }
 }

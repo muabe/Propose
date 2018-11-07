@@ -1,9 +1,9 @@
 package com.muabe.propose.action;
 
+import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.Propose;
 import com.muabe.propose.TouchDetector;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
@@ -19,11 +19,17 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 public class TouchActionController extends ActionModule implements View.OnTouchListener, OnTouchDetectListener {
     private TouchDetector touchDetector;
     private SingleTouchAction singleTouchAction = new SingleTouchAction();
+    private Context context;
+
+    public TouchActionController(Context context){
+        this.context = context;
+    }
+
 
     @Override
-    public void bind(Propose propose) {
-        touchDetector = new TouchDetector(propose.getContext(), this);
-        singleTouchAction.bind(propose);
+    public void bind(OnActionListener listener) {
+        touchDetector = new TouchDetector(context, this);
+        singleTouchAction.bind(listener);
     }
 
     @Override

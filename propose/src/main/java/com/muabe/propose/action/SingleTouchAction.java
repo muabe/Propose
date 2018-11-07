@@ -13,7 +13,6 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  */
 class SingleTouchAction extends ActionModule implements OnTouchDetectListener {
 
-
     @Override
     public boolean onDown(SingleTouchEvent event) {
         return false;
@@ -26,7 +25,7 @@ class SingleTouchAction extends ActionModule implements OnTouchDetectListener {
 
     @Override
     public boolean onDrag(SingleTouchEvent event) {
-        return callScan(event);
+        return onAction(event);
     }
 
     @Override

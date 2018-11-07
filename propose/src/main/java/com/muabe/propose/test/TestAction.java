@@ -12,6 +12,6 @@ import com.muabe.propose.action.ActionModule;
 public class TestAction extends ActionModule {
 
     public void go(Object event){
-        callScan(event);
+        onAction(event);
     }
 }

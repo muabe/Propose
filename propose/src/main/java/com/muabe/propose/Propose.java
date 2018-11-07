@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public class Propose implements View.OnTouchListener {
+public class Propose implements ActionModule.OnActionListener, View.OnTouchListener {
     public static final String ACTION_TOUCH = "ACTION_TOUCH";
 
     private Context context;
@@ -36,7 +36,7 @@ public class Propose implements View.OnTouchListener {
     }
 
     private void defaultActionModule(){
-        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController());
+        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController(context));
     }
 
     public Context getContext(){
@@ -52,7 +52,8 @@ public class Propose implements View.OnTouchListener {
         this.motion = motion;
     }
 
-    public boolean callScan(Object event){
+    @Override
+    public boolean onAction(Object event) {
         boolean result = false;
         ArrayList<Motion> motionList = Combine.scan(motion, event);
 
@@ -71,4 +72,6 @@ public class Propose implements View.OnTouchListener {
         TouchActionController touchAction = (TouchActionController) actionModules.get(Propose.ACTION_TOUCH);
         return touchAction.onTouch(view, motionEvent);
     }
+
+
 }

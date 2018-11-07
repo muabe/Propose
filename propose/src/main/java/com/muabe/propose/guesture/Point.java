@@ -35,7 +35,7 @@ public class Point {
         return point >= maxPoint;
     }
 
-    boolean updatePoint(float increase){
+    public boolean updatePoint(float increase){
         if(point + increase <= minPoint ){
             if(point == minPoint){
                 return false;
@@ -50,9 +50,5 @@ public class Point {
             point +=  increase;
         }
         return true;
-    }
-
-    public boolean updatePoint(Object event, GesturePlugin plugin){
-        return updatePoint(plugin.increase(event));
     }
 }

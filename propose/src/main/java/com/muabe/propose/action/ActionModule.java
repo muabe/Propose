@@ -1,7 +1,5 @@
 package com.muabe.propose.action;
 
-import com.muabe.propose.Propose;
-
 /**
  * <br>捲土重來<br>
  *
@@ -10,18 +8,23 @@ import com.muabe.propose.Propose;
  * @since 2018-10-15
  */
 public class ActionModule{
-    private Propose propose;
+    public interface OnActionListener{
+        boolean onAction(Object object);
+    }
+    private OnActionListener listener;
 
-    public void bind(Propose propose){
-        this.propose = propose;
+    public void bind(OnActionListener listener){
+        this.listener = listener;
     }
 
 
-    protected boolean callScan(Object event){
-        if(propose!=null) {
-            return propose.callScan(event);
+    protected boolean onAction(Object event){
+        if(listener != null) {
+            return listener.onAction(event);
         }else{
             return false;
         }
     }
+
+
 }

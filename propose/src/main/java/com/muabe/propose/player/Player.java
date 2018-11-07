@@ -18,7 +18,7 @@ public class Player {
     public void play(Object event, GesturePlugin plugin, PlayListener playListener) {
         if (plugin !=null && playListener != null) {
             Point point = plugin.getPoint();
-            if (point.updatePoint(event, plugin)) {
+            if (point.updatePoint(plugin.increase(event))) {
                 playListener.play(point.value(), point.getMaxPoint());
                 Log.e("GesturePlugin", getClass().getName() + ":" + point.value());
             }
