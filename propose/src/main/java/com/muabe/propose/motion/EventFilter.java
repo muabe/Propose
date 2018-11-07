@@ -1,4 +1,4 @@
-package com.muabe.propose.action;
+package com.muabe.propose.motion;
 
 import com.muabe.propose.guesture.GesturePlugin;
 
@@ -11,15 +11,15 @@ import java.lang.reflect.ParameterizedType;
  * @email markjmind@gmail.com
  * @since 2018-11-06
  */
-public class Filter {
+class EventFilter {
     private String name;
 
-    public Filter(Class<? extends GesturePlugin> gesturePlugin){
+    EventFilter(GesturePlugin gesturePlugin){
         ParameterizedType type = (ParameterizedType)gesturePlugin.getClass().getGenericSuperclass();
         name = ((Class)type.getActualTypeArguments()[0]).getName();
     }
 
-    public String getTypeName(){
-        return this.name;
+    boolean filter(Object event){
+        return name.equals(event.getClass().getName());
     }
 }

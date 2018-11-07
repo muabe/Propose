@@ -1,8 +1,6 @@
 package com.muabe.propose.combine;
 
 
-import java.lang.reflect.ParameterizedType;
-
 /**
  * <br>捲土重來<br>
  *
@@ -12,17 +10,8 @@ import java.lang.reflect.ParameterizedType;
  */
 public abstract class MotionPriority<EventType> implements Priority<EventType> {
     private int priority = 0;
-    private String name;
 
-    public MotionPriority(){
-        name = ((Class)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
-    }
-
-    public abstract float motionCompare(EventType event);
-
-    public String getTypeName(){
-        return name;
-    }
+    protected abstract float motionCompare(EventType event);
 
     @Override
     public float compare(EventType param) {

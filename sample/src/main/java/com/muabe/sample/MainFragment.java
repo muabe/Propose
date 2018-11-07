@@ -120,9 +120,9 @@ public class MainFragment extends UniFragment{
 
         Motion test = new Motion(testGesture);
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
-        motionRight.play(right);
+        motionRight.begin(right);
         Motion motionLeft = new Motion(new SingleTouchLeftGesture(maxMove));
-        motionLeft.play(left);
+        motionLeft.begin(left);
         Motion motion = Combine.all(Combine.one(motionRight, motionLeft), test);
 
         final Propose propose = new Propose(getContext());
@@ -140,7 +140,7 @@ public class MainFragment extends UniFragment{
 
         ObjectAnimator right2 = ObjectAnimator.ofFloat(button3, "translationX", maxMove);
         Motion m = new Motion(new SingleTouchRightGesture(maxMove));
-        m.play(right2);
+        m.begin(right2);
         Propose p = new Propose(getContext());
         p.setMotion(m);
         button3.setOnTouchListener(p);

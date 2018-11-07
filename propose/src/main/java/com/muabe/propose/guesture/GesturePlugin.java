@@ -1,73 +1,44 @@
 package com.muabe.propose.guesture;
 
 
-import android.util.Log;
-
 import com.muabe.propose.combine.MotionPriority;
-import com.muabe.propose.player.PlayListener;
 
 public abstract class GesturePlugin<EventType> extends MotionPriority<EventType> {
+    private Point point;
 
-    protected float point = 0f;
-    private float minPoint = 0f;
-    private float maxPoint = 0f;
-
-    private PlayListener playListener;
+    public abstract float preemp(EventType event);
+    public abstract float increase(EventType event);
 
     public GesturePlugin(float maxPoint){
         this(0f, maxPoint);
     }
 
     private GesturePlugin(float minPoint, float maxPoint){
-        this.minPoint = minPoint;
-        this.maxPoint = maxPoint;
+        point = new Point(minPoint, maxPoint);
     }
 
-
-    public abstract float preemp(EventType event);
-    public abstract float increase(EventType event);
-
     @Override
-    public float motionCompare(EventType event) {
-        if(getPoint() == minPoint){
+    protected float motionCompare(EventType event) {
+        if(point.isMinPoint()){
             return preemp(event);
         }else{
-            return point + increase(event);
+            return getPoint().value() + increase(event);
         }
     }
 
-
-    public float getPoint(){
+    public Point getPoint(){
         return point;
     }
 
-    private boolean updatePoint(EventType event){
-        float increasePoint = increase(event);
-
-        if(point + increasePoint <= minPoint ){
-            if(point == minPoint){
-                return false;
-            }
-            point = minPoint;
-        }else if(point + increasePoint >= maxPoint){
-            if(point == maxPoint){
-                return false;
-            }
-            point = maxPoint;
-        }else{
-            point +=  increasePoint;
-        }
-        return true;
-    }
-
-    public void setPlayListener(PlayListener playListener){
-        this.playListener = playListener;
-    }
-
-    public void play(EventType event){
-        if(playListener != null && updatePoint(event)){
-            playListener.play(point, maxPoint);
-        }
-        Log.e("GesturePlugin", getClass().getName()+":"+getPoint());
-    }
+//    public boolean updatePoint(EventType event){
+//        return point.updatePoint(increase(event));
+//    }
+//
+//    public void play(EventType event, PlayListener playListener) {
+//        if (playListener != null) {
+//            if (point.updatePoint(event, this)) {
+//                playListener.play(point.value(), point.getMaxPoint());
+//            }
+//        }
+//    }
 }

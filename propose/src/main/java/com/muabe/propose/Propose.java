@@ -8,6 +8,7 @@ import com.muabe.propose.action.ActionModule;
 import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.combine.Combine;
 import com.muabe.propose.motion.Motion;
+import com.muabe.propose.player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,10 +26,13 @@ public class Propose implements View.OnTouchListener {
     private Context context;
     private HashMap<String, ActionModule> actionModules = new HashMap<>();
     private Motion motion;
+    private Player player;
 
     public Propose(Context context){
         this.context = context;
+        player = new Player();
         defaultActionModule();
+
     }
 
     private void defaultActionModule(){
@@ -53,10 +57,11 @@ public class Propose implements View.OnTouchListener {
         ArrayList<Motion> motionList = Combine.scan(motion, event);
 
         for(Motion scanMotion : motionList){
-            if(scanMotion.getGesturePlugin().getTypeName().equals(event.getClass().getName())){ //actionModule.getTypeName()
-                scanMotion.getGesturePlugin().play(event);
+            if(scanMotion.filter(event)){
+                player.play(event, scanMotion);
                 result = true;
             }
+
         }
         return result;
     }
