@@ -3,6 +3,7 @@ package com.muabe.propose.motion;
 import android.animation.ValueAnimator;
 
 import com.muabe.propose.combine.Combination;
+import com.muabe.propose.combine.Combine;
 import com.muabe.propose.guesture.GesturePlugin;
 import com.muabe.propose.player.AnimationPlayer;
 import com.muabe.propose.player.PlayListener;
@@ -55,7 +56,27 @@ public class Motion extends Combination {
         } else {
             return gesturePlugin.getPoint().value();
         }
+    }
 
+    public Motion and(Motion... motions){
+        if(motions.length > 0){
+            return Combine.all(copyArray(motions));
+        }
+        return this;
+    }
+
+    public Motion or(Motion... motions){
+        if(motions.length > 0){
+            return Combine.one(copyArray(motions));
+        }
+        return this;
+    }
+
+    private Motion[] copyArray(Motion[] motions){
+        Motion[] newArray = new Motion[motions.length+1];
+        newArray[0] = this;
+        System.arraycopy(motions, 0, newArray, 1, motions.length);
+        return newArray;
     }
 
     public boolean filter(Object event) {
