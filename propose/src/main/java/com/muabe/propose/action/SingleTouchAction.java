@@ -1,5 +1,6 @@
 package com.muabe.propose.action;
 
+import com.muabe.combination.combiner.ActionModule;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;

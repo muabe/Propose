@@ -4,9 +4,10 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.action.ActionModule;
+import com.muabe.combination.Combine;
+import com.muabe.combination.combiner.ActionModule;
+import com.muabe.combination.combiner.Point;
 import com.muabe.propose.action.TouchActionController;
-import com.muabe.propose.combine.Combine;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.player.Player;
 
@@ -26,11 +27,9 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     private Context context;
     private HashMap<String, ActionModule> actionModules = new HashMap<>();
     private Motion motion;
-    private Player player;
 
     public Propose(Context context){
         this.context = context;
-        player = new Player();
         defaultActionModule();
 
     }
@@ -59,10 +58,16 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
 
         for(Motion scanMotion : motionList){
             if(scanMotion.filter(event)){
-                player.play(event, scanMotion);
+                Player player = scanMotion.getPlayer();
+                Point point = scanMotion.getGesturePlugin().getPoint();
+                if(player != null && point.updatePoint(scanMotion.getGesturePlugin().increase(event))) {
+
+                    player.play(point, 0f, 1f);
+                }
+
+//                playerModule.play(event, scanMotion);
                 result = true;
             }
-
         }
         return result;
     }
@@ -72,6 +77,4 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
         TouchActionController touchAction = (TouchActionController) actionModules.get(Propose.ACTION_TOUCH);
         return touchAction.onTouch(view, motionEvent);
     }
-
-
 }

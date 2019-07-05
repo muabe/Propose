@@ -1,5 +1,7 @@
 include ':propose', ':sample'
 include ':uni'
 include ':uniboot'
+include ':combination'
 project(':uni').projectDir = new File('../Uni/uni')
 project(':uniboot').projectDir = new File('../UniBoot/uniboot')
+project(':combination').projectDir = new File('../Combination/combination')

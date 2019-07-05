@@ -1,6 +1,9 @@
 package com.muabe.propose.player;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+
+import com.muabe.combination.combiner.Point;
 
 /**
  * <br>捲土重來<br>
@@ -9,19 +12,67 @@ import android.animation.ValueAnimator;
  * @email markjmind@gmail.com
  * @since 2018-11-05
  */
-public class AnimationPlayer implements PlayListener{
-    private ValueAnimator valueAnimator;
+public class AnimationPlayer{
 
-    public AnimationPlayer(ValueAnimator valueAnimator){
-        this.valueAnimator = valueAnimator;
-        this.valueAnimator.setDuration(1000);
-        this.valueAnimator.setInterpolator(null);
+    public Player create(ValueAnimator animator){
+        ValuAnimatorPlugin plugin = new ValuAnimatorPlugin(animator);
+        return new Player(plugin);
     }
 
-    @Override
-    public void play(float point, float maxPoint) {
-        long duration = valueAnimator.getDuration();
-        long playTime = (long)(duration*point/maxPoint);
-        valueAnimator.setCurrentPlayTime(playTime);
+    public static Player create(ObjectAnimator animator){
+        ObjectAnimatorPlugin plugin = new ObjectAnimatorPlugin(animator);
+        return new Player(plugin);
     }
+
+    class ValuAnimatorPlugin implements PlayPlugin {
+        long defaultDuration = 1000;
+        ValueAnimator animator;
+
+        ValuAnimatorPlugin(ValueAnimator animator){
+            this.animator = animator;
+            this.animator
+                    .setDuration(defaultDuration)
+                    .setInterpolator(null);
+        }
+        @Override
+        public boolean play(Player player, Point point, float ratio) {
+            long playDuration = (long)(defaultDuration*point.getRatio());
+            animator.setCurrentPlayTime(playDuration);
+            return false;
+        }
+    }
+
+    static class ObjectAnimatorPlugin implements PlayPlugin {
+        long defaultDuration = 1000;
+        ObjectAnimator animator;
+
+        ObjectAnimatorPlugin(ObjectAnimator animator){
+            this.animator = animator;
+            this.animator
+                    .setDuration(defaultDuration)
+                    .setInterpolator(null);
+        }
+        @Override
+        public boolean play(Player player, Point point, float ratio) {
+            long playDuration = (long)(defaultDuration * player.getRatio());
+            animator.setCurrentPlayTime(playDuration);
+            return false;
+        }
+    }
+
+//    private ValueAnimator valueAnimator;
+//
+//    public AnimationPlayer(ValueAnimator valueAnimator){
+//        this.valueAnimator = valueAnimator;
+//        this.valueAnimator.setDuration(1000);
+//        this.valueAnimator.setInterpolator(null);
+//    }
+//
+//
+//    @Override
+//    public void play(float ratio, Class<? extends MotionPriority> motionPriorityClass, float point, float maxPoint) {
+//        long duration = valueAnimator.getDuration();
+//        long playTime = (long)(duration*point/maxPoint);
+//        valueAnimator.setCurrentPlayTime(playTime);
+//    }
 }
