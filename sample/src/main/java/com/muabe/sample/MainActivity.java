@@ -6,12 +6,17 @@ import android.os.Bundle;
 import com.markjmind.uni.boot.SimpleBoot;
 
 public class MainActivity extends Activity {
+    final String version = "1.0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        IntroFragment introFragment = new IntroFragment();
+        introFragment.param.add("version", version);
+
         SimpleBoot.putContentView(this)
-                .setHomeFragment(new IntroFragment());
+                .setHomeFragment(introFragment);
     }
 
     @Override
