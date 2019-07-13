@@ -12,7 +12,7 @@ public class TestCombination extends Combination {
     }
 
     public TestCombination(String name, float value){
-        this.name = name;
+        setName(name);
         setValue(value);
     }
 
@@ -35,15 +35,13 @@ public class TestCombination extends Combination {
     }
 
     public String getName(){
-        if(name == null){
-            if(mode == Combine.AND){
-                name = "AND";
-            }else if(mode == Combine.OR){
-                name = "OR";
-            }
-
+        if(mode == Combine.AND){
+            return "AND";
+        }else if(mode == Combine.OR){
+            return "OR";
         }
-        return this.name;
+
+        return super.getName();
     }
 
     public float getValue(){

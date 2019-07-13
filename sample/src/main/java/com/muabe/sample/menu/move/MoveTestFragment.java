@@ -30,8 +30,8 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
-        final Player player = AnimationPlayer.create(10, right);
-        Player player2 = AnimationPlayer.create(10, rotation);
+        final Player player = AnimationPlayer.create(10, right).setName("left");
+        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
         player.selfAnd(player2);
 
         combinationPlayer = player.selfAnd(player2);
@@ -46,7 +46,7 @@ public class MoveTestFragment extends UniFragment{
             @Override
             public void onClick(View v) {
                 ratio += 0.1f;
-                player.play(ratio);
+                combinationPlayer.play(ratio);
             }
         });
     }

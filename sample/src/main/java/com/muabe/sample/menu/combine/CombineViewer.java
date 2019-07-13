@@ -34,7 +34,7 @@ public class CombineViewer{
             input.findViewById(R.id.b_line).setVisibility(View.INVISIBLE);
             TextView contents = input.findViewById(R.id.contents);
             contents.setBackgroundColor(Color.GRAY);
-            contents.setText(combination.name);
+            contents.setText(combination.getName());
             if(findElement != null){
                 findElement.onFind(contents);
             }

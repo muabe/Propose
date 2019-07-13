@@ -16,6 +16,12 @@ public class Player extends PlayCombiner<PlayPlugin> {
         this.ratio = ratio;
     }
 
+    @Override
+    public Player setName(String name) {
+        super.setName(name);
+        return this;
+    }
+
     public Player setRatio(float ratio){
         this.ratio = ratio;
         return this;
@@ -26,12 +32,33 @@ public class Player extends PlayCombiner<PlayPlugin> {
         this.endRatio = this.startRatio + ratio + endRatio;
     }
 
+
+    public Player selfAnd(Player... players) {
+        this.setRatioRange(0f, 1f);
+        for(Player player : players){
+            player.setRatioRange(0f, 1f);
+        }
+        return super.selfAnd(players);
+    }
+
+    public Player selfOr(Player... players) {
+        for(Player player : players){
+            player.setRatioRange(0f, 1f);
+        }
+        return super.selfOr(players);
+    }
+
     public static Player and(Player... Players){
+        for(Player player : Players){
+            player.setRatioRange(0f, 1f);
+        }
         return PlayCombiner.and(Players);
     }
 
-    public static Player pr(Player... players){
+    public static Player or(Player... players){
+        for(Player player : players){
+            player.setRatioRange(0f, 1f);
+        }
         return PlayCombiner.or(players);
     }
-
 }
