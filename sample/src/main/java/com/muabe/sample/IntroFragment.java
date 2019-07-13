@@ -7,6 +7,7 @@ import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.markjmind.uni.mapper.annotiation.Param;
 import com.markjmind.uni.mapper.annotiation.Timeout;
+import com.muabe.sample.menu.MenuFragment;
 
 /**
  * <br>捲土重來<br>
@@ -34,6 +35,6 @@ public class IntroFragment extends UniIntroFragment{
     public void onPost() {
         getBuilder()
                 .setHistory(false)
-                .replace(new MainFragment());
+                .replace(new MenuFragment());
     }
 }

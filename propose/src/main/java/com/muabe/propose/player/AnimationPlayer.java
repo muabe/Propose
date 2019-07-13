@@ -14,14 +14,14 @@ import com.muabe.combination.combiner.Point;
  */
 public class AnimationPlayer{
 
-    public Player create(ValueAnimator animator){
-        ValuAnimatorPlugin plugin = new ValuAnimatorPlugin(animator);
-        return new Player(plugin);
-    }
+//    public Player create(float ratio, ValueAnimator animator){
+//        ValuAnimatorPlugin plugin = new ValuAnimatorPlugin(animator);
+//        return new Player(ratio, plugin);
+//    }
 
-    public static Player create(ObjectAnimator animator){
+    public static Player create(float ratio, ObjectAnimator animator){
         ObjectAnimatorPlugin plugin = new ObjectAnimatorPlugin(animator);
-        return new Player(plugin);
+        return new Player(ratio, plugin);
     }
 
     class ValuAnimatorPlugin implements PlayPlugin {
@@ -35,8 +35,8 @@ public class AnimationPlayer{
                     .setInterpolator(null);
         }
         @Override
-        public boolean play(Player player, Point point, float ratio) {
-            long playDuration = (long)(defaultDuration*point.getRatio());
+        public boolean play(Player player, float ratio) {
+            long playDuration = (long)(defaultDuration*ratio);
             animator.setCurrentPlayTime(playDuration);
             return false;
         }
@@ -53,8 +53,8 @@ public class AnimationPlayer{
                     .setInterpolator(null);
         }
         @Override
-        public boolean play(Player player, Point point, float ratio) {
-            long playDuration = (long)(defaultDuration * player.getRatio());
+        public boolean play(Player player, float ratio) {
+            long playDuration = (long)(defaultDuration * ratio);
             animator.setCurrentPlayTime(playDuration);
             return false;
         }

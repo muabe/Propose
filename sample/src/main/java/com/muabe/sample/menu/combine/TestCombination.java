@@ -5,7 +5,6 @@ import com.muabe.combination.Combine;
 
 public class TestCombination extends Combination {
     float value;
-    String name;
 
     public TestCombination(){
         value = 0;

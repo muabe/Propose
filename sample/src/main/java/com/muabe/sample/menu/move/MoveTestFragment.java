@@ -1,6 +1,7 @@
-package com.muabe.sample.menu;
+package com.muabe.sample.menu.move;
 
 import android.animation.ObjectAnimator;
+import android.view.View;
 import android.widget.Button;
 
 import com.markjmind.uni.UniFragment;
@@ -19,19 +20,35 @@ public class MoveTestFragment extends UniFragment{
     @GetView
     Button button, button2, button3;
 
+    Player combinationPlayer;
+
+    float ratio = 0f;
     @Override
     public void onPost() {
         float maxMove = 300f* Jwc.getDensity(button);
-        ObjectAnimator left = ObjectAnimator.ofFloat(button, "translationX", -maxMove);
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
-        Player player = AnimationPlayer.create(right);
-        motionRight.setPlayer(player);
+        final Player player = AnimationPlayer.create(10, right);
+        Player player2 = AnimationPlayer.create(10, rotation);
+        player.selfAnd(player2);
+
+        combinationPlayer = player.selfAnd(player2);
+        motionRight.setPlayer(combinationPlayer);
+
 
         Propose p = new Propose(getContext());
         p.setMotion(motionRight);
         button.setOnTouchListener(p);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratio += 0.1f;
+                player.play(ratio);
+            }
+        });
     }
 
 }
