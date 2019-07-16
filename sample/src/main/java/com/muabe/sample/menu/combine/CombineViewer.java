@@ -42,13 +42,19 @@ public class CombineViewer{
             ArrayList<TestCombination> list = combination.getChild(TestCombination.class);
             TextView contents = input.findViewById(R.id.contents);
             if(contents != null){
+                String name = combination.getName();
                 if(combination.getMode() == Combine.AND){
                     contents.setBackgroundColor(Color.RED);
-                    contents.setText("AND");
+                    if(combination.getName() == null){
+                        name = "AND";
+                    }
                 }else if(combination.getMode() == Combine.OR){
                     contents.setBackgroundColor(Color.BLUE);
-                    contents.setText("OR");
+                    if(combination.getName() == null){
+                        name = "OR";
+                    }
                 }
+                contents.setText(name);
             }
             LinearLayout[] cells = addLine(list.size(), input);
             for(int i=0; i<list.size(); i++){

@@ -60,8 +60,8 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
             if(scanMotion.filter(event)){
                 Player scanPlayer = scanMotion.getPlayer();
                 if(scanPlayer != null) {
-                    Point point = scanMotion.getGesturePlugin().getPoint();
-                    if(point.updatePoint(scanMotion.getGesturePlugin().increase(event))) {
+                    Point point = scanMotion.getActionPlugin().getPoint();
+                    if(point.updatePoint(scanMotion.getActionPlugin().increase(event))) {
                         scanPlayer.play(point.getRatio());
                     }
                 }

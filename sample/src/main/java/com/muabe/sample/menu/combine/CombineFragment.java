@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.common.Jwc;
@@ -23,16 +24,16 @@ public class CombineFragment extends UniFragment {
 
     @Override
     public void onPost() {
-        TestCombination e1 = new TestCombination("E1",0);
-        TestCombination e2 = new TestCombination("E2",0);
-        TestCombination e3 = new TestCombination("E3",0);
-        TestCombination e4 = new TestCombination("E4",0);
-        TestCombination e5 = new TestCombination("E5",0);
-        TestCombination e6 = new TestCombination("E6",0);
-        TestCombination e7 = new TestCombination("E7",0);
-        TestCombination e8 = new TestCombination("E8",0);
-        TestCombination e9 = new TestCombination("E9",0);
-        TestCombination e10 = new TestCombination("E10",0);
+        TestCombination e1 = new TestCombination(0);
+        TestCombination e2 = new TestCombination(0);
+        TestCombination e3 = new TestCombination(0);
+        TestCombination e4 = new TestCombination(0);
+        TestCombination e5 = new TestCombination(0);
+        TestCombination e6 = new TestCombination(0);
+        TestCombination e7 = new TestCombination(0);
+        TestCombination e8 = new TestCombination(0);
+        TestCombination e9 = new TestCombination(0);
+        TestCombination e10 = new TestCombination(0);
 
         TestCombination combination = Combine.one(
                                                     Combine.all(e1, e2),
@@ -49,8 +50,11 @@ public class CombineFragment extends UniFragment {
                                                                     e10
                                                                 )
                                                  );
-
+        combination.setName("root");
         CombineViewer.attachCombinViewer(combination, input_layout);
+        TestCombination t = combination.getCombinationElement(3);
+        Toast.makeText(getContext(), e5.getName()+"="+e5.getRoot().getName(), Toast.LENGTH_SHORT).show();
+
     }
 
 

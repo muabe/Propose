@@ -2,7 +2,7 @@ package com.muabe.propose.player;
 
 import com.muabe.combination.combiner.PlayCombiner;
 
-public class Player extends PlayCombiner<PlayPlugin> {
+public class Player extends PlayCombiner<Player, PlayPlugin> {
     private float startRatio;
     private float endRatio;
     private float ratio;
@@ -26,12 +26,6 @@ public class Player extends PlayCombiner<PlayPlugin> {
         this.ratio = ratio;
         return this;
     }
-
-    void setRelationRatio(float startRatio){
-        this.startRatio = startRatio;
-        this.endRatio = this.startRatio + ratio + endRatio;
-    }
-
 
     public Player selfAnd(Player... players) {
         this.setRatioRange(0f, 1f);

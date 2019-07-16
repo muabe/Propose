@@ -3,7 +3,7 @@ package com.muabe.propose.motion;
 import com.muabe.combination.combiner.ActionCombiner;
 import com.muabe.propose.player.Player;
 
-public class Motion extends ActionCombiner<ActionPlugin> {
+public class Motion extends ActionCombiner<Motion, ActionPlugin> {
     Player player;
 
     public ActionCombiner setPlayer(Player player){

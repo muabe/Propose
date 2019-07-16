@@ -1,8 +1,8 @@
 package com.muabe.propose.motion;
-import com.muabe.combination.combiner.ActionInterface;
+import com.muabe.combination.combiner.ActionPlugInterface;
 import com.muabe.combination.combiner.Point;
 
-public abstract class ActionPlugin<EventType> extends ActionInterface<EventType> {
+public abstract class ActionPlugin<EventType> extends ActionPlugInterface<EventType> {
     private Point point;
 
     /**

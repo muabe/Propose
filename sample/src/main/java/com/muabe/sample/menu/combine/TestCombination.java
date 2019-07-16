@@ -1,15 +1,18 @@
 package com.muabe.sample.menu.combine;
 
-import com.muabe.combination.Combination;
-import com.muabe.combination.Combine;
+import com.muabe.combination.CombinationBranch;
 
-public class TestCombination extends Combination {
+public class TestCombination extends CombinationBranch<TestCombination> {
     float value;
 
     public TestCombination(){
         value = 0;
 
     }
+    public TestCombination(float value){
+        setValue(value);
+    }
+
 
     public TestCombination(String name, float value){
         setName(name);
@@ -32,16 +35,6 @@ public class TestCombination extends Combination {
 
     public TestCombination getParents(){
         return (TestCombination)parents;
-    }
-
-    public String getName(){
-        if(mode == Combine.AND){
-            return "AND";
-        }else if(mode == Combine.OR){
-            return "OR";
-        }
-
-        return super.getName();
     }
 
     public float getValue(){
