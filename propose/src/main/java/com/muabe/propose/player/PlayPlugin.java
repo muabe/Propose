@@ -1,6 +1,6 @@
 package com.muabe.propose.player;
 
-import com.muabe.combination.combiner.PlayIPlugInterface;
+import com.muabe.combination.combiner.PlayIPlugBridge;
 
-public interface PlayPlugin extends PlayIPlugInterface<Player> {
+public interface PlayPlugin extends PlayIPlugBridge<Player> {
 }

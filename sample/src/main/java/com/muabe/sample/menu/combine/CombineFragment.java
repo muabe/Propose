@@ -1,21 +1,13 @@
 package com.muabe.sample.menu.combine;
 
-import android.graphics.Color;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.markjmind.uni.UniFragment;
-import com.markjmind.uni.common.Jwc;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
-import com.muabe.combination.Combination;
 import com.muabe.combination.Combine;
 import com.muabe.sample.R;
-
-import java.util.ArrayList;
 
 @Layout(R.layout.combine)
 public class CombineFragment extends UniFragment {
@@ -36,27 +28,26 @@ public class CombineFragment extends UniFragment {
         TestCombination e10 = new TestCombination(0);
 
         TestCombination combination = Combine.one(
-                                                    Combine.all(e1, e2),
-                                                    Combine.one(
-                                                            e3,
-                                                                          Combine.one(
-                                                                                        e4,
-                                                                                        Combine.all(e5, e6)
-                                                                                  ),
-                                                                          e7
-                                                                ),
-                                                    Combine.one(
-                                                                    Combine.all(e8, e9),
-                                                                    e10
-                                                                )
-                                                 );
+                Combine.all(e1, e2),
+                Combine.one(
+                        e3,
+                        Combine.one(
+                                e4,
+                                Combine.all(e5, e6)
+                        ),
+                        e7
+                ),
+                Combine.one(
+                        Combine.all(e8, e9),
+                        e10
+                )
+        );
         combination.setName("root");
         CombineViewer.attachCombinViewer(combination, input_layout);
-        TestCombination t = combination.getCombinationElement(3);
-        Toast.makeText(getContext(), e5.getName()+"="+e5.getRoot().getName(), Toast.LENGTH_SHORT).show();
+        TestCombination t = combination.getRootManager().getElement(3);
+        Toast.makeText(getContext(), e5.getName() + "=" + t.getName(), Toast.LENGTH_SHORT).show();
 
     }
-
 
 
 }
