@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.combination.Combine;
-import com.muabe.combination.combiner.ActionModule;
-import com.muabe.combination.combiner.Point;
 import com.muabe.propose.action.TouchActionController;
+import com.muabe.propose.combination.Combine;
+import com.muabe.propose.combination.combiner.ActionModule;
+import com.muabe.propose.combination.combiner.Point;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.player.Player;
 

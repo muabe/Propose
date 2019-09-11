@@ -1,6 +1,7 @@
 package com.muabe.propose.player;
 
-import com.muabe.combination.combiner.PlayCombiner;
+
+import com.muabe.propose.combination.combiner.PlayCombiner;
 
 public class Player extends PlayCombiner<Player, PlayPlugin> {
     private float startRatio;

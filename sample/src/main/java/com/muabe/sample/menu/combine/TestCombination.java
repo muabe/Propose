@@ -1,6 +1,6 @@
 package com.muabe.sample.menu.combine;
 
-import com.muabe.combination.CombinationBridge;
+import com.muabe.propose.combination.CombinationBridge;
 
 public class TestCombination extends CombinationBridge<TestCombination> {
     float value;

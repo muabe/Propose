@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
-import com.muabe.combination.Combine;
+import com.muabe.propose.combination.Combine;
 import com.muabe.sample.R;
 
 @Layout(R.layout.combine)

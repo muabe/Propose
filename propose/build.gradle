@@ -16,8 +16,4 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    dependencies {
-        implementation project(path: ':combination')
-    }
 }

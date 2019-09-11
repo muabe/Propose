@@ -1,6 +1,6 @@
 package com.muabe.propose.motion;
 
-import com.muabe.combination.combiner.ActionCombiner;
+import com.muabe.propose.combination.combiner.ActionCombiner;
 import com.muabe.propose.player.Player;
 
 public class Motion extends ActionCombiner<Motion, ActionPlugin> {

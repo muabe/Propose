@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.markjmind.uni.common.Jwc;
-import com.muabe.combination.Combination;
-import com.muabe.combination.Combine;
+import com.muabe.propose.combination.Combination;
+import com.muabe.propose.combination.Combine;
 import com.muabe.sample.R;
 
 import java.util.ArrayList;
