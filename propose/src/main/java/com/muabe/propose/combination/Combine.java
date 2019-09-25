@@ -18,26 +18,32 @@ public class Combine {
     private Combine() {
     }
 
+    @SafeVarargs
     public static <T extends Combination> T all(T... combinations) {
         return combine(Combine.AND, combinations);
     }
 
+    @SafeVarargs
     public static <T extends Combination> T one(T... combinations) {
         return combine(Combine.OR, combinations);
     }
 
+    @SafeVarargs
     public static <T extends Combination> T all(boolean optimize, T... combinations) {
         return combine(Combine.AND, optimize, combinations);
     }
 
+    @SafeVarargs
     public static <T extends Combination> T one(boolean optimize, T... combinations) {
         return combine(Combine.OR, optimize, combinations);
     }
 
+    @SafeVarargs
     private static <T extends Combination> T combine(int mode, T... combinations) {
         return combine(mode, DEFAULT_OPTIMIZE, combinations);
     }
 
+    @SafeVarargs
     private static <T extends Combination> T combine(int mode, boolean optimize, T... combinations) {
         if (combinations.length > 0) {
             T root;
@@ -87,7 +93,7 @@ public class Combine {
             return;
         }
 
-        ArrayList list = new ArrayList<>();
+        ArrayList<Combination> list = new ArrayList<>();
         for(Combination child : combination.getChild(Combination.class)){
             if(child.getMode() != Combine.ELEMENT){
                 optimize(child);
