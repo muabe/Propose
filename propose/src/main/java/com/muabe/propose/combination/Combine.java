@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 public class Combine {
-    private static final boolean DEFAULT_OPTIMIZE = true;
+    private static boolean DEFAULT_OPTIMIZE = true;
     public static final int ELEMENT = 0;
     public static final int AND = 1;
     public static final int OR = 2;
@@ -72,8 +72,14 @@ public class Combine {
         } else {
             return null;
         }
+    }
 
+    public static boolean isDefaultOptimize(){
+        return DEFAULT_OPTIMIZE;
+    }
 
+    public static void setDefaultOptimize(boolean isDefaultOptimize){
+        Combine.DEFAULT_OPTIMIZE = isDefaultOptimize;
     }
 
     public static void optimize(Combination combination){
