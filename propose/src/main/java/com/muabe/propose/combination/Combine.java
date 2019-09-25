@@ -9,9 +9,11 @@ import java.util.ArrayList;
  *
  */
 public class Combine {
+    private static final boolean DEFAULT_OPTIMIZE = true;
     public static final int ELEMENT = 0;
     public static final int AND = 1;
     public static final int OR = 2;
+
 
     private Combine() {
     }
@@ -33,7 +35,7 @@ public class Combine {
     }
 
     private static <T extends Combination> T combine(int mode, T... combinations) {
-        return combine(mode, false, combinations);
+        return combine(mode, DEFAULT_OPTIMIZE, combinations);
     }
 
     private static <T extends Combination> T combine(int mode, boolean optimize, T... combinations) {
@@ -47,11 +49,11 @@ public class Combine {
                 throw new RuntimeException(e);
             }
 
-            root.mode = mode;
+            root.setMode(mode);
 
 
             for (T combination : combinations) {
-                if (combination.mode == Combine.ELEMENT) { // Element 라면 루트에 차일드로 추가
+                if (combination.getMode() == Combine.ELEMENT) { // Element 라면 루트에 차일드로 추가
                     root.getRootManager().addElement(combination);
                     combination.disableRoot();
                 } else { //기존 루트라면 해당 루트의 차일드리스트(element순서 리스트)를 복사하고 루트해제
@@ -60,7 +62,7 @@ public class Combine {
                     root.getRootManager().addElementAll(list);
                 }
                 combination.parents = root;
-                if(optimize && mode != Combine.ELEMENT && mode == combination.mode){
+                if(optimize && mode != Combine.ELEMENT && mode == combination.getMode()){
                     root.child.addAll(combination.child);
                 }else{
                     root.child.add(combination);
@@ -74,8 +76,26 @@ public class Combine {
 
     }
 
-    public static int count = 0;
+    public static void optimize(Combination combination){
+        if(combination.getMode() == Combine.ELEMENT){
+            return;
+        }
 
+        ArrayList list = new ArrayList<>();
+        for(Combination child : combination.getChild(Combination.class)){
+            if(child.getMode() != Combine.ELEMENT){
+                optimize(child);
+            }
+            if(combination.getMode() == child.getMode()){
+                list.addAll(child.getChild(Combination.class));
+            }else{
+                list.add(child);
+            }
+        }
+        combination.resetChild(list);
+    }
+
+    public static int count = 0;
     public static <T extends Combination> ArrayList<T> scan(T combination, Object param) {
         count = 0;
         ArrayList<T> list = new ArrayList<>();
@@ -94,7 +114,7 @@ public class Combine {
             return;
         }
         count++;
-        switch (combination.mode) {
+        switch (combination.getMode()) {
             case Combine.ELEMENT:
                 if (combination.compare(param) > 0) {
                     list.add(combination);
@@ -152,10 +172,10 @@ public class Combine {
      */
     private static void addCache(Combination combination) {
         if (combination.parents != null) {
-            if (combination.parents.mode == Combine.OR && !combination.parents.cache.contains(combination)) {
+            if (combination.parents.getMode() == Combine.OR && !combination.parents.cache.contains(combination)) {
                 combination.parents.cache.clear();
                 combination.parents.cache.add(combination);
-            } else if (combination.parents.mode == Combine.AND && combination.parents.cache.size() != combination.parents.child.size()) {
+            } else if (combination.parents.getMode() == Combine.AND && combination.parents.cache.size() != combination.parents.child.size()) {
                 combination.parents.cache.clear();
                 combination.parents.cache.addAll(combination.parents.child);
             } else {
@@ -168,7 +188,7 @@ public class Combine {
 
     private static void updateCache(Combination combination, ArrayList<Combination> list, Object param) {
         Combination reScan = deleteCache(combination);
-        if (reScan.mode != Combine.ELEMENT) {
+        if (reScan.getMode() != Combine.ELEMENT) {
             Log.i("Combine", "Reset Cache = " + reScan.toString());
             scanLoop(reScan, list, param);
         }
@@ -186,7 +206,7 @@ public class Combine {
             combination.parents.cache.remove(combination);
             Log.i("Combine", combination.parents + " delete=" + combination);
             if (combination.parents.cache.size() == 0) {
-                if (combination.parents.mode == Combine.OR && combination.mode != Combine.OR) {
+                if (combination.parents.getMode() == Combine.OR && combination.getMode() != Combine.OR) {
                     combination.deletedCache = true;
                 }
                 return deleteCache(combination.parents);
@@ -201,7 +221,7 @@ public class Combine {
             combination.parents.cache.remove(combination);
             Log.i("Combine", combination.parents + " delete=" + combination);
             if (combination.parents.cache.size() == 0) {
-                if (combination.parents.mode == Combine.OR) {
+                if (combination.parents.getMode() == Combine.OR) {
                     combination.deletedCache = true;
                     ArrayList<Combination> tempList = new ArrayList<>();
                     scanLoop(combination.parents, tempList, param);
@@ -210,7 +230,7 @@ public class Combine {
                     } else {
                         list.addAll(tempList);
                     }
-                } else if (combination.parents.mode == Combine.AND) {
+                } else if (combination.parents.getMode() == Combine.AND) {
                     updateCacheBottomTop(combination.parents, list, param);
                 }
             }
@@ -220,7 +240,7 @@ public class Combine {
 
     public static void clearCache(Combination combination) {
         combination.cache.clear();
-        if (combination.mode != Combine.ELEMENT) {
+        if (combination.getMode() != Combine.ELEMENT) {
             for (Combination childCombine : combination.child) {
                 clearCache(childCombine);
             }

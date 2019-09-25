@@ -6,12 +6,16 @@ public abstract class Combination implements Priority {
     private String name = null;
     private RootManager rootManager = null;
     protected Combination parents;
-    int mode = Combine.ELEMENT;
+    private int mode = Combine.ELEMENT;
     protected ArrayList<Combination> child = new ArrayList<>();
     protected ArrayList<Combination> cache = new ArrayList<>();
     protected boolean deletedCache = false;
     private int index = 0;
 
+
+    void setMode(int mode){
+        this.mode = mode;
+    }
     public int getMode(){
         return mode;
     }
@@ -91,5 +95,10 @@ public abstract class Combination implements Priority {
 
     public <T extends Combination>ArrayList<T> getChild(Class<T> t){
         return (ArrayList<T>)child;
+    }
+
+    <T extends Combination>void resetChild(ArrayList<T> list){
+        child.clear();
+        child.addAll(list);
     }
 }

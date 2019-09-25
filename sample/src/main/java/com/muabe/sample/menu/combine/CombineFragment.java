@@ -3,7 +3,6 @@ package com.muabe.sample.menu.combine;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.mapper.annotiation.GetView;
@@ -20,19 +19,17 @@ public class CombineFragment extends UniFragment {
     @GetView
     Button opt;
 
-    boolean optimize = true;
+    TestCombination combination;
 
     @Override
     public void onPost() {
-        opt(null);
+        init(false);
+//        Combine.optimize(combination);
 
     }
 
-
-    @OnClick
-    public void opt(View view){
+    private void init(boolean optimize){
         input_layout.removeAllViews();
-        optimize = !optimize;
 
         TestCombination e1 = new TestCombination(0);
         TestCombination e2 = new TestCombination(0);
@@ -45,7 +42,7 @@ public class CombineFragment extends UniFragment {
         TestCombination e9 = new TestCombination(0);
         TestCombination e10 = new TestCombination(0);
 
-        TestCombination combination = Combine.one(optimize,
+        combination = Combine.one(optimize,
                 Combine.all(optimize, e1, e2),
                 Combine.one(optimize,
                         e3,
@@ -62,8 +59,18 @@ public class CombineFragment extends UniFragment {
         );
         combination.setName("root");
         CombineViewer.attachCombinViewer(combination, input_layout);
-        TestCombination t = combination.getRootManager().getElement(3);
-        Toast.makeText(getContext(), e5.getName() + "=" + t.getName(), Toast.LENGTH_SHORT).show();
+    }
 
+    @OnClick
+    public void opt(View view){
+        Combine.optimize(combination);
+        input_layout.removeAllViews();
+        combination.setName("root");
+        CombineViewer.attachCombinViewer(combination, input_layout);
+    }
+
+    @OnClick
+    public void rollback(View view){
+        init(true);
     }
 }
