@@ -24,7 +24,19 @@ public class Combine {
         return combine(Combine.OR, combinations);
     }
 
+    public static <T extends Combination> T all(boolean optimize, T... combinations) {
+        return combine(Combine.AND, optimize, combinations);
+    }
+
+    public static <T extends Combination> T one(boolean optimize, T... combinations) {
+        return combine(Combine.OR, optimize, combinations);
+    }
+
     private static <T extends Combination> T combine(int mode, T... combinations) {
+        return combine(mode, false, combinations);
+    }
+
+    private static <T extends Combination> T combine(int mode, boolean optimize, T... combinations) {
         if (combinations.length > 0) {
             T root;
             try {
@@ -42,20 +54,24 @@ public class Combine {
                 if (combination.mode == Combine.ELEMENT) { // Element 라면 루트에 차일드로 추가
                     root.getRootManager().addElement(combination);
                     combination.disableRoot();
-                } else {
-                    if (combination.getRootManager() != null) { //기존 루트라면 해당 루트의 차일드를 복사하고 루트해제
-                        ArrayList<?> list = combination.getRootManager().getElementList();
-                        combination.disableRoot();
-                        root.getRootManager().addElementAll(list);
-                    }
+                } else { //기존 루트라면 해당 루트의 차일드리스트(element순서 리스트)를 복사하고 루트해제
+                    ArrayList<?> list = combination.getRootManager().getElementList();
+                    combination.disableRoot();
+                    root.getRootManager().addElementAll(list);
                 }
                 combination.parents = root;
-                root.child.add(combination);
+                if(optimize && mode != Combine.ELEMENT && mode == combination.mode){
+                    root.child.addAll(combination.child);
+                }else{
+                    root.child.add(combination);
+                }
             }
             return root;
         } else {
             return null;
         }
+
+
     }
 
     public static int count = 0;
