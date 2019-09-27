@@ -33,7 +33,7 @@ public class PlayPriority implements Priority<Float> {
     public float compare(Float ratio) {
 //        this.point = param;
 //        float ratio = point.getRatio();
-        if (minRatio <= ratio && ratio <= maxRatio) {
+        if (minRatio < ratio && ratio <= maxRatio) {
             return 1f;
         }
         return 0f;

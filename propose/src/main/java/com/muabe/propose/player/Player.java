@@ -15,6 +15,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         startRatio = 0f;
         endRatio = 0f;
         this.ratio = ratio;
+        this.setRatioRange(0f, 1f);
     }
 
     @Override
