@@ -1,19 +1,21 @@
 package com.muabe.propose.combination;
 
-public abstract class CombinationBridge<T extends CombinationBridge> extends Combination {
-    public T selfAnd(T... combinations) {
-        if (combinations.length > 0) {
-            return (T) Combine.all(copyArray(combinations));
-        }
-        return (T) this;
-    }
+import java.util.ArrayList;
 
-    public T selfOr(T... combinations) {
-        if (combinations.length > 0) {
-            return (T) Combine.one(copyArray(combinations));
-        }
-        return (T) this;
-    }
+public abstract class CombinationBridge<T extends CombinationBridge> extends Combination {
+//    public T selfAnd(T... combinations) {
+//        if (combinations.length > 0) {
+//            return (T) Combine.all(copyArray(combinations));
+//        }
+//        return (T) this;
+//    }
+//
+//    public T selfOr(T... combinations) {
+//        if (combinations.length > 0) {
+//            return (T) Combine.one(copyArray(combinations));
+//        }
+//        return (T) this;
+//    }
 
     private Combination[] copyArray(T[] motions) {
         Combination[] newArray = new Combination[motions.length + 1];
@@ -35,5 +37,13 @@ public abstract class CombinationBridge<T extends CombinationBridge> extends Com
     @Override
     public RootManager<T> getRootManager() {
         return super.getRootManager();
+    }
+
+    public T getParents(){
+        return (T)super.parents;
+    }
+
+    public ArrayList<T> getChild(){
+        return (ArrayList<T>)getChild(this.getClass());
     }
 }

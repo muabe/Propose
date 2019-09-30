@@ -11,8 +11,8 @@ import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Propose;
 import com.muabe.propose.action.SingleTouchRightGesture;
 import com.muabe.propose.motion.Motion;
-import com.muabe.propose.player.AnimationPlayer;
 import com.muabe.propose.player.Player;
+import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
 
 @Layout(R.layout.move_test)
@@ -30,11 +30,15 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
-        final Player player = AnimationPlayer.create(10, right).setName("left");
-        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
-        player.selfAnd(player2);
+//        final Player player = AnimationPlayer.create(10, right).setName("left");
+//        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
+//        player.selfAnd(player2);
+//
+//        combinationPlayer = player.selfAnd(player2);
 
-        combinationPlayer = player.selfAnd(player2);
+        final Player player = new Player(1, new ObjectAnimatorPlugIn(right));
+        Player player2 = new Player(1, new ObjectAnimatorPlugIn(rotation));
+        combinationPlayer = player.with(player2);
         motionRight.setPlayer(combinationPlayer);
 
 

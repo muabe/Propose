@@ -17,12 +17,12 @@ public class AnimationPlayer{
 //        return new Player(ratio, plugin);
 //    }
 
-    public static Player create(float ratio, ObjectAnimator animator){
+    public static Player create(int weight, ObjectAnimator animator){
         ObjectAnimatorPlugin plugin = new ObjectAnimatorPlugin(animator);
-        return new Player(ratio, plugin);
+        return new Player(weight, plugin);
     }
 
-    class ValuAnimatorPlugin implements PlayPlugin {
+    class ValuAnimatorPlugin extends PlayPlugin {
         long defaultDuration = 1000;
         ValueAnimator animator;
 
@@ -40,7 +40,7 @@ public class AnimationPlayer{
         }
     }
 
-    static class ObjectAnimatorPlugin implements PlayPlugin {
+    static class ObjectAnimatorPlugin extends PlayPlugin {
         long defaultDuration = 1000;
         ObjectAnimator animator;
 

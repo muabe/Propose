@@ -58,12 +58,18 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
 
         for(Motion scanMotion : motionList){
             if(scanMotion.filter(event)){
-                Player scanPlayer = scanMotion.getPlayer();
-                if(scanPlayer != null) {
+                Player player = scanMotion.getPlayer();
+                if(player != null) {
                     Point point = scanMotion.getActionPlugin().getPoint();
-                    if(point.updatePoint(scanMotion.getActionPlugin().increase(event))) {
-                        scanPlayer.play(point.getRatio());
+                    if (point.updatePoint(scanMotion.getActionPlugin().increase(event))) {
+                        ArrayList<Player> scanPlayerList = Combine.scan(player, point.getRatio());
+                        if(scanPlayerList.size() > 0) {
+                            for(Player scanPlayer : scanPlayerList) {
+                                scanPlayer.play(point.getRatio());
+                            }
+                        }
                     }
+
                 }
             }
         }

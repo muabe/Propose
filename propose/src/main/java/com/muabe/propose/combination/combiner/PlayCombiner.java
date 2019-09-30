@@ -3,10 +3,11 @@ package com.muabe.propose.combination.combiner;
 
 import com.muabe.propose.combination.CombinationBridge;
 import com.muabe.propose.combination.Combine;
+import com.muabe.propose.player.Player;
 
 import java.util.ArrayList;
 
-public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInterfaceType extends PlayIPlugBridge> extends CombinationBridge<thisCombination> {
+public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInterfaceType extends PlayerPlugBridge> extends CombinationBridge<thisCombination> {
     private PlayPriority priority = new PlayPriority();
     private PlayInterfaceType playPlugin;
 
@@ -16,18 +17,9 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         this.playPlugin = playPlugin;
     }
 
-    public static <T extends PlayCombiner>T and(T... playCombiners){
-        return Combine.all(playCombiners);
+    public void initRatio(){
+        priority.setRatioRange(playPlugin.getMinRatio(), playPlugin.getMaxRatio());
     }
-
-    public static <T extends PlayCombiner>T or(T... playCombiners){
-        return Combine.one(playCombiners);
-    }
-
-    public void setRatioRange(float minRatio, float maxRatio){
-        priority.setRatioRange(minRatio, maxRatio);
-    }
-
 
     @Override
     public int getPriority() {
@@ -39,7 +31,7 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         return priority.compare((float)param);
     }
 
-    public PlayIPlugBridge getPlugin(){
+    public PlayerPlugBridge getPlugin(){
         return this.playPlugin;
     }
 
@@ -52,5 +44,19 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
             }
         }
         return result;
+    }
+
+    public Player next(T... combinations){
+        if (combinations.length > 0) {
+            return (T) Combine.all(copyArray(combinations));
+        }
+        return (T) this;
+    }
+
+    public T with(T... combinations){
+        if (combinations.length > 0) {
+            return (T) Combine.all(copyArray(combinations));
+        }
+        return (T) this;
     }
 }

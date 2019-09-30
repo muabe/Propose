@@ -4,18 +4,17 @@ package com.muabe.propose.player;
 import com.muabe.propose.combination.combiner.PlayCombiner;
 
 public class Player extends PlayCombiner<Player, PlayPlugin> {
-    private float startRatio;
-    private float endRatio;
-    private float ratio;
+
+    private int weight = 1;
+    private int weightSum = 0;
 
     private Player(){}
 
-    Player(float ratio, PlayPlugin playPlugin) {
+
+    public Player(int weight, PlayPlugin playPlugin) {
         super(playPlugin);
-        startRatio = 0f;
-        endRatio = 0f;
-        this.ratio = ratio;
-        this.setRatioRange(0f, 1f);
+        this.setWeight(weight);
+        this.initRatio();
     }
 
     @Override
@@ -24,37 +23,38 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         return this;
     }
 
-    public Player setRatio(float ratio){
-        this.ratio = ratio;
-        return this;
+    public void setWeightSum(int weightSum){
+        this.weightSum = weightSum;
     }
 
-    public Player selfAnd(Player... players) {
-        this.setRatioRange(0f, 1f);
-        for(Player player : players){
-            player.setRatioRange(0f, 1f);
+    public int getWeightSum(){
+        if(weightSum == 0){
+            int wSum = 0;
+            for(Player p : getChild()){
+                wSum =+ p.getWeight();
+            }
+            return wSum;
         }
-        return super.selfAnd(players);
+        return weightSum;
     }
 
-    public Player selfOr(Player... players) {
-        for(Player player : players){
-            player.setRatioRange(0f, 1f);
-        }
-        return super.selfOr(players);
+    public void setWeight(int weight){
+        this.weight = weight;
+        this.initRatio();
     }
 
-    public static Player and(Player... Players){
-        for(Player player : Players){
-            player.setRatioRange(0f, 1f);
-        }
-        return PlayCombiner.and(Players);
+    public int getWeight(){
+        return weight;
     }
 
-    public static Player or(Player... players){
-        for(Player player : players){
-            player.setRatioRange(0f, 1f);
+    private Player initWeightSumAndRatio(Player player){
+        int wSum = 0;
+        for(Player p : player.getChild()){
+            wSum =+ p.getWeight();
+            //TODO ratio설정
         }
-        return PlayCombiner.or(players);
+        player.setWeightSum(wSum);
+        return player;
     }
+
 }
