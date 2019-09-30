@@ -45,18 +45,4 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         }
         return result;
     }
-
-    public Player next(T... combinations){
-        if (combinations.length > 0) {
-            return (T) Combine.all(copyArray(combinations));
-        }
-        return (T) this;
-    }
-
-    public T with(T... combinations){
-        if (combinations.length > 0) {
-            return (T) Combine.all(copyArray(combinations));
-        }
-        return (T) this;
-    }
 }

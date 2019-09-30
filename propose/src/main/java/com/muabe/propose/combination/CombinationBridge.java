@@ -17,7 +17,7 @@ public abstract class CombinationBridge<T extends CombinationBridge> extends Com
 //        return (T) this;
 //    }
 
-    private Combination[] copyArray(T[] motions) {
+    protected Combination[] copyArray(T[] motions) {
         Combination[] newArray = new Combination[motions.length + 1];
         newArray[0] = this;
         System.arraycopy(motions, 0, newArray, 1, motions.length);

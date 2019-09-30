@@ -1,6 +1,7 @@
 package com.muabe.propose.player;
 
 
+import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.combiner.PlayCombiner;
 
 public class Player extends PlayCombiner<Player, PlayPlugin> {
@@ -25,6 +26,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
 
     public void setWeightSum(int weightSum){
         this.weightSum = weightSum;
+        //Todo weightSum을 설정 하면 자식들의 ratio 바뀜
     }
 
     public int getWeightSum(){
@@ -40,6 +42,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
 
     public void setWeight(int weight){
         this.weight = weight;
+        //Todo weight를 설정 하면 ratio가 형성됨, 그리고 wegitSum에 따라(0일경우) 자식들의 ratio도 바뀜
         this.initRatio();
     }
 
@@ -57,4 +60,18 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         return player;
     }
 
+
+    public Player next(Player... combinations){
+        if (combinations.length > 0) {
+            return (Player)Combine.all(copyArray(combinations));
+        }
+        return this;
+    }
+
+    public Player with(Player... combinations){
+        if (combinations.length > 0) {
+            return (Player)Combine.all(copyArray(combinations));
+        }
+        return this;
+    }
 }
