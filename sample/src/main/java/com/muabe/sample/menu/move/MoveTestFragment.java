@@ -25,8 +25,8 @@ public class MoveTestFragment extends UniFragment{
     float ratio = 0f;
     @Override
     public void onPost() {
-        float maxMove = 300f* Jwc.getDensity(button);
-        ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, 360);
+        float maxMove = 150f* Jwc.getDensity(button);
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, -180);
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
@@ -36,9 +36,9 @@ public class MoveTestFragment extends UniFragment{
 //
 //        combinationPlayer = player.selfAnd(player2);
 
-        final Player player = new Player(1, new ObjectAnimatorPlugIn(right));
-        Player player2 = new Player(1, new ObjectAnimatorPlugIn(rotation));
-        combinationPlayer = player.with(player2);
+        final Player player = new Player(new ObjectAnimatorPlugIn(right));
+        Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
+        combinationPlayer = player.next(player2);
         motionRight.setPlayer(combinationPlayer);
 
 

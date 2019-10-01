@@ -115,7 +115,7 @@ public class Combine {
         for (Combination cacheCombination : list) {
             addCache(cacheCombination);
         }
-        Log.i("Combine", "[검색 횟수:" + count + "]");
+//        Log.i("Combine", "[검색 횟수:" + count + "]");
         return list;
     }
 

@@ -3,7 +3,6 @@ package com.muabe.propose.combination.combiner;
 
 import com.muabe.propose.combination.CombinationBridge;
 import com.muabe.propose.combination.Combine;
-import com.muabe.propose.player.Player;
 
 import java.util.ArrayList;
 
@@ -17,8 +16,16 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         this.playPlugin = playPlugin;
     }
 
-    public void initRatio(){
-        priority.setRatioRange(playPlugin.getMinRatio(), playPlugin.getMaxRatio());
+    public void setRatioRange(float start, float end){
+        priority.setRatioRange(start, end);
+    }
+
+    public float getStartRatio(){
+        return priority.getStartRatio();
+    }
+
+    public float getEndRatio(){
+        return priority.getEndRatio();
     }
 
     @Override

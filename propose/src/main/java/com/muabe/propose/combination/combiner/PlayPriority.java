@@ -5,30 +5,37 @@ import com.muabe.propose.combination.Priority;
 
 public class PlayPriority implements Priority<Float> {
     private int priority = 0;
-    private float minRatio; //시작 ratio
-    private float maxRatio; //종료 ratio
+    private float startRatio; //시작 ratio
+    private float endRatio; //종료 ratio
     private float ratioRange; //시작과 종료를 뺀 ratio 범위
 
     void setRatioRange(float minRatio, float maxRatio){
-        this.minRatio = minRatio;
-        this.maxRatio = maxRatio;
+        this.startRatio = minRatio;
+        this.endRatio = maxRatio;
         this.ratioRange = maxRatio - minRatio;
     }
 
     float getPlayRatio(float ratio){
-        float realRatio = (ratio - minRatio)/ratioRange;
+        float realRatio = (ratio - startRatio)/ratioRange;
         if(realRatio <= ratioRange){
             return realRatio;
         }
         return -1f;
     }
 
+    public float getStartRatio(){
+        return startRatio;
+    }
+
+    public float getEndRatio(){
+        return endRatio;
+    }
 
     @Override
     public float compare(Float ratio) {
 //        this.point = param;
 //        float ratio = point.getRatio();
-        if (minRatio < ratio && ratio <= maxRatio) {
+        if (startRatio < ratio && ratio <= endRatio) {
             return 1f;
         }
         return 0f;

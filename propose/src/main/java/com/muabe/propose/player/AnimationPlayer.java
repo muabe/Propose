@@ -2,6 +2,7 @@ package com.muabe.propose.player;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.util.Log;
 
 /**
  * <br>捲土重來<br>
@@ -19,7 +20,7 @@ public class AnimationPlayer{
 
     public static Player create(int weight, ObjectAnimator animator){
         ObjectAnimatorPlugin plugin = new ObjectAnimatorPlugin(animator);
-        return new Player(weight, plugin);
+        return new Player(plugin);
     }
 
     class ValuAnimatorPlugin extends PlayPlugin {
@@ -34,6 +35,7 @@ public class AnimationPlayer{
         }
         @Override
         public boolean play(Player player, float ratio) {
+            Log.i("dd",""+ratio);
             long playDuration = (long)(defaultDuration*ratio);
             animator.setCurrentPlayTime(playDuration);
             return false;
