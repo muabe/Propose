@@ -59,7 +59,7 @@ public class RatioFragment extends UniFragment {
                 )
         );
         combination.setName("root");
-        combination.selfRatio();
+        combination.setRawRatio();
         CombineViewer.attachCombinViewer(combination, input_layout);
     }
 

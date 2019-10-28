@@ -66,11 +66,10 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
 //                        ArrayList<Player> scanPlayerList = Combine.scan(player, point.getRatio());
 //                        if(scanPlayerList.size() > 0) {
 //                            for(Player scanPlayer : scanPlayerList) {
-//                                Log.i("dd",""+point.getRatio());
 //                                scanPlayer.play(point.getRatio());
 //                            }
 //                        }
-                        Log.i("dd",""+point.getRatio());
+                        Log.i("절대포인트",""+point.getRatio());
                         player.play(point.getRatio());
                     }
 

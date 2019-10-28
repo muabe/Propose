@@ -35,7 +35,6 @@ public class AnimationPlayer{
         }
         @Override
         public boolean play(Player player, float ratio) {
-            Log.i("dd",""+ratio);
             long playDuration = (long)(defaultDuration*ratio);
             animator.setCurrentPlayTime(playDuration);
             return false;

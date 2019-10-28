@@ -20,7 +20,6 @@ public class ObjectAnimatorPlugIn extends PlayPlugin {
     @Override
     public boolean play(Player player, float ratio) {
         long playDuration = (long)(defaultDuration * ratio);
-        Log.e("dd",""+ratio);
         animator.setCurrentPlayTime(playDuration);
         return false;
     }

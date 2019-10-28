@@ -37,7 +37,7 @@ public class Point {
 
     public boolean updatePoint(float increase){
         if(point + increase <= minPoint ){
-                if(point == minPoint){
+            if(point == minPoint){
                 return false;
             }
             point = minPoint;
