@@ -8,6 +8,7 @@ import com.markjmind.uni.mapper.annotiation.OnClick;
 import com.muabe.sample.R;
 import com.muabe.sample.menu.move.MoveTestFragment;
 import com.muabe.sample.menu.combine.CombineFragment;
+import com.muabe.sample.menu.ratio.RatioFragment;
 
 /**
  * <br>捲土重來<br>
@@ -26,5 +27,10 @@ public class MenuFragment extends UniFragment {
     @OnClick
     public void  move_test(View view){
         getBuilder().replace(new MoveTestFragment());
+    }
+
+    @OnClick
+    public void  ratio_btn(View view){
+        getBuilder().replace(new RatioFragment());
     }
 }

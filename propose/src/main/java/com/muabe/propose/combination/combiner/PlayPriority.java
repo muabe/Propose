@@ -23,6 +23,10 @@ public class PlayPriority implements Priority<Float> {
         return -1f;
     }
 
+    float getRatio(){
+        return ratioRange;
+    }
+
     public float getStartRatio(){
         return startRatio;
     }
@@ -33,8 +37,6 @@ public class PlayPriority implements Priority<Float> {
 
     @Override
     public float compare(Float ratio) {
-//        this.point = param;
-//        float ratio = point.getRatio();
         if (startRatio < ratio && ratio <= endRatio) {
             return 1f;
         }

@@ -28,6 +28,20 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         return priority.getEndRatio();
     }
 
+    public float getRatio(){
+        return priority.getRatio();
+    }
+
+    private float getRawRatio(){
+        PlayCombiner parentsPlayer = getParents();
+        float ratio = priority.getRatio();
+        if (parentsPlayer == null) {
+            return 1f;
+        } else {
+            return ratio * parentsPlayer.getRawRatio();
+        }
+    }
+
     @Override
     public int getPriority() {
         return priority.getPriority();
@@ -35,18 +49,23 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
 
     @Override
     public float compare(Object param) {
-        return priority.compare((float)param);
+        if (priority.getStartRatio() < (float)param && (float)param <= priority.getEndRatio()) {
+            return 1f;
+        }
+        return 0f;
     }
 
-    public PlayerPlugBridge getPlugin(){
+    public PlayerPlugBridge getPlugin()
+    {
         return this.playPlugin;
     }
 
-    public boolean play(float ratio){
+    public boolean play(float rawRatio){
         boolean result = false;
-        ArrayList<PlayCombiner> players = Combine.scan((PlayCombiner)this, ratio);
+        ArrayList<PlayCombiner> players = Combine.scan((PlayCombiner)this, rawRatio);
         for (PlayCombiner player : players) {
-            if (player.getPlugin() !=null && player.getPlugin().play(this, player.priority.getPlayRatio(ratio))) {
+            float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
+            if (player.getPlugin() !=null && player.getPlugin().play(this, relRatio)) {
                 result = true;
             }
         }

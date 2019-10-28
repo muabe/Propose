@@ -26,6 +26,12 @@
                 android:layout_height="wrap_content"
                 android:text="Move Test" />
 
+            <Button
+                android:id="@+id/ratio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ratio" />
+
         </LinearLayout>
     </ScrollView>
 

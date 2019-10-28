@@ -26,7 +26,7 @@ public class MoveTestFragment extends UniFragment{
     @Override
     public void onPost() {
         float maxMove = 150f* Jwc.getDensity(button);
-        ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, -180);
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
         Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));

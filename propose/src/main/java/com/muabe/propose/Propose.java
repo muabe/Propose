@@ -1,6 +1,7 @@
 package com.muabe.propose;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -69,6 +70,7 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
 //                                scanPlayer.play(point.getRatio());
 //                            }
 //                        }
+                        Log.i("dd",""+point.getRatio());
                         player.play(point.getRatio());
                     }
 
