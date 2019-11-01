@@ -32,6 +32,12 @@
                 android:layout_height="wrap_content"
                 android:text="Ratio" />
 
+            <Button
+                android:id="@+id/cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cache" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -3,7 +3,7 @@ package com.muabe.sample.menu.ratio;
 import com.muabe.propose.player.PlayPlugin;
 import com.muabe.propose.player.Player;
 
-public class RatioCombination extends Player {
+class RatioCombination extends Player {
     float value;
 
     public RatioCombination() {

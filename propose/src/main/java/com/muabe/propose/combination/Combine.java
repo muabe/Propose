@@ -107,16 +107,27 @@ public class Combine {
         combination.resetChild(list);
     }
 
+    public static <T extends Combination> ScanResult<T> scan2(T combination, Object param) {
+        ScanResult<T> scanResult = new ScanResult<>();
+        scanLoop(combination, (ArrayList<Combination>) scanResult.getScanList(), param);
+        for (Combination cacheCombination : scanResult.getScanList()) {
+            addCache(cacheCombination);
+        }
+        return scanResult;
+    }
+
     public static int count = 0;
     public static <T extends Combination> ArrayList<T> scan(T combination, Object param) {
         count = 0;
         ArrayList<T> list = new ArrayList<>();
         scanLoop(combination, (ArrayList<Combination>) list, param);
+        String log = "";
         for (Combination cacheCombination : list) {
             addCache(cacheCombination);
+            log = log+cacheCombination.getName()+", ";
         }
-//        Log.i("Combine", "[검색 횟수:" + count + "]");
-        return list;
+        Log.e("dd", log);
+        Log.i("Combine", "[검색 횟수:" + count + "]");return list;
     }
 
 
@@ -131,7 +142,7 @@ public class Combine {
                 if (combination.compare(param) > 0) {
                     list.add(combination);
                 } else {
-                    updateCache(combination, list, param);
+                    deleteCache(combination, list, param);
                 }
                 break;
 
@@ -144,7 +155,7 @@ public class Combine {
                 ArrayList<Combination> winner = null;
                 if (combination.cache.size() > 0) {
                     winner = new ArrayList<>();
-                    scanLoop(combination.cache.get(0), winner, param);
+                    scanLoop(combination.cache.get(0), winner, param); //OR의 경우 cache가 하나 밖에 없다.
                 } else {
                     for (Combination childCombination : combination.child) {
                         if (winner == null) {
@@ -175,6 +186,16 @@ public class Combine {
     }
 
     /**
+     * 캐시는 부모 노드 즉 and,or에 element를 저장한다.
+     * 따라서 최종 하위 노드인 elemnet에서 시작하여 자신의 부모를 검색하면서
+     * 루트노드까지 변경된 캐시를 업데이트 한다.
+     * Or의 경우 이미 동일한 캐시가 존재하는지 검사하고 동일하지 않으면 클리어하고 캐시를 다시 설정한다.
+     * And의 경우 모는 자식을 캐시로 저장해야 하기 때문에 이전 캐시의 사이즈가 동일한지 검사하고
+     * 동일하지 않으면 클리어하고 캐시를 다시 설정한다.
+     * 이런식으로 하위 노드에서 루트노드까지 재귀하면서 캐시를 저장하게 된다.
+     * 이렇게 하여 최종 root에서 사용가능한 모든 combination이 캐시로 저장되게 된다.
+     * or,and에서 이미 동일한 캐시가 있을 경우 더 이상 검사하지 않고 재귀 호출을 빠져 나온다.
+     *
      * 부모에 캐시가 등록되어 있지 않으면 캐시를 부모에 등록하고
      * 또 다시 부모의 부모에 대해서 재귀호출을 하면서 캐시를 변경 및 등록해준다.
      * 이미 부모의 캐시가 등록되어 있는 상황이라면 캐시 등록을 끝마친다.
@@ -190,15 +211,19 @@ public class Combine {
             } else if (combination.parents.getMode() == Combine.AND && combination.parents.cache.size() != combination.parents.child.size()) {
                 combination.parents.cache.clear();
                 combination.parents.cache.addAll(combination.parents.child);
-            } else {
-                return;
             }
             addCache(combination.parents);
             Log.i("Combine", "cache=" + combination.parents);
         }
     }
 
-    private static void updateCache(Combination combination, ArrayList<Combination> list, Object param) {
+    /**
+     * 이전의 캐시를 지우기 위해서 쓰는거임
+     * @param combination
+     * @param list
+     * @param param
+     */
+    private static void deleteCache(Combination combination, ArrayList<Combination> list, Object param) {
         Combination reScan = deleteCache(combination);
         if (reScan.getMode() != Combine.ELEMENT) {
             Log.i("Combine", "Reset Cache = " + reScan.toString());
@@ -228,7 +253,7 @@ public class Combine {
     }
 
 
-    private static void updateCacheBottomTop(Combination combination, ArrayList<Combination> list, Object param) {
+    private static void deleteCacheBottomTop(Combination combination, ArrayList<Combination> list, Object param) {
         if (combination.parents != null && combination.parents.cache.contains(combination)) {
             combination.parents.cache.remove(combination);
             Log.i("Combine", combination.parents + " delete=" + combination);
@@ -238,12 +263,12 @@ public class Combine {
                     ArrayList<Combination> tempList = new ArrayList<>();
                     scanLoop(combination.parents, tempList, param);
                     if (tempList.size() == 0) {
-                        updateCacheBottomTop(combination.parents, list, param);
+                        deleteCacheBottomTop(combination.parents, list, param);
                     } else {
                         list.addAll(tempList);
                     }
                 } else if (combination.parents.getMode() == Combine.AND) {
-                    updateCacheBottomTop(combination.parents, list, param);
+                    deleteCacheBottomTop(combination.parents, list, param);
                 }
             }
         }
