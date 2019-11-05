@@ -1,8 +1,6 @@
 package com.muabe.propose.player;
 
 
-import android.util.Log;
-
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.combiner.PlayCombiner;
 

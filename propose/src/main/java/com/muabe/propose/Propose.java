@@ -1,7 +1,6 @@
 package com.muabe.propose;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -9,7 +8,6 @@ import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.combiner.ActionModule;
 import com.muabe.propose.combination.combiner.Point;
-import com.muabe.propose.motion.Motion;
 import com.muabe.propose.player.Player;
 
 import java.util.ArrayList;
@@ -62,15 +60,8 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
                 Player player = scanMotion.getPlayer();
                 if(player != null) {
                     Point point = scanMotion.getActionPlugin().getPoint();
-                    if (point.updatePoint(scanMotion.getActionPlugin().increase(event))) {
-//                        ArrayList<Player> scanPlayerList = Combine.scan(player, point.getRatio());
-//                        if(scanPlayerList.size() > 0) {
-//                            for(Player scanPlayer : scanPlayerList) {
-//                                scanPlayer.play(point.getRatio());
-//                            }
-//                        }
-                        Log.i("절대포인트",""+point.getRatio());
-                        player.play(point.getRatio());
+                    if (point.setPoint(point.value() + scanMotion.getActionPlugin().increase(event))) {
+                        boolean isPlay = player.play(point.getRatio());
                     }
 
                 }

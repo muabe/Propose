@@ -34,22 +34,21 @@ public class Point {
     public boolean isMaxPoint(){
         return point >= maxPoint;
     }
-
-    public boolean updatePoint(float increase){
-        if(point + increase <= minPoint ){
+    public boolean setPoint(float newPoint){
+        if(newPoint <= minPoint ){
             if(point == minPoint){
                 return false;
             }
             point = minPoint;
-        }else if(point + increase >= maxPoint){
+        }else if(newPoint >= maxPoint){
             if(point == maxPoint){
                 return false;
             }
             point = maxPoint;
         }else{
-            point +=  increase;
+            point =  newPoint;
         }
-        return true;
+        return  true;
     }
 
     public float getRatio(){
@@ -59,5 +58,15 @@ public class Point {
             return 1f;
         }
         return point/(maxPoint-minPoint);
+    }
+
+    public float getValue(float ratio){
+        if(maxPoint-minPoint <= 0f || ratio == 0f){
+            return 0f;
+        }else if(ratio == 1f){
+            return maxPoint-minPoint;
+        }else{
+            return ratio*(maxPoint-minPoint);
+        }
     }
 }

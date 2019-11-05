@@ -1,4 +1,4 @@
-package com.muabe.propose.motion;
+package com.muabe.propose.action;
 
 import com.muabe.propose.combination.combiner.ActionPlugBridge;
 import com.muabe.propose.combination.combiner.Point;

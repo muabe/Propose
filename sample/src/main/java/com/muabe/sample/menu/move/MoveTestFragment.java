@@ -10,7 +10,7 @@ import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Propose;
 import com.muabe.propose.action.SingleTouchRightGesture;
-import com.muabe.propose.motion.Motion;
+import com.muabe.propose.Motion;
 import com.muabe.propose.player.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
@@ -20,6 +20,7 @@ public class MoveTestFragment extends UniFragment{
     @GetView
     Button button, button2, button3;
 
+    Motion motionRight;
     Player combinationPlayer;
 
     float ratio = 0f;
@@ -29,7 +30,7 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
 
-        Motion motionRight = new Motion(new SingleTouchRightGesture(maxMove));
+        motionRight = new Motion(new SingleTouchRightGesture(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);
@@ -49,8 +50,7 @@ public class MoveTestFragment extends UniFragment{
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ratio += 0.1f;
-                combinationPlayer.play(ratio);
+                motionRight.play(motionRight.getRatio()+0.1f);
             }
         });
     }
