@@ -60,15 +60,17 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         return this.playPlugin;
     }
 
-    public boolean play(float rawRatio){
+    public boolean play(float ratio){
         boolean result = false;
+        float rawRatio = ratio*getRatio()+getStartRatio();
         ArrayList<PlayCombiner> players = Combine.scan((PlayCombiner)this, rawRatio);
         for (PlayCombiner player : players) {
             float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
-            if (player.getPlugin() !=null && player.getPlugin().play(this, relRatio)) {
+            if (player.getPlugin() !=null && player.getPlugin().play(player, relRatio)) {
                 result = true;
             }
         }
         return result;
     }
+
 }

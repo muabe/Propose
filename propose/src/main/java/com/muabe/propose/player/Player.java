@@ -22,12 +22,6 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         setRatioRange(0f, 1f);
     }
 
-    @Override
-    public Player setName(String name) {
-        super.setName(name);
-        return this;
-    }
-
     public void setWeightSum(int weightSum) {
         this.weightSum = weightSum;
         //Todo weightSum을 설정 하면 자식들의 ratio 바뀜
@@ -38,7 +32,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         setRawRatio();
     }
 
-    public void setRawRatio(){
+    private void setRawRatio(){
         if(this.getParents() != null){
             for(Player broPlayer : this.getParents().getChild()){
                 broPlayer.rawRoopRatio();
@@ -48,7 +42,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         }
     }
 
-    public void rawRoopRatio(){
+    private void rawRoopRatio(){
         int realWeightSum = this.getRealWeightSum();
 
         float start = getStartRatio();

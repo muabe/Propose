@@ -30,7 +30,7 @@ public class State {
      *
      *
      * 히스토리기능 play가된 모션이 무엇인지
-     * 현재 play 모션 리스트
+     * 현재 playRaw 모션 리스트
      * pause 모션 리스트
      * stop 리스트
      * */

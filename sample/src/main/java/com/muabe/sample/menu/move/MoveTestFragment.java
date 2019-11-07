@@ -38,7 +38,7 @@ public class MoveTestFragment extends UniFragment{
 //        combinationPlayer = player.selfAnd(player2);
 
         final Player player = new Player(new ObjectAnimatorPlugIn(right));
-        Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
+        final Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
         combinationPlayer = player.next(player2);
         motionRight.setPlayer(combinationPlayer);
 
@@ -50,7 +50,9 @@ public class MoveTestFragment extends UniFragment{
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                motionRight.play(motionRight.getRatio()+0.1f);
+//                motionRight.play(motionRight.getRatio()+0.1f);
+                ratio = ratio+ 0.2f;
+                player2.play(ratio);
             }
         });
     }

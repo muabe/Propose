@@ -53,20 +53,14 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     @Override
     public boolean onAction(Object event) {
         boolean result = false;
-        ArrayList<Motion> motionList = Combine.scan(motion, event);
 
+        ArrayList<Motion> motionList = Combine.scan(motion, event);
         for(Motion scanMotion : motionList){
             if(scanMotion.filter(event)){
-                Player player = scanMotion.getPlayer();
-                if(player != null) {
-                    Point point = scanMotion.getActionPlugin().getPoint();
-                    if (point.setPoint(point.value() + scanMotion.getActionPlugin().increase(event))) {
-                        boolean isPlay = player.play(point.getRatio());
-                    }
-
-                }
+                scanMotion.actMotion(event);
             }
         }
+
         return result;
     }
 

@@ -6,8 +6,8 @@ import com.muabe.propose.player.Player;
 class RatioCombination extends Player {
     float value;
 
-    public RatioCombination() {
-        super(null);
+    private RatioCombination() {
+        super(new RatioPlugIn());
     }
 
     public RatioCombination(PlayPlugin playPlugin) {
@@ -18,11 +18,6 @@ class RatioCombination extends Player {
     @Override
     public int getPriority() {
         return 0;
-    }
-
-    @Override
-    public float compare(Object param) {
-        return value;
     }
 
     public void setValue(float value){
@@ -40,5 +35,9 @@ class RatioCombination extends Player {
     @Override
     public String getName() {
         return String.format("%.3f", ratio);
+    }
+
+    public String getRealName(){
+        return super.getName();
     }
 }

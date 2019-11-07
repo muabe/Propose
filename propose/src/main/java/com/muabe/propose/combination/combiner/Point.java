@@ -34,7 +34,7 @@ public class Point {
     public boolean isMaxPoint(){
         return point >= maxPoint;
     }
-    public boolean setPoint(float newPoint){
+    public boolean updatePoint(float newPoint){
         if(newPoint <= minPoint ){
             if(point == minPoint){
                 return false;

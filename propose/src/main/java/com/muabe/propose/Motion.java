@@ -1,12 +1,9 @@
 package com.muabe.propose;
 
 import com.muabe.propose.action.ActionPlugin;
-import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.combiner.ActionCombiner;
 import com.muabe.propose.combination.combiner.Point;
 import com.muabe.propose.player.Player;
-
-import java.util.ArrayList;
 
 public class Motion extends ActionCombiner<Motion, ActionPlugin> {
     Player player;
@@ -28,24 +25,15 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
         return super.filter(event);
     }
 
-    void playMotion(Object event){
-        ArrayList<Motion> motionList = Combine.scan(this, event);
-
-        for(Motion scanMotion : motionList){
-            if(scanMotion.filter(event)){
-                float value = getActionPlugin().getPoint().value() + getActionPlugin().increase(event);
-                boolean isPlay = scanMotion.playValue(value);
-                if(isPlay){
-
-                }
-            }
-        }
+    boolean actMotion(Object event){
+        float value = getActionPlugin().getPoint().value() + getActionPlugin().increase(event);
+        return playValue(value);
     }
 
     private boolean playValue(float value){
         if(player != null) {
             Point point = getActionPlugin().getPoint();
-            if (point.setPoint(value)) {
+            if (point.updatePoint(value)) {
                 return player.play(point.getRatio());
             }
         }
@@ -54,8 +42,7 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
 
     public boolean play(float ratio){
         if(player != null){
-            Point point = getActionPlugin().getPoint();
-            return playValue(point.getValue(ratio));
+            return playValue(getActionPlugin().getPoint().getValue(ratio));
         }
         return false;
     }
@@ -63,4 +50,5 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
     public float getRatio(){
         return getActionPlugin().getPoint().getRatio();
     }
+
 }

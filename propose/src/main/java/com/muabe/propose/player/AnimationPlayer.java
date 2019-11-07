@@ -2,7 +2,6 @@ package com.muabe.propose.player;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.util.Log;
 
 /**
  * <br>捲土重來<br>
@@ -69,7 +68,7 @@ public class AnimationPlayer{
 //
 //
 //    @Override
-//    public void play(float ratio, Class<? extends MotionPriority> motionPriorityClass, float point, float maxPoint) {
+//    public void playRaw(float ratio, Class<? extends MotionPriority> motionPriorityClass, float point, float maxPoint) {
 //        long duration = valueAnimator.getDuration();
 //        long playTime = (long)(duration*point/maxPoint);
 //        valueAnimator.setCurrentPlayTime(playTime);
