@@ -57,24 +57,6 @@ public class RatioFragment extends UniFragment {
         e9 = (RatioCombination) new RatioCombination(new RatioPlugIn()).setName("e9");
         e10 = (RatioCombination) new RatioCombination(new RatioPlugIn()).setName("e10");
 
-
-
-//        combination = Combine.one(optimize,
-//                Combine.all(optimize, e1, e2),
-//                Combine.one(optimize,
-//                        e3,
-//                        center = Combine.one(optimize,
-//                                e4,
-//                                last = Combine.all(optimize, e5, e6)
-//                        ),
-//                        e7
-//                ),
-//                Combine.one(optimize,
-//                        Combine.all(optimize, e8, e9),
-//                        e10
-//                )
-//        );
-
         combination =
                         e1.with(e2).next(
                             e3.next(

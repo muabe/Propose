@@ -26,6 +26,8 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     private Context context;
     private HashMap<String, ActionModule> actionModules = new HashMap<>();
     private Motion motion;
+    private History history;
+
 
     public Propose(Context context){
         this.context = context;
@@ -57,7 +59,10 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
         ArrayList<Motion> motionList = Combine.scan(motion, event);
         for(Motion scanMotion : motionList){
             if(scanMotion.filter(event)){
-                scanMotion.actMotion(event);
+                result = scanMotion.actMotion(event);
+                if(result){
+
+                }
             }
         }
 
