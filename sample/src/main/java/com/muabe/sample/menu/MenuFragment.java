@@ -7,6 +7,7 @@ import com.markjmind.uni.mapper.annotiation.Layout;
 import com.markjmind.uni.mapper.annotiation.OnClick;
 import com.muabe.sample.R;
 import com.muabe.sample.menu.cache.CacheFragment;
+import com.muabe.sample.menu.exo.ExoFragment;
 import com.muabe.sample.menu.move.MoveTestFragment;
 import com.muabe.sample.menu.combine.CombineFragment;
 import com.muabe.sample.menu.ratio.RatioFragment;
@@ -38,5 +39,10 @@ public class MenuFragment extends UniFragment {
     @OnClick
     public void cache(View view){
         getBuilder().replace(new CacheFragment());
+    }
+
+    @OnClick
+    public void exo(View view){
+        getBuilder().replace(new ExoFragment());
     }
 }

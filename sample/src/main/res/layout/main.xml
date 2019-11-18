@@ -38,6 +38,12 @@
                 android:layout_height="wrap_content"
                 android:text="Cache" />
 
+            <Button
+                android:id="@+id/exo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Exo" />
+
         </LinearLayout>
     </ScrollView>
 
