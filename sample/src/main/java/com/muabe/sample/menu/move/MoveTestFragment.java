@@ -8,9 +8,11 @@ import com.markjmind.uni.UniFragment;
 import com.markjmind.uni.common.Jwc;
 import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
-import com.muabe.propose.Propose;
-import com.muabe.propose.action.SingleTouchRightGesture;
 import com.muabe.propose.Motion;
+import com.muabe.propose.Propose;
+import com.muabe.propose.action.SingleTouchLeftGesture;
+import com.muabe.propose.action.SingleTouchRightGesture;
+import com.muabe.propose.combination.Combine;
 import com.muabe.propose.player.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
@@ -20,7 +22,7 @@ public class MoveTestFragment extends UniFragment{
     @GetView
     Button button, button2, button3;
 
-    Motion motionRight;
+    Motion motionRight, motionLeft;
     Player combinationPlayer;
 
     float ratio = 0f;
@@ -29,8 +31,10 @@ public class MoveTestFragment extends UniFragment{
         float maxMove = 150f* Jwc.getDensity(button);
         ObjectAnimator rotation = ObjectAnimator.ofFloat(button, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
+        ObjectAnimator left = ObjectAnimator.ofFloat(button, "translationX", -maxMove);
 
         motionRight = new Motion(new SingleTouchRightGesture(maxMove));
+        motionLeft = new Motion(new SingleTouchLeftGesture(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);
@@ -39,12 +43,16 @@ public class MoveTestFragment extends UniFragment{
 
         final Player player = new Player(new ObjectAnimatorPlugIn(right));
         final Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
+        final Player player3 = new Player(new ObjectAnimatorPlugIn(left));
         combinationPlayer = player.next(player2);
         motionRight.setPlayer(combinationPlayer);
+        motionLeft.setPlayer(player3);
+
+        Motion motion = Combine.one(motionRight, motionLeft);
 
 
         Propose p = new Propose(getContext());
-        p.setMotion(motionRight);
+        p.setMotion(motion);
         button.setOnTouchListener(p);
 
         button2.setOnClickListener(new View.OnClickListener() {

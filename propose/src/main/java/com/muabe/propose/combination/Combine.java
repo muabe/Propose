@@ -107,9 +107,9 @@ public class Combine {
         combination.resetChild(list);
     }
 
-    public static <T extends Combination> ScanResult<T> scan2(T combination, Object param) {
+    public static <T extends Combination> ScanResult<T> scan(T combination, Object param) {
         ScanResult<T> scanResult = new ScanResult<>();
-        scanLoop(combination, combination, (ArrayList<Combination>) scanResult.getScanList(), param);
+        scanLoop(combination, scanResult, param);
         for (Combination cacheCombination : scanResult.getScanList()) {
             addCache(cacheCombination);
         }
@@ -117,22 +117,22 @@ public class Combine {
     }
 
     public static int count = 0;
-    public static <T extends Combination> ArrayList<T> scan(T combination, Object param) {
-        count = 0;
-        ArrayList<T> list = new ArrayList<>();
-        scanLoop(combination, combination, (ArrayList<Combination>) list, param);
-        String log = "";
-        for (Combination cacheCombination : list) {
-            addCache(cacheCombination);
-            log = log+cacheCombination.getName()+", ";
-        }
-        Log.e("dd", log);
-        Log.i("Combine", "[검색 횟수:" + count + "]");
-        return list;
-    }
+//    public static <T extends Combination> ArrayList<T> scan2(T combination, Object param) {
+//        count = 0;
+//        ArrayList<T> list = new ArrayList<>();
+//        scanLoop(combination, scanResult, param);
+//        String log = "";
+//        for (Combination cacheCombination : list) {
+//            addCache(cacheCombination);
+//            log = log+cacheCombination.getName()+", ";
+//        }
+//        Log.e("dd", log);
+//        Log.i("Combine", "[검색 횟수:" + count + "]");
+//        return list;
+//    }
 
 
-    private static void scanLoop(Combination firstTarget, Combination combination, ArrayList<Combination> list, Object param) {
+    private static void scanLoop(Combination combination, ScanResult list, Object param) {
         if (combination.deletedCache) {
             combination.deletedCache = false;
             return;
@@ -143,31 +143,31 @@ public class Combine {
                 if (combination.compare(param) > 0) {
                     list.add(combination);
                 } else {
-                    deleteCache(firstTarget, combination, list, param);
+                    deleteCache(combination, list, param);
                 }
                 break;
 
             case Combine.AND:
                 for (Combination childCombine : combination.child) {
-                    scanLoop(firstTarget, childCombine, list, param);
+                    scanLoop(childCombine, list, param);
                 }
                 break;
             case Combine.OR:
-                ArrayList<Combination> winner = null;
+                ScanResult winner = null;
                 if (combination.cache.size() > 0) {
-                    winner = new ArrayList<>();
-                    scanLoop(firstTarget, combination.cache.get(0), winner, param); //OR의 경우 cache가 하나 밖에 없다.
+                    winner = new ScanResult();
+                    scanLoop(combination.cache.get(0), winner, param); //OR의 경우 cache가 하나 밖에 없다.
                 } else {
                     for (Combination childCombination : combination.child) {
                         if (winner == null) {
-                            winner = new ArrayList<>();
-                            scanLoop(firstTarget, childCombination, winner, param);
+                            winner = new ScanResult();
+                            scanLoop(childCombination, winner, param);
                         } else {
-                            ArrayList<Combination> challener = new ArrayList<>();
-                            scanLoop(firstTarget, childCombination, challener, param);
+                            ScanResult challener = new ScanResult();
+                            scanLoop(childCombination, challener, param);
 
-                            float[] winnerScore = preemp(winner, param);
-                            float[] challenerScore = preemp(challener, param);
+                            float[] winnerScore = preemp(winner.getScanList(), param);
+                            float[] challenerScore = preemp(challener.getScanList(), param);
 
                             if (challenerScore[1] > 0) {
                                 if (winnerScore[1] > 0) {
@@ -224,11 +224,11 @@ public class Combine {
      * @param list
      * @param param
      */
-    private static void deleteCache(Combination firstTaget, Combination combination, ArrayList<Combination> list, Object param) {
-        Combination reScan = deleteCache(combination);
-        if (firstTaget != firstTaget && reScan.getMode() != Combine.ELEMENT) {
+    private static void deleteCache(Combination combination, ScanResult list, Object param) {
+        Combination reScan = deleteCache(combination, list);
+        if (reScan.getMode() != Combine.ELEMENT) {
             Log.i("Combine", "Reset Cache = " + reScan.toString());
-            scanLoop(firstTaget, reScan, list, param);
+            scanLoop(reScan, list, param);
         }
     }
 
@@ -239,41 +239,42 @@ public class Combine {
      *
      * @param combination 캐시를 삭제할 대상
      */
-    private static Combination deleteCache(Combination combination) {
+    private static Combination deleteCache(Combination combination, ScanResult list) {
         if (combination.parents != null && combination.parents.cache.contains(combination)) {
             combination.parents.cache.remove(combination);
+            list.addDelete(combination);
             Log.i("Combine", combination.parents + " delete=" + combination);
             if (combination.parents.cache.size() == 0) {
                 if (combination.parents.getMode() == Combine.OR && combination.getMode() != Combine.OR) {
                     combination.deletedCache = true;
                 }
-                return deleteCache(combination.parents);
+                return deleteCache(combination.parents, list);
             }
         }
         return combination;
     }
 
 
-    private static void deleteCacheBottomTop(Combination firstTaget, Combination combination, ArrayList<Combination> list, Object param) {
-        if (combination.parents != null && combination.parents.cache.contains(combination)) {
-            combination.parents.cache.remove(combination);
-            Log.i("Combine", combination.parents + " delete=" + combination);
-            if (combination.parents.cache.size() == 0) {
-                if (combination.parents.getMode() == Combine.OR) {
-                    combination.deletedCache = true;
-                    ArrayList<Combination> tempList = new ArrayList<>();
-                    scanLoop(firstTaget, combination.parents, tempList, param);
-                    if (tempList.size() == 0) {
-                        deleteCacheBottomTop(firstTaget, combination.parents, list, param);
-                    } else {
-                        list.addAll(tempList);
-                    }
-                } else if (combination.parents.getMode() == Combine.AND) {
-                    deleteCacheBottomTop(firstTaget, combination.parents, list, param);
-                }
-            }
-        }
-    }
+//    private static void deleteCacheBottomTop(Combination combination, ArrayList<Combination> list, Object param) {
+//        if (combination.parents != null && combination.parents.cache.contains(combination)) {
+//            combination.parents.cache.remove(combination);
+//            Log.i("Combine", combination.parents + " delete=" + combination);
+//            if (combination.parents.cache.size() == 0) {
+//                if (combination.parents.getMode() == Combine.OR) {
+//                    combination.deletedCache = true;
+//                    ArrayList<Combination> tempList = new ArrayList<>();
+//                    scanLoop(combination.parents, tempList, param);
+//                    if (tempList.size() == 0) {
+//                        deleteCacheBottomTop(combination.parents, list, param);
+//                    } else {
+//                        list.addAll(tempList);
+//                    }
+//                } else if (combination.parents.getMode() == Combine.AND) {
+//                    deleteCacheBottomTop(combination.parents, list, param);
+//                }
+//            }
+//        }
+//    }
 
 
     public static void clearCache(Combination combination) {

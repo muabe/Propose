@@ -5,6 +5,7 @@ import com.muabe.propose.combination.Priority;
 
 public class PlayPriority implements Priority<Float> {
     private int priority = 0;
+    private float currentRatio = 0f;
     private float startRatio = 0f; //시작 ratio
     private float endRatio = 0f; //종료 ratio
     private float ratioRange = 0f; //시작과 종료를 뺀 ratio 범위
@@ -15,12 +16,12 @@ public class PlayPriority implements Priority<Float> {
         this.ratioRange = maxRatio - minRatio;
     }
 
-    float getPlayRatio(float ratio){
-        float realRatio = (ratio - startRatio)/ratioRange;
-        if(realRatio <= ratioRange){
-            return realRatio;
-        }
-        return -1f;
+    public void setCurrentRatio(float currentRatio){
+        this.currentRatio = currentRatio;
+    }
+
+    public float getCurrentRatio() {
+        return currentRatio;
     }
 
     float getRatio(){

@@ -3,8 +3,7 @@ package com.muabe.propose.combination.combiner;
 
 import com.muabe.propose.combination.CombinationBridge;
 import com.muabe.propose.combination.Combine;
-
-import java.util.ArrayList;
+import com.muabe.propose.combination.ScanResult;
 
 public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInterfaceType extends PlayerPlugBridge> extends CombinationBridge<thisCombination> {
     private PlayPriority priority = new PlayPriority();
@@ -63,10 +62,25 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
     public boolean play(float ratio){
         boolean result = false;
         float rawRatio = ratio*getRatio()+getStartRatio();
-        ArrayList<PlayCombiner> players = Combine.scan((PlayCombiner)this, rawRatio);
-        for (PlayCombiner player : players) {
+        ScanResult<PlayCombiner> scanResult = Combine.scan((PlayCombiner)this, rawRatio);
+
+        for (PlayCombiner player : scanResult.getDeleteList()) {
+            float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
+            if (player.getPlugin() !=null){
+                if(relRatio <= 0f) {
+                    player.getPlugin().play(player, 0f);
+                    priority.setCurrentRatio(0f);
+                }else{
+                    player.getPlugin().play(player, 1f);
+                    priority.setCurrentRatio(1f);
+                }
+            }
+        }
+
+        for (PlayCombiner player : scanResult.getScanList()) {
             float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
             if (player.getPlugin() !=null && player.getPlugin().play(player, relRatio)) {
+                priority.setCurrentRatio(relRatio);
                 result = true;
             }
         }

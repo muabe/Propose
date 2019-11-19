@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.combination.Combine;
+import com.muabe.propose.combination.ScanResult;
 import com.muabe.propose.combination.combiner.ActionModule;
 import com.muabe.propose.combination.combiner.Point;
 import com.muabe.propose.player.Player;
@@ -55,9 +56,12 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     @Override
     public boolean onAction(Object event) {
         boolean result = false;
+        ScanResult<Motion> scanResult = Combine.scan(motion, event);
+        for(Motion deleteMotion : scanResult.getDeleteList()){
+            deleteMotion.actMotion(event);
+        }
 
-        ArrayList<Motion> motionList = Combine.scan(motion, event);
-        for(Motion scanMotion : motionList){
+        for(Motion scanMotion : scanResult.getScanList()){
             if(scanMotion.filter(event)){
                 result = scanMotion.actMotion(event);
                 if(result){

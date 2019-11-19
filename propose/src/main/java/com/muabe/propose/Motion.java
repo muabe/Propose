@@ -8,6 +8,9 @@ import com.muabe.propose.player.Player;
 public class Motion extends ActionCombiner<Motion, ActionPlugin> {
     Player player;
 
+    protected Motion(){
+    }
+
     public ActionCombiner setPlayer(Player player){
         this.player = player;
         return this;
@@ -26,7 +29,13 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
     }
 
     boolean actMotion(Object event){
-        float value = getActionPlugin().getPoint().value() + getActionPlugin().increase(event);
+        Point point = getActionPlugin().getPoint();
+        float value = point.value() + getActionPlugin().increase(event);
+        if(value <= point.getMinPoint() && !point.isMinPoint()){
+            value = point.getMinPoint();
+        }else if(value >= point.getMaxPoint() && !point.isMaxPoint()){
+            value = point.getMaxPoint();
+        }
         return playValue(value);
     }
 

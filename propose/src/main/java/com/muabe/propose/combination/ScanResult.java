@@ -2,7 +2,7 @@ package com.muabe.propose.combination;
 
 import java.util.ArrayList;
 
-public class ScanResult<T extends Combination> {
+public class ScanResult<T extends Combination>{
     private ArrayList<T> scanList = new ArrayList<>();
     private ArrayList<T> deleteList = new ArrayList<>();
     private ArrayList<T> insertList = new ArrayList<>();
@@ -19,15 +19,16 @@ public class ScanResult<T extends Combination> {
         return this.insertList;
     }
 
-    void addScan(T combination){
+    public void add(T combination){
         scanList.add(combination);
     }
 
-    void addDelete(T combination){
-        deleteList.add(combination);
+    public void addAll(ScanResult result){
+        scanList.addAll(result.scanList);
+        deleteList.addAll(result.deleteList);
     }
 
-    void addInsert(T combination){
-        insertList.add(combination);
+    public void addDelete(T combination){
+        deleteList.add(combination);
     }
 }
