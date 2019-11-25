@@ -44,7 +44,7 @@ public class MoveTestFragment extends UniFragment{
         final Player player = new Player(new ObjectAnimatorPlugIn(right));
         final Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
         final Player player3 = new Player(new ObjectAnimatorPlugIn(left));
-        combinationPlayer = player.next(player2);
+        combinationPlayer = player.with(player2);
         motionRight.setPlayer(combinationPlayer);
         motionLeft.setPlayer(player3);
 

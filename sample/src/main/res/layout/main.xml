@@ -44,6 +44,12 @@
                 android:layout_height="wrap_content"
                 android:text="Exo" />
 
+            <Button
+                android:id="@+id/lottie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lottie" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -50,14 +50,22 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         int i = 0;
         int childSize = this.getChild().size();
         for (Player child : this.getChild()) {
-            child.ratio = (float) child.weight * this.ratio / realWeightSum;
-            if(childSize == ++i){
-                end = getEndRatio();
+            if(this.getMode() == Combine.OR){
+                child.ratio = (float) child.weight * this.ratio / realWeightSum;
+                if(childSize == ++i){
+                    end = getEndRatio();
+                }else{
+                    end = start + child.ratio;
+                }
+                child.setRatioRange(start, end);
+                start = end;
             }else{
-                end = start + child.ratio;
+                child.ratio = (float) child.weight * this.ratio;
+                child.setRatioRange(start, getEndRatio());
+                if(childSize == ++i){
+                    start = getEndRatio();
+                }
             }
-            child.setRatioRange(start, end);
-            start = end;
             if (child.getMode() != Combine.ELEMENT) {
                 child.rawRoopRatio();
             }
