@@ -2,25 +2,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00ff00">
+    android:layout_height="match_parent">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/road"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:lottie_fileName="sun_rise.json"
+        app:lottie_loop="false"
+        app:lottie_repeatCount="1" />
 
 
     <FrameLayout
         android:id="@+id/phone_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom|center_vertical">
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="bottom|center_vertical"
+        android:layout_marginBottom="30dp">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="bottom"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="phone.json"
-            app:lottie_imageAssetsFolder="phone"
+            app:lottie_fileName="walk.json"
             app:lottie_loop="true"
-            app:lottie_repeatCount="5" />
+            app:lottie_repeatCount="2" />
 
         <FrameLayout
             android:id="@+id/phone_touch"
@@ -30,6 +40,25 @@
 
         </FrameLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ex1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="배경" />
+
+        <Button
+            android:id="@+id/ex2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="combine" />
+    </LinearLayout>
 
 
 </FrameLayout>

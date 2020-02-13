@@ -11,6 +11,7 @@ import com.muabe.sample.menu.combine.CombineFragment;
 import com.muabe.sample.menu.exo.ExoFragment;
 import com.muabe.sample.menu.lottie.LottieFragment;
 import com.muabe.sample.menu.move.MoveTestFragment;
+import com.muabe.sample.menu.movie.MovieFragment;
 import com.muabe.sample.menu.ratio.RatioFragment;
 
 /**
@@ -50,5 +51,10 @@ public class MenuFragment extends UniFragment {
     @OnClick
     public void lottie(View view){
         getBuilder().replace(new LottieFragment());
+    }
+
+    @OnClick
+    public void movie(View view){
+        getBuilder().replace(new MovieFragment());
     }
 }

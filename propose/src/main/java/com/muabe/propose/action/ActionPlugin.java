@@ -20,11 +20,11 @@ public abstract class ActionPlugin<EventType> extends ActionPlugBridge<EventType
      */
     public abstract float increase(EventType event);
 
-    public ActionPlugin(float maxPoint){
+    protected ActionPlugin(float maxPoint){
         this(0f, maxPoint);
     }
 
-    private ActionPlugin(float minPoint, float maxPoint){
+    protected ActionPlugin(float minPoint, float maxPoint){
         point = new Point(minPoint, maxPoint);
     }
 

@@ -23,11 +23,11 @@ public abstract class ActionPlugBridge<EventType> implements Priority<EventType>
 
     @Override
     public float compare(EventType param) {
-        float compareValue = motionCompare(param);
-        if(compareValue < 0f){
-            compareValue = 0f;
-        }
         if (filter(param)) {
+            float compareValue = motionCompare(param);
+            if(compareValue < 0f){
+                compareValue = 0f;
+            }
             return compareValue;
         } else {
             return getPoint().value();

@@ -1,5 +1,6 @@
 package com.muabe.propose.touch.detector.multi;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
@@ -26,18 +27,23 @@ public class MultiTouchEvent implements TouchEvent {
         return this.motionEvent;
     }
 
-    float preFocusX, currFocusX, preFocusY, currFocusY;
+    float preFocusX, currFocusX, preFocusY, currFocusY, preScale;
+    float currScale = 1f;
+    float temp = 1f;
 
     public void initMultiTouch(ScaleGestureDetector scaleGestureDetector) {
         if(scaleGestureDetector != null) {
             currFocusX = scaleGestureDetector.getFocusX();
             currFocusY = scaleGestureDetector.getFocusY();
+            currScale = 1f;
             setMultiDragProperty(scaleGestureDetector);
+            Log.i("dd","scale:"+(temp*scaleGestureDetector.getScaleFactor()));
         }else{
             preFocusX = 0f;
             preFocusY = 0f;
             currFocusX = 0f;
             currFocusY = 0f;
+            currScale = 1f;
         }
         this.scaleGestureDetector = scaleGestureDetector;
     }
@@ -51,6 +57,7 @@ public class MultiTouchEvent implements TouchEvent {
         preFocusY = currFocusY;
         currFocusX = scaleGestureDetector.getFocusX();
         currFocusY = scaleGestureDetector.getFocusY();
+        currScale = scaleGestureDetector.getScaleFactor();
 
     }
 
@@ -60,6 +67,10 @@ public class MultiTouchEvent implements TouchEvent {
 
     public float getDragY(){
         return currFocusY - preFocusY;
+    }
+
+    public float getScale(){
+        return currScale;
     }
 
 

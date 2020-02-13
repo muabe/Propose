@@ -39,6 +39,10 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
         return playValue(value);
     }
 
+    boolean delMotion(){
+        return playValue(0f);
+    }
+
     private boolean playValue(float value){
         if(player != null) {
             Point point = getActionPlugin().getPoint();

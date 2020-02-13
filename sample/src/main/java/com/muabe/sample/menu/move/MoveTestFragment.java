@@ -12,6 +12,8 @@ import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
 import com.muabe.propose.action.SingleTouchLeftGesture;
 import com.muabe.propose.action.SingleTouchRightGesture;
+import com.muabe.propose.action.ZoomInGesture;
+import com.muabe.propose.action.ZoomOutGesture;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.player.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
@@ -52,7 +54,30 @@ public class MoveTestFragment extends UniFragment{
 
 
         Propose p = new Propose(getContext());
-        p.setMotion(motion);
+//        p.setMotion(motion);
+
+        ObjectAnimator scaleX_in = ObjectAnimator.ofFloat(button, "scaleX", 10f);
+        ObjectAnimator scaleY_in = ObjectAnimator.ofFloat(button, "scaleY", 10f);
+        ObjectAnimator scaleX_out = ObjectAnimator.ofFloat(button, "scaleX", 0.1f);
+        ObjectAnimator scaleY_out = ObjectAnimator.ofFloat(button, "scaleY", 0.1f);
+
+        Motion scaleMotion_in = new Motion(new ZoomInGesture());
+        scaleMotion_in.setPlayer(
+                new Player(new ObjectAnimatorPlugIn(scaleX_in))
+                    .with(
+                        new Player(new ObjectAnimatorPlugIn(scaleY_in))
+                )
+            );
+
+        Motion scaleMotion_out = new Motion(new ZoomOutGesture());
+        scaleMotion_out.setPlayer(
+                new Player(new ObjectAnimatorPlugIn(scaleX_out))
+                        .with(
+                                new Player(new ObjectAnimatorPlugIn(scaleY_out))
+                        )
+        );
+        p.setMotion(Combine.one(scaleMotion_in, scaleMotion_out));
+
         button.setOnTouchListener(p);
 
         button2.setOnClickListener(new View.OnClickListener() {

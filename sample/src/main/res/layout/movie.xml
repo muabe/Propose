@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exoPlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/book_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/book_image"
+                android:visibility="invisible" />
+
+
+        </com.google.android.exoplayer2.ui.PlayerView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_fileName="book.json"
+            app:lottie_imageAssetsFolder="book"
+            app:lottie_loop="false"
+            app:lottie_repeatCount="1" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/phone_touch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"></FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"></FrameLayout>
+</FrameLayout>

@@ -20,10 +20,13 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 public class TouchActionController extends ActionModule implements View.OnTouchListener, OnTouchDetectListener {
     private TouchDetector touchDetector;
     private SingleTouchAction singleTouchAction = new SingleTouchAction();
+    private MultiTouchAction multiTouchAction = new MultiTouchAction();
     private Context context;
+    private boolean isMulti;
 
-    public TouchActionController(Context context){
+    public TouchActionController(Context context, boolean isMulti){
         this.context = context;
+        this.isMulti = isMulti;
     }
 
 
@@ -31,6 +34,7 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
     public void bind(OnActionListener listener) {
         touchDetector = new TouchDetector(context, this);
         singleTouchAction.bind(listener);
+        multiTouchAction.bind(listener);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
 
     @Override
     public boolean onMulitBegin(MultiTouchEvent event) {
-        return false;
+        return true;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class TouchActionController extends ActionModule implements View.OnTouchL
 
     @Override
     public boolean onMultiDrag(MultiTouchEvent event) {
-        return false;
+        return multiTouchAction.onMultiDrag(event);
     }
 
     @Override

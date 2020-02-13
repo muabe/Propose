@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.muabe.propose.action.MultiTouchAction;
 import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.ScanResult;
@@ -23,6 +24,7 @@ import java.util.HashMap;
  */
 public class Propose implements ActionModule.OnActionListener, View.OnTouchListener {
     public static final String ACTION_TOUCH = "ACTION_TOUCH";
+    public static final String ACTION_MULTI_TOUCH = "ACTION_MULTI_TOUCH";
 
     private Context context;
     private HashMap<String, ActionModule> actionModules = new HashMap<>();
@@ -37,7 +39,8 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     }
 
     private void defaultActionModule(){
-        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController(context));
+        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController(context, false));
+        addActionMudle(Propose.ACTION_MULTI_TOUCH, new TouchActionController(context, true));
     }
 
     public Context getContext(){
@@ -58,7 +61,7 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
         boolean result = false;
         ScanResult<Motion> scanResult = Combine.scan(motion, event);
         for(Motion deleteMotion : scanResult.getDeleteList()){
-            deleteMotion.actMotion(event);
+            deleteMotion.delMotion();
         }
 
         for(Motion scanMotion : scanResult.getScanList()){

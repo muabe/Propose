@@ -50,6 +50,12 @@
                 android:layout_height="wrap_content"
                 android:text="lottie" />
 
+            <Button
+                android:id="@+id/movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="movie" />
+
         </LinearLayout>
     </ScrollView>
 
