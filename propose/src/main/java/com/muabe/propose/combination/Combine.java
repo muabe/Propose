@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Combine {
     private static boolean DEFAULT_OPTIMIZE = true;
     public static final int ELEMENT = 0;
-    public static final int AND = 1;
-    public static final int OR = 2;
+    public static final int WITH = 1;
+    public static final int ONEOF = 2;
 
 
     private Combine() {
@@ -20,22 +20,22 @@ public class Combine {
 
     @SafeVarargs
     public static <T extends Combination> T all(T... combinations) {
-        return combine(Combine.AND, combinations);
+        return combine(Combine.WITH, combinations);
     }
 
     @SafeVarargs
-    public static <T extends Combination> T one(T... combinations) {
-        return combine(Combine.OR, combinations);
+    public static <T extends Combination> T oneof(T... combinations) {
+        return combine(Combine.ONEOF, combinations);
     }
 
     @SafeVarargs
     public static <T extends Combination> T all(boolean optimize, T... combinations) {
-        return combine(Combine.AND, optimize, combinations);
+        return combine(Combine.WITH, optimize, combinations);
     }
 
     @SafeVarargs
-    public static <T extends Combination> T one(boolean optimize, T... combinations) {
-        return combine(Combine.OR, optimize, combinations);
+    public static <T extends Combination> T oneof(boolean optimize, T... combinations) {
+        return combine(Combine.ONEOF, optimize, combinations);
     }
 
     @SafeVarargs
@@ -147,12 +147,12 @@ public class Combine {
                 }
                 break;
 
-            case Combine.AND:
+            case Combine.WITH:
                 for (Combination childCombine : combination.child) {
                     scanLoop(childCombine, list, param);
                 }
                 break;
-            case Combine.OR:
+            case Combine.ONEOF:
                 ScanResult winner = null;
                 if (combination.cache.size() > 0) {
                     winner = new ScanResult();
@@ -206,10 +206,10 @@ public class Combine {
      */
     private static void addCache(Combination combination) {
         if (combination.parents != null) {
-            if (combination.parents.getMode() == Combine.OR && !combination.parents.cache.contains(combination)) {
+            if (combination.parents.getMode() == Combine.ONEOF && !combination.parents.cache.contains(combination)) {
                 combination.parents.cache.clear();
                 combination.parents.cache.add(combination);
-            } else if (combination.parents.getMode() == Combine.AND && combination.parents.cache.size() != combination.parents.child.size()) {
+            } else if (combination.parents.getMode() == Combine.WITH && combination.parents.cache.size() != combination.parents.child.size()) {
                 combination.parents.cache.clear();
                 combination.parents.cache.addAll(combination.parents.child);
             }
@@ -245,7 +245,7 @@ public class Combine {
             list.addDelete(combination);
             Log.i("Combine", combination.parents + " delete=" + combination);
             if (combination.parents.cache.size() == 0) {
-                if (combination.parents.getMode() == Combine.OR && combination.getMode() != Combine.OR) {
+                if (combination.parents.getMode() == Combine.ONEOF && combination.getMode() != Combine.ONEOF) {
                     combination.deletedCache = true;
                 }
                 return deleteCache(combination.parents, list);
@@ -260,7 +260,7 @@ public class Combine {
 //            combination.parents.cache.remove(combination);
 //            Log.i("Combine", combination.parents + " delete=" + combination);
 //            if (combination.parents.cache.size() == 0) {
-//                if (combination.parents.getMode() == Combine.OR) {
+//                if (combination.parents.getMode() == Combine.ONEOF) {
 //                    combination.deletedCache = true;
 //                    ArrayList<Combination> tempList = new ArrayList<>();
 //                    scanLoop(combination.parents, tempList, param);
@@ -269,7 +269,7 @@ public class Combine {
 //                    } else {
 //                        list.addAll(tempList);
 //                    }
-//                } else if (combination.parents.getMode() == Combine.AND) {
+//                } else if (combination.parents.getMode() == Combine.WITH) {
 //                    deleteCacheBottomTop(combination.parents, list, param);
 //                }
 //            }

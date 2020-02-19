@@ -46,10 +46,10 @@ class CacheCombination extends CombinationBridge<CacheCombination> {
     public String getName() {
         String name = super.getName();
         if(name == null){
-            if(getMode() == Combine.AND) {
-                name = "AND";
-            }else if(getMode() == Combine.OR){
-                name = "OR";
+            if(getMode() == Combine.WITH) {
+                name = "WITH";
+            }else if(getMode() == Combine.ONEOF){
+                name = "ONEOF";
             }else{
                 name = "El";
             }

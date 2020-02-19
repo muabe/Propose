@@ -43,15 +43,15 @@ public class CombineViewer{
             TextView contents = input.findViewById(R.id.contents);
             if(contents != null){
                 String name = combination.getName();
-                if(combination.getMode() == Combine.AND){
+                if(combination.getMode() == Combine.WITH){
                     contents.setBackgroundColor(Color.RED);
                     if(combination.getName() == null){
-                        name = "AND";
+                        name = "WITH";
                     }
-                }else if(combination.getMode() == Combine.OR){
+                }else if(combination.getMode() == Combine.ONEOF){
                     contents.setBackgroundColor(Color.BLUE);
                     if(combination.getName() == null){
-                        name = "OR";
+                        name = "ONEOF";
                     }
                 }
                 contents.setText(name);

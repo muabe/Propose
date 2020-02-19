@@ -42,17 +42,17 @@ public class CombineFragment extends UniFragment {
         TestCombination e9 = new TestCombination(0);
         TestCombination e10 = new TestCombination(0);
 
-        combination = Combine.one(optimize,
+        combination = Combine.oneof(optimize,
                 Combine.all(optimize, e1, e2),
-                Combine.one(optimize,
+                Combine.oneof(optimize,
                         e3,
-                        Combine.one(optimize,
+                        Combine.oneof(optimize,
                                 e4,
                                 Combine.all(optimize, e5, e6)
                         ),
                         e7
                 ),
-                Combine.one(optimize,
+                Combine.oneof(optimize,
                         Combine.all(optimize, e8, e9),
                         e10
                 )

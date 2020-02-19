@@ -52,6 +52,6 @@ public class ActionCombiner<thisCombination extends ActionCombiner, ActionPriori
     }
 
     public static <T extends ActionCombiner>T or(T... actionCombiners){
-        return Combine.one(actionCombiners);
+        return Combine.oneof(actionCombiners);
     }
 }

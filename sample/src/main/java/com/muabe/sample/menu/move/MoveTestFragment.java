@@ -50,7 +50,7 @@ public class MoveTestFragment extends UniFragment{
         motionRight.setPlayer(combinationPlayer);
         motionLeft.setPlayer(player3);
 
-        Motion motion = Combine.one(motionRight, motionLeft);
+        Motion motion = Combine.oneof(motionRight, motionLeft);
 
 
         Propose p = new Propose(getContext());
@@ -76,7 +76,7 @@ public class MoveTestFragment extends UniFragment{
                                 new Player(new ObjectAnimatorPlugIn(scaleY_out))
                         )
         );
-        p.setMotion(Combine.one(scaleMotion_in, scaleMotion_out));
+        p.setMotion(Combine.oneof(scaleMotion_in, scaleMotion_out));
 
         button.setOnTouchListener(p);
 

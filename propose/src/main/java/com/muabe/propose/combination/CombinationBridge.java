@@ -3,20 +3,6 @@ package com.muabe.propose.combination;
 import java.util.ArrayList;
 
 public abstract class CombinationBridge<T extends CombinationBridge> extends Combination {
-//    public T selfAnd(T... combinations) {
-//        if (combinations.length > 0) {
-//            return (T) Combine.all(copyArray(combinations));
-//        }
-//        return (T) this;
-//    }
-//
-//    public T selfOr(T... combinations) {
-//        if (combinations.length > 0) {
-//            return (T) Combine.one(copyArray(combinations));
-//        }
-//        return (T) this;
-//    }
-
     protected Combination[] copyArray(T[] motions) {
         Combination[] newArray = new Combination[motions.length + 1];
         newArray[0] = this;

@@ -60,13 +60,13 @@ public abstract class Combination implements Priority {
         String name1;
         if(mode == Combine.ELEMENT){
             name1 = "ELEMENT("+name+")";
-        }else if(mode == Combine.OR){
-            name1 = "OR:";
+        }else if(mode == Combine.ONEOF){
+            name1 = "ONEOF:";
             for(int i=0;i<cache.size();i++){
                 name1 += cache.get(i).toString();
             }
         }else{
-            name1 = "AND:";
+            name1 = "WITH:";
             for(int i=0;i<cache.size();i++){
                 if(i!=0){
                     name1 += "+";

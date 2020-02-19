@@ -50,7 +50,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
         int i = 0;
         int childSize = this.getChild().size();
         for (Player child : this.getChild()) {
-            if(this.getMode() == Combine.OR){
+            if(this.getMode() == Combine.ONEOF){
                 child.ratio = (float) child.weight * this.ratio / realWeightSum;
                 if(childSize == ++i){
                     end = getEndRatio();
@@ -91,7 +91,7 @@ public class Player extends PlayCombiner<Player, PlayPlugin> {
 
     public Player next(Player... combinations) {
         if (combinations.length > 0) {
-            Player player = (Player)Combine.one(copyArray(combinations));
+            Player player = (Player)Combine.oneof(copyArray(combinations));
             player.setRatioRange(0f, 1f);
             player.ratio = 1f;
             player.setWeight(1);
