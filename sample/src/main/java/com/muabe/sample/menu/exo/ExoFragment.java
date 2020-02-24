@@ -176,15 +176,15 @@ public class ExoFragment extends UniFragment {
         ObjectAnimator rotation = ObjectAnimator.ofFloat(button4, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button4, "translationX", maxMove);
 
-        motionRight = new Motion(new SingleTouchRightGesture(maxMove));
+        motionRight = Motion.create(new SingleTouchRightGesture(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);
 //
 //        combinationPlayer = player.selfAnd(player2);
 
-        final Player player = new Player(new ObjectAnimatorPlugIn(right));
-        final Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
+        final Player player = Player.create(new ObjectAnimatorPlugIn(right));
+        final Player player2 = Player.create(new ObjectAnimatorPlugIn(rotation));
         combinationPlayer = player.next(player2);
         motionRight.setPlayer(combinationPlayer);
 

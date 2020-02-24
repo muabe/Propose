@@ -38,14 +38,14 @@ public class LottieFragment extends UniFragment {
         phone.setPivotX(0);
         phone.setPivotY(maxMove);
 
-        move_motion = new Motion(new SingleTouchRightGesture(maxMove));
-        Player player = new Player(new LottiePlugin(phone));
-        Player playMove = new Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone_view, "translationX", maxMove)));
+        move_motion = Motion.create(new SingleTouchRightGesture(maxMove));
+        Player player = Player.create(new LottiePlugin(phone));
+        Player playMove = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone_view, "translationX", maxMove)));
         move_motion.setPlayer(player.with(playMove));
 
-        Player scaleX_out = new Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone, "scaleX", 0.5f)));
-        Player scaleY_out = new Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone, "scaleY", 0.5f)));
-        scale_motion = new Motion(new ZoomOutGesture());
+        Player scaleX_out = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone, "scaleX", 0.5f)));
+        Player scaleY_out = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone, "scaleY", 0.5f)));
+        scale_motion = Motion.create(new ZoomOutGesture());
         scale_motion.setPlayer(scaleX_out.with(scaleY_out));
 
         motion = Combine.all(move_motion, scale_motion);
@@ -63,7 +63,7 @@ public class LottieFragment extends UniFragment {
 
     @OnClick
     public void ex2(View view){
-        Player player = new Player(new LottiePlugin(road, 0.5f));
+        Player player = Player.create(new LottiePlugin(road, 0.5f));
         move_motion.setPlayer(move_motion.getPlayer().with(player));
     }
 

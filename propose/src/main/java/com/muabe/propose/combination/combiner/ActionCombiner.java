@@ -25,11 +25,11 @@ public abstract class ActionCombiner<ActionCombinerType extends ActionCombiner> 
      *  또한 ActionPlugin은 compete, increase로 compare를 분기한다.
      * @return
      */
-    public abstract ActionPlugin getActionPlugin();
+    public abstract ActionPlugin getPlugin();
 
     @Override
     public int getPriority() {
-        if (getActionPlugin() == null) {
+        if (getPlugin() == null) {
             return 0;
         }
         return actionPriority.getPriority();
@@ -37,11 +37,11 @@ public abstract class ActionCombiner<ActionCombinerType extends ActionCombiner> 
 
     @Override
     public float compare(Object event) {
-        if (getActionPlugin() == null) {
+        if (getPlugin() == null) {
             return 0;
         }
         if(actionPriority == null){
-            actionPriority = new ActionPriority(getActionPlugin());
+            actionPriority = new ActionPriority(getPlugin());
         }
         return actionPriority.compare(event);
     }

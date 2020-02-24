@@ -9,18 +9,27 @@ public class Player extends PlayCombiner<Player> {
 
     private int weight = 1;
     private int weightSum = 0;
-
-//    private float startRatio = 0f;
-//    private float endRatio = 0f;
     protected float ratio = 1f;
+    private PlayPlugin plugin;
 
-    private Player() {
+    protected Player() {
     }
 
+    public static Player create(PlayPlugin plugin){
+        Player player = new Player();
+        player.setPlugin(plugin);
+        return player;
+    }
 
-    public Player(PlayPlugin playPlugin) {
-        super(playPlugin);
-        setRatioRange(0f, 1f);
+    public Player setPlugin(PlayPlugin plugin){
+        this.plugin = plugin;
+        setName(plugin.getClass().getSimpleName());
+        return this;
+    }
+
+    @Override
+    public PlayPlugin getPlugin() {
+        return plugin;
     }
 
     public void setWeightSum(int weightSum) {

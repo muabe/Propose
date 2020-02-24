@@ -35,17 +35,17 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
         ObjectAnimator left = ObjectAnimator.ofFloat(button, "translationX", -maxMove);
 
-        motionRight = new Motion(new SingleTouchRightGesture(maxMove));
-        motionLeft = new Motion(new SingleTouchLeftGesture(maxMove));
+        motionRight = Motion.create(new SingleTouchRightGesture(maxMove));
+        motionLeft = Motion.create(new SingleTouchLeftGesture(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);
 //
 //        combinationPlayer = player.selfAnd(player2);
 
-        final Player player = new Player(new ObjectAnimatorPlugIn(right));
-        final Player player2 = new Player(new ObjectAnimatorPlugIn(rotation));
-        final Player player3 = new Player(new ObjectAnimatorPlugIn(left));
+        final Player player = Player.create(new ObjectAnimatorPlugIn(right));
+        final Player player2 = Player.create(new ObjectAnimatorPlugIn(rotation));
+        final Player player3 = Player.create(new ObjectAnimatorPlugIn(left));
         combinationPlayer = player.with(player2);
         motionRight.setPlayer(combinationPlayer);
         motionLeft.setPlayer(player3);
@@ -61,19 +61,19 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator scaleX_out = ObjectAnimator.ofFloat(button, "scaleX", 0.1f);
         ObjectAnimator scaleY_out = ObjectAnimator.ofFloat(button, "scaleY", 0.1f);
 
-        Motion scaleMotion_in = new Motion(new ZoomInGesture());
+        Motion scaleMotion_in = Motion.create(new ZoomInGesture());
         scaleMotion_in.setPlayer(
-                new Player(new ObjectAnimatorPlugIn(scaleX_in))
+                Player.create(new ObjectAnimatorPlugIn(scaleX_in))
                     .with(
-                        new Player(new ObjectAnimatorPlugIn(scaleY_in))
+                            Player.create(new ObjectAnimatorPlugIn(scaleY_in))
                 )
             );
 
-        Motion scaleMotion_out = new Motion(new ZoomOutGesture());
+        Motion scaleMotion_out = Motion.create(new ZoomOutGesture());
         scaleMotion_out.setPlayer(
-                new Player(new ObjectAnimatorPlugIn(scaleX_out))
+                Player.create(new ObjectAnimatorPlugIn(scaleX_out))
                         .with(
-                                new Player(new ObjectAnimatorPlugIn(scaleY_out))
+                                Player.create(new ObjectAnimatorPlugIn(scaleY_out))
                         )
         );
         p.setMotion(Combine.oneof(scaleMotion_in, scaleMotion_out));

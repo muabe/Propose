@@ -2,8 +2,8 @@ package com.muabe.propose.player.animation;
 
 import android.animation.ObjectAnimator;
 
+import com.muabe.propose.combination.combiner.PlayCombiner;
 import com.muabe.propose.combination.combiner.PlayPlugin;
-import com.muabe.propose.player.Player;
 
 public class ObjectAnimatorPlugIn extends PlayPlugin {
 
@@ -18,7 +18,7 @@ public class ObjectAnimatorPlugIn extends PlayPlugin {
     }
 
     @Override
-    public boolean play(Player player, float ratio) {
+    public boolean play(PlayCombiner player, float ratio) {
         long playDuration = (long) (defaultDuration * ratio);
         animator.setCurrentPlayTime(playDuration);
         return true;

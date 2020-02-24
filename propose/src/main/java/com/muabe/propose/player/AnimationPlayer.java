@@ -21,7 +21,7 @@ public class AnimationPlayer{
 
     public static Player create(int weight, ObjectAnimator animator){
         ObjectAnimatorPlugin plugin = new ObjectAnimatorPlugin(animator);
-        return new Player(plugin);
+        return Player.create(plugin);
     }
 
     class ValuAnimatorPlugin extends PlayPlugin {

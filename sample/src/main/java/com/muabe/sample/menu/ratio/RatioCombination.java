@@ -7,11 +7,14 @@ class RatioCombination extends Player {
     float value;
 
     private RatioCombination() {
-        super(new RatioPlugIn());
+        super();
+        setPlugin(new RatioPlugIn());
     }
 
+
     public RatioCombination(PlayPlugin playPlugin) {
-        super(playPlugin);
+        super();
+        setPlugin(playPlugin);
     }
 
 

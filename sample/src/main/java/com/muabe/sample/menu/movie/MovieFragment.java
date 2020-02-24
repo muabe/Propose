@@ -242,13 +242,13 @@ public class MovieFragment extends UniFragment {
     void initMotion(float start, ActionPlugin<?> plugin){
         book.setProgress(start);
         Propose propose = new Propose(getContext());
-        Motion motion = new Motion(plugin);
-        com.muabe.propose.player.Player player = new com.muabe.propose.player.Player(new LottiePlugin(book));
+        Motion motion = Motion.create(plugin);
+        com.muabe.propose.player.Player player = com.muabe.propose.player.Player.create(new LottiePlugin(book));
         motion.setPlayer(player);
         if(isZoom){
-            com.muabe.propose.player.Player scaleX_out = new com.muabe.propose.player.Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleX", 3f)));
-            com.muabe.propose.player.Player scaleY_out = new com.muabe.propose.player.Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleY", 3f)));
-            Motion scale_motion = new Motion(new ZoomInGesture());
+            com.muabe.propose.player.Player scaleX_out = com.muabe.propose.player.Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleX", 3f)));
+            com.muabe.propose.player.Player scaleY_out = com.muabe.propose.player.Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleY", 3f)));
+            Motion scale_motion = Motion.create(new ZoomInGesture());
             scale_motion.setPlayer(scaleX_out.with(scaleY_out));
             propose.setMotion(Combine.all(motion, scale_motion));
         }else{

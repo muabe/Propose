@@ -13,13 +13,10 @@ import com.muabe.propose.player.Player;
  */
 public abstract class PlayCombiner<PlayCombinerType extends PlayCombiner> extends CombinationTypeBridge<PlayCombinerType> {
     private PlayPriority priority = new PlayPriority();
-    private PlayPlugin playPlugin;
 
     protected PlayCombiner(){}
 
-    protected PlayCombiner(PlayPlugin playPlugin){
-        this.playPlugin = playPlugin;
-    }
+    public abstract PlayPlugin getPlugin();
 
     public void setRatioRange(float start, float end){
         priority.setRatioRange(start, end);
@@ -60,10 +57,6 @@ public abstract class PlayCombiner<PlayCombinerType extends PlayCombiner> extend
         return 0f;
     }
 
-    public PlayPlugin getPlugin()
-    {
-        return this.playPlugin;
-    }
 
     public boolean play(float ratio){
         boolean result = false;
