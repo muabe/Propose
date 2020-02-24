@@ -1,5 +1,6 @@
 package com.muabe.propose.combination;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Combination implements Priority {
@@ -26,6 +27,10 @@ public abstract class Combination implements Priority {
         }else{
             return parents.getRoot();
         }
+    }
+
+    public Combination getParents(){
+        return parents;
     }
 
     void disableRoot(){
@@ -93,12 +98,19 @@ public abstract class Combination implements Priority {
         return name;
     }
 
-    public <T extends Combination>ArrayList<T> getChild(Class<T> t){
+    public <T>ArrayList<T> getChild(Class<T> t){
         return (ArrayList<T>)child;
     }
 
-    <T extends Combination>void resetChild(ArrayList<T> list){
+    void resetChild(ArrayList<Combination> list){
         child.clear();
         child.addAll(list);
+    }
+
+    protected <T extends Combination>T[] copyArray(T[] combinations) {
+        T[] newArray = (T[])Array.newInstance(combinations.getClass().getComponentType(), combinations.length + 1);
+        newArray[0] = (T)this;
+        System.arraycopy(combinations, 0, newArray, 1, combinations.length);
+        return newArray;
     }
 }

@@ -1,11 +1,11 @@
 package com.muabe.propose;
 
-import com.muabe.propose.action.ActionPlugin;
+import com.muabe.propose.combination.combiner.ActionPlugin;
 import com.muabe.propose.combination.combiner.ActionCombiner;
 import com.muabe.propose.combination.combiner.Point;
 import com.muabe.propose.player.Player;
 
-public class Motion extends ActionCombiner<Motion, ActionPlugin> {
+public class Motion extends ActionCombiner<ActionPlugin> {
     Player player;
 
     protected Motion(){

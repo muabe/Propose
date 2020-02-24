@@ -3,7 +3,7 @@ package com.muabe.propose.action;
 import com.muabe.propose.combination.combiner.ActionPlugBridge;
 import com.muabe.propose.combination.combiner.Point;
 
-public abstract class ActionPlugin<EventType> extends ActionPlugBridge<EventType> {
+public abstract class ActionPlugin2<EventType> extends ActionPlugBridge<EventType> {
     private Point point;
 
     /**
@@ -20,11 +20,11 @@ public abstract class ActionPlugin<EventType> extends ActionPlugBridge<EventType
      */
     public abstract float increase(EventType event);
 
-    protected ActionPlugin(float maxPoint){
+    protected ActionPlugin2(float maxPoint){
         this(0f, maxPoint);
     }
 
-    protected ActionPlugin(float minPoint, float maxPoint){
+    protected ActionPlugin2(float minPoint, float maxPoint){
         point = new Point(minPoint, maxPoint);
     }
 

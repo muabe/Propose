@@ -15,7 +15,7 @@ public abstract class ActionPlugBridge<EventType> implements Priority<EventType>
     private EventFilter eventFilter;
 
     protected ActionPlugBridge(){
-        eventFilter = new EventFilter(this);
+//        eventFilter = new EventFilter(this);
     }
 
     protected abstract float motionCompare(EventType event);

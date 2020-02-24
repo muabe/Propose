@@ -12,7 +12,7 @@ import java.lang.reflect.ParameterizedType;
 class EventFilter {
     private String name;
 
-    EventFilter(ActionPlugBridge<?> actionPriority){
+    EventFilter(ActionPlugin<?> actionPriority){
         ParameterizedType type = (ParameterizedType)actionPriority.getClass().getGenericSuperclass();
         name = ((Class)type.getActualTypeArguments()[0]).getName();
     }

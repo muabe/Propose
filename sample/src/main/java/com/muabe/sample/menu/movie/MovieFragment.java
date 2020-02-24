@@ -36,7 +36,7 @@ import com.markjmind.uni.thread.CancelAdapter;
 import com.markjmind.uni.thread.LoadEvent;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.ActionPlugin;
+import com.muabe.propose.combination.combiner.ActionPlugin;
 import com.muabe.propose.action.SingleTouchLeftGesture;
 import com.muabe.propose.action.SingleTouchRightGesture;
 import com.muabe.propose.action.SingleTouchUpGesture;

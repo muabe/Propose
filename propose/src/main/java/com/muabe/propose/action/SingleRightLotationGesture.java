@@ -1,5 +1,6 @@
 package com.muabe.propose.action;
 
+import com.muabe.propose.combination.combiner.ActionPlugin;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 /**

@@ -2,13 +2,7 @@ package com.muabe.propose.combination;
 
 import java.util.ArrayList;
 
-public abstract class CombinationBridge<T extends CombinationBridge> extends Combination {
-    protected Combination[] copyArray(T[] motions) {
-        Combination[] newArray = new Combination[motions.length + 1];
-        newArray[0] = this;
-        System.arraycopy(motions, 0, newArray, 1, motions.length);
-        return newArray;
-    }
+public abstract class CombinationBridge<T extends Combination> extends Combination {
 
     @Override
     public T getRoot() {
@@ -25,11 +19,12 @@ public abstract class CombinationBridge<T extends CombinationBridge> extends Com
         return super.getRootManager();
     }
 
+    @Override
     public T getParents(){
-        return (T)super.parents;
+        return (T)super.getParents();
     }
 
     public ArrayList<T> getChild(){
-        return (ArrayList<T>)getChild(this.getClass());
+        return (ArrayList<T>)super.getChild(this.getClass());
     }
 }

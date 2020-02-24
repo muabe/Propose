@@ -10,7 +10,7 @@ import com.muabe.propose.combination.Combine;
  * @email markjmind@gmail.com
  * @since 2018-10-18
  */
-public class ActionCombiner<thisCombination extends ActionCombiner, ActionPriorityType extends ActionPlugBridge> extends CombinationBridge<thisCombination> {
+public class ActionCombiner<ActionPriorityType extends ActionPlugin> extends CombinationBridge<ActionCombiner> {
     private ActionPriorityType actionPlugin;
 
     protected ActionCombiner(){}
