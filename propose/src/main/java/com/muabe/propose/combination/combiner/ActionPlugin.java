@@ -1,21 +1,15 @@
 package com.muabe.propose.combination.combiner;
 
-import com.muabe.propose.combination.Priority;
+public abstract class ActionPlugin<EventType>{
 
-public abstract class ActionPlugin<EventType> implements Priority<EventType> {
     private Point point;
-
-    private int priority = 0;
-    private EventFilter eventFilter;
 
     protected ActionPlugin(float maxPoint){
         this(0f, maxPoint);
-        eventFilter = new EventFilter(this);
     }
 
     protected ActionPlugin(float minPoint, float maxPoint){
         point = new Point(minPoint, maxPoint);
-        eventFilter = new EventFilter(this);
     }
 
     /**
@@ -32,44 +26,8 @@ public abstract class ActionPlugin<EventType> implements Priority<EventType> {
      */
     public abstract float increase(EventType event);
 
-
-    @Override
-    public float compare(EventType param) {
-        if (filter(param)) {
-            float compareValue = motionCompare(param);
-            if (compareValue < 0f) {
-                compareValue = 0f;
-            }
-            return compareValue;
-        } else {
-            return getPoint().value();
-        }
+    public Point getPoint(){
+        return this.point;
     }
-
-    @Override
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    boolean filter(Object event) {
-        return eventFilter.filter(event);
-    }
-
-    private float motionCompare(EventType event) {
-        if(point.isMinPoint()){
-            return compete(event);
-        }else{
-            return getPoint().value() + increase(event);
-        }
-    }
-
 
 }

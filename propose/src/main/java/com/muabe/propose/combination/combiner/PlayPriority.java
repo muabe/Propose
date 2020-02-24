@@ -3,7 +3,7 @@ package com.muabe.propose.combination.combiner;
 
 import com.muabe.propose.combination.Priority;
 
-public class PlayPriority implements Priority<Float> {
+class PlayPriority implements Priority<Float> {
     private int priority = 0;
     private float currentRatio = 0f;
     private float startRatio = 0f; //시작 ratio
@@ -16,7 +16,7 @@ public class PlayPriority implements Priority<Float> {
         this.ratioRange = maxRatio - minRatio;
     }
 
-    public void setCurrentRatio(float currentRatio){
+    void setCurrentRatio(float currentRatio){
         this.currentRatio = currentRatio;
     }
 
@@ -28,11 +28,11 @@ public class PlayPriority implements Priority<Float> {
         return ratioRange;
     }
 
-    public float getStartRatio(){
+    float getStartRatio(){
         return startRatio;
     }
 
-    public float getEndRatio(){
+    float getEndRatio(){
         return endRatio;
     }
 

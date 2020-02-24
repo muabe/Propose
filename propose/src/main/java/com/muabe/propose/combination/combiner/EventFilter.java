@@ -12,8 +12,8 @@ import java.lang.reflect.ParameterizedType;
 class EventFilter {
     private String name;
 
-    EventFilter(ActionPlugin<?> actionPriority){
-        ParameterizedType type = (ParameterizedType)actionPriority.getClass().getGenericSuperclass();
+    EventFilter(ActionPlugin<?> actionPlugin){
+        ParameterizedType type = (ParameterizedType)actionPlugin.getClass().getGenericSuperclass();
         name = ((Class)type.getActualTypeArguments()[0]).getName();
     }
 

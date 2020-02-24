@@ -2,7 +2,7 @@ package com.muabe.propose.combination;
 
 import java.util.ArrayList;
 
-public abstract class CombinationBridge<T extends Combination> extends Combination {
+public abstract class CombinationTypeBridge<T extends Combination> extends Combination {
 
     @Override
     public T getRoot() {

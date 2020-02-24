@@ -66,7 +66,7 @@ public abstract class Combination implements Priority {
         if(mode == Combine.ELEMENT){
             name1 = "ELEMENT("+name+")";
         }else if(mode == Combine.ONEOF){
-            name1 = "ONEOF:";
+            name1 = "ONE_OF:";
             for(int i=0;i<cache.size();i++){
                 name1 += cache.get(i).toString();
             }

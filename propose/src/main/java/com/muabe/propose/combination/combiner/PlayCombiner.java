@@ -1,17 +1,23 @@
 package com.muabe.propose.combination.combiner;
 
 
-import com.muabe.propose.combination.CombinationBridge;
+import com.muabe.propose.combination.CombinationTypeBridge;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.ScanResult;
+import com.muabe.propose.player.Player;
 
-public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInterfaceType extends PlayerPlugBridge> extends CombinationBridge<thisCombination> {
+/**
+ *  PlayCombiner 상속받는 클래스는 반드시 default 생성자를 가져야한다.
+ *  combine에서 root combiner를 객체를 생성하는데 default 생성자로 객체를 만든다.
+ * @param <PlayCombinerType>
+ */
+public abstract class PlayCombiner<PlayCombinerType extends PlayCombiner> extends CombinationTypeBridge<PlayCombinerType> {
     private PlayPriority priority = new PlayPriority();
-    private PlayInterfaceType playPlugin;
+    private PlayPlugin playPlugin;
 
     protected PlayCombiner(){}
 
-    protected PlayCombiner(PlayInterfaceType playPlugin){
+    protected PlayCombiner(PlayPlugin playPlugin){
         this.playPlugin = playPlugin;
     }
 
@@ -54,7 +60,7 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
         return 0f;
     }
 
-    public PlayerPlugBridge getPlugin()
+    public PlayPlugin getPlugin()
     {
         return this.playPlugin;
     }
@@ -62,9 +68,9 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
     public boolean play(float ratio){
         boolean result = false;
         float rawRatio = ratio*getRatio()+getStartRatio();
-        ScanResult<PlayCombiner> scanResult = Combine.scan((PlayCombiner)this, rawRatio);
+        ScanResult<Player> scanResult = Combine.scan((Player)this, rawRatio);
 
-        for (PlayCombiner player : scanResult.getDeleteList()) {
+        for (Player player : scanResult.getDeleteList()) {
             float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
             if (player.getPlugin() !=null){
                 if(relRatio <= 0f) {
@@ -77,7 +83,7 @@ public abstract class PlayCombiner<thisCombination extends PlayCombiner, PlayInt
             }
         }
 
-        for (PlayCombiner player : scanResult.getScanList()) {
+        for (Player player : scanResult.getScanList()) {
             float relRatio = (rawRatio - player.getStartRatio())/player.getRatio();
             if (player.getPlugin() !=null && player.getPlugin().play(player, relRatio)) {
                 priority.setCurrentRatio(relRatio);

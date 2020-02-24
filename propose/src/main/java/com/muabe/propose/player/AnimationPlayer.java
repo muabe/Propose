@@ -3,6 +3,8 @@ package com.muabe.propose.player;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 
+import com.muabe.propose.combination.combiner.PlayPlugin;
+
 /**
  * <br>捲土重來<br>
  *

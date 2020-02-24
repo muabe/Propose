@@ -2,7 +2,7 @@ package com.muabe.sample.menu.ratio;
 
 import android.util.Log;
 
-import com.muabe.propose.player.PlayPlugin;
+import com.muabe.propose.combination.combiner.PlayPlugin;
 import com.muabe.propose.player.Player;
 
 public class RatioPlugIn extends PlayPlugin {

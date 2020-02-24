@@ -3,8 +3,9 @@ package com.muabe.propose.player;
 
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.combiner.PlayCombiner;
+import com.muabe.propose.combination.combiner.PlayPlugin;
 
-public class Player extends PlayCombiner<Player, PlayPlugin> {
+public class Player extends PlayCombiner<Player> {
 
     private int weight = 1;
     private int weightSum = 0;

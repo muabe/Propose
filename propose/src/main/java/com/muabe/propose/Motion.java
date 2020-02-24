@@ -5,13 +5,25 @@ import com.muabe.propose.combination.combiner.ActionCombiner;
 import com.muabe.propose.combination.combiner.Point;
 import com.muabe.propose.player.Player;
 
-public class Motion extends ActionCombiner<ActionPlugin> {
+public class Motion extends ActionCombiner<Motion> {
+    private ActionPlugin actionPlugin;
     Player player;
 
     protected Motion(){
+        super();
     }
 
-    public ActionCombiner setPlayer(Player player){
+    public Motion(ActionPlugin gesturePlugin) {
+        this.actionPlugin = gesturePlugin;
+        setName(getActionPlugin().getClass().getSimpleName());
+    }
+
+    @Override
+    public ActionPlugin getActionPlugin() {
+        return actionPlugin;
+    }
+
+    public Motion setPlayer(Player player){
         this.player = player;
         return this;
     }
@@ -20,9 +32,7 @@ public class Motion extends ActionCombiner<ActionPlugin> {
         return player;
     }
 
-    public Motion(ActionPlugin gesturePlugin) {
-        super(gesturePlugin);
-    }
+
 
     public boolean filter(Object event) {
         return super.filter(event);
@@ -63,5 +73,6 @@ public class Motion extends ActionCombiner<ActionPlugin> {
     public float getRatio(){
         return getActionPlugin().getPoint().getRatio();
     }
+
 
 }
