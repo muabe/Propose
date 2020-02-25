@@ -17,6 +17,7 @@ public class Player extends PlayCombiner<Player> {
 
     public static Player create(PlayPlugin plugin){
         Player player = new Player();
+        player.setRatioRange(0f, 1f);
         player.setPlugin(plugin);
         return player;
     }
