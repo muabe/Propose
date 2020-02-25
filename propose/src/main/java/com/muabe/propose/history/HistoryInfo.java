@@ -1,7 +1,7 @@
 package com.muabe.propose.history;
 
 import com.muabe.propose.Motion;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,7 @@ package com.muabe.sample.menu.plugin;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.muabe.propose.combination.combiner.PlayPlugin;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 
 public class LottiePlugin extends PlayPlugin {
 

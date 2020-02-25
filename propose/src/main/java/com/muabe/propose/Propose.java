@@ -4,15 +4,11 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.action.MultiTouchAction;
 import com.muabe.propose.action.TouchActionController;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.ScanResult;
 import com.muabe.propose.combination.combiner.ActionModule;
-import com.muabe.propose.combination.combiner.Point;
-import com.muabe.propose.player.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

@@ -4,7 +4,7 @@ package com.muabe.propose.combination.combiner;
 import com.muabe.propose.combination.CombinationTypeBridge;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.ScanResult;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 
 /**
  *  PlayCombiner 상속받는 클래스는 반드시 default 생성자를 가져야한다.

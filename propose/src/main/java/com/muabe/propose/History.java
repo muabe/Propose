@@ -1,7 +1,5 @@
 package com.muabe.propose;
 
-import com.muabe.propose.player.Player;
-
 import java.util.ArrayList;
 
 public class History {

@@ -29,7 +29,7 @@ import com.markjmind.uni.mapper.annotiation.OnClick;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
 import com.muabe.propose.action.SingleTouchRightGesture;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
 

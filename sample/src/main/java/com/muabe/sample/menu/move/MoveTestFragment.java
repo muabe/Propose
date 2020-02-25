@@ -15,7 +15,7 @@ import com.muabe.propose.action.SingleTouchRightGesture;
 import com.muabe.propose.action.ZoomInGesture;
 import com.muabe.propose.action.ZoomOutGesture;
 import com.muabe.propose.combination.Combine;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
 

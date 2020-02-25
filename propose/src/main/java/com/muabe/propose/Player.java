@@ -1,4 +1,4 @@
-package com.muabe.propose.player;
+package com.muabe.propose;
 
 
 import com.muabe.propose.combination.Combine;

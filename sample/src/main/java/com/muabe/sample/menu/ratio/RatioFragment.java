@@ -10,7 +10,7 @@ import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.markjmind.uni.mapper.annotiation.OnClick;
 import com.muabe.propose.combination.Combine;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 import com.muabe.sample.R;
 import com.muabe.sample.menu.combine.CombineViewer;
 
