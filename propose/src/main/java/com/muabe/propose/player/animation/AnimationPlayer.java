@@ -1,10 +1,10 @@
-package com.muabe.propose.player;
+package com.muabe.propose.player.animation;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 
 import com.muabe.propose.Player;
-import com.muabe.propose.combination.combiner.PlayPlugin;
+import com.muabe.propose.player.PlayPlugin;
 
 /**
  * <br>捲土重來<br>

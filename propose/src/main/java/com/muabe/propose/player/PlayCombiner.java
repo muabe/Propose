@@ -1,4 +1,4 @@
-package com.muabe.propose.combination.combiner;
+package com.muabe.propose.player;
 
 
 import com.muabe.propose.combination.CombinationTypeBridge;

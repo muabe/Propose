@@ -2,8 +2,8 @@ package com.muabe.propose;
 
 
 import com.muabe.propose.combination.Combine;
-import com.muabe.propose.combination.combiner.PlayCombiner;
-import com.muabe.propose.combination.combiner.PlayPlugin;
+import com.muabe.propose.player.PlayCombiner;
+import com.muabe.propose.player.PlayPlugin;
 
 public class Player extends PlayCombiner<Player> {
 

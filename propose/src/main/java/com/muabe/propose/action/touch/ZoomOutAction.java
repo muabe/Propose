@@ -1,6 +1,6 @@
-package com.muabe.propose.action;
+package com.muabe.propose.action.touch;
 
-import com.muabe.propose.combination.combiner.ActionPlugin;
+import com.muabe.propose.action.ActionPlugin;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 
 /**
@@ -10,9 +10,9 @@ import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-18
  */
-public class ZoomOutGesture extends ActionPlugin<MultiTouchEvent> {
+public class ZoomOutAction extends ActionPlugin<MultiTouchEvent> {
 
-    public ZoomOutGesture() {
+    public ZoomOutAction() {
         super(1f);
     }
 

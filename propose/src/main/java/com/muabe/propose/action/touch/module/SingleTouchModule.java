@@ -1,6 +1,6 @@
-package com.muabe.propose.action;
+package com.muabe.propose.action.touch.module;
 
-import com.muabe.propose.combination.combiner.ActionModule;
+import com.muabe.propose.action.ActionModule;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
@@ -12,7 +12,7 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-class SingleTouchAction extends ActionModule implements OnTouchDetectListener {
+class SingleTouchModule extends ActionModule implements OnTouchDetectListener {
 
     @Override
     public boolean onDown(SingleTouchEvent event) {

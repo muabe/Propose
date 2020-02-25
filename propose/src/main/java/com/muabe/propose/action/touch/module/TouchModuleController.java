@@ -1,11 +1,10 @@
-package com.muabe.propose.action;
+package com.muabe.propose.action.touch.module;
 
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.TouchDetector;
-import com.muabe.propose.combination.combiner.ActionModule;
+import com.muabe.propose.action.ActionModule;
 import com.muabe.propose.touch.detector.OnTouchDetectListener;
 import com.muabe.propose.touch.detector.multi.MultiTouchEvent;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
@@ -17,14 +16,14 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-15
  */
-public class TouchActionController extends ActionModule implements View.OnTouchListener, OnTouchDetectListener {
+public class TouchModuleController extends ActionModule implements View.OnTouchListener, OnTouchDetectListener {
     private TouchDetector touchDetector;
-    private SingleTouchAction singleTouchAction = new SingleTouchAction();
-    private MultiTouchAction multiTouchAction = new MultiTouchAction();
+    private SingleTouchModule singleTouchAction = new SingleTouchModule();
+    private MultiTouchModule multiTouchAction = new MultiTouchModule();
     private Context context;
     private boolean isMulti;
 
-    public TouchActionController(Context context, boolean isMulti){
+    public TouchModuleController(Context context, boolean isMulti){
         this.context = context;
         this.isMulti = isMulti;
     }

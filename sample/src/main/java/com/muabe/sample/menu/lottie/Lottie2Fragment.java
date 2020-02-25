@@ -14,7 +14,7 @@ import com.markjmind.uni.util.JwGroup;
 import com.markjmind.uni.util.JwOnGroupSelect;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.SingleTouchRightGesture;
+import com.muabe.propose.action.touch.SingleTouchRightAction;
 import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
@@ -69,7 +69,7 @@ public class Lottie2Fragment extends UniFragment {
 
     private void ex1(){
         float maxMove = 360f* Jwc.getDensity(getContext());
-        Motion motion = Motion.create(new SingleTouchRightGesture(maxMove));
+        Motion motion = Motion.create(new SingleTouchRightAction(maxMove));
 
         Player player = Player.create(new LottiePlugin(walk));
         Player playMove = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(moving_view, "translationX", maxMove)));
@@ -86,7 +86,7 @@ public class Lottie2Fragment extends UniFragment {
 
     private void ex2(){
         float maxMove = 360f* Jwc.getDensity(getContext());
-        Motion motion = Motion.create(new SingleTouchRightGesture(maxMove));
+        Motion motion = Motion.create(new SingleTouchRightAction(maxMove));
 
         Player player = Player.create(new LottiePlugin(phone));
         Player playMove = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone_view, "translationX", maxMove)));

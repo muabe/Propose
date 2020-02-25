@@ -1,6 +1,6 @@
 package com.muabe.sample.menu.ratio;
 
-import com.muabe.propose.combination.combiner.PlayPlugin;
+import com.muabe.propose.player.PlayPlugin;
 import com.muabe.propose.Player;
 
 class RatioCombination extends Player {

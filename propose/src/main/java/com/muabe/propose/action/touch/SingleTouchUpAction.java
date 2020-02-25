@@ -1,6 +1,6 @@
-package com.muabe.propose.action;
+package com.muabe.propose.action.touch;
 
-import com.muabe.propose.combination.combiner.ActionPlugin;
+import com.muabe.propose.action.ActionPlugin;
 import com.muabe.propose.touch.detector.single.SingleTouchEvent;
 
 /**
@@ -10,9 +10,9 @@ import com.muabe.propose.touch.detector.single.SingleTouchEvent;
  * @email markjmind@gmail.com
  * @since 2018-10-18
  */
-public class SingleTouchRightGesture extends ActionPlugin<SingleTouchEvent> {
+public class SingleTouchUpAction extends ActionPlugin<SingleTouchEvent> {
 
-    public SingleTouchRightGesture(float maxPoint) {
+    public SingleTouchUpAction(float maxPoint) {
         super(maxPoint);
     }
 
@@ -23,6 +23,6 @@ public class SingleTouchRightGesture extends ActionPlugin<SingleTouchEvent> {
 
     @Override
     public float increase(SingleTouchEvent event) {
-        return event.getX() - event.getPreX();
+        return event.getPreY() - event.getY();
     }
 }

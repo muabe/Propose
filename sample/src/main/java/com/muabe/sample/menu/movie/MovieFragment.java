@@ -36,11 +36,11 @@ import com.markjmind.uni.thread.CancelAdapter;
 import com.markjmind.uni.thread.LoadEvent;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.combination.combiner.ActionPlugin;
-import com.muabe.propose.action.SingleTouchLeftGesture;
-import com.muabe.propose.action.SingleTouchRightGesture;
-import com.muabe.propose.action.SingleTouchUpGesture;
-import com.muabe.propose.action.ZoomInGesture;
+import com.muabe.propose.action.ActionPlugin;
+import com.muabe.propose.action.touch.SingleTouchLeftAction;
+import com.muabe.propose.action.touch.SingleTouchRightAction;
+import com.muabe.propose.action.touch.SingleTouchUpAction;
+import com.muabe.propose.action.touch.ZoomInAction;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
@@ -120,7 +120,7 @@ public class MovieFragment extends UniFragment {
         //start,stop
         exoPlayer.setPlayWhenReady(true);
         exoPlayerView.setShutterBackgroundColor(Color.TRANSPARENT);
-        initMotion(new SingleTouchRightGesture(maxMove));
+        initMotion(new SingleTouchRightAction(maxMove));
 
         exoPlayer.addListener(new Player.EventListener() {
             @Override
@@ -161,7 +161,7 @@ public class MovieFragment extends UniFragment {
                         book.setVisibility(View.VISIBLE);
                         book.setAnimation("hand.json");
                         book.setImageAssetsFolder("hand");
-                        initMotion(new SingleTouchLeftGesture(maxMove*1.5f));
+                        initMotion(new SingleTouchLeftAction(maxMove*1.5f));
                     }else if(exoPlayer.getCurrentTag().equals("m05")){
                         book.setVisibility(View.INVISIBLE);
                         phone_touch.setOnTouchListener(null);
@@ -181,7 +181,7 @@ public class MovieFragment extends UniFragment {
                                 isZoom = true;
                                 book.startAnimation(AnimationUtils.loadAnimation(v.getContext(), android.R.anim.fade_in));
                                 book.setVisibility(View.VISIBLE);
-                                initMotion(new SingleTouchUpGesture(maxMove/3f));
+                                initMotion(new SingleTouchUpAction(maxMove/3f));
                                 phone_touch.setOnClickListener(null);
 
                                 concatenatedSource.removeMediaSource(6);
@@ -248,7 +248,7 @@ public class MovieFragment extends UniFragment {
         if(isZoom){
             com.muabe.propose.Player scaleX_out = com.muabe.propose.Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleX", 3f)));
             com.muabe.propose.Player scaleY_out = com.muabe.propose.Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(frame, "scaleY", 3f)));
-            Motion scale_motion = Motion.create(new ZoomInGesture());
+            Motion scale_motion = Motion.create(new ZoomInAction());
             scale_motion.setPlayer(scaleX_out.with(scaleY_out));
             propose.setMotion(Combine.all(motion, scale_motion));
         }else{

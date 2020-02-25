@@ -28,7 +28,7 @@ import com.markjmind.uni.mapper.annotiation.Layout;
 import com.markjmind.uni.mapper.annotiation.OnClick;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.SingleTouchRightGesture;
+import com.muabe.propose.action.touch.SingleTouchRightAction;
 import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
@@ -176,7 +176,7 @@ public class ExoFragment extends UniFragment {
         ObjectAnimator rotation = ObjectAnimator.ofFloat(button4, View.ROTATION_Y, 360);
         ObjectAnimator right = ObjectAnimator.ofFloat(button4, "translationX", maxMove);
 
-        motionRight = Motion.create(new SingleTouchRightGesture(maxMove));
+        motionRight = Motion.create(new SingleTouchRightAction(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);

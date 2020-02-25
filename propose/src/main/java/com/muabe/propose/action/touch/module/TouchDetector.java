@@ -1,4 +1,4 @@
-package com.muabe.propose;
+package com.muabe.propose.action.touch.module;
 
 import android.content.Context;
 import android.view.MotionEvent;

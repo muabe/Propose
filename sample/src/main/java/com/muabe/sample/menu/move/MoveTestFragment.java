@@ -10,10 +10,10 @@ import com.markjmind.uni.mapper.annotiation.GetView;
 import com.markjmind.uni.mapper.annotiation.Layout;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.SingleTouchLeftGesture;
-import com.muabe.propose.action.SingleTouchRightGesture;
-import com.muabe.propose.action.ZoomInGesture;
-import com.muabe.propose.action.ZoomOutGesture;
+import com.muabe.propose.action.touch.SingleTouchLeftAction;
+import com.muabe.propose.action.touch.SingleTouchRightAction;
+import com.muabe.propose.action.touch.ZoomInAction;
+import com.muabe.propose.action.touch.ZoomOutAction;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
@@ -35,8 +35,8 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator right = ObjectAnimator.ofFloat(button, "translationX", maxMove);
         ObjectAnimator left = ObjectAnimator.ofFloat(button, "translationX", -maxMove);
 
-        motionRight = Motion.create(new SingleTouchRightGesture(maxMove));
-        motionLeft = Motion.create(new SingleTouchLeftGesture(maxMove));
+        motionRight = Motion.create(new SingleTouchRightAction(maxMove));
+        motionLeft = Motion.create(new SingleTouchLeftAction(maxMove));
 //        final Player player = AnimationPlayer.create(10, right).setName("left");
 //        Player player2 = AnimationPlayer.create(10, rotation).setName("rotation");
 //        player.selfAnd(player2);
@@ -61,7 +61,7 @@ public class MoveTestFragment extends UniFragment{
         ObjectAnimator scaleX_out = ObjectAnimator.ofFloat(button, "scaleX", 0.1f);
         ObjectAnimator scaleY_out = ObjectAnimator.ofFloat(button, "scaleY", 0.1f);
 
-        Motion scaleMotion_in = Motion.create(new ZoomInGesture());
+        Motion scaleMotion_in = Motion.create(new ZoomInAction());
         scaleMotion_in.setPlayer(
                 Player.create(new ObjectAnimatorPlugIn(scaleX_in))
                     .with(
@@ -69,7 +69,7 @@ public class MoveTestFragment extends UniFragment{
                 )
             );
 
-        Motion scaleMotion_out = Motion.create(new ZoomOutGesture());
+        Motion scaleMotion_out = Motion.create(new ZoomOutAction());
         scaleMotion_out.setPlayer(
                 Player.create(new ObjectAnimatorPlugIn(scaleX_out))
                         .with(

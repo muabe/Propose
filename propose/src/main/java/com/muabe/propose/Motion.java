@@ -1,8 +1,8 @@
 package com.muabe.propose;
 
-import com.muabe.propose.combination.combiner.ActionPlugin;
-import com.muabe.propose.combination.combiner.ActionCombiner;
-import com.muabe.propose.combination.combiner.Point;
+import com.muabe.propose.action.ActionPlugin;
+import com.muabe.propose.action.ActionCombiner;
+import com.muabe.propose.action.Point;
 
 public class Motion extends ActionCombiner<Motion> {
     private ActionPlugin actionPlugin;

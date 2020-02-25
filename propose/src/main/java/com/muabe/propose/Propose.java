@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.action.TouchActionController;
+import com.muabe.propose.action.ActionModule;
+import com.muabe.propose.action.touch.module.TouchModuleController;
 import com.muabe.propose.combination.Combine;
 import com.muabe.propose.combination.ScanResult;
-import com.muabe.propose.combination.combiner.ActionModule;
 
 import java.util.HashMap;
 
@@ -25,8 +25,6 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     private Context context;
     private HashMap<String, ActionModule> actionModules = new HashMap<>();
     private Motion motion;
-    private History history;
-
 
     public Propose(Context context){
         this.context = context;
@@ -35,8 +33,8 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
     }
 
     private void defaultActionModule(){
-        addActionMudle(Propose.ACTION_TOUCH, new TouchActionController(context, false));
-        addActionMudle(Propose.ACTION_MULTI_TOUCH, new TouchActionController(context, true));
+        addActionMudle(Propose.ACTION_TOUCH, new TouchModuleController(context, false));
+        addActionMudle(Propose.ACTION_MULTI_TOUCH, new TouchModuleController(context, true));
     }
 
     public Context getContext(){
@@ -74,7 +72,7 @@ public class Propose implements ActionModule.OnActionListener, View.OnTouchListe
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        TouchActionController touchAction = (TouchActionController) actionModules.get(Propose.ACTION_TOUCH);
+        TouchModuleController touchAction = (TouchModuleController) actionModules.get(Propose.ACTION_TOUCH);
         return touchAction.onTouch(view, motionEvent);
     }
 }
