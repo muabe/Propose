@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
 
-    tools:context="com.markjmind.test.MainActivity"
-    >
 
-    <LinearLayout
-        android:orientation="vertical"
+
+
+
+    <FrameLayout
+        android:id="@+id/phone_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="bottom|center_vertical"
+        android:clickable="true"
+        android:layout_marginBottom="30dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="walk.json"
+            app:lottie_loop="true"
+            app:lottie_repeatCount="5" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="350dp"
-            android:layout_height="350dp" android:background="#33333333" android:gravity="center" android:layout_centerInParent="true">
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:text="Hello" android:id="@+id/hello" android:background="#fe3f3f" android:textSize="25dp" android:gravity="center" android:textColor="#ffffff"/>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cancel"
-            android:id="@+id/Cancel" />
-    </LinearLayout>
-
-</RelativeLayout>
+        android:layout_height="wrap_content">
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exoPlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.google.android.exoplayer2.ui.PlayerView>
+    </FrameLayout>
+</FrameLayout>

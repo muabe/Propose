@@ -1,32 +1,60 @@
 package com.markjmind.test;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.Propose;
-import com.markjmind.propose.listener.AnimatorAdapter;
-import com.markjmind.propose.listener.MotionListener;
+import com.markjmind.propose.animation.AnimationBuilder;
 
 /**
  * 각 모션과 이벤트에 대해 실제 화면에 대한 테스트를 진행한다.
  */
 public class MainActivity extends Activity {
     Propose propose;
+    LottieAnimationView phone, road;
+    View phone_view, test;
+
+    SimpleExoPlayer player;
+    PlayerView exoPlayerView;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView hello = (TextView)findViewById(R.id.hello);
-        float center = 0*Propose.getDensity(this);
-        float max = 135*Propose.getDensity(this);
+        phone = findViewById(R.id.phone);
+        phone_view = findViewById(R.id.phone_view);
+        test = findViewById(R.id.test);
 
+
+        float maxMove = 350f* Propose.getDensity(this);
+
+        Motion motion = new Motion(Motion.RIGHT);
+
+
+        ObjectAnimator tranRight = ObjectAnimator.ofFloat(phone_view, View.TRANSLATION_X,maxMove);
+        tranRight.setInterpolator(null);
+
+        motion.play(tranRight, (int)maxMove)
+                .with(AnimationBuilder.create(phone).lottie());
+
+        Propose propose = new Propose(this);
+        propose.addMotion(motion);
+        phone_view.setOnTouchListener(propose);
+
+        exoPlayerView = findViewById(R.id.exoPlayerView);
+        player = new SimpleExoPlayer.Builder(this).build();
+        exoPlayerView.setPlayer(player);
+
+        /*
         ObjectAnimator tranRight = ObjectAnimator.ofFloat(hello, View.TRANSLATION_X,center,max);
         tranRight.setDuration(1000);
         tranRight.setInterpolator(null);
@@ -149,7 +177,7 @@ public class MainActivity extends Activity {
         });
 
         hello.setOnTouchListener(propose);
-
+*/
 
     }
 

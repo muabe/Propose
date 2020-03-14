@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
+import com.markjmind.propose.animation.AnimationBuilder;
 import com.markjmind.propose.animation.TimeAnimation;
 import com.markjmind.propose.listener.MotionListener;
 
@@ -285,6 +286,10 @@ public class Motion {
         MotionScrollItem adapter = new MotionScrollItem(valueAnimator,0);
         builder = new MotionBuilder(this, adapter);
         return builder;
+    }
+
+    public MotionBuilder play(AnimationBuilder animationBuilder, int distance){
+        return play(animationBuilder.getValueAnimator(), distance);
     }
 
     /**

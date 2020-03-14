@@ -2,6 +2,8 @@ package com.markjmind.propose;
 
 import android.animation.ValueAnimator;
 
+import com.markjmind.propose.animation.AnimationBuilder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,6 +54,10 @@ public class MotionBuilder implements Comparator<MotionScrollItem>{
 		return this;
 	}
 
+	public MotionBuilder with(AnimationBuilder animationBuilder){
+		return with(animationBuilder.getValueAnimator());
+	}
+
 	/**
 	 * 이전 애니메이션이 끝난후 등록할 애니메이션 play가 필요 할때 사용된다.
 	 * @param valueAnimator 등록 애니메이션
@@ -64,6 +70,10 @@ public class MotionBuilder implements Comparator<MotionScrollItem>{
 		scrollItemList.add(currAdapter);
 		Collections.sort(scrollItemList, this);
 		return this;
+	}
+
+	public MotionBuilder next(AnimationBuilder animationBuilder){
+		return next(animationBuilder.getValueAnimator());
 	}
 
 	/**
