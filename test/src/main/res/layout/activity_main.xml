@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
-
     <FrameLayout
         android:id="@+id/phone_view"
         android:layout_width="120dp"
@@ -32,10 +28,86 @@
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoPlayerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/left_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#33ffff00"
+                    app:lottie_imageAssetsFolder="book"
+                    app:lottie_fileName="book.json"
+                    app:lottie_loop="false"
+                    app:lottie_repeatCount="1" />
+
+                <LinearLayout
+                    android:id="@+id/book_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="45">
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/left_page"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="16"
+                            android:background="#33ff0000"
+                            android:clickable="true">
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/right_page"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="16"
+                            android:background="#3300ffff"
+                            android:clickable="true">
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="28">
+
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+
         </com.google.android.exoplayer2.ui.PlayerView>
+
+
+
     </FrameLayout>
 </FrameLayout>
