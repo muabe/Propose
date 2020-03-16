@@ -40,10 +40,10 @@
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/left_book"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#33ffff00"
-                    app:lottie_imageAssetsFolder="book"
-                    app:lottie_fileName="book.json"
+                    app:lottie_imageAssetsFolder="book1"
+                    app:lottie_fileName="book1.json"
                     app:lottie_loop="false"
                     app:lottie_repeatCount="1" />
 
