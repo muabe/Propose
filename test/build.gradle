@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.google.android.exoplayer:extension-ima:2.11.3'
 
     implementation 'com.airbnb.android:lottie:3.2.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

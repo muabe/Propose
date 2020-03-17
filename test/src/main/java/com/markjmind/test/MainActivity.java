@@ -1,6 +1,5 @@
 package com.markjmind.test;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,36 +9,87 @@ import com.markjmind.propose.Motion;
 import com.markjmind.propose.Propose;
 import com.markjmind.propose.animation.AnimationBuilder;
 import com.markjmind.test.player.MotionPlayer;
+import com.markjmind.test.player.TimeAction;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 각 모션과 이벤트에 대해 실제 화면에 대한 테스트를 진행한다.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     Propose propose;
-    LottieAnimationView phone, left_book;
-    View phone_view, test, left_page, right_page;
+    LottieAnimationView left_book, cup;
+    View left_page, right_page, cup_touch;
 
     MotionPlayer player;
     PlayerView exoPlayerView;
 
-    String fileName = "control.mp4";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.phone_movie);
 
-        phone = findViewById(R.id.phone);
+
+
         left_book = findViewById(R.id.left_book);
-        phone_view = findViewById(R.id.phone_view);
         left_page = findViewById(R.id.left_page);
         right_page = findViewById(R.id.right_page);
-        test = findViewById(R.id.test);
+        cup = findViewById(R.id.cup);
+        cup_touch = findViewById(R.id.cup_touch);
 
+
+        cup.setVisibility(View.INVISIBLE);
         float maxMove = 100f * Propose.getDensity(this);
+        Motion cupMotion = new Motion(Motion.LEFT);
+        cupMotion.play(AnimationBuilder.create(cup,1000).lottie(), (int)maxMove)
+                .with(AnimationBuilder.create(cup_touch,1000).trasX((int)-maxMove));
 
+        Propose cupPropose = new Propose(this);
+        cupPropose.addMotion(cupMotion);
+        cup_touch.setOnTouchListener(cupPropose);
+        cup_touch.setClickable(false);
+
+
+        left_book.setVisibility(View.INVISIBLE);
+        maxMove = 200f * Propose.getDensity(this);
         Motion motion = new Motion(Motion.RIGHT);
+        motion.play(AnimationBuilder.create(left_book,1000).lottie(), (int)maxMove);
+
+        Propose propose = new Propose(this);
+        propose.addMotion(motion);
+        left_page.setOnTouchListener(propose);
+        left_page.setClickable(false);
+        right_page.setClickable(false);
+
+
+
+
+
+        exoPlayerView = findViewById(R.id.exoPlayerView);
+        exoPlayerView.setUseController(false);
+        player = new MotionPlayer(exoPlayerView);
+        player.name = "시나리오";
+        player.addAssetPlayList("scenario.mp4");
+        player.start();
+
+        player.addTimeAction(17*1000000, new TimeAction.OnTimeActionListener() {
+            @Override
+            public void onTimeAction() {
+                left_book.setVisibility(View.VISIBLE);
+                left_page.setClickable(true);
+                right_page.setClickable(true);
+            }
+        });
+
+        player.addTimeAction(28*1000000, new TimeAction.OnTimeActionListener() {
+            @Override
+            public void onTimeAction() {
+                cup.setVisibility(View.VISIBLE);
+                cup_touch.setClickable(true);
+            }
+        });
+
+
 
 
 //        ObjectAnimator tranRight = ObjectAnimator.ofFloat(phone_view, View.TRANSLATION_X, maxMove);
@@ -51,21 +101,6 @@ public class MainActivity extends Activity {
 //        Propose propose = new Propose(this);
 //        propose.addMotion(motion);
 //        phone_view.setOnTouchListener(propose);
-
-
-        motion.play(AnimationBuilder.create(left_book).lottie(), (int)maxMove);
-
-        Propose propose = new Propose(this);
-        propose.addMotion(motion);
-        left_page.setOnTouchListener(propose);
-
-
-        exoPlayerView = findViewById(R.id.exoPlayerView);
-        exoPlayerView.setUseController(false);
-        player = new MotionPlayer(exoPlayerView);
-        player.name = "시나리오";
-        player.addAssetPlayList("scenario.mp4");
-        player.start();
 
 //        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
 //            @Override

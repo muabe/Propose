@@ -40,6 +40,7 @@ public class PlayerEventListenerImp implements Player.EventListener {
 
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
         //Called when the current playback parameters change.
+        Log.e("PlayerEventListenerImp", "onPlaybackParametersChanged");
     }
 
     public void onPlaybackSuppressionReasonChanged(int playbackSuppressionReason) {
@@ -79,7 +80,7 @@ public class PlayerEventListenerImp implements Player.EventListener {
 
     public void onPositionDiscontinuity(int reason){
         //Called when a position discontinuity occurs without a change to the timeline.
-//        Log.e("PlayerEventListenerImp", "onPositionDiscontinuity "+reason);
+        Log.e("PlayerEventListenerImp", "onPositionDiscontinuity "+reason);
     }
 
     public void onRepeatModeChanged(int repeatMode){
@@ -88,7 +89,7 @@ public class PlayerEventListenerImp implements Player.EventListener {
 
     public void onSeekProcessed(){
         //Called when all pending seek requests have been processed by the player.
-//        Log.e("PlayerEventListenerImp", "onSeekProcessed");
+        Log.e("PlayerEventListenerImp", "onSeekProcessed");
     }
 
     public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled){
@@ -97,11 +98,11 @@ public class PlayerEventListenerImp implements Player.EventListener {
 
     public void onTimelineChanged(Timeline timeline, int reason){
         //Called when the timeline has been refreshed.
-//        Log.e("PlayerEventListenerImp", "onTimelineChanged "+reason);
+        Log.e("PlayerEventListenerImp", "onTimelineChanged "+reason);
     }
 
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections){
         //Called when the available or selected tracks change.
-//        Log.e("PlayerEventListenerImp", "onTracksChanged");
+        Log.e("PlayerEventListenerImp", "onTracksChanged");
     }
 }

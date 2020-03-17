@@ -1,9 +1,11 @@
 package com.markjmind.test.player;
 
 import android.content.Context;
+import android.media.MediaFormat;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
@@ -13,8 +15,11 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.exoplayer2.video.VideoFrameMetadataListener;
 
-public class MotionPlayer
+import androidx.annotation.Nullable;
+
+public class MotionPlayer implements VideoFrameMetadataListener
 {
     public String name = "없음";
 
@@ -32,7 +37,9 @@ public class MotionPlayer
 
     protected PlayerEventListenerImp playerEvent = new PlayerEventListenerImp(linkInfo);
     protected VideoListenerImp videoListener = new VideoListenerImp();
-    Context context;
+    private Context context;
+    private TimeAction timeAction = new TimeAction();
+
 
     public MotionPlayer(Context context){
         this.context = context;
@@ -59,9 +66,13 @@ public class MotionPlayer
     }
 
 
+
+
     private void resetListener(){
         player.addListener(playerEvent);
         player.addVideoListener(videoListener);
+        player.setVideoFrameMetadataListener(this);
+
 
 //        player.addAudioListener();
 //        player.addMetadataOutput();
@@ -143,6 +154,17 @@ public class MotionPlayer
         player = null;
     }
 
+    public void addTimeAction(long time, TimeAction.OnTimeActionListener listener){
+        timeAction.addAction(time, listener);
+    }
+    final static int secDiv = 100000;
+    long preTime = 0;
+    @Override
+    public void onVideoFrameAboutToBeRendered(long presentationTimeUs, long releaseTimeNs, Format format, @Nullable MediaFormat mediaFormat) {
+        timeAction.action(preTime, presentationTimeUs);
+        preTime = presentationTimeUs;
+    }
+
 /**************************************Asset 관련**********************************************/
     public void addAssetPlayList(String... fileNames){
         for(String fileName : fileNames){
@@ -169,4 +191,7 @@ public class MotionPlayer
     private Uri getAssetUri(String fieleName){
         return Uri.parse("asset:///"+fieleName);
     }
+
+
+
 }

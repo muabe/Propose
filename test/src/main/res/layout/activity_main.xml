@@ -5,45 +5,41 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/phone_view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="bottom|center_vertical"
-        android:clickable="true"
-        android:layout_marginBottom="30dp">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="walk.json"
-            app:lottie_loop="true"
-            app:lottie_repeatCount="5" />
-
-    </FrameLayout>
-
-    <FrameLayout
         android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoPlayerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/control_cup_2_00000" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+
                 <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/left_book"
+                    android:id="@+id/left_book11"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#33ffff00"
-                    app:lottie_imageAssetsFolder="book1"
+                    android:layout_height="match_parent"
                     app:lottie_fileName="book1.json"
+                    app:lottie_imageAssetsFolder="book1"
+                    app:lottie_loop="false"
+                    app:lottie_repeatCount="1" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/cup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible"
+                    app:lottie_fileName="book1.json"
+                    app:lottie_imageAssetsFolder="book1"
                     app:lottie_loop="false"
                     app:lottie_repeatCount="1" />
 
@@ -70,16 +66,13 @@
                         <FrameLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="45">
-
-                        </FrameLayout>
+                            android:layout_weight="45"/>
 
                         <FrameLayout
-                            android:id="@+id/left_page"
+                            android:id="@+id/left_book"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="16"
-                            android:background="#33ff0000"
                             android:clickable="true">
 
                         </FrameLayout>
@@ -89,7 +82,6 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="16"
-                            android:background="#3300ffff"
                             android:clickable="true">
 
                         </FrameLayout>
@@ -106,7 +98,6 @@
 
 
         </com.google.android.exoplayer2.ui.PlayerView>
-
 
 
     </FrameLayout>
