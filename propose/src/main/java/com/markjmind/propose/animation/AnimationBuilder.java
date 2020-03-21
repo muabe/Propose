@@ -11,6 +11,7 @@ public class AnimationBuilder{
     View view;
     ValueAnimator animator;
     long duration = 500;
+
     public AnimationBuilder(View view, long duration){
         this.view = view;
         this.duration = duration;
@@ -35,11 +36,15 @@ public class AnimationBuilder{
         return property(View.TRANSLATION_X, x);
     }
 
-    public AnimationBuilder lottie(){
-        animator = new LottieAnimation((LottieAnimationView)view);
-//        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+    public AnimationBuilder lottie(float start, float end){
+        animator = new LottieAnimation((LottieAnimationView)view, start, end);
+        animator.setInterpolator(null);
         initAnimatorAttr();
         return this;
+    }
+
+    public AnimationBuilder lottie(){
+        return this.lottie(0f, 1f);
     }
 
     public ValueAnimator getValueAnimator() {

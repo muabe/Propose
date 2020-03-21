@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:keepScreenOn="true">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/exoPlayerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,45 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/book"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/book"
-                app:layout_constraintTop_toTopOf="@+id/book"
-                app:srcCompat="@drawable/control_cup_2_00000" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/phone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="phone.json"
-                app:lottie_imageAssetsFolder="phone"
-                app:lottie_loop="false"
-                app:lottie_repeatCount="1" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.34" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.25" />
 
             <FrameLayout
                 android:id="@+id/phone_touch"
@@ -71,89 +33,6 @@
                 app:layout_constraintVertical_bias="0.0">
 
             </FrameLayout>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/cup"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="cup.json"
-                app:lottie_imageAssetsFolder="cup"
-                app:lottie_loop="false"
-                app:lottie_repeatCount="1" />
-
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.57" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.39" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.74" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.96" />
-
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/book"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="book1.json"
-                app:lottie_imageAssetsFolder="book1"
-                app:lottie_loop="false"
-                app:lottie_repeatCount="1" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/book2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="book2.json"
-                app:lottie_imageAssetsFolder="book2"
-                app:lottie_loop="false"
-                app:lottie_repeatCount="1" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/book3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="book3.json"
-                app:lottie_imageAssetsFolder="book3"
-                app:lottie_loop="false"
-                app:lottie_repeatCount="1" />
 
             <FrameLayout
                 android:id="@+id/cup_touch"
@@ -196,6 +75,73 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toTopOf="@+id/guideline12"
                 app:layout_constraintVertical_bias="0.0"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/phone_link"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toTopOf="@+id/guideline19"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/guideline">
+
+            </FrameLayout>
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/book"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/book"
+                app:layout_constraintTop_toTopOf="@+id/book"
+                app:srcCompat="@drawable/control_cup_2_00000" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.34" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.57" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.39" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.74" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.96" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline16"
@@ -253,17 +199,72 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.87" />
 
-            <FrameLayout
-                android:id="@+id/phone_link"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/phone"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/guideline">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="phone.json"
+                app:lottie_imageAssetsFolder="phone"
+                app:lottie_loop="false"
+                app:lottie_repeatCount="1" />
 
-            </FrameLayout>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/cup"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="cup.json"
+                app:lottie_imageAssetsFolder="cup"
+                app:lottie_loop="false"
+                app:lottie_repeatCount="1" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/book"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="book1.json"
+                app:lottie_imageAssetsFolder="book1"
+                app:lottie_loop="false"
+                app:lottie_repeatCount="1" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/book2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="book2.json"
+                app:lottie_imageAssetsFolder="book2"
+                app:lottie_loop="false"
+                app:lottie_repeatCount="1" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/book3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="book3.json"
+                app:lottie_imageAssetsFolder="book3"
+                app:lottie_loop="false"
+                app:lottie_repeatCount="1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

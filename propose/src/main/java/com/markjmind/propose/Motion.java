@@ -164,10 +164,10 @@ public class Motion {
         motionDistance=0f;
         currDistance = 0f;
         isForward=true;
-        enableMoveTabUp=true;
-        enableSingleTabUp=true;
-        enableFling=true;
-        enableMove=true;
+//        enableMoveTabUp=true;
+//        enableSingleTabUp=true;
+//        enableFling=true;
+//        enableMove=true;
         if(builder!=null) {
             builder.clear();
         }

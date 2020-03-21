@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isInitBook = false;
     boolean isInitBook2 = false;
     boolean isInitBook3 = false;
+    boolean isInitCup = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,24 +48,37 @@ public class MainActivity extends AppCompatActivity {
         left_page3 = findViewById(R.id.left_page3);
         cup = findViewById(R.id.cup);
         cup_touch = findViewById(R.id.cup_touch);
+        phone_link.setVisibility(View.GONE);
 
 
-
-        float maxMove = 200f * Propose.getDensity(this);
-
-        Motion cupMotion = new Motion(Motion.LEFT);
-        cupMotion.play(AnimationBuilder.create(cup,1000).lottie(), (int)maxMove);
-//                .with(AnimationBuilder.create(cup_touch,1000).trasX((int)-maxMove));
-
+        cup_touch.setVisibility(View.GONE);
+        cup.setVisibility(View.GONE);
+        final Motion cupMotion = new Motion(Motion.LEFT);
         Propose cupPropose = new Propose(this);
         cupPropose.addMotion(cupMotion);
         cup_touch.setOnTouchListener(cupPropose);
-        cup_touch.setVisibility(View.GONE);
-        cup.setVisibility(View.GONE);
+        cupPropose.setOnMotionInitor(new MotionInitor() {
+
+            @Override
+            public void touchDown(Propose propose) {
+                int distance = cup_touch.getWidth()/2;
+                if(!isInitCup) {
+                    isInitCup = true;
+                    cupMotion.play(AnimationBuilder.create(cup, 2000).lottie(0.5f, 0.75f), distance);
+                }
+            }
+
+            @Override
+            public void touchUp(Propose propose) {
+
+            }
+        });
+        left_page.setClickable(false);
 
         book.setVisibility(View.GONE);
         left_page.setVisibility(View.GONE);
         final Motion left_motion = new Motion(Motion.RIGHT);
+        left_motion.enableSingleTabUp(false);
         Propose left_propose = new Propose(this);
         left_propose.addMotion(left_motion);
         left_propose.setOnMotionInitor(new MotionInitor() {
@@ -75,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 book2.setVisibility(View.GONE);
                 if(!isInitBook) {
                     isInitBook = true;
-                    left_motion.play(AnimationBuilder.create(book, 1000).lottie(), distance)
-                            .with(AnimationBuilder.create(left_page, 1000).trasX(distance));
+                    left_motion.play(AnimationBuilder.create(book, 2000).lottie(), distance)
+                            .with(AnimationBuilder.create(left_page, 2000).trasX(distance));
                 }
             }
 
@@ -114,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         book2.setVisibility(View.GONE);
         left_page2.setVisibility(View.GONE);
         final Motion left_motion2 = new Motion(Motion.RIGHT);
+        left_motion2.enableSingleTabUp(false);
         Propose left_propose2 = new Propose(this);
         left_propose2.addMotion(left_motion2);
         left_propose2.setOnMotionInitor(new MotionInitor() {
@@ -124,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 book3.setVisibility(View.GONE);
                 if(!isInitBook2) {
                     isInitBook2 = true;
-                    left_motion2.play(AnimationBuilder.create(book2, 1000).lottie(), distance)
-                            .with(AnimationBuilder.create(left_page2, 1000).trasX(distance));
+                    left_motion2.play(AnimationBuilder.create(book2, 2000).lottie(), distance)
+                            .with(AnimationBuilder.create(left_page2, 2000).trasX(distance));
                 }
             }
 
@@ -161,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         book3.setVisibility(View.GONE);
         left_page3.setVisibility(View.GONE);
         final Motion left_motion3 = new Motion(Motion.RIGHT);
+        left_motion3.enableSingleTabUp(false);
         Propose left_propose3 = new Propose(this);
         left_propose3.addMotion(left_motion3);
         left_propose3.setOnMotionInitor(new MotionInitor() {
@@ -170,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
                 book3.setVisibility(View.VISIBLE);
                 if(!isInitBook3) {
                     isInitBook3 = true;
-                    left_motion3.play(AnimationBuilder.create(book3, 1000).lottie(), distance)
-                            .with(AnimationBuilder.create(left_page3, 1000).trasX(distance));
+                    left_motion3.play(AnimationBuilder.create(book3, 2000).lottie(), distance)
+                            .with(AnimationBuilder.create(left_page3, 2000).trasX(distance));
                 }
             }
 
@@ -194,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onEnd(Motion motion) {
-
             }
         });
 
@@ -252,12 +267,9 @@ public class MainActivity extends AppCompatActivity {
                 player.link(linkMotionPlayer, new LinkInfo.LinkEndListener() {
                     @Override
                     public void end() {
-                        phoneClick.motionBreak();
                         phone_link.setVisibility(View.VISIBLE);
                         phone.setVisibility(View.GONE);
-                        phone.setAlpha(0f);
                         phone_touch.setVisibility(View.GONE);
-                        phone_touch.setOnClickListener(phoneClick);
                         phone_touch.setOnTouchListener(null);
                     }
                 });
@@ -283,21 +295,14 @@ public class MainActivity extends AppCompatActivity {
     PhoneClick phoneClick = new PhoneClick();
 
     class PhoneClick implements View.OnClickListener{
-        Propose phonePropose;
-        Motion phoneMotion;
 
-        public void motionBreak(){
-            if(phonePropose!=null) {
-                phoneMotion.enableMove(false);
-            }
-        }
 
         @Override
         public void onClick(View v) {
             if(phone.getVisibility() != View.VISIBLE){
                 phone.setVisibility(View.VISIBLE);
-                phone.setAlpha(1f);
-                float maxMove = phone_touch.getHeight();
+
+                float maxMove = phone_touch.getHeight()*0.7f;
 
                 Motion phoneMotion = new Motion(Motion.UP);
                 phoneMotion.play(AnimationBuilder.create(phone,1000).lottie(), (int)maxMove);
