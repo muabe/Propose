@@ -26,6 +26,7 @@ public class AnimationBuilder{
 
     public AnimationBuilder property(Property<View, Float> property, float value){
         animator = ObjectAnimator.ofFloat(view, property, value);
+        animator.setInterpolator(null);
         initAnimatorAttr();
         return this;
     }
@@ -36,6 +37,7 @@ public class AnimationBuilder{
 
     public AnimationBuilder lottie(){
         animator = new LottieAnimation((LottieAnimationView)view);
+//        animator.setInterpolator(new AccelerateDecelerateInterpolator());
         initAnimatorAttr();
         return this;
     }

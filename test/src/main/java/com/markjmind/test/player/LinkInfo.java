@@ -17,7 +17,8 @@ public class LinkInfo {
     ConcatenatingMediaSource savePlayList;
 
 
-    public void link(MotionPlayer modalPlayer, MotionPlayer linkPlayer){
+    public void link(MotionPlayer modalPlayer, MotionPlayer linkPlayer, LinkEndListener listener){
+        this.listener = listener;
         state = LINK_ON;
         this.modalPlayer = modalPlayer;
         if(prelinkPlayer != null){
@@ -40,10 +41,17 @@ public class LinkInfo {
         modalPlayer.currentWindowIndex = saveWindowIndex;
         modalPlayer.playList = savePlayList;
 
+        listener.end();
         modalPlayer.start();
         modalPlayer.lastSeek();
 //        modalPlayer.player.setPlayWhenReady(true);
 //        modalPlayer.player.prepare(modalPlayer.playList, true, true);
 //        modalPlayer.player.seekTo(saveWindowIndex, savePosition);
+    }
+
+    LinkEndListener listener;
+    //임시용 삭제 예정
+    public interface LinkEndListener{
+        void end();
     }
 }

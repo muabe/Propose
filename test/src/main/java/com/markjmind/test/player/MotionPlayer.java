@@ -83,9 +83,9 @@ public class MotionPlayer implements VideoFrameMetadataListener
         player.removeVideoListener(videoListener);
     }
 
-    public void link(MotionPlayer motionPlayer) {
+    public void link(MotionPlayer motionPlayer, LinkInfo.LinkEndListener endListener) {
         playerEvent.linkInfo = motionPlayer.linkInfo;
-        playerEvent.linkInfo.link(this, motionPlayer);
+        playerEvent.linkInfo.link(this, motionPlayer, endListener);
     }
 
 
@@ -157,6 +157,11 @@ public class MotionPlayer implements VideoFrameMetadataListener
     public void addTimeAction(long time, TimeAction.OnTimeActionListener listener){
         timeAction.addAction(time, listener);
     }
+
+    public void removeAction(long time){
+        timeAction.removeAction(time);
+    }
+
     final static int secDiv = 100000;
     long preTime = 0;
     @Override

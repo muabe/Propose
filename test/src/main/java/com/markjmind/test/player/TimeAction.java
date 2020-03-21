@@ -1,6 +1,7 @@
 package com.markjmind.test.player;
 
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -20,8 +21,23 @@ public class TimeAction {
             actions.put(timeKey, infos);
         }
         infos.add(new ActionInfo(time, listener));
+    }
 
-
+    void removeAction(long time){
+        long timeKey = time/secDiv;
+        ArrayList<ActionInfo> infos = null;
+        if((infos = actions.get(timeKey)) != null){
+            ActionInfo remove = null;
+            for(ActionInfo info : infos){
+                if(info.time == time){
+                    remove = info;
+                }
+            }
+            if(remove != null){
+                Log.e("dddd","!@@!!!!!!!!!!!!!!!!!!!!!!!!#$#$#$#$#$");
+                infos.remove(remove);
+            }
+        }
     }
 
     void action(long preTime, long currTime){

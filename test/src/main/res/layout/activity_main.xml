@@ -37,6 +37,7 @@
                     android:id="@+id/cup"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0"
                     android:visibility="invisible"
                     app:lottie_fileName="book1.json"
                     app:lottie_imageAssetsFolder="book1"
