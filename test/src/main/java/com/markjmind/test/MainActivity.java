@@ -1,5 +1,6 @@
 package com.markjmind.test;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class MainActivity extends AppCompatActivity {
     LottieAnimationView phone, book, book2, book3, cup;
-    View left_page, left_page2, left_page3, cup_touch, phone_link, phone_touch;
+    View left_page, left_page2, left_page3, cup_touch, phone_link, phone_touch, clothes_btn, face_btn;
 
     MotionPlayer player;
     PlayerView exoPlayerView;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phone_movie);
 
+        clothes_btn = findViewById(R.id.clothes_btn);
+        face_btn = findViewById(R.id.face_btn);
 
         phone_link = findViewById(R.id.phone_link);
         phone_touch = findViewById(R.id.phone_touch);
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 int distance = cup_touch.getWidth()/2;
                 if(!isInitCup) {
                     isInitCup = true;
-                    cupMotion.play(AnimationBuilder.create(cup, 2000).lottie(0.5f, 0.75f), distance);
+                    cupMotion.play(AnimationBuilder.create(cup, 1500).lottie(0.5f, 0.75f), distance);
                 }
             }
 
@@ -221,8 +224,15 @@ public class MainActivity extends AppCompatActivity {
         player.addAssetPlayList("scenario.mp4");
         player.start();
 
+        player.addTimeAction(4*1000000, new TimeAction.OnTimeActionListener() {
+            @Override
+            public void onTimeAction() {
+                face_btn.setVisibility(View.VISIBLE);
+                clothes_btn.setVisibility(View.VISIBLE);
+            }
+        });
 
-        player.addTimeAction(9*1000000, new TimeAction.OnTimeActionListener() {
+        player.addTimeAction(10*1000000, new TimeAction.OnTimeActionListener() {
             @Override
             public void onTimeAction() {
                 Toast.makeText(MainActivity.this, "핸드폰을 클릭해 보세요", Toast.LENGTH_SHORT).show();
@@ -279,6 +289,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        clothes_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clothesDialog == null){
+                    clothesDialog = new ClothesDialog(v.getContext());
+                }
+                if(!clothesDialog.isShowing()){
+                    player.pause();
+                    clothesDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            player.restart();
+                        }
+                    });
+                    clothesDialog.show();
+                }
+            }
+        });
+
+        face_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(soeunDialog == null){
+                    soeunDialog = new SoeunDialog(v.getContext());
+                }
+                if(!soeunDialog.isShowing()){
+                    player.pause();
+
+                    soeunDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            player.restart();
+                        }
+                    });
+                    soeunDialog.show();
+                }
+            }
+        });
+
 
 //        ObjectAnimator tranRight = ObjectAnimator.ofFloat(phone_view, View.TRANSLATION_X, maxMove);
 //        tranRight.setInterpolator(null);
@@ -293,6 +342,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     PhoneClick phoneClick = new PhoneClick();
+    ClothesDialog clothesDialog;
+    SoeunDialog soeunDialog;
 
     class PhoneClick implements View.OnClickListener{
 
@@ -305,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                 float maxMove = phone_touch.getHeight()*0.7f;
 
                 Motion phoneMotion = new Motion(Motion.UP);
-                phoneMotion.play(AnimationBuilder.create(phone,1000).lottie(), (int)maxMove);
+                phoneMotion.play(AnimationBuilder.create(phone,4000).lottie(), (int)maxMove);
                 Propose phonePropose = new Propose(v.getContext());
                 phonePropose.addMotion(phoneMotion);
                 phone_touch.setOnTouchListener(phonePropose);

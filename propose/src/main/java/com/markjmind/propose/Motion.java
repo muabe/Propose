@@ -44,6 +44,9 @@ public class Motion {
     /** 모션이 없음(기본값) */
     public final static int NONE  = 0;
 
+    /** 아래로 드래그*/
+    public final static int PRESS  = 50;
+
     /** 왼쪽으로 드래그 되는 모션*/
     public final static int LEFT  = -100;
 
@@ -55,6 +58,7 @@ public class Motion {
 
     /** 아래로 드래그*/
     public final static int DOWN  = 101;
+
 
     /** 원을 그리며 드래그*/
     public final static int ROTATION  = 170;
@@ -177,7 +181,7 @@ public class Motion {
      * 애니메이션 관리를 위한 AnimationQue 객체 설정
      * @param que AnimationQue객체
      */
-    protected void setAnimationQue(Hashtable<Integer, TimeAnimation> que){
+    protected void setAnimationQue(AnimationQue que){
         taper.setAnimationQue(que);
     }
 
@@ -364,7 +368,7 @@ public class Motion {
      * @return 애니메이션 성공여부
      */
     public boolean animate(){
-       if(loop == Loop.RESTART){
+        if(loop == Loop.RESTART){
             if(position == Position.end){
                 this.animate(0, getTotalDuration());
             }
@@ -386,6 +390,8 @@ public class Motion {
         return this.animate(startDuration, endDuration, Math.abs(endDuration-startDuration));
     }
 
+
+
     /**
      * 지정된 시간 범위로 애니메이션을 play한다.
      * @param startDuration 시작 시점
@@ -394,9 +400,13 @@ public class Motion {
      * @return 애니메이션 성공 여부
      */
     public boolean animate(long startDuration, long endDuration, long playDuration){
-        return taper.tap(this, startDuration, endDuration, playDuration);
+        return taper.startAnimation(this, startDuration, endDuration, playDuration) != null;
     }
 
+
+    public void cancelAnimate(){
+        taper.cancel();
+    }
 
     /**
      * 루프 방법을 성정한다.

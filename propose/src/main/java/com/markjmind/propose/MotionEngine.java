@@ -73,6 +73,7 @@ import java.util.Hashtable;
 
         pointEventX = new PointEvent(Motion.LEFT, Motion.RIGHT, density);
         pointEventY = new PointEvent(Motion.UP, Motion.DOWN, density);
+
         this.state = state;
         this.detectListener = detectListener;
         reset();
@@ -114,7 +115,6 @@ import java.util.Hashtable;
         return this.state.getState();
     }
 
-
     /**
      * 손가락이 화면에 터치가 되었을때 구현체
      * @param event MotionEvent
@@ -129,6 +129,12 @@ import java.util.Hashtable;
         pointEventY.setVelocity(0f);
         pointEventX.endBuffer = 0f;
         pointEventY.endBuffer = 0f;
+        if (motionMap.containsKey(Motion.PRESS)) {
+            MotionsInfo info = motionMap.get(Motion.PRESS);
+            for(Motion pressMotion : info.motions){
+                pressMotion.animate();
+            }
+        }
         return false;
     }
 
@@ -145,6 +151,13 @@ import java.util.Hashtable;
             result =  moveUp(pointEventY) || result;
             if(!result){
                 state.setState(ActionState.STOP);
+            }
+        }
+
+        if (motionMap.containsKey(Motion.PRESS)) {
+            MotionsInfo info = motionMap.get(Motion.PRESS);
+            for(Motion pressMotion : info.motions){
+                pressMotion.cancelAnimate();
             }
         }
         return result;

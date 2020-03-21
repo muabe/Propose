@@ -3,6 +3,7 @@ package com.markjmind.propose.actor;
 import android.animation.Animator;
 import android.util.Log;
 
+import com.markjmind.propose.AnimationQue;
 import com.markjmind.propose.Motion;
 import com.markjmind.propose.animation.TimeAnimation;
 import com.markjmind.propose.animation.TimeValue;
@@ -22,13 +23,14 @@ import java.util.Hashtable;
  */
 public class Taper {
     /** 조홥된 애니메이션에 대한 play 순서 큐 개체 */
-    public Hashtable<Integer, TimeAnimation> que;
+    public AnimationQue que;
 
+    private Integer animationHashcode = null;
     /**
      * 애니메이션큐 객체를 설정한다.
      * @param que 애니메이션큐 Hashtable 객체
      */
-    public void setAnimationQue(Hashtable<Integer, TimeAnimation> que){
+    public void setAnimationQue(AnimationQue que){
         this.que = que;
     }
 
@@ -40,7 +42,12 @@ public class Taper {
      * @param playDuration 애니메이션 play시간
      * @return
      */
-    public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
+//    public boolean tap(Motion motion, long startDuration, long endDuration, long playDuration){
+//        Integer value = startAnimation(motion, startDuration, endDuration, playDuration);
+//        return value != null;
+//    }
+
+    public Integer startAnimation(Motion motion, long startDuration, long endDuration, long playDuration){
         if(startDuration>motion.getTotalDuration()){
             startDuration = motion.getTotalDuration();
         }else if(startDuration < 0){
@@ -52,7 +59,7 @@ public class Taper {
             endDuration = 0;
         }
         if(startDuration==endDuration){
-            return false;
+            return null;
         }
 
         AnimationTimeValue timeValue = new AnimationTimeValue(motion);
@@ -62,11 +69,24 @@ public class Taper {
 
         timeAnimation.setDuration(playDuration);
         timeAnimation.addTimerValue(timeValue);
-        timeAnimation.setAnimatorListener(new TimeAnimationEvent(timeAnimation));
+        TimeAnimationEvent tae = new TimeAnimationEvent(timeAnimation);
+        timeAnimation.setAnimatorListener(tae);
+        animationHashcode = tae.hashcode;
         timeAnimation.start();
-        return true;
+        return animationHashcode;
     }
 
+    public void cancel(Integer hashcode){
+        if(hashcode != null) {
+            que.cancel(hashcode);
+        }
+    }
+
+    public void cancel(){
+        if(animationHashcode != null) {
+            que.cancel(animationHashcode);
+        }
+    }
     /**
      * TimeValue에서 필요한 애니메이션 구동에 관한 인터페이스 구현
      */
@@ -100,6 +120,7 @@ public class Taper {
         public void onAnimationStart(Animator animation) {
             if(que !=null) {
                 que.put(hashcode, timeAnimation);
+                animationHashcode = hashcode;
             }
         }
 
@@ -112,6 +133,7 @@ public class Taper {
             if(que !=null) {
                 que.remove(hashcode);
             }
+            animationHashcode = null;
 
         }
 
@@ -125,6 +147,7 @@ public class Taper {
                 que.remove(hashcode);
                 Log.e("Taper", "Taper : onAnimationCancel");
             }
+            animationHashcode = null;
         }
 
         /**
@@ -136,5 +159,8 @@ public class Taper {
             Log.e("Taper", "Taper : onAnimationRepeat");
         }
 
+        int getHashcode(){
+            return hashcode;
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Hashtable;
  * @email markjmind@gmail.com
  * @since 2016-05-05
  */
-abstract class AnimationQue extends Hashtable<Integer, TimeAnimation> {
+public abstract class AnimationQue extends Hashtable<Integer, TimeAnimation> {
 
     /**
      * 애니메이션을 큐에 추가 한다.
@@ -60,10 +60,12 @@ abstract class AnimationQue extends Hashtable<Integer, TimeAnimation> {
      * 큐에 있는 애니메이션을 중지한다.
      * @param hashcode 삭제할 객체 해쉬코드
      */
-    protected synchronized void cancel(int hashcode){
+    public synchronized void cancel(int hashcode){
         TimeAnimation timeAnimation = get(hashcode);
-        remove(timeAnimation.hashCode());
-        timeAnimation.cancel();
+        if(timeAnimation != null) {
+            remove(timeAnimation.hashCode());
+            timeAnimation.cancel();
+        }
     }
 
     /**
