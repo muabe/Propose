@@ -168,6 +168,7 @@ public class MotionPlayer implements VideoFrameMetadataListener
     public void onVideoFrameAboutToBeRendered(long presentationTimeUs, long releaseTimeNs, Format format, @Nullable MediaFormat mediaFormat) {
         timeAction.action(preTime, presentationTimeUs);
         preTime = presentationTimeUs;
+//        Log.e("ddd","time save:"+preTime);
     }
 
 /**************************************Asset 관련**********************************************/

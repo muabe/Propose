@@ -34,7 +34,6 @@ public class TimeAction {
                 }
             }
             if(remove != null){
-                Log.e("dddd","!@@!!!!!!!!!!!!!!!!!!!!!!!!#$#$#$#$#$");
                 infos.remove(remove);
             }
         }
@@ -48,6 +47,7 @@ public class TimeAction {
             if(infos != null) {
                 for (ActionInfo info : infos) {
                     if(preTime < info.time && info.time <= currTime){
+                        Log.e("ddd","pre:"+preTime+" curr:"+currTime);
                         handler.post(info);
                     }
                 }
