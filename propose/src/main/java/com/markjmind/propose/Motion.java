@@ -5,11 +5,9 @@ import android.animation.ValueAnimator;
 import com.markjmind.propose.actor.Mover;
 import com.markjmind.propose.actor.Taper;
 import com.markjmind.propose.animation.AnimationBuilder;
-import com.markjmind.propose.animation.TimeAnimation;
 import com.markjmind.propose.listener.MotionListener;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  * 모션이란 드래그, 핀치 등등 사용자가 터치한 상태에서 행동하는 일련의 패턴 정의를 말한다.<br>
@@ -215,6 +213,10 @@ public class Motion {
         });
     }
 
+
+    public boolean isRun(){
+        return isMotionRunning;
+    }
     /**
      * 모션의 방향을 설정한다.
      * @param direction 설정할 방향
@@ -378,6 +380,10 @@ public class Motion {
             }
         }
         return this.animate(getCurrDuration(), getTotalDuration());
+    }
+
+    public boolean reverseAnimate(){
+        return this.animate(getCurrDuration(), 0);
     }
 
     /**

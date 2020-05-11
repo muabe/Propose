@@ -386,7 +386,7 @@ import java.util.Hashtable;
                         (pointEvent.minus == direction && pointEvent.getVelocity() > 0)){
                     end = 0;
                 }
-                long playTime = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/velocity);
+                long playTime = (long)(motion.getDistanceToDuration(Math.abs((end-start)))/velocity/density);
 
                 result = motion.animate(start, end, playTime) || result;
             }
