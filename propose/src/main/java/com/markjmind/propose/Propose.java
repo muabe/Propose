@@ -155,20 +155,22 @@ public class Propose implements View.OnTouchListener{
         boolean result = false;
 
         int action = event.getAction();
-        if (enableMotion && (ActionState.STOP == state.getState() || autoCancel)) {
+        if (enableMotion) {
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
-                    cancel();
-                    if (motionInit != null) {
-                        if(!isTouchDown && motionEngine.getActionState() == ActionState.STOP){
-                            motionInit.touchDown(this);
+                    if(autoCancel || state.getState() == ActionState.STOP) {
+                        cancel();
+                        if (motionInit != null) {
+                            if (!isTouchDown && motionEngine.getActionState() == ActionState.STOP) {
+                                motionInit.touchDown(this);
+                            }
                         }
+                        isTouchDown = true;
                     }
-                    isTouchDown = true;
                     break;
                 }
                 case MotionEvent.ACTION_UP: {
-                   if (motionInit != null) {
+                   if (motionInit != null && isTouchDown) {
                         motionInit.touchUp(this);
                     }
                     break;
@@ -186,14 +188,15 @@ public class Propose implements View.OnTouchListener{
                     break;
                 }
             }
+            if(isTouchDown) {
+                result = gestureDetector.onTouchEvent(event);
 
-            result = gestureDetector.onTouchEvent(event);
-
-            switch (action & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_UP: {
-                    result = motionEngine.onUp(event) || result;
-                    isTouchDown = false;
-                    break;
+                switch (action & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP: {
+                        result = motionEngine.onUp(event) || result;
+                        isTouchDown = false;
+                        break;
+                    }
                 }
             }
         }else{
