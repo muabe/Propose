@@ -59,6 +59,8 @@ public class Propose implements View.OnTouchListener{
     private boolean enableMotion;
     /** 전체 모션 사이클에 대한 리스너*/
     private ProposeListener proposeListener;
+    /** 터치가 down 되었을때 이전에 애니메이션이 paly되고 있다면 애니메이션 취소*/
+    private boolean autoCancel = true;
 
     /**
      * 기본 생성자
@@ -153,7 +155,7 @@ public class Propose implements View.OnTouchListener{
         boolean result = false;
 
         int action = event.getAction();
-        if (enableMotion) {
+        if (enableMotion && (ActionState.STOP == state.getState() || autoCancel)) {
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
                     cancel();
@@ -272,6 +274,10 @@ public class Propose implements View.OnTouchListener{
         return this;
     }
 
+    public Propose setAutoCancel(boolean autoCancel){
+        this.autoCancel = autoCancel;
+        return this;
+    }
     /**
      * Long Press의 옵션 사용 설정
      * @param enable true 경우 옵션 사용
