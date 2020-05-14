@@ -94,7 +94,6 @@ public class Propose implements View.OnTouchListener{
              */
             @Override
             protected void animationStart() {
-                Log.e("AnimationQue","AnimationQue start");
                 state.setState(ActionState.ANIMATION);
             }
 
@@ -103,7 +102,6 @@ public class Propose implements View.OnTouchListener{
              */
             @Override
             protected void animationEnd() {
-                Log.e("AnimationQue","AnimationQue End");
                 state.setState(ActionState.STOP);
             }
         };

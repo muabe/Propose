@@ -340,7 +340,6 @@ import java.util.Hashtable;
      */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("Detector", "flingX:"+pointEventX.getVelocity()+ " Y:"+pointEventY.getVelocity()) ;
         boolean result = false;
         if(state.getState() == ActionState.SCROLL){
             state.setState(ActionState.FlING);
