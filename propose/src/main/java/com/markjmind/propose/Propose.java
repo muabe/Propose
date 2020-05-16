@@ -59,6 +59,8 @@ public class Propose implements View.OnTouchListener{
     private boolean enableMotion;
     /** 전체 모션 사이클에 대한 리스너*/
     private ProposeListener proposeListener;
+    /** 터치가 down 되었을때 이전에 애니메이션이 paly되고 있다면 애니메이션 취소*/
+    private boolean autoCancel = true;
 
     /**
      * 기본 생성자
@@ -92,7 +94,6 @@ public class Propose implements View.OnTouchListener{
              */
             @Override
             protected void animationStart() {
-                Log.e("AnimationQue","AnimationQue start");
                 state.setState(ActionState.ANIMATION);
             }
 
@@ -101,7 +102,6 @@ public class Propose implements View.OnTouchListener{
              */
             @Override
             protected void animationEnd() {
-                Log.e("AnimationQue","AnimationQue End");
                 state.setState(ActionState.STOP);
             }
         };
@@ -156,17 +156,19 @@ public class Propose implements View.OnTouchListener{
         if (enableMotion) {
             switch (action & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: {
-                    cancel();
-                    if (motionInit != null) {
-                        if(!isTouchDown && motionEngine.getActionState() == ActionState.STOP){
-                            motionInit.touchDown(this);
+                    if(autoCancel || state.getState() == ActionState.STOP) {
+                        cancel();
+                        if (motionInit != null) {
+                            if (!isTouchDown && motionEngine.getActionState() == ActionState.STOP) {
+                                motionInit.touchDown(this);
+                            }
                         }
+                        isTouchDown = true;
                     }
-                    isTouchDown = true;
                     break;
                 }
                 case MotionEvent.ACTION_UP: {
-                   if (motionInit != null) {
+                   if (motionInit != null && isTouchDown) {
                         motionInit.touchUp(this);
                     }
                     break;
@@ -184,14 +186,15 @@ public class Propose implements View.OnTouchListener{
                     break;
                 }
             }
+            if(isTouchDown) {
+                result = gestureDetector.onTouchEvent(event);
 
-            result = gestureDetector.onTouchEvent(event);
-
-            switch (action & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_UP: {
-                    result = motionEngine.onUp(event) || result;
-                    isTouchDown = false;
-                    break;
+                switch (action & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP: {
+                        result = motionEngine.onUp(event) || result;
+                        isTouchDown = false;
+                        break;
+                    }
                 }
             }
         }else{
@@ -272,6 +275,10 @@ public class Propose implements View.OnTouchListener{
         return this;
     }
 
+    public Propose setAutoCancel(boolean autoCancel){
+        this.autoCancel = autoCancel;
+        return this;
+    }
     /**
      * Long Press의 옵션 사용 설정
      * @param enable true 경우 옵션 사용

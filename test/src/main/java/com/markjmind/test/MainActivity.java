@@ -231,12 +231,15 @@ public class MainActivity extends AppCompatActivity {
                 clothes_btn.setVisibility(View.VISIBLE);
             }
         });
-
         player.addTimeAction(10*1000000, new TimeAction.OnTimeActionListener() {
+            boolean isPhoneAction = false;
             @Override
             public void onTimeAction() {
-                Toast.makeText(MainActivity.this, "핸드폰을 클릭해 보세요", Toast.LENGTH_SHORT).show();
-                phone_link.setVisibility(View.VISIBLE);
+                if(!isPhoneAction) {
+                    isPhoneAction = true;
+                    Toast.makeText(MainActivity.this, "핸드폰을 클릭해 보세요", Toast.LENGTH_SHORT).show();
+                    phone_link.setVisibility(View.VISIBLE);
+                }
             }
         });
 
