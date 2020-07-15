@@ -1,5 +1,7 @@
 package com.markjmind.propose.extension;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,158 +11,120 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class UniRecyclerAdapter extends RecyclerView.Adapter<UniViewHolder<?>>{
-    private final Store holderStore = new Store();
-    private final Store itemStore = new Store();
-    private final static String defaultType = "uni_recycler_default_type";
-    private RecyclerView recyclerView;
+public abstract class UniRecyclerAdapter<ItemType> extends RecyclerView.Adapter<UniViewHolder<?, ?>> {
+    protected ArrayList<Class> holderList = new ArrayList<>();
+    @NotNull
+    protected List<ItemType> itemList = new ArrayList<>();
+    final static String defaultType = "uni_recycler_default_type";
+    protected RecyclerView recyclerView;
+    Store paramStore = new Store();
 
-    public UniRecyclerAdapter(@NotNull RecyclerView recyclerView){
+    @NotNull
+    protected abstract Class<? extends UniViewHolder<?,?>> getType(ItemType item, int position, List<ItemType> list);
+
+    public UniRecyclerAdapter(@NotNull RecyclerView recyclerView) {
         initRecyclerView(recyclerView);
     }
 
-    public UniRecyclerAdapter initRecyclerView(@NotNull RecyclerView recyclerView){
+    public UniRecyclerAdapter initRecyclerView(@NotNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         recyclerView.setAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         return this;
     }
 
+    public UniRecyclerAdapter initRecyclerView(@NotNull RecyclerView recyclerView, @NotNull RecyclerView.LayoutManager layoutManager) {
+        this.recyclerView = recyclerView;
+        recyclerView.setAdapter(this);
+        recyclerView.setLayoutManager(layoutManager);
+        return this;
+    }
+
     @NotNull
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return this.recyclerView;
     }
 
     @NonNull
     @Override
     public UniViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return (UniViewHolder)getInstance(parent, viewType);
+        return (UniViewHolder) getInstance(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UniViewHolder<?> holder, int position) {
+    public void onBindViewHolder(@NonNull UniViewHolder holder, int position) {
+        holder.setItem(itemList.get(position));
+        Mapper mapper = new Mapper(holder.binder.getRoot(), holder);
+        holder.param = (Store)paramStore.opt(holder.getClass().toString(), new Store());
+        mapper.inject(new ParamAdapter(holder.param), new GetViewAdapter(), new OnClickAdapter(), new OnCheckedChangeAdapter());
         holder.onPre();
     }
 
-    public void addHolder(Class<? extends UniViewHolder<?>> holder){
-        RecycleHolder recycleHolder = holder.getAnnotation(RecycleHolder.class);
-        if(recycleHolder == null){
-            throw new RuntimeException("Not define @HolderType annotation");
+
+
+    public UniRecyclerAdapter<ItemType> addParam(Class<? extends UniViewHolder> holderClass, String key, Object value){
+        Store param = (Store)paramStore.get(holderClass.toString());
+        if(param == null){
+            param = new Store();
+            paramStore.add(holderClass.toString(), param);
         }
-        String typeName = recycleHolder.value();
-        if(typeName.isEmpty()){
-            typeName = defaultType;
-        }
-        holderStore.add(typeName, holder);
+        param.add(key, value);
+        return this;
     }
 
-    private Object getInstance(ViewGroup parent, int viewType){
-        Class<? extends UniViewHolder<?>> holderClass = (Class<? extends UniViewHolder<?>>)holderStore.get(getType(viewType));
 
 
-        UniViewHolder holder = new HolderTypeAdapter(parent).getInstance();
-        return holder;
+    private Object getInstance(ViewGroup parents, int viewType){
+        try {
+            LayoutInflater inflater = LayoutInflater.from(parents.getContext());
+            Class<?> targetClass = holderList.get(viewType);
+            Class<?> genericClass = (Class<?>)((ParameterizedType)targetClass.getGenericSuperclass()).getActualTypeArguments()[1];
+            Method method = genericClass.getDeclaredMethod("inflate", LayoutInflater.class, ViewGroup.class, boolean.class);
+            ViewDataBinding vb = (ViewDataBinding)method.invoke(null, inflater, parents, false);
+
+            UniViewHolder holder = (UniViewHolder)targetClass.getConstructor(View.class).newInstance(vb.getRoot());
+            holder.setBinder(vb);
+            holder.setViewType(viewType);
+            return holder;
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            throw new RuntimeException("HolderTypeAdapter Annotation Exception:1",e);
+        }
     }
 
+    @NotNull
     @Override
     public int getItemViewType(int position) {
-        int count = 0;
-        List<List> map = new ArrayList<List>(itemStore.values());
-        for(int i=0; i<map.size(); i++){
-            List list = map.get(i);
-            if(count <= position && position < count+list.size()){
-                return i;
-            }
-            count += list.size();
+        ItemType item = itemList.get(position);
+        Class type = getType(item, position, getList());
+        if(!holderList.contains(type)){
+            holderList.add(type);
         }
-        return count;
+        return holderList.indexOf(type);
     }
 
-    private int getTypeIndex(String typeName){
-        for(int i = 0; i< itemStore.size(); i++){
-            if(itemStore.containsKey(typeName)){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private String getType(int typeIndex){
-        String[] keys =  itemStore.getKeys();
-        for(int i=0; i<keys.length; i++){
-            if(typeIndex == i){
-                return keys[i];
-            }
-        }
-        return null;
-    }
-
+    @NotNull
     @Override
     public int getItemCount() {
-        Object[] map = itemStore.getValues();
-        int count = 0;
-        for(Object list: map){
-            count += ((List)list).size();
-        }
-        return count;
+        return itemList.size();
     }
 
 
     @NotNull
-    public UniRecyclerAdapter setList(@NotNull String typeName, @NotNull ArrayList list){
-        itemStore.add(typeName, list);
+    public UniRecyclerAdapter setList(@NotNull List list) {
+        itemList = list;
         return this;
     }
 
     @NotNull
-    public UniRecyclerAdapter setList(@NotNull ArrayList list){
-        this.setList(defaultType, list);
-        return this;
+    public List<ItemType> getList() {
+        return itemList;
     }
-
-    @NotNull
-    public UniRecyclerAdapter add(@NotNull int index, @NotNull String typeName, Object value){
-        getList(typeName).add(index, value);
-        return this;
-    }
-
-    @NotNull
-    public UniRecyclerAdapter add(@NotNull String typeName, ArrayList list){
-        getList(typeName).add(list);
-        return this;
-    }
-
-    @NotNull
-    public UniRecyclerAdapter add(ArrayList list){
-        add(defaultType, list);
-        return this;
-    }
-
-    @NotNull
-    public LinkedHashMap<String, ArrayList> getItemStore(){
-        return itemStore;
-    }
-
-    @NotNull
-    public ArrayList getList(@NotNull String typeName){
-        ArrayList list;
-        if(itemStore.containsKey(typeName)){
-            list = (ArrayList) itemStore.get(typeName);
-
-        }else{
-            list = new ArrayList();
-            setList(typeName, list);
-        }
-        return list;
-    }
-
-    @NotNull
-    public ArrayList getList(){
-        return getList(defaultType);
-    }
-
 }
+
