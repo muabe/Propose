@@ -13,6 +13,7 @@ public class EditTextBindingAdapter {
             Drawable[] drawables = editText.getCompoundDrawables();
             editText.setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], right_icon, drawables[3]);
         } else {
+
             Drawable[] drawables = editText.getCompoundDrawables();
             editText.setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], null, drawables[3]);
         }
