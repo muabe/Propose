@@ -4,12 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.databinding.ViewDataBinding;
-
+import com.markjmind.propose.extension.mapper.ClassInjectAdapter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+
+import androidx.databinding.ViewDataBinding;
 
 public class HolderTypeAdapter extends ClassInjectAdapter<RecycleHolder> {
     private Class targetClass;
@@ -46,11 +47,11 @@ public class HolderTypeAdapter extends ClassInjectAdapter<RecycleHolder> {
         try {
             UniViewHolder holder = (UniViewHolder)targetClass.getConstructor(View.class).newInstance(vb.getRoot());
             holder.setBinder(vb);
-//            targetClass.getField("binder").set(holder, vb);
+            targetClass.getField("binder").set(holder, vb);
             this.root = holder.binder.getRoot();
             holder.setViewType(viewType);
             return holder;
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException | InstantiationException e) {
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             throw new RuntimeException("HolderTypeAdapter Annotation Exception:2",e);
         }
     }
