@@ -7,7 +7,7 @@ import android.view.View;
 
 public class PinchZoomAnimation extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
     private View touchView;
-    private float currentScale;
+    private float currentScale = 1f;
     private ScaleGestureDetector detector;
     private long duration = 1000;
 
