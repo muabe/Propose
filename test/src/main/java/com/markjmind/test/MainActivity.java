@@ -347,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
     PhoneClick phoneClick = new PhoneClick();
     ClothesDialog clothesDialog;
     SoeunDialog soeunDialog;
+    
 
     class PhoneClick implements View.OnClickListener{
 
