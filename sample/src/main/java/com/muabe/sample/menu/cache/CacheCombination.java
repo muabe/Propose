@@ -1,9 +1,9 @@
 package com.muabe.sample.menu.cache;
 
-import com.muabe.propose.combination.CombinationBridge;
+import com.muabe.propose.combination.CombinationTypeBridge;
 import com.muabe.propose.combination.Combine;
 
-class CacheCombination extends CombinationBridge<CacheCombination> {
+class CacheCombination extends CombinationTypeBridge<CacheCombination> {
     float value;
 
     public CacheCombination(){

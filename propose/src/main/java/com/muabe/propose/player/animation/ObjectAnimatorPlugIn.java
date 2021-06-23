@@ -3,7 +3,7 @@ package com.muabe.propose.player.animation;
 import android.animation.ObjectAnimator;
 
 import com.muabe.propose.player.PlayPlugin;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.Player;
 
 public class ObjectAnimatorPlugIn extends PlayPlugin {
 

@@ -1,17 +1,35 @@
 package com.muabe.propose;
 
 import com.muabe.propose.action.ActionPlugin;
-import com.muabe.propose.combination.combiner.ActionCombiner;
-import com.muabe.propose.combination.combiner.Point;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.action.ActionCombiner;
+import com.muabe.propose.action.Point;
 
-public class Motion extends ActionCombiner<Motion, ActionPlugin> {
+public class Motion extends ActionCombiner<Motion> {
+    private ActionPlugin actionPlugin;
     Player player;
 
     protected Motion(){
+        super();
     }
 
-    public ActionCombiner setPlayer(Player player){
+    public static Motion create(ActionPlugin gesturePlugin){
+        Motion motion = new Motion();
+        motion.setPlugin(gesturePlugin);
+        return motion;
+    }
+
+    public Motion setPlugin(ActionPlugin actionPlugin){
+        this.actionPlugin = actionPlugin;
+        setName(actionPlugin.getClass().getSimpleName());
+        return this;
+    }
+
+    @Override
+    public ActionPlugin getPlugin() {
+        return actionPlugin;
+    }
+
+    public Motion setPlayer(Player player){
         this.player = player;
         return this;
     }
@@ -20,17 +38,15 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
         return player;
     }
 
-    public Motion(ActionPlugin gesturePlugin) {
-        super(gesturePlugin);
-    }
+
 
     public boolean filter(Object event) {
         return super.filter(event);
     }
 
     boolean actMotion(Object event){
-        Point point = getActionPlugin().getPoint();
-        float value = point.value() + getActionPlugin().increase(event);
+        Point point = getPlugin().getPoint();
+        float value = point.value() + getPlugin().increase(event);
         if(value <= point.getMinPoint() && !point.isMinPoint()){
             value = point.getMinPoint();
         }else if(value >= point.getMaxPoint() && !point.isMaxPoint()){
@@ -45,7 +61,7 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
 
     private boolean playValue(float value){
         if(player != null) {
-            Point point = getActionPlugin().getPoint();
+            Point point = getPlugin().getPoint();
             if (point.updatePoint(value)) {
                 return player.play(point.getRatio());
             }
@@ -55,13 +71,14 @@ public class Motion extends ActionCombiner<Motion, ActionPlugin> {
 
     public boolean play(float ratio){
         if(player != null){
-            return playValue(getActionPlugin().getPoint().getValue(ratio));
+            return playValue(getPlugin().getPoint().getValue(ratio));
         }
         return false;
     }
 
     public float getRatio(){
-        return getActionPlugin().getPoint().getRatio();
+        return getPlugin().getPoint().getRatio();
     }
+
 
 }

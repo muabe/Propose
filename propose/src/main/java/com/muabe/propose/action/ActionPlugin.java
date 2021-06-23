@@ -1,10 +1,16 @@
 package com.muabe.propose.action;
 
-import com.muabe.propose.combination.combiner.ActionPlugBridge;
-import com.muabe.propose.combination.combiner.Point;
+public abstract class ActionPlugin<EventType>{
 
-public abstract class ActionPlugin<EventType> extends ActionPlugBridge<EventType> {
     private Point point;
+
+    protected ActionPlugin(float maxPoint){
+        this(0f, maxPoint);
+    }
+
+    protected ActionPlugin(float minPoint, float maxPoint){
+        point = new Point(minPoint, maxPoint);
+    }
 
     /**
      * 먼저 선행되어야할 선점/경쟁값
@@ -20,25 +26,8 @@ public abstract class ActionPlugin<EventType> extends ActionPlugBridge<EventType
      */
     public abstract float increase(EventType event);
 
-    protected ActionPlugin(float maxPoint){
-        this(0f, maxPoint);
+    public Point getPoint(){
+        return this.point;
     }
 
-    protected ActionPlugin(float minPoint, float maxPoint){
-        point = new Point(minPoint, maxPoint);
-    }
-
-    @Override
-    protected float motionCompare(EventType event) {
-        if(point.isMinPoint()){
-            return compete(event);
-        }else{
-            return getPoint().value() + increase(event);
-        }
-    }
-
-    @Override
-    public Point getPoint() {
-        return point;
-    }
 }

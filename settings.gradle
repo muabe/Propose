@@ -1,1 +1,2 @@
 include ':propose', ':sample'
+include ':lottesample'

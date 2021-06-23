@@ -14,8 +14,8 @@ import com.markjmind.uni.util.JwGroup;
 import com.markjmind.uni.util.JwOnGroupSelect;
 import com.muabe.propose.Motion;
 import com.muabe.propose.Propose;
-import com.muabe.propose.action.SingleTouchRightGesture;
-import com.muabe.propose.player.Player;
+import com.muabe.propose.action.touch.SingleTouchRightAction;
+import com.muabe.propose.Player;
 import com.muabe.propose.player.animation.ObjectAnimatorPlugIn;
 import com.muabe.sample.R;
 import com.muabe.sample.menu.plugin.LottiePlugin;
@@ -69,11 +69,11 @@ public class Lottie2Fragment extends UniFragment {
 
     private void ex1(){
         float maxMove = 360f* Jwc.getDensity(getContext());
-        Motion motion = new Motion(new SingleTouchRightGesture(maxMove));
+        Motion motion = Motion.create(new SingleTouchRightAction(maxMove));
 
-        Player player = new Player(new LottiePlugin(walk));
-        Player playMove = new Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(moving_view, "translationX", maxMove)));
-        Player playRoad = new Player(new LottiePlugin(road, 0.5f));
+        Player player = Player.create(new LottiePlugin(walk));
+        Player playMove = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(moving_view, "translationX", maxMove)));
+        Player playRoad = Player.create(new LottiePlugin(road, 0.5f));
 
         motion.setPlayer(player.with(playMove, playRoad));
 
@@ -86,10 +86,10 @@ public class Lottie2Fragment extends UniFragment {
 
     private void ex2(){
         float maxMove = 360f* Jwc.getDensity(getContext());
-        Motion motion = new Motion(new SingleTouchRightGesture(maxMove));
+        Motion motion = Motion.create(new SingleTouchRightAction(maxMove));
 
-        Player player = new Player(new LottiePlugin(phone));
-        Player playMove = new Player(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone_view, "translationX", maxMove)));
+        Player player = Player.create(new LottiePlugin(phone));
+        Player playMove = Player.create(new ObjectAnimatorPlugIn(ObjectAnimator.ofFloat(phone_view, "translationX", maxMove)));
 
         motion.setPlayer(player.with(playMove));
 
