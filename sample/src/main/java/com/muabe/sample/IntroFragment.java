@@ -17,7 +17,7 @@ import com.muabe.sample.menu.MenuFragment;
  * @since 2018-04-30
  */
 
-@Timeout(1500)
+@Timeout(50)
 @Layout(R.layout.intro)
 public class IntroFragment extends UniIntroFragment{
     @Param

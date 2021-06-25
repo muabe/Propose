@@ -13,6 +13,7 @@ import com.muabe.sample.menu.lottie.LottieFragment;
 import com.muabe.sample.menu.move.MoveTestFragment;
 import com.muabe.sample.menu.movie.MovieFragment;
 import com.muabe.sample.menu.ratio.RatioFragment;
+import com.muabe.sample.menu.remind.RemindFragment;
 
 /**
  * <br>捲土重來<br>
@@ -56,5 +57,10 @@ public class MenuFragment extends UniFragment {
     @OnClick
     public void movie(View view){
         getBuilder().replace(new MovieFragment());
+    }
+
+    @OnClick
+    public void remind(View view){
+        getBuilder().replace(new RemindFragment());
     }
 }
