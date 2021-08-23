@@ -1,7 +1,19 @@
 package com.muabe.propose.remind;
 
-public class Combiner {
-    public static void combine(Node.NodeType nodeType, Node node, Node... nodes){
+import java.util.Arrays;
 
+public class Combiner {
+
+    public Color combine(Color.Mix mix, Color... colors){
+        if(colors == null){
+            throw new NullPointerException("colors argments must not null");
+        }else if(colors.length == 1){
+            return colors[0];
+        }
+
+        Color color = new Color(mix);
+        color.mixedColor.addAll(Arrays.asList(colors));
+
+        return color;
     }
 }

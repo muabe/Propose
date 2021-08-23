@@ -3,9 +3,9 @@ package com.muabe.propose.remind;
 import java.util.ArrayList;
 
 public class NodeExecutor {
-    private ArrayList<Layer> layers = new ArrayList<>();
+    private ArrayList<Paper> layers = new ArrayList<>();
 
-    public void addLayer(Layer layer){
+    public void addLayer(Paper layer){
         layers.add(layer);
     }
 }
