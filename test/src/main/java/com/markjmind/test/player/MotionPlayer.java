@@ -5,9 +5,10 @@ import android.media.MediaFormat;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Format;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -19,7 +20,7 @@ import com.google.android.exoplayer2.video.VideoFrameMetadataListener;
 
 import androidx.annotation.Nullable;
 
-public class MotionPlayer implements VideoFrameMetadataListener
+public class MotionPlayer implements Player.Listener, VideoFrameMetadataListener
 {
     public String name = "없음";
 
@@ -28,10 +29,9 @@ public class MotionPlayer implements VideoFrameMetadataListener
     protected ConcatenatingMediaSource playList;
 
     private DataSource.Factory dataSourceFactory;
-    private DefaultExtractorsFactory extractorsFactory;
 
     public PlayerView exoPlayerView;
-    public SimpleExoPlayer player;
+    public ExoPlayer player;
     public long currentPosition = 0;
     public int currentWindowIndex = -1;
 
@@ -48,10 +48,10 @@ public class MotionPlayer implements VideoFrameMetadataListener
     }
 
     public MotionPlayer(PlayerView exoPlayerView){
-        this(exoPlayerView, new SimpleExoPlayer.Builder(exoPlayerView.getContext()).build());
+        this(exoPlayerView, new ExoPlayer.Builder(exoPlayerView.getContext()).build());
     }
 
-    protected MotionPlayer(PlayerView exoPlayerView, SimpleExoPlayer player){
+    protected MotionPlayer(PlayerView exoPlayerView, ExoPlayer player){
         init(exoPlayerView, player);
         resetListener();
         this.context = exoPlayerView.getContext();
@@ -59,7 +59,7 @@ public class MotionPlayer implements VideoFrameMetadataListener
         this.modalPlayer = this;
     }
 
-    public void init(PlayerView exoPlayerView, SimpleExoPlayer player){
+    public void init(PlayerView exoPlayerView, ExoPlayer player){
         this.exoPlayerView = exoPlayerView;
         this.player = player;
         exoPlayerView.setPlayer(player);
@@ -70,17 +70,13 @@ public class MotionPlayer implements VideoFrameMetadataListener
 
     private void resetListener(){
         player.addListener(playerEvent);
-        player.addVideoListener(videoListener);
+        player.addListener(videoListener);
         player.setVideoFrameMetadataListener(this);
-
-
-//        player.addAudioListener();
-//        player.addMetadataOutput();
-//        player.addTextOutput();
     }
+    
     private void removeAllListener(){
         player.removeListener(playerEvent);
-        player.removeVideoListener(videoListener);
+        player.removeListener(videoListener);
     }
 
     public void link(MotionPlayer motionPlayer, LinkInfo.LinkEndListener endListener) {
@@ -89,7 +85,7 @@ public class MotionPlayer implements VideoFrameMetadataListener
     }
 
 
-    public SimpleExoPlayer getPlayer(){
+    public ExoPlayer getPlayer(){
         return player;
     }
 
@@ -113,7 +109,8 @@ public class MotionPlayer implements VideoFrameMetadataListener
         player.setPlayWhenReady(true);
         if(!isPlaying()) {
             playerEvent.isPreparing = true;
-            player.prepare(playList, reset, reset);
+            player.setMediaSource(playList, reset);
+            player.prepare();
         }
     }
 
@@ -125,7 +122,8 @@ public class MotionPlayer implements VideoFrameMetadataListener
 
     public void preView(){
         player.setPlayWhenReady(false);
-        player.prepare(playList, false, false);
+        player.setMediaSource(playList, false);
+        player.prepare();
     }
 
 
@@ -136,13 +134,13 @@ public class MotionPlayer implements VideoFrameMetadataListener
 
     public void stop(){
         currentPosition = 0;
-        player.stop(true);
+        player.stop();
     }
 
     public void pause(){
-        currentWindowIndex = player.getCurrentWindowIndex();
+        currentWindowIndex = player.getCurrentMediaItemIndex();
         currentPosition = player.getCurrentPosition();
-        player.stop(false);
+        player.pause();
         Log.e("ddd","currentPosition:"+currentPosition);
         Log.e("ddd","currentWindowIndex:"+currentWindowIndex);
     }
@@ -165,10 +163,9 @@ public class MotionPlayer implements VideoFrameMetadataListener
     final static int secDiv = 100000;
     long preTime = 0;
     @Override
-    public void onVideoFrameAboutToBeRendered(long presentationTimeUs, long releaseTimeNs, Format format, @Nullable MediaFormat mediaFormat) {
+    public void onVideoFrameAboutToBeRendered(long presentationTimeUs, long releaseTimeNs, @Nullable Format format, @Nullable MediaFormat mediaFormat) {
         timeAction.action(preTime, presentationTimeUs);
         preTime = presentationTimeUs;
-//        Log.e("ddd","time save:"+preTime);
     }
 
 /**************************************Asset 관련**********************************************/
@@ -186,12 +183,15 @@ public class MotionPlayer implements VideoFrameMetadataListener
     private MediaSource getAssetUriMediaSource(String tag, Uri uri){
         if(dataSourceFactory == null){
             dataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "MotionPlayer"));
-            extractorsFactory = new DefaultExtractorsFactory().setConstantBitrateSeekingEnabled(true);
         }
 
-        return new ProgressiveMediaSource.Factory(dataSourceFactory, extractorsFactory)
+        MediaItem mediaItem = new MediaItem.Builder()
+                .setUri(uri)
                 .setTag(tag)
-                .createMediaSource(uri);
+                .build();
+
+        return new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(mediaItem);
     }
 
     private Uri getAssetUri(String fieleName){

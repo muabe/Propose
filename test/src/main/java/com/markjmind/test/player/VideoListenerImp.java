@@ -2,15 +2,18 @@ package com.markjmind.test.player;
 
 import android.util.Log;
 
-import com.google.android.exoplayer2.video.VideoListener;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.video.VideoSize;
 
-public class VideoListenerImp implements VideoListener {
+import androidx.annotation.NonNull;
+
+public class VideoListenerImp implements Player.Listener {
     @Override
-    public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-        Log.e("dddd", "width:"+width);
-        Log.e("dddd", "height:"+height);
-        Log.e("dddd", "unappliedRotationDegrees:"+unappliedRotationDegrees);
-        Log.e("dddd", "pixelWidthHeightRatio:"+pixelWidthHeightRatio);
+    public void onVideoSizeChanged(@NonNull VideoSize videoSize) {
+        Log.e("dddd", "width:"+videoSize.width);
+        Log.e("dddd", "height:"+videoSize.height);
+        Log.e("dddd", "unappliedRotationDegrees:"+videoSize.unappliedRotationDegrees);
+        Log.e("dddd", "pixelWidthHeightRatio:"+videoSize.pixelWidthHeightRatio);
     }
 
     @Override

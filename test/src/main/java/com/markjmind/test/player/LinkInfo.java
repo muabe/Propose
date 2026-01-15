@@ -32,6 +32,9 @@ public class LinkInfo {
         savePlayList = modalPlayer.playList;
 
         modalPlayer.playList = linkPlayer.playList;
+        // 핵심: 플레이어에 새로운 소스를 설정해줘야 함
+        modalPlayer.player.setMediaSource(modalPlayer.playList);
+        modalPlayer.player.prepare();
         modalPlayer.start();
     }
 
@@ -41,16 +44,16 @@ public class LinkInfo {
         modalPlayer.currentWindowIndex = saveWindowIndex;
         modalPlayer.playList = savePlayList;
 
+        // 복구 시에도 소스를 다시 설정
+        modalPlayer.player.setMediaSource(modalPlayer.playList);
+        modalPlayer.player.prepare();
+        
         listener.end();
         modalPlayer.start();
         modalPlayer.lastSeek();
-//        modalPlayer.player.setPlayWhenReady(true);
-//        modalPlayer.player.prepare(modalPlayer.playList, true, true);
-//        modalPlayer.player.seekTo(saveWindowIndex, savePosition);
     }
 
     LinkEndListener listener;
-    //임시용 삭제 예정
     public interface LinkEndListener{
         void end();
     }
